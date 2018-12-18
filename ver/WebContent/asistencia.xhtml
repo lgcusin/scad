@@ -12,13 +12,14 @@
 </head>
 
 <body>
+
 	<h:form>
 		<h:panelGrid columns="2" border="0">
-			<h:outputLabel value="Docente:"></h:outputLabel>
+			<b><h:outputLabel value="Docente:"></h:outputLabel></b>
 			<h:outputText value="Nombre del profesor"></h:outputText>
-			<h:outputLabel value="Materia:"></h:outputLabel>
+			<b><h:outputLabel value="Materia:"></h:outputLabel></b>
 			<h:outputText value="Materia que dicta el profesor"></h:outputText>
-			<h:outputLabel value="Aula:"></h:outputLabel>
+			<b><h:outputLabel value="Aula:"></h:outputLabel></b>
 			<h:outputText value="Lugar de clases"></h:outputText>
 		</h:panelGrid>
 
@@ -33,10 +34,10 @@
 		<label>Observacion:</label>
 		<br></br>
 		<h:inputTextarea
-			style="width: auto; position: relative; height: auto; margin-left: auto; margin-top: auto; margin-bottom: auto; margin-right: auto"></h:inputTextarea>
+			style="width: 1000px; position: relative; height: 100px; margin-left: auto; margin-top: auto; margin-bottom: auto; margin-right: auto; "></h:inputTextarea>
 		<hr />
 		<h:commandButton value="Regresar" action="registro.xhtml"></h:commandButton>
-		<h:commandButton value="Guardar"></h:commandButton>
+		<h:commandButton value="Guardar" action="home.xhtml"></h:commandButton>
 	</h:form>
 </body>
 </html>
