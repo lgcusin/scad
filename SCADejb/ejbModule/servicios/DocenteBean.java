@@ -1,34 +1,44 @@
 package servicios;
 
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import model.Prueba;
+import model.FichaDocente;
 
 /**
- * Session Bean implementation class pruebabean
+ * Session Bean implementation class DocenteBean
  */
 @Stateless
 @LocalBean
-public class pruebabean implements pruebabeanInter {
-
+public class DocenteBean implements DocenteBeanIn {
+	
 	
 	@PersistenceContext
 	private EntityManager em;
+
     /**
      * Default constructor. 
      */
-    public pruebabean() {
+    public DocenteBean() {
         // TODO Auto-generated constructor stub
+    	
     }
 
 	@Override
-	public Prueba listar(Integer id) {
+	public List<FichaDocente> listar() {
 		// TODO Auto-generated method stub
-		Prueba p= em.find(Prueba.class, id);
-		return p;
+		return null;
+	}
+
+	@Override
+	public void crear(FichaDocente fcdc) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
