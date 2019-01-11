@@ -1,0 +1,1726 @@
+!SESSION 2019-01-11 16:57:19.015 -----------------------------------------------
+eclipse.buildId=4.6.3.M20170301-0400
+java.version=1.8.0_191
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_EC
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+This is a continuation of log file D:\GitHub\scad\.metadata\.bak_0.log
+Created Time: 2019-01-11 17:17:45.070
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:45.075
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:45.075
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:45.085
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:45.085
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:45.095
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:45.095
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:45.107
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:45.107
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:45.344
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:45.344
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:45.354
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:45.354
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:45.367
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:45.368
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:45.376
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:45.377
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:46.939
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:46.939
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:46.949
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:46.950
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:46.959
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:46.959
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:46.967
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:46.968
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:49.635
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:49.636
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:49.653
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:49.653
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:49.667
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:49.667
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:49.680
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:49.680
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:49.800
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:49.801
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:49.814
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:49.815
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:49.828
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:49.829
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:49.842
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:49.842
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.094
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.094
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.109
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.109
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.124
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.124
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.136
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.136
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.344
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.344
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.355
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.355
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.366
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.367
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.375
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.375
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.497
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.497
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.511
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.511
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.526
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.526
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.537
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.537
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.655
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.656
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.671
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.671
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.683
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.684
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:50.696
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:50.696
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:58.428
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:58.428
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:58.448
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultCatalog(HibernateJpaProject.java:175)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultCatalog(AbstractPersistenceUnit.java:1324)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1377)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:58.448
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:58.461
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultCatalog(HibernateEclipseUtils.java:72)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:239)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:58.461
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.hibernate.eclipse.console 4 150 2019-01-11 17:17:58.473
+!MESSAGE Hibernate Console Internal Error
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/prueba' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:335)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:209)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:141)
+	at org.eclipse.core.internal.resources.Resource.checkAccessibleAndLocal(Resource.java:215)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty(Resource.java:1151)
+	at org.hibernate.eclipse.utils.HibernateEclipseUtils.getUserOverrideDefaultSchema(HibernateEclipseUtils.java:85)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProjectOverrides(EclipseLaunchConsoleConfigurationPreferences.java:240)
+	at org.hibernate.eclipse.console.EclipseLaunchConsoleConfigurationPreferences.getProperties(EclipseLaunchConsoleConfigurationPreferences.java:166)
+	at org.jboss.tools.hibernate.jpt.core.internal.HibernateJpaProject.getDefaultSchema(HibernateJpaProject.java:137)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.buildDefaultSchema(AbstractPersistenceUnit.java:1339)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.updatePersistenceUnitMetadata(AbstractPersistenceUnit.java:1378)
+	at org.eclipse.jpt.jpa.core.internal.context.persistence.AbstractPersistenceUnit.update(AbstractPersistenceUnit.java:303)
+	at org.jboss.tools.hibernate.jpt.core.internal.context.HibernatePersistenceUnit.update(HibernatePersistenceUnit.java:95)
+	at org.eclipse.jpt.jpa.core.internal.context.AbstractJpaContextModel.updateModels(AbstractJpaContextModel.java:79)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistence.update(GenericPersistence.java:75)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.syncPersistence(GenericPersistenceXml.java:137)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.updatePersistence(GenericPersistenceXml.java:97)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.persistence.GenericPersistenceXml.update(GenericPersistenceXml.java:93)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.syncPersistenceXml(GenericContextRoot.java:125)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.updatePersistenceXml(GenericContextRoot.java:159)
+	at org.eclipse.jpt.jpa.core.internal.jpa1.context.GenericContextRoot.update(GenericContextRoot.java:78)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject.update(AbstractJpaProject.java:2012)
+	at org.eclipse.jpt.jpa.core.internal.AbstractJpaProject$UpdateJobCommand.execute(AbstractJpaProject.java:1996)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.executeCommand(RepeatingJobCommandWrapper.java:211)
+	at org.eclipse.jpt.common.core.internal.utility.command.NotifyingRepeatingJobCommandWrapper.executeCommand(NotifyingRepeatingJobCommandWrapper.java:69)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper.execute_(RepeatingJobCommandWrapper.java:198)
+	at org.eclipse.jpt.common.core.internal.utility.command.RepeatingJobCommandWrapper$StartJobCommand.execute(RepeatingJobCommandWrapper.java:172)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager.execute_(InternalJpaProjectManager.java:1202)
+	at org.eclipse.jpt.jpa.core.internal.InternalJpaProjectManager$ClientJobCommandWrapper.execute(InternalJpaProjectManager.java:1182)
+	at org.eclipse.jpt.common.core.internal.utility.command.JobCommandJob.run(JobCommandJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2019-01-11 17:17:58.474
+!MESSAGE Resource '/prueba' does not exist.
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 4 1006 2019-01-11 17:23:47.358
+!MESSAGE Unknown Host: http://download.eclipse.org/technology/m2e/releases/1.4/1.4.1.20140328-1905/content.xml
+!STACK 0
+java.net.UnknownHostException: download.eclipse.org
+	at java.net.InetAddress.getAllByName0(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at org.apache.http.impl.conn.SystemDefaultDnsResolver.resolve(SystemDefaultDnsResolver.java:44)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.resolveHostname(DefaultClientConnectionOperator.java:259)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:159)
+	at org.apache.http.impl.conn.ManagedClientConnectionImpl.open(ManagedClientConnectionImpl.java:304)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:611)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:446)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientFileSystemBrowser.runRequest(HttpClientFileSystemBrowser.java:263)
+	at org.eclipse.ecf.provider.filetransfer.browse.AbstractFileSystemBrowser$DirectoryJob.run(AbstractFileSystemBrowser.java:69)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 4 1006 2019-01-11 17:23:47.387
+!MESSAGE Unknown Host: http://download.eclipse.org/tools/orbit/downloads/drops/R20150821153341/repository/content.xml
+!STACK 0
+java.net.UnknownHostException: download.eclipse.org
+	at java.net.InetAddress.getAllByName0(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at org.apache.http.impl.conn.SystemDefaultDnsResolver.resolve(SystemDefaultDnsResolver.java:44)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.resolveHostname(DefaultClientConnectionOperator.java:259)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:159)
+	at org.apache.http.impl.conn.ManagedClientConnectionImpl.open(ManagedClientConnectionImpl.java:304)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:611)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:446)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientFileSystemBrowser.runRequest(HttpClientFileSystemBrowser.java:263)
+	at org.eclipse.ecf.provider.filetransfer.browse.AbstractFileSystemBrowser$DirectoryJob.run(AbstractFileSystemBrowser.java:69)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 4 1006 2019-01-11 17:23:47.422
+!MESSAGE Unknown Host: http://download.eclipse.org/m2e-wtp/releases/juno/compositeContent.xml
+!STACK 0
+java.net.UnknownHostException: download.eclipse.org
+	at java.net.InetAddress.getAllByName0(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at org.apache.http.impl.conn.SystemDefaultDnsResolver.resolve(SystemDefaultDnsResolver.java:44)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.resolveHostname(DefaultClientConnectionOperator.java:259)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:159)
+	at org.apache.http.impl.conn.ManagedClientConnectionImpl.open(ManagedClientConnectionImpl.java:304)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:611)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:446)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientFileSystemBrowser.runRequest(HttpClientFileSystemBrowser.java:263)
+	at org.eclipse.ecf.provider.filetransfer.browse.AbstractFileSystemBrowser$DirectoryJob.run(AbstractFileSystemBrowser.java:69)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 4 1006 2019-01-11 17:23:47.445
+!MESSAGE Unknown Host: http://download.eclipse.org/releases/neon/compositeContent.xml
+!STACK 0
+java.net.UnknownHostException: download.eclipse.org
+	at java.net.InetAddress.getAllByName0(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at org.apache.http.impl.conn.SystemDefaultDnsResolver.resolve(SystemDefaultDnsResolver.java:44)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.resolveHostname(DefaultClientConnectionOperator.java:259)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:159)
+	at org.apache.http.impl.conn.ManagedClientConnectionImpl.open(ManagedClientConnectionImpl.java:304)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:611)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:446)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientFileSystemBrowser.runRequest(HttpClientFileSystemBrowser.java:263)
+	at org.eclipse.ecf.provider.filetransfer.browse.AbstractFileSystemBrowser$DirectoryJob.run(AbstractFileSystemBrowser.java:69)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 4 1006 2019-01-11 17:23:47.483
+!MESSAGE Unknown Host: http://download.eclipse.org/eclipse/updates/4.6/compositeContent.xml
+!STACK 0
+java.net.UnknownHostException: download.eclipse.org
+	at java.net.InetAddress.getAllByName0(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at org.apache.http.impl.conn.SystemDefaultDnsResolver.resolve(SystemDefaultDnsResolver.java:44)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.resolveHostname(DefaultClientConnectionOperator.java:259)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:159)
+	at org.apache.http.impl.conn.ManagedClientConnectionImpl.open(ManagedClientConnectionImpl.java:304)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:611)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:446)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientFileSystemBrowser.runRequest(HttpClientFileSystemBrowser.java:263)
+	at org.eclipse.ecf.provider.filetransfer.browse.AbstractFileSystemBrowser$DirectoryJob.run(AbstractFileSystemBrowser.java:69)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 4 1006 2019-01-11 17:23:47.505
+!MESSAGE Unknown Host: http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/compositeContent.xml
+!STACK 0
+java.net.UnknownHostException: download.eclipse.org
+	at java.net.InetAddress.getAllByName0(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at org.apache.http.impl.conn.SystemDefaultDnsResolver.resolve(SystemDefaultDnsResolver.java:44)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.resolveHostname(DefaultClientConnectionOperator.java:259)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:159)
+	at org.apache.http.impl.conn.ManagedClientConnectionImpl.open(ManagedClientConnectionImpl.java:304)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:611)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:446)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientFileSystemBrowser.runRequest(HttpClientFileSystemBrowser.java:263)
+	at org.eclipse.ecf.provider.filetransfer.browse.AbstractFileSystemBrowser$DirectoryJob.run(AbstractFileSystemBrowser.java:69)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 4 1006 2019-01-11 17:23:47.530
+!MESSAGE Unknown Host: http://download.eclipse.org/webtools/repository/neon/compositeContent.xml
+!STACK 0
+java.net.UnknownHostException: download.eclipse.org
+	at java.net.InetAddress.getAllByName0(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at org.apache.http.impl.conn.SystemDefaultDnsResolver.resolve(SystemDefaultDnsResolver.java:44)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.resolveHostname(DefaultClientConnectionOperator.java:259)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:159)
+	at org.apache.http.impl.conn.ManagedClientConnectionImpl.open(ManagedClientConnectionImpl.java:304)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:611)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:446)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientFileSystemBrowser.runRequest(HttpClientFileSystemBrowser.java:263)
+	at org.eclipse.ecf.provider.filetransfer.browse.AbstractFileSystemBrowser$DirectoryJob.run(AbstractFileSystemBrowser.java:69)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 4 1006 2019-01-11 17:23:47.560
+!MESSAGE Unknown Host: http://download.jboss.org/jbosstools/updates/webtools/neon/compositeContent.xml
+!STACK 0
+java.net.UnknownHostException: download.jboss.org
+	at java.net.InetAddress.getAllByName0(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at org.apache.http.impl.conn.SystemDefaultDnsResolver.resolve(SystemDefaultDnsResolver.java:44)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.resolveHostname(DefaultClientConnectionOperator.java:259)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:159)
+	at org.apache.http.impl.conn.ManagedClientConnectionImpl.open(ManagedClientConnectionImpl.java:304)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:611)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:446)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientFileSystemBrowser.runRequest(HttpClientFileSystemBrowser.java:263)
+	at org.eclipse.ecf.provider.filetransfer.browse.AbstractFileSystemBrowser$DirectoryJob.run(AbstractFileSystemBrowser.java:69)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 4 1006 2019-01-11 17:23:47.582
+!MESSAGE Unknown Host: http://download.eclipse.org/tools/orbit/downloads/drops/R20160221192158/repository/content.xml
+!STACK 0
+java.net.UnknownHostException: download.eclipse.org
+	at java.net.InetAddress.getAllByName0(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at org.apache.http.impl.conn.SystemDefaultDnsResolver.resolve(SystemDefaultDnsResolver.java:44)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.resolveHostname(DefaultClientConnectionOperator.java:259)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:159)
+	at org.apache.http.impl.conn.ManagedClientConnectionImpl.open(ManagedClientConnectionImpl.java:304)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:611)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:446)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientFileSystemBrowser.runRequest(HttpClientFileSystemBrowser.java:263)
+	at org.eclipse.ecf.provider.filetransfer.browse.AbstractFileSystemBrowser$DirectoryJob.run(AbstractFileSystemBrowser.java:69)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 4 1006 2019-01-11 17:23:47.683
+!MESSAGE Unknown Host: http://download.oracle.com/otn_software/oepe/12.2.1.6/neon/repository/dependencies/compositeContent.xml
+!STACK 0
+java.net.UnknownHostException: download.oracle.com
+	at java.net.InetAddress.getAllByName0(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at java.net.InetAddress.getAllByName(Unknown Source)
+	at org.apache.http.impl.conn.SystemDefaultDnsResolver.resolve(SystemDefaultDnsResolver.java:44)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.resolveHostname(DefaultClientConnectionOperator.java:259)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:159)
+	at org.apache.http.impl.conn.ManagedClientConnectionImpl.open(ManagedClientConnectionImpl.java:304)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:611)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:446)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientFileSystemBrowser.runRequest(HttpClientFileSystemBrowser.java:263)
+	at org.eclipse.ecf.provider.filetransfer.browse.AbstractFileSystemBrowser$DirectoryJob.run(AbstractFileSystemBrowser.java:69)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.jface.text 2 0 2019-01-11 17:34:01.700
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.number'
+
+!ENTRY org.eclipse.jface.text 2 0 2019-01-11 17:34:01.736
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.round'

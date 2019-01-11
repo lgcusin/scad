@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;ec.edu.uce.BiometricoJsf/WebContent/resources/font&apos; to &apos;fonts&apos;" description="Rename resource &apos;font&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/resources/font" name="fonts" stamp="1547242379866" updateReferences="true"/>
+</session>

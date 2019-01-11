@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ec.edu.uce.BiometricoEar">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="ec.edu.uce.BiometricoJsf.war" deploy-path="/" handle="module:/resource/ec.edu.uce.BiometricoJsf/ec.edu.uce.BiometricoJsf">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ec.edu.uce.BiometricoJpa.jar" deploy-path="/lib" handle="module:/resource/ec.edu.uce.BiometricoJpa/ec.edu.uce.BiometricoJpa">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ec.edu.uce.BiometricoEjb.jar" deploy-path="/" handle="module:/resource/ec.edu.uce.BiometricoEjb/ec.edu.uce.BiometricoEjb">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jasperreports-6.0.0.jar" deploy-path="/lib" handle="module:/classpath/lib/ec.edu.uce.BiometricoEar/librerias/jasperReport/jasperreports-6.0.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jboss-logging-annotations-1.2.0.beta1.jar" deploy-path="/lib" handle="module:/classpath/lib/ec.edu.uce.BiometricoEar/librerias/hibernate/jboss-logging-annotations-1.2.0.beta1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="aopalliance-1.0.0.jar" deploy-path="/lib" handle="module:/classpath/lib/ec.edu.uce.BiometricoEar/librerias/springSecurity/aopalliance-1.0.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jandex-1.1.0.Final.jar" deploy-path="/" handle="module:/classpath/lib/ec.edu.uce.BiometricoEar/librerias/hibernate/jandex-1.1.0.Final.jar">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
