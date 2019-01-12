@@ -1,0 +1,108 @@
+package lector;
+
+import java.awt.image.BufferedImage;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+import SecuGen.FDxSDKPro.jni.*;
+
+/**
+ * Session Bean implementation class JSDC
+ */
+@Stateless
+@LocalBean
+public class JSDC implements JSDCLocal {
+
+	private long deviceName;
+	private long devicePort;
+	private JSGFPLib fplib = null;
+	private long ret;
+	private boolean bLEDOn;
+	private byte[] regMin1 = new byte[400];
+	private byte[] regMin2 = new byte[400];
+	private byte[] vrfMin = new byte[400];
+	private SGDeviceInfoParam deviceInfo = new SGDeviceInfoParam();
+	private BufferedImage imgRegistration1;
+	private BufferedImage imgRegistration2;
+	private BufferedImage imgVerification;
+	private boolean r1Captured = false;
+	private boolean r2Captured = false;
+	private boolean v1Captured = false;
+	private static int MINIMUM_QUALITY = 60; // User defined
+	private static int MINIMUM_NUM_MINUTIAE = 20; // User defined
+	private static int MAXIMUM_NFIQ = 2;
+
+	public JSDC() {
+		bLEDOn = false;
+	}
+
+	@Override
+	public void inicializar() {
+		// AUTO
+		// FDU08 Hamster Pro 20A
+		// FDU07A Hamster Pro 10AP
+		// FDU07 Hamster Pro 10
+		// FDU06 Hamster Pro
+		// FDU05 Hamster Pro 20
+		// FDU04 Hamster IV
+		// FDU03 Hamster Plus
+		// FDU02 Hamster III
+		this.deviceName = SGFDxDeviceName.SG_DEV_FDU03;
+		if (fplib != null) {
+			fplib.CloseDevice();
+			fplib.Close();
+			fplib = null;
+		}
+		fplib = new JSGFPLib();
+		ret = fplib.Init(this.deviceName);
+		if ((fplib != null) && (ret == SGFDxErrorCode.SGFDX_ERROR_NONE)) {
+			System.out.println("JSGFPLib Initialization Success");
+			this.devicePort = SGPPPortAddr.AUTO_DETECT;
+			ret = fplib.OpenDevice(this.devicePort);
+			if (ret == SGFDxErrorCode.SGFDX_ERROR_NONE) {
+
+				System.out.println("OpenDevice() Success [" + ret + "]");
+				ret = fplib.GetDeviceInfo(deviceInfo);
+				if (ret == SGFDxErrorCode.SGFDX_ERROR_NONE) {
+					System.out.println(new String(deviceInfo.deviceSN()));
+					System.out.println(new String(Integer.toString(deviceInfo.brightness)));
+					System.out.println(new String(Integer.toString((int) deviceInfo.contrast)));
+					System.out.println(new String(Integer.toString(deviceInfo.deviceID)));
+					System.out.println();
+					this.jTextFieldSerialNumber.setText();
+					this.jTextFieldBrightness.setText();
+					this.jTextFieldContrast.setText();
+					this.jTextFieldDeviceID.setText();
+					this.jTextFieldFWVersion.setText(new String(Integer.toHexString(deviceInfo.FWVersion)));
+					this.jTextFieldGain.setText(new String(Integer.toString(deviceInfo.gain)));
+					this.jTextFieldImageDPI.setText(new String(Integer.toString(deviceInfo.imageDPI)));
+					this.jTextFieldImageHeight.setText(new String(Integer.toString(deviceInfo.imageHeight)));
+					this.jTextFieldImageWidth.setText(new String(Integer.toString(deviceInfo.imageWidth)));
+					imgRegistration1 = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight,
+							BufferedImage.TYPE_BYTE_GRAY);
+					imgRegistration2 = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight,
+							BufferedImage.TYPE_BYTE_GRAY);
+					imgVerification = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight,
+							BufferedImage.TYPE_BYTE_GRAY);
+					this.enableControls();
+				} else
+					this.jLabelStatus.setText("GetDeviceInfo() Error [" + ret + "]");
+			}
+		}
+
+	}
+
+	@Override
+	public void capturar() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void verificar() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

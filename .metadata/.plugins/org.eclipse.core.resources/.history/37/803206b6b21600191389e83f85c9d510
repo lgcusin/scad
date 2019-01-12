@@ -1,0 +1,42 @@
+package lector;
+
+import java.awt.image.BufferedImage;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+import SecuGen.FDxSDKPro.jni.JSGFPLib;
+import SecuGen.FDxSDKPro.jni.SGDeviceInfoParam;
+
+/**
+ * Session Bean implementation class JSDC
+ */
+@Stateless
+@LocalBean
+public class JSDC implements JSDCLocal {
+
+
+	private long deviceName;
+	private long devicePort;
+	private JSGFPLib fplib = null;
+	private long ret;
+	private boolean bLEDOn;
+	private byte[] regMin1 = new byte[400];
+	private byte[] regMin2 = new byte[400];
+	private byte[] vrfMin = new byte[400];
+	private SGDeviceInfoParam deviceInfo = new SGDeviceInfoParam();
+	private BufferedImage imgRegistration1;
+	private BufferedImage imgRegistration2;
+	private BufferedImage imgVerification;
+	private boolean r1Captured = false;
+	private boolean r2Captured = false;
+	private boolean v1Captured = false;
+	private static int MINIMUM_QUALITY = 60; // User defined
+	private static int MINIMUM_NUM_MINUTIAE = 20; // User defined
+	private static int MAXIMUM_NFIQ = 2;
+	
+    public JSDC() {
+        // TODO Auto-generated constructor stub
+    }
+
+}

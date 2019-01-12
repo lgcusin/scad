@@ -8,12 +8,7 @@
 	<!-- ================= LISTA DE ARCHIVOS DE INICIO O BIENVENIDA ================== -->
 	<!-- ============================================================================= -->
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>login.xhtml</welcome-file>
 	</welcome-file-list>
 	<!-- ======================================================================= -->
 	<!-- =================== CONFIGURACIONES PARA EL USO DE JSF ================ -->
@@ -33,7 +28,7 @@
 		JSF -->
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.jsf</url-pattern>
+		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 	<!-- ============================================================================= -->
 	<!-- ========================== CONFIGURACIONES PRIMEFACES ======================= -->

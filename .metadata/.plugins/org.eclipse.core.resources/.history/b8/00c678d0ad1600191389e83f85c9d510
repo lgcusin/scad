@@ -1,0 +1,5 @@
+package ec.edu.uce.BiometricoJsf;
+
+public class LectorHuella {
+
+}

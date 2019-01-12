@@ -1,0 +1,36 @@
+package managedBeans;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import lector.JSDC;
+import lector.JSDCLocal;
+
+@ManagedBean(name = "lector")
+@ViewScoped
+public class LectorHuella {
+
+	@EJB
+	private JSDCLocal jsdcitrfc;
+	private JSDC jsdc;
+
+	@PostConstruct
+	public void init() {
+		jsdc = new JSDC();
+	}
+
+	public void capturar1() {
+
+	}
+
+	public void capturar2() {
+
+	}
+
+	public void capturar3() {
+
+	}
+
+}

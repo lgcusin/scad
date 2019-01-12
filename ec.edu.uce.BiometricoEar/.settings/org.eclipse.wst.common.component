@@ -54,9 +54,6 @@
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="dom4j-1.6.1.jar" deploy-path="/lib" handle="module:/classpath/lib/ec.edu.uce.BiometricoEar/librerias/hibernate/dom4j-1.6.1.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="hibernate-core-4.3.11.Final.jar" deploy-path="/" handle="module:/classpath/lib/ec.edu.uce.BiometricoEar/librerias/hibernate/hibernate-core-4.3.11.Final.jar">
             <dependent-object/>
             <dependency-type>uses</dependency-type>
@@ -89,6 +86,15 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="spring-beans-4.0.5.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/ec.edu.uce.BiometricoEar/librerias/springSecurity/spring-beans-4.0.5.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hibernate-entitymanager-5.0.7.Final.jar" deploy-path="/lib" handle="module:/classpath/lib/ec.edu.uce.BiometricoEar/librerias/hibernate/hibernate-entitymanager-5.0.7.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="FDxSDKPro.jar" deploy-path="/lib" handle="module:/classpath/lib/ec.edu.uce.BiometricoEar/librerias/secugenHamsterPlus/FDxSDKPro.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="AbsoluteLayout.jar" deploy-path="/lib" handle="module:/classpath/lib/ec.edu.uce.BiometricoEar/librerias/secugenHamsterPlus/AbsoluteLayout.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>
