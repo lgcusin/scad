@@ -1,0 +1,71 @@
+package managedBeans;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.imageio.ImageIO;
+
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+
+import lector.JSDC;
+import lector.JSDCLocal;
+
+@ManagedBean(name = "lector")
+@ViewScoped
+public class LectorHuella {
+
+	@EJB
+	private JSDCLocal jsdcitrfc;
+	private JSDC jsdc;
+
+	private StreamedContent graphicText1;
+	private StreamedContent graphicText2;
+	private StreamedContent graphicText3;
+
+	@PostConstruct
+	public void init() {
+		jsdc = new JSDC();
+	}
+
+	public void capturar1() {
+		BufferedImage bufferedImg = jsdcitrfc.capturar(1);
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(bufferedImg, "png", os);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		graphicText1 = new DefaultStreamedContent(new ByteArrayInputStream(os.toByteArray()), "huella1/png");
+	}
+
+	public void capturar2() {
+		BufferedImage bufferedImg = jsdcitrfc.capturar(2);
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(bufferedImg, "png", os);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		graphicText2 = new DefaultStreamedContent(new ByteArrayInputStream(os.toByteArray()), "huella2/png");
+
+	}
+
+	public void capturar3() {
+		BufferedImage bufferedImg = jsdcitrfc.capturar(3);
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(bufferedImg, "png", os);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		graphicText3 = new DefaultStreamedContent(new ByteArrayInputStream(os.toByteArray()), "huella3/png");
+	}
+
+}

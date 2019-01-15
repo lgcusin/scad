@@ -1,0 +1,31 @@
+package beans;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import model.Usuario;
+
+/**
+ * Session Bean implementation class LoginBean
+ */
+@Stateless
+@LocalBean
+public class LoginBean implements LoginBeanLocal {
+
+   @PersistenceContext
+   public EntityManager em;
+   
+    public LoginBean() {
+        // TODO Auto-generated constructor stub
+    }
+
+	@Override
+	public boolean verificar(String nick, String clave) {
+		Usuario usr = new Usuario(nick, clave);
+		em.find(arg0, arg1)
+		return false;
+	}
+
+}

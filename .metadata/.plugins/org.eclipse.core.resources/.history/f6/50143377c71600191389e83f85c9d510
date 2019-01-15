@@ -1,0 +1,12 @@
+package lector;
+
+import javax.ejb.Local;
+
+@Local
+public interface JSDCLocal {
+	public void inicializar();
+
+	public BufferedImage capturar(int indice);
+
+	public void verificar();
+}

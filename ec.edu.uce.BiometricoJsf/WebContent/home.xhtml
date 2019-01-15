@@ -12,8 +12,15 @@
 </head>
 <body>
 	<h:form>
+		<center>
+			<h:outputLabel value="#{home.nombres}"></h:outputLabel>
+			<h:outputLabel value="#{home.fecha}"></h:outputLabel>
+		</center>
+		<hr />
 
-		<h:commandButton value="Registro" action="registro.xhtml"></h:commandButton>
+
+		<h:commandButton value="Detalle de Asistencia"
+			action="#{home.verAsistencia}"></h:commandButton>
 		<h:commandButton value="Syllabus" action="syllabo.xhtml"></h:commandButton>
 		<h:commandButton value="Otro"></h:commandButton>
 		<br />

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://java.sun.com/jsf/html">
+
+<h:body>
+	<p:form>
+		<p:commandButton value="Inicializar" id="Init"
+			action="#{lector.initDevice}"></p:commandButton>
+	</p:form>
+
+	<p:graphicImage style="width: 130px; height: 150px; " id="imagenR1"
+		value="#{lector.graphicText1}"></p:graphicImage>
+	<p:graphicImage style="width: 130px; height: 150px; " id="imagenR2"
+		value="#{lector.graphicText2}"></p:graphicImage>
+	<p:graphicImage style="width: 130px; height: 150px; " id="imagenR3"
+		value="#{lector.graphicText3}"></p:graphicImage>
+	<p:form>
+		<p:commandButton value="Captura R1" id="botonR1"
+			action="#{lector.capturar1}"></p:commandButton>
+		<p:commandButton value="Captura R2" id="botonR2" action="#{lector.capturar2}" ></p:commandButton>
+		<p:commandButton value="Capture V1" id="botonV1" action="#{lector.capturar3}" ></p:commandButton>
+	</p:form>
+	<p:form>
+		<p:commandButton value="Registrar" id="botonRegistrar"></p:commandButton>
+		<p:commandButton value="Verificar" id="botonVerificar"></p:commandButton>
+	</p:form>
+</h:body>
+
+
+</html>

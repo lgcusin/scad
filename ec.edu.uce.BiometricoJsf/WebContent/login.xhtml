@@ -10,14 +10,14 @@
 		<h:form>
 			<h:panelGrid border="0" columns="2">
 				<h:outputText value="Usuario:	"></h:outputText>
-				<h:inputText></h:inputText>
+				<h:inputText value="#{login.nick}"></h:inputText>
 				<h:outputText value="Password:	"></h:outputText>
-				<h:inputText></h:inputText>
+				<h:inputText value="#{login.clave}"></h:inputText>
 			</h:panelGrid>
 
 
-			<h:commandButton action="home.xhtml" value="Ingresar"></h:commandButton>
-			<h:commandButton action="prueba.xhtml" value="Lector"></h:commandButton>
+			<h:commandButton action="#{login.ingresar}" value="Ingresar"></h:commandButton>
+			<h:commandButton action="huella.xhtml" value="Lector"></h:commandButton>
 		</h:form>
 
 	</center>

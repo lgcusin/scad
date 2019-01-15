@@ -1,0 +1,43 @@
+package managedBeans;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
+import sun.util.calendar.BaseCalendar.Date;
+
+@ManagedBean(name = "home")
+@RequestScoped
+public class Home {
+
+	public String nombres;
+	public Date fecha;
+
+	public void init() {
+
+	}
+
+	public String verAsistencia() {
+		return "detalleAsistencia";
+	}
+
+
+	
+	
+	
+	//setters and getters
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+}

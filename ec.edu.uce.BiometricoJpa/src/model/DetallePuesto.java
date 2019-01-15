@@ -1,5 +1,5 @@
 package model;
-// Generated 11/01/2019 10:51:26 by Hibernate Tools 4.3.5.Final
+// Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -17,14 +17,10 @@ import javax.persistence.Table;
 @Table(name = "DETALLE_PUESTO")
 public class DetallePuesto implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private BigDecimal dtpsId;
 	private Carrera carrera;
 	private FichaDocente fichaDocente;
-	private BigDecimal dtpsEstado;
+	private String dtpsEstado;
 
 	public DetallePuesto() {
 	}
@@ -35,7 +31,7 @@ public class DetallePuesto implements java.io.Serializable {
 		this.fichaDocente = fichaDocente;
 	}
 
-	public DetallePuesto(BigDecimal dtpsId, Carrera carrera, FichaDocente fichaDocente, BigDecimal dtpsEstado) {
+	public DetallePuesto(BigDecimal dtpsId, Carrera carrera, FichaDocente fichaDocente, String dtpsEstado) {
 		this.dtpsId = dtpsId;
 		this.carrera = carrera;
 		this.fichaDocente = fichaDocente;
@@ -73,12 +69,12 @@ public class DetallePuesto implements java.io.Serializable {
 		this.fichaDocente = fichaDocente;
 	}
 
-	@Column(name = "DTPS_ESTADO", precision = 38, scale = 0)
-	public BigDecimal getDtpsEstado() {
+	@Column(name = "DTPS_ESTADO", length = 20)
+	public String getDtpsEstado() {
 		return this.dtpsEstado;
 	}
 
-	public void setDtpsEstado(BigDecimal dtpsEstado) {
+	public void setDtpsEstado(String dtpsEstado) {
 		this.dtpsEstado = dtpsEstado;
 	}
 

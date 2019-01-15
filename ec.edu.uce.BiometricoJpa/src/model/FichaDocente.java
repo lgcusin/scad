@@ -1,7 +1,8 @@
 package model;
-// Generated 11/01/2019 10:51:26 by Hibernate Tools 4.3.5.Final
+// Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
+import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -18,16 +19,15 @@ import javax.persistence.Table;
 @Table(name = "FICHA_DOCENTE")
 public class FichaDocente implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private BigDecimal fcdcId;
 	private BigDecimal fcdcIdentificacion;
 	private String fcdcPrimerNombre;
 	private String fcdcSegundoNombre;
 	private String fcdcApellidos;
+	private Blob fcdcHuellaPulgar1;
 	private Set<DetallePuesto> detallePuestos = new HashSet<DetallePuesto>(0);
+	private Set<Asistencia> asistencias = new HashSet<Asistencia>(0);
+	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 
 	public FichaDocente() {
 	}
@@ -37,13 +37,17 @@ public class FichaDocente implements java.io.Serializable {
 	}
 
 	public FichaDocente(BigDecimal fcdcId, BigDecimal fcdcIdentificacion, String fcdcPrimerNombre,
-			String fcdcSegundoNombre, String fcdcApellidos, Set<DetallePuesto> detallePuestos) {
+			String fcdcSegundoNombre, String fcdcApellidos, Blob fcdcHuellaPulgar1, Set<DetallePuesto> detallePuestos,
+			Set<Asistencia> asistencias, Set<Usuario> usuarios) {
 		this.fcdcId = fcdcId;
 		this.fcdcIdentificacion = fcdcIdentificacion;
 		this.fcdcPrimerNombre = fcdcPrimerNombre;
 		this.fcdcSegundoNombre = fcdcSegundoNombre;
 		this.fcdcApellidos = fcdcApellidos;
+		this.fcdcHuellaPulgar1 = fcdcHuellaPulgar1;
 		this.detallePuestos = detallePuestos;
+		this.asistencias = asistencias;
+		this.usuarios = usuarios;
 	}
 
 	@Id
@@ -93,6 +97,15 @@ public class FichaDocente implements java.io.Serializable {
 		this.fcdcApellidos = fcdcApellidos;
 	}
 
+	@Column(name = "FCDC_HUELLA_PULGAR1")
+	public Blob getFcdcHuellaPulgar1() {
+		return this.fcdcHuellaPulgar1;
+	}
+
+	public void setFcdcHuellaPulgar1(Blob fcdcHuellaPulgar1) {
+		this.fcdcHuellaPulgar1 = fcdcHuellaPulgar1;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaDocente")
 	public Set<DetallePuesto> getDetallePuestos() {
 		return this.detallePuestos;
@@ -100,6 +113,24 @@ public class FichaDocente implements java.io.Serializable {
 
 	public void setDetallePuestos(Set<DetallePuesto> detallePuestos) {
 		this.detallePuestos = detallePuestos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaDocente")
+	public Set<Asistencia> getAsistencias() {
+		return this.asistencias;
+	}
+
+	public void setAsistencias(Set<Asistencia> asistencias) {
+		this.asistencias = asistencias;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaDocente")
+	public Set<Usuario> getUsuarios() {
+		return this.usuarios;
+	}
+
+	public void setUsuarios(Set<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 }

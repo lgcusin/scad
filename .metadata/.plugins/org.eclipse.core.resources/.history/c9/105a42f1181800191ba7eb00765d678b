@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<body>
+	<center>
+		<h:form>
+			<h:panelGrid border="0" columns="2">
+				<h:outputText value="Usuario:	"></h:outputText>
+				<h:inputText value="#{login.nick}"></h:inputText>
+				<h:outputText value="Password:	"></h:outputText>
+				<h:inputText value="#{login.clave}"></h:inputText>
+			</h:panelGrid>
+
+
+			<h:commandButton action="home.xhtml" value="Ingresar"></h:commandButton>
+			<h:commandButton action="prueba.xhtml" value="Lector"></h:commandButton>
+		</h:form>
+
+	</center>
+</body>
+</html>

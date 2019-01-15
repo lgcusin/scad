@@ -1,0 +1,18 @@
+package managedBeans;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
+@ManagedBean(name="home")
+@RequestScoped
+public class Home {
+
+	
+	public void init(){
+		
+	}
+	
+	public String verAsistencia(){
+		return "detalleAsistencia";
+	}
+}

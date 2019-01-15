@@ -1,5 +1,5 @@
 package model;
-// Generated 11/01/2019 10:51:26 by Hibernate Tools 4.3.5.Final
+// Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -18,10 +18,6 @@ import javax.persistence.Table;
 @Table(name = "SYLLABO")
 public class Syllabo implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private BigDecimal sylId;
 	private String sylDescripcion;
 	private Set<UnidadCurricular> unidadCurriculars = new HashSet<UnidadCurricular>(0);

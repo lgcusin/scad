@@ -1,5 +1,5 @@
 package model;
-// Generated 11/01/2019 10:51:26 by Hibernate Tools 4.3.5.Final
+// Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -17,10 +17,6 @@ import javax.persistence.Table;
 @Table(name = "UNIDAD_CURRICULAR")
 public class UnidadCurricular implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private BigDecimal uncrId;
 	private Contenido contenido;
 	private MallaCurricularMateria mallaCurricularMateria;
