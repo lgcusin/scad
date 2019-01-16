@@ -4,12 +4,14 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.imageio.ImageIO;
+import javax.sql.rowset.serial.SerialException;
 import javax.swing.ImageIcon;
 
 import org.primefaces.model.DefaultStreamedContent;
@@ -45,7 +47,7 @@ public class LectorHuella {
 		return null;
 	}
 
-	public String capturar1() {
+	public String capturar1() throws SerialException, IOException, SQLException {
 		BufferedImage bufferedImg = jsdcBean.capturar1();
 		graphic1 = new ImageIcon(bufferedImg);
 		return null;

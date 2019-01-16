@@ -1,15 +1,27 @@
 package lector;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.Arrays;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.imageio.ImageIO;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.sound.midi.Soundbank;
+import javax.sql.rowset.serial.SerialException;
 import javax.swing.ImageIcon;
 
 import SecuGen.FDxSDKPro.jni.*;
+import model.FichaDocente;
 
 /**
  * Session Bean implementation class JSDC
@@ -158,7 +170,7 @@ public class JSDC implements JSDCLocal {
 	}
 
 	@Override
-	public BufferedImage capturar1() {
+	public BufferedImage capturar1() throws SerialException, IOException, SQLException {
 		int[] quality = new int[1];
 		int[] numOfMinutiae = new int[1];
 		byte[] imageBuffer1 = ((java.awt.image.DataBufferByte) imgRegistration1.getRaster().getDataBuffer()).getData();
@@ -197,6 +209,7 @@ public class JSDC implements JSDCLocal {
 						System.out.println("Reg. Capture 1 PASS QC. Qual[" + quality[0] + "] NFIQ[" + nfiqvalue
 								+ "] Minutiae[" + numOfMinutiae[0] + "]");
 						r1Captured = true;
+						guardarImagen(imgRegistration1);
 						// this.enableRegisterAndVerifyControls();
 					} else {
 						System.out.println("Reg. Capture 1 FAIL QC. Quality[" + quality[0] + "] NFIQ[" + nfiqvalue
@@ -212,21 +225,7 @@ public class JSDC implements JSDCLocal {
 		return imgRegistration1;
 	}
 
-	@Override
-	public void onLED() {
-		if (fplib != null) {
-			bLEDOn = !bLEDOn;
-			ret = fplib.SetLedOn(bLEDOn);
-			if (ret == SGFDxErrorCode.SGFDX_ERROR_NONE) {
-				System.out.println("SetLedOn(" + bLEDOn + ") Success [" + ret + "]");
-			} else {
-				System.out.println("SetLedOn(" + bLEDOn + ") Error [" + ret + "]");
-			}
-		} else {
-			System.out.println("JSGFPLib is not Initialized");
-		}
 
-	}
 
 	@Override
 	public BufferedImage capturar2() {
@@ -337,4 +336,47 @@ public class JSDC implements JSDCLocal {
 		return imgVerification;
 	}
 
+	@Override
+	public void onLED() {
+		if (fplib != null) {
+			bLEDOn = !bLEDOn;
+			ret = fplib.SetLedOn(bLEDOn);
+			if (ret == SGFDxErrorCode.SGFDX_ERROR_NONE) {
+				System.out.println("SetLedOn(" + bLEDOn + ") Success [" + ret + "]");
+			} else {
+				System.out.println("SetLedOn(" + bLEDOn + ") Error [" + ret + "]");
+			}
+		} else {
+			System.out.println("JSGFPLib is not Initialized");
+		}
+
+	}
+	public void guardarImagen(BufferedImage bimg) throws IOException, SerialException, SQLException{
+		ImageIcon imgi = new ImageIcon(bimg.getScaledInstance(130, 150, Image.SCALE_DEFAULT));
+		Image img= imgi.getImage();
+		//Graphics2D g2d = bimg.createGraphics();
+		//g2d.drawImage(img, 0, 0, null);
+		ByteArrayOutputStream baos = null;
+		try {
+		    baos = new ByteArrayOutputStream();
+		    ImageIO.write(bimg, "png", baos);
+		} finally {
+		    try {
+		        baos.close();
+		    } catch (Exception e) {
+		    }
+		}
+		//ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+		Blob huella = new javax.sql.rowset.serial.SerialBlob(baos.toByteArray());
+		FichaDocente fcdc= new FichaDocente();
+		fcdc.setFcdcId(2);
+		fcdc.setFcdcPrimerNombre("lino");
+		fcdc.setFcdcSegundoNombre("geovany");
+		fcdc.setFcdcApellidos("cusin");
+		fcdc.setFcdcHuellaPulgar1(huella);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UnidadPersistencia");
+		EntityManager em = emf.createEntityManager();
+		em.merge(fcdc);
+		
+	}
 }

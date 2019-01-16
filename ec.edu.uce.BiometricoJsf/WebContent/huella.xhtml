@@ -5,35 +5,42 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://java.sun.com/jsf/html">
+	xmlns:p="http://primefaces.org/ui">
 
 <h:body>
-	<p:form>
+	<h:form>
 		<p:commandButton value="Inicializar" id="Init"
 			action="#{lector.initDevice}"></p:commandButton>
 		<p:commandButton value="Encender Led" id="onLed"
 			action="#{lector.encenderLed}"></p:commandButton>
-	</p:form>
+	</h:form>
+	<p:panelGrid columns="3">
+		<p:graphicImage style="width: 130px; height: 150px; " id="imagenR1"
+			url="#{lector.graphic1}"></p:graphicImage>
+		<p:graphicImage style="width: 130px; height: 150px; " id="imagenR2"
+			value="#{lector.graphic2}"></p:graphicImage>
+		<p:graphicImage style="width: 130px; height: 150px; " id="imagenR3"
+			value="#{lector.graphic3}"></p:graphicImage>
+		<p:progressBar ajax="true" value="20"></p:progressBar>
+		<p:progressBar ajax="true" value="25"></p:progressBar>
+		<p:progressBar ajax="true" value="30"></p:progressBar>
+	</p:panelGrid>
 
-	<p:graphicImage style="width: 130px; height: 150px; " id="imagenR1"
-		url="#{lector.graphic1}"></p:graphicImage>
-	<p:graphicImage style="width: 130px; height: 150px; " id="imagenR2"
-		value="#{lector.graphic2}"></p:graphicImage>
-	<p:graphicImage style="width: 130px; height: 150px; " id="imagenR3"
-		value="#{lector.graphic3}"></p:graphicImage>
-	<p:form>
+
+
+	<h:form>
 		<p:commandButton value="Captura R1" id="botonR1"
 			action="#{lector.capturar1}"></p:commandButton>
 		<p:commandButton value="Captura R2" id="botonR2"
 			action="#{lector.capturar2}"></p:commandButton>
 		<p:commandButton value="Capture V1" id="botonV1"
 			action="#{lector.capturar3}"></p:commandButton>
-	</p:form>
-	<p:form>
+	</h:form>
+	<h:form>
 		<p:commandButton value="Registrar" id="botonRegistrar"></p:commandButton>
 		<p:commandButton value="Verificar" id="botonVerificar"
 			action="#{lector.verificar}"></p:commandButton>
-	</p:form>
+	</h:form>
 </h:body>
 
 

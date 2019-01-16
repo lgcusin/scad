@@ -1,7 +1,7 @@
 package model;
 // Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
-import java.math.BigDecimal;
+
 import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,8 +20,8 @@ import javax.persistence.Table;
 @Table(name = "FICHA_DOCENTE")
 public class FichaDocente implements java.io.Serializable {
 
-	private BigDecimal fcdcId;
-	private BigDecimal fcdcIdentificacion;
+	private Integer fcdcId;
+	private Integer fcdcIdentificacion;
 	private String fcdcPrimerNombre;
 	private String fcdcSegundoNombre;
 	private String fcdcApellidos;
@@ -32,11 +33,11 @@ public class FichaDocente implements java.io.Serializable {
 	public FichaDocente() {
 	}
 
-	public FichaDocente(BigDecimal fcdcId) {
+	public FichaDocente(Integer fcdcId) {
 		this.fcdcId = fcdcId;
 	}
 
-	public FichaDocente(BigDecimal fcdcId, BigDecimal fcdcIdentificacion, String fcdcPrimerNombre,
+	public FichaDocente(Integer fcdcId, Integer fcdcIdentificacion, String fcdcPrimerNombre,
 			String fcdcSegundoNombre, String fcdcApellidos, Blob fcdcHuellaPulgar1, Set<DetallePuesto> detallePuestos,
 			Set<Asistencia> asistencias, Set<Usuario> usuarios) {
 		this.fcdcId = fcdcId;
@@ -53,20 +54,20 @@ public class FichaDocente implements java.io.Serializable {
 	@Id
 
 	@Column(name = "FCDC_ID", unique = true, nullable = false, precision = 38, scale = 0)
-	public BigDecimal getFcdcId() {
+	public Integer getFcdcId() {
 		return this.fcdcId;
 	}
 
-	public void setFcdcId(BigDecimal fcdcId) {
+	public void setFcdcId(Integer fcdcId) {
 		this.fcdcId = fcdcId;
 	}
 
 	@Column(name = "FCDC_IDENTIFICACION", precision = 22, scale = 0)
-	public BigDecimal getFcdcIdentificacion() {
+	public Integer getFcdcIdentificacion() {
 		return this.fcdcIdentificacion;
 	}
 
-	public void setFcdcIdentificacion(BigDecimal fcdcIdentificacion) {
+	public void setFcdcIdentificacion(Integer fcdcIdentificacion) {
 		this.fcdcIdentificacion = fcdcIdentificacion;
 	}
 

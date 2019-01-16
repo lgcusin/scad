@@ -16,19 +16,12 @@
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="javax.persistence.criteria.CriteriaBuilder.Case"/>
 <fullyQualifiedTypeName name="org.primefaces.model.StreamedContent"/>
-<fullyQualifiedTypeName name="java.io.ByteArrayOutputStream"/>
-<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
-<fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
-<fullyQualifiedTypeName name="java.io.ByteArrayInputStream"/>
-<fullyQualifiedTypeName name="java.awt.Graphics2D"/>
 <fullyQualifiedTypeName name="org.primefaces.model.DefaultStreamedContent"/>
 <fullyQualifiedTypeName name="com.sun.prism.Graphics"/>
 <fullyQualifiedTypeName name="java.awt.Graphics"/>
 <fullyQualifiedTypeName name="javax.faces.context.FacesContext"/>
 <fullyQualifiedTypeName name="javax.faces.event.PhaseId"/>
 <fullyQualifiedTypeName name="java.awt.Image"/>
-<fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
-<fullyQualifiedTypeName name="model.FichaDocente"/>
 <fullyQualifiedTypeName name="javax.faces.bean.SessionScoped"/>
 <fullyQualifiedTypeName name="javax.persistence.PersistenceContext"/>
 <fullyQualifiedTypeName name="javax.persistence.EntityManager"/>
@@ -47,4 +40,12 @@
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="javax.annotation.PostConstruct"/>
 <fullyQualifiedTypeName name="javax.persistence.NamedQuery"/>
+<fullyQualifiedTypeName name="java.sql.Blob"/>
+<fullyQualifiedTypeName name="java.awt.Graphics2D"/>
+<fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
+<fullyQualifiedTypeName name="java.io.ByteArrayOutputStream"/>
+<fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
+<fullyQualifiedTypeName name="java.io.ByteArrayInputStream"/>
+<fullyQualifiedTypeName name="model.FichaDocente"/>
+<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
 </qualifiedTypeNameHistroy>
