@@ -1,17 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy>
-<typeInfo handle="=ec.edu.uce.BiometricoJpa/src&lt;model{Usuario.java[Usuario" modifiers="1" timestamp="1547562119712"/>
-<typeInfo handle="=ec.edu.uce.BiometricoJpa/src&lt;model{FichaDocente.java[FichaDocente" modifiers="1" timestamp="1547598688543"/>
-<typeInfo handle="=ec.edu.uce.BiometricoJpa/src&lt;model{Actividad.java[Actividad" modifiers="1" timestamp="1547561210635"/>
-<typeInfo handle="=ec.edu.uce.BiometricoJpa/src&lt;model{Carrera.java[Carrera" modifiers="1" timestamp="1547561210572"/>
-<typeInfo handle="=ec.edu.uce.BiometricoJpa/src&lt;model{DetallePuesto.java[DetallePuesto" modifiers="1" timestamp="1547561210619"/>
-<typeInfo handle="=ec.edu.uce.BiometricoJpa/src&lt;model{Herramienta.java[Herramienta" modifiers="1" timestamp="1547561210588"/>
-<typeInfo handle="=ec.edu.uce.BiometricoJpa/src&lt;model{MallaCurricular.java[MallaCurricular" modifiers="1" timestamp="1547561210619"/>
-<typeInfo handle="=ec.edu.uce.BiometricoJpa/src&lt;model{MallaCurricularMateria.java[MallaCurricularMateria" modifiers="1" timestamp="1547561210650"/>
-<typeInfo handle="=ec.edu.uce.BiometricoJpa/src&lt;model{Materia.java[Materia" modifiers="1" timestamp="1547561210603"/>
-<typeInfo handle="=ec.edu.uce.BiometricoJpa/src&lt;model{Syllabo.java[Syllabo" modifiers="1" timestamp="1547561210697"/>
-<typeInfo handle="=ec.edu.uce.BiometricoJpa/src&lt;model{UnidadCurricular.java[UnidadCurricular" modifiers="1" timestamp="1547561210681"/>
-<typeInfo handle="=ec.edu.uce.BiometricoJpa/src&lt;model{Contenido.java[Contenido" modifiers="1" timestamp="1547561210556"/>
-<typeInfo handle="=ec.edu.uce.BiometricoJpa/src&lt;model{Asistencia.java[Asistencia" modifiers="1" timestamp="1547569530092"/>
-<typeInfo handle="=ec.edu.uce.BiometricoJpa/src&lt;model{Seguimiento.java[Seguimiento" modifiers="1" timestamp="1547561210650"/>
-</typeInfoHistroy>
+<typeInfoHistroy/>
