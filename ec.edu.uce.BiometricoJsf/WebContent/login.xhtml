@@ -2,24 +2,32 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 <body>
-	<center>
-		<h:form>
-			<h:panelGrid border="0" columns="2">
-				<h:outputText value="Usuario:	"></h:outputText>
-				<h:inputText value="#{login.nick}"></h:inputText>
-				<h:outputText value="Password:	"></h:outputText>
-				<h:inputText value="#{login.clave}"></h:inputText>
-			</h:panelGrid>
+	<ui:composition template="/Biometrico/generalidades/login.jsp">
+		<ui:define name="cuerpo">
+			<center>
+				<h:form>
+					<p:panelGrid border="0" columns="2">
+						<h:outputText value="Usuario:	"></h:outputText>
+						<h:inputText value="#{login.nick}"></h:inputText>
+						<h:outputText value="Password:	"></h:outputText>
+						<h:inputText value="#{login.clave}"></h:inputText>
+					</p:panelGrid>
+					<p:commandButton action="#{login.ingresar}" value="Ingresar"></p:commandButton>
+					<p:commandButton action="huella.xhtml" value="Lector"></p:commandButton>
+				</h:form>
+
+			</center>
+		</ui:define>
+
+	</ui:composition>
 
 
-			<h:commandButton action="#{login.ingresar}" value="Ingresar"></h:commandButton>
-			<h:commandButton action="huella.xhtml" value="Lector"></h:commandButton>
-		</h:form>
 
-	</center>
+
 </body>
 </html>
