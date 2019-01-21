@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Integer" key="selection"/>
+		<item value="Registro" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="Postulacion"/>
 			<item value="BigDecimal"/>
 			<item value="regMin1"/>
 			<item value="loginbean"/>
@@ -15,6 +16,8 @@
 			<item value="imgRegistration1"/>
 		</list>
 		<list key="replacehistory">
+			<item value="Registro"/>
+			<item value=""/>
 			<item value="Integer"/>
 		</list>
 	</section>

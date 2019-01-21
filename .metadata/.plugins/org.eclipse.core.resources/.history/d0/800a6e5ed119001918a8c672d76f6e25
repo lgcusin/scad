@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="BiometricoEar">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="BiometricoJsf.war" deploy-path="/" handle="module:/resource/BiometricoJsf/BiometricoJsf">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="BiometricoJpa.jar" deploy-path="/lib" handle="module:/resource/BiometricoJpa/BiometricoJpa">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="BiometricoEjb.jar" deploy-path="/" handle="module:/resource/BiometricoEjb/BiometricoEjb">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="poi-3.10-FINAL.jar" deploy-path="/lib" handle="module:/classpath/lib/BiometricoEar/librerias/jasperReport/poi-3.10-FINAL.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jasperreports-6.0.0.jar" deploy-path="/lib" handle="module:/classpath/lib/BiometricoEar/librerias/jasperReport/jasperreports-6.0.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jandex-1.1.0.Final.jar" deploy-path="/" handle="module:/classpath/lib/BiometricoEar/librerias/hibernate/jandex-1.1.0.Final.jar">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-beanutils-1.9.3.wso2v1.jar" deploy-path="/lib" handle="module:/classpath/lib/BiometricoEar/librerias/jasperReport/commons-beanutils-1.9.3.wso2v1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hibernate-jpa-2.1-api-1.0.0.Final.jar" deploy-path="/lib" handle="module:/classpath/lib/BiometricoEar/librerias/hibernate/hibernate-jpa-2.1-api-1.0.0.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-context-4.0.5.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/BiometricoEar/librerias/springSecurity/spring-context-4.0.5.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="FDxSDKPro.jar" deploy-path="/lib" handle="module:/classpath/lib/BiometricoEar/librerias/secugenHamsterPlus/FDxSDKPro.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

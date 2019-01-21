@@ -2,9 +2,11 @@ package beans;
 
 import javax.ejb.Local;
 
+import model.Usuario;
+
 @Local
 public interface LoginBeanLocal {
-	
-	public boolean verificar(String nick, String clave);
+
+	public Usuario verificar(Usuario usuario);
 
 }

@@ -9,7 +9,7 @@
 <h:head>
 	<ui:include src="/componentesGenerales/plantillas/pltHead.xhtml" />
 </h:head>
-<h:body class="dtic">
+<h:body class="dtic" style="background-image: url('img/fondo.png');">
 	<div id="cabecera" style="height: auto;">
 		<ui:include src="/componentesGenerales/plantillas/pltCabecera.xhtml" />
 	</div>
@@ -17,6 +17,7 @@
 	<div id="wrapper" class="wrapper">
 		<div id="menu">
 			<ui:include src="/componentesGenerales/plantillas/pltMenu.xhtml" />
+			<ui:insert name="paginacion"></ui:insert>
 		</div>
 		<div id="mensajeGlobal">
 			<p:messages autoUpdate="true" globalOnly="true" />

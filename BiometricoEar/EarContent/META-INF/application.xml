@@ -4,10 +4,22 @@
   <module>
     <web>
       <web-uri>BiometricoJsf.war</web-uri>
-      <context-root>BiometricoJsf</context-root>
+      <context-root>Biometrico</context-root>
     </web>
   </module>
   <module>
     <ejb>BiometricoEjb.jar</ejb>
+  </module>
+  <module>
+    <java>jandex-1.1.0.Final.jar</java>
+  </module>
+  <module>
+    <java>hibernate-commons-annotations-4.0.5.Final.jar</java>
+  </module>
+  <module>
+    <java>javassist-3.18.1-GA.jar</java>
+  </module>
+  <module>
+    <java>hibernate-core-4.3.11.Final.jar</java>
   </module>
 </application>

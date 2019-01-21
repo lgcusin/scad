@@ -2,3 +2,6 @@
 1547671536908	Rename resource 'ec.edu.uce.BiometricoJpa'
 1547671561972	Rename resource 'ec.edu.uce.BiometricoEjb'
 1547671582828	Rename resource 'ec.edu.uce.BiometricoEar'
+1547672789967	Delete resource 'SCADejb'
+1547672802337	Delete resource 'SCADjpa'
+1547672816927	Delete resource 'SCADjsf'

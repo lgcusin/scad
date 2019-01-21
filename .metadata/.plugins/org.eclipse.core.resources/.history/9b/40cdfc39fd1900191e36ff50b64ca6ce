@@ -1,0 +1,36 @@
+package beans;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+
+import model.Usuario;
+
+/**
+ * Session Bean implementation class LoginBean
+ */
+@Stateless
+@LocalBean
+public class LoginBean implements LoginBeanLocal {
+
+	public LoginBean() {
+	}
+
+	@Override
+	public Usuario verificar(Usuario usuario) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UnidadPersistencia");
+		EntityManager em = emf.createEntityManager();
+		Usuario usr = em.find(Usuario.class, usuario);
+		// String CI= em.createNamedQuery("Usuario.finduser",
+		// String.class).setParameter("nick", nick)
+		// .setParameter("clave", clave).getSingleResult();
+		if (usr == null) {
+			return null;
+		} else
+			return usr;
+	}
+
+}

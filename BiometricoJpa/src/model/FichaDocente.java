@@ -1,7 +1,6 @@
 package model;
 // Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
-
 import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +17,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "FICHA_DOCENTE")
+@NamedQuery(name = "Docente.listar", query = "select fd from FichaDocente as fd "
+		+ "where fd.fcdcApellidos LIKE :apellido or fd.fcdcPrimerNombre LIKE :primernombre or fd.fcdcSegundoNombre LIKE :segundonombre")
 public class FichaDocente implements java.io.Serializable {
 
 	private Integer fcdcId;
@@ -37,8 +38,8 @@ public class FichaDocente implements java.io.Serializable {
 		this.fcdcId = fcdcId;
 	}
 
-	public FichaDocente(Integer fcdcId, Integer fcdcIdentificacion, String fcdcPrimerNombre,
-			String fcdcSegundoNombre, String fcdcApellidos, Blob fcdcHuellaPulgar1, Set<DetallePuesto> detallePuestos,
+	public FichaDocente(Integer fcdcId, Integer fcdcIdentificacion, String fcdcPrimerNombre, String fcdcSegundoNombre,
+			String fcdcApellidos, Blob fcdcHuellaPulgar1, Set<DetallePuesto> detallePuestos,
 			Set<Asistencia> asistencias, Set<Usuario> usuarios) {
 		this.fcdcId = fcdcId;
 		this.fcdcIdentificacion = fcdcIdentificacion;

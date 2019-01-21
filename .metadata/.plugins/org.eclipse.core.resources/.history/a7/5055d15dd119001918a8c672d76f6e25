@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="BiometricoEar">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="spring-beans-4.0.5.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/ec.edu.uce.BiometricoEar/librerias/springSecurity/spring-beans-4.0.5.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hibernate-entitymanager-5.0.7.Final.jar" deploy-path="/lib" handle="module:/classpath/lib/ec.edu.uce.BiometricoEar/librerias/hibernate/hibernate-entitymanager-5.0.7.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="FDxSDKPro.jar" deploy-path="/lib" handle="module:/classpath/lib/ec.edu.uce.BiometricoEar/librerias/secugenHamsterPlus/FDxSDKPro.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="AbsoluteLayout.jar" deploy-path="/lib" handle="module:/classpath/lib/ec.edu.uce.BiometricoEar/librerias/secugenHamsterPlus/AbsoluteLayout.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="BiometricoJsf.war" deploy-path="/" handle="module:/resource/BiometricoJsf/BiometricoJsf">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="BiometricoJpa.jar" deploy-path="/lib" handle="module:/resource/BiometricoJpa/BiometricoJpa">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="BiometricoEjb.jar" deploy-path="/" handle="module:/resource/BiometricoEjb/BiometricoEjb">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

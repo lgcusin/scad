@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;BiometricoJpa/diagrams/ec.edu.uce.BiometricoJpa.xml&apos; to &apos;BiometricoJpa.xml&apos;" description="Rename resource &apos;ec.edu.uce.BiometricoJpa.xml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="diagrams/ec.edu.uce.BiometricoJpa.xml" name="BiometricoJpa.xml" stamp="1547673329245" updateReferences="true"/>
+</session>

@@ -1,0 +1,31 @@
+package managedBeans;
+
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import beans.DocenteBeanLocal;
+import model.FichaDocente;
+
+@ManagedBean(name = "DocenteBean")
+@SessionScoped
+public class Busqueda {
+
+	@EJB
+	private DocenteBeanLocal fcdc;
+	private List<FichaDocente> lstDoc;
+
+	public String parametro;
+
+	@PostConstruct
+	public void init() {
+
+		FacesContext context = FacesContext.getCurrentInstance();
+
+	}
+
+}

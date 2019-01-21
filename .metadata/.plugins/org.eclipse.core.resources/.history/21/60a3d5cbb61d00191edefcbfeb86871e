@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="cuerpo">
+		<h:form id="frmLstRegistro" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<div style="margin-left: 10px; margin-right: 10px;">
+				<div
+					class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"
+					id="frmLstRegistro:pnlBusqueda_header">
+					<span class="ui-panel-title">Ingrese los datos para buscar</span>
+				</div>
+				<div class="ui-panel-content ui-widget-content"
+					id="frmLstRegistro:pnlBusqueda_content">
+					<!-- ******************** TABLA RESPONSIVA ************************ -->
+					<div class="grid condensed">
+						<!-- ******************** FILA NUMERO 2 ************************ -->
+						<div class="row cells8">
+							<div class="cell colspan3">
+								<div class="grid condensed" style="margin: 0 !important">
+									<!-- ******************** FILA NUMERO 1 ************************ -->
+									<div class="row cells8" style="margin: 0 !important">
+										<div class="cell colspan2">
+											<label class="ui-outputlabel ui-widget"
+												id="frmLstRegistro:lblBusqueda"
+												for="frmLstRegistro:slcBusqueda">Busqueda </label>
+										</div>
+										<div class="cell colspan4">
+											<p:inputText value="#{docentes.parametro}"></p:inputText>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<p:commandButton action="#{docentes.listar()}">Buscar</p:commandButton>
+					<button name="frmLstRegistro:btnLimpiar"
+						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+						id="frmLstRegistro:btnLimpiar"
+						onclick="PrimeFaces.ab({s:'frmLstRegistro:btnLimpiar',u:'frmLstRegistro:pnlResultados frmLstRegistro:pnlBusqueda'});return false;"
+						type="submit">
+						<span class="ui-button-text ui-c">Limpiar</span>
+					</button>
+				</div>
+			</div>
+
+			<div>
+				<p:dataTable var="dcnt" value="#{docentes.lstDcnt}">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Docente" />
+						</f:facet>
+						<h:outputText value="#{dcnt.fcdcId}" />
+					</p:column>
+				</p:dataTable>
+			</div>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+
+
+</html>

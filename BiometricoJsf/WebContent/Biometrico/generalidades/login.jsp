@@ -7,12 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/resources/css/general.css" ></link>
+	href="<%=request.getContextPath()%>/resources/css/general.css"></link>
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/resources/css/fontStyles.css" ></link>
+	href="<%=request.getContextPath()%>/resources/css/fontStyles.css"></link>
 <title>Inicio de Sesión</title>
 </head>
-<body class="Login">
+<body class="login">
 	<div>
 		<div style="position: absolute; top: 13vw; left: 18vw">
 			<div>
@@ -20,8 +20,7 @@
 			</div>
 			<div style="border-bottom: 3px solid #E20613;"></div>
 		</div>
-		<ui:composition template="/login.xhtml">
-		</ui:composition>
+
 		<div
 			style="position: absolute; top: 71vw; left: 53vw; letter-spacing: 0.1em; textalign: justify; width: 45vw;">
 			<p style="font-size: 0.9vw;">© Copyright Dirección de Tecnologías
