@@ -1,0 +1,143 @@
+package managedBeans;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.imageio.ImageIO;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+
+import lector.JSDC;
+import lector.JSDCLocal;
+
+@ManagedBean(name = "huella")
+@ViewScoped
+public class Huella implements Serializable {
+
+	@EJB
+	private JSDCLocal jsdcBean;
+	private JSDC jsdc;
+
+	public StreamedContent graphic1;
+	public StreamedContent graphic2;
+	public StreamedContent graphic3;
+
+	@PostConstruct
+	public void init() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		jsdc = new JSDC();
+		jsdcBean.inicializar();
+		jsdcBean.onLED();
+	}
+
+	public void initDevice() {
+		jsdcBean.inicializar();
+	}
+
+	public void encenderLed() {
+		jsdcBean.onLED();
+	}
+
+	public void capturar1() throws IOException {
+
+		BufferedImage bimg = jsdcBean.capturar();
+		ByteArrayOutputStream baos = null;
+		try {
+			baos = new ByteArrayOutputStream();
+			ImageIO.write(bimg, "png", baos);
+		} finally {
+			try {
+				baos.close();
+			} catch (Exception e) {
+			}
+		}
+		graphic1 = new DefaultStreamedContent(new ByteArrayInputStream(baos.toByteArray()));
+		bimg = null;
+	}
+
+	public void capturar2() throws IOException {
+		BufferedImage bimg = jsdcBean.capturar();
+		ByteArrayOutputStream baos = null;
+		try {
+			baos = new ByteArrayOutputStream();
+			ImageIO.write(bimg, "png", baos);
+		} finally {
+			try {
+				baos.close();
+			} catch (Exception e) {
+			}
+		}
+		graphic2 = new DefaultStreamedContent(new ByteArrayInputStream(baos.toByteArray()));
+	}
+
+	public void capturar3() throws IOException {
+		BufferedImage bimg = jsdcBean.capturar();
+		ByteArrayOutputStream baos = null;
+		try {
+			baos = new ByteArrayOutputStream();
+			ImageIO.write(bimg, "png", baos);
+		} finally {
+			try {
+				baos.close();
+			} catch (Exception e) {
+			}
+		}
+		graphic3 = new DefaultStreamedContent(new ByteArrayInputStream(baos.toByteArray()));
+	}
+
+	public String verificar() {
+		boolean ver = true;
+		ver = jsdcBean.verificar();
+		if (ver) {
+			return "registro";
+		} else {
+			System.out.println("Huella no ingresada o registrada");
+		}
+		return null;
+	}
+
+	public void registrar() {
+
+	}
+
+	// getters and setters
+	public JSDC getJsdc() {
+		return jsdc;
+	}
+
+	public void setJsdc(JSDC jsdc) {
+		this.jsdc = jsdc;
+	}
+
+	public StreamedContent getGraphic1() {
+		return graphic1;
+	}
+
+	public void setGraphic1(StreamedContent graphic1) {
+		this.graphic1 = graphic1;
+	}
+
+	public StreamedContent getGraphic2() {
+		return graphic2;
+	}
+
+	public void setGraphic2(StreamedContent graphic2) {
+		this.graphic2 = graphic2;
+	}
+
+	public StreamedContent getGraphic3() {
+		return graphic3;
+	}
+
+	public void setGraphic3(StreamedContent graphic3) {
+		this.graphic3 = graphic3;
+	}
+
+}

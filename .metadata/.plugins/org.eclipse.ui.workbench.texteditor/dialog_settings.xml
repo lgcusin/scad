@@ -2,23 +2,27 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Registro" key="selection"/>
+		<item value="Integer" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="Postulacion"/>
 			<item value="BigDecimal"/>
+			<item value="lector"/>
+			<item value="docentes"/>
+			<item value="graphic1"/>
+			<item value="Postulacion"/>
 			<item value="regMin1"/>
 			<item value="loginbean"/>
 			<item value="login"/>
-			<item value="imgRegistration1"/>
 		</list>
 		<list key="replacehistory">
+			<item value="Integer"/>
+			<item value="huella"/>
+			<item value="registro"/>
 			<item value="Registro"/>
 			<item value=""/>
-			<item value="Integer"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

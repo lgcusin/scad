@@ -26,7 +26,7 @@ public class FichaDocente implements java.io.Serializable {
 	private String fcdcPrimerNombre;
 	private String fcdcSegundoNombre;
 	private String fcdcApellidos;
-	private Blob fcdcHuellaPulgar1;
+	private Set<HuellaDactilar> huellaDactilars = new HashSet<HuellaDactilar>(0);
 	private Set<DetallePuesto> detallePuestos = new HashSet<DetallePuesto>(0);
 	private Set<Asistencia> asistencias = new HashSet<Asistencia>(0);
 	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
@@ -38,15 +38,15 @@ public class FichaDocente implements java.io.Serializable {
 		this.fcdcId = fcdcId;
 	}
 
-	public FichaDocente(Integer fcdcId, Integer fcdcIdentificacion, String fcdcPrimerNombre, String fcdcSegundoNombre,
-			String fcdcApellidos, Blob fcdcHuellaPulgar1, Set<DetallePuesto> detallePuestos,
-			Set<Asistencia> asistencias, Set<Usuario> usuarios) {
+	public FichaDocente(Integer fcdcId, Integer fcdcIdentificacion, String fcdcPrimerNombre,
+			String fcdcSegundoNombre, String fcdcApellidos, Set<HuellaDactilar> huellaDactilars,
+			Set<DetallePuesto> detallePuestos, Set<Asistencia> asistencias, Set<Usuario> usuarios) {
 		this.fcdcId = fcdcId;
 		this.fcdcIdentificacion = fcdcIdentificacion;
 		this.fcdcPrimerNombre = fcdcPrimerNombre;
 		this.fcdcSegundoNombre = fcdcSegundoNombre;
 		this.fcdcApellidos = fcdcApellidos;
-		this.fcdcHuellaPulgar1 = fcdcHuellaPulgar1;
+		this.huellaDactilars = huellaDactilars;
 		this.detallePuestos = detallePuestos;
 		this.asistencias = asistencias;
 		this.usuarios = usuarios;
@@ -99,13 +99,13 @@ public class FichaDocente implements java.io.Serializable {
 		this.fcdcApellidos = fcdcApellidos;
 	}
 
-	@Column(name = "FCDC_HUELLA_PULGAR1")
-	public Blob getFcdcHuellaPulgar1() {
-		return this.fcdcHuellaPulgar1;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaDocente")
+	public Set<HuellaDactilar> getHuellaDactilars() {
+		return this.huellaDactilars;
 	}
 
-	public void setFcdcHuellaPulgar1(Blob fcdcHuellaPulgar1) {
-		this.fcdcHuellaPulgar1 = fcdcHuellaPulgar1;
+	public void setHuellaDactilars(Set<HuellaDactilar> huellaDactilars) {
+		this.huellaDactilars = huellaDactilars;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaDocente")

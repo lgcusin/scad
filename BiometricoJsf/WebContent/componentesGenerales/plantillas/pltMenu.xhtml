@@ -9,7 +9,14 @@
 	<h:form>
 		<p:menubar>
 			<p:submenu label="Asistencia">
-				<p:menuitem value="Detalle"></p:menuitem>
+				<p:menuitem value="Detalle" action=""></p:menuitem>
+				<p:submenu label="Horario">
+					<p:menuitem value="Horario"></p:menuitem>
+				</p:submenu>
+			</p:submenu>
+			<p:submenu label="Seguimiento">
+				<p:menuitem value="Dettalle"></p:menuitem>
+				<p:menuitem value="Syllabo"></p:menuitem>
 			</p:submenu>
 			<f:facet name="options">
 				<a href="#{request.contextPath}/j_spring_security_logout">Salir

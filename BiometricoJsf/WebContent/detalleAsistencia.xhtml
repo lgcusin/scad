@@ -6,33 +6,40 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
 
-<body>
-	<h:form>
-		<h:dataTable border="1" >
-			<h:column id="column1">
-				<f:facet name="header">
-					<h:outputText value="HORA ENTRADA"></h:outputText>
-				</f:facet>
+	<ui:define name="cuerpo">
+		<h:form>
+			<p:dataTable border="1">
+				<h:column id="column1">
+					<f:facet name="header">
+						<h:outputText value="HORA ENTRADA"></h:outputText>
+					</f:facet>
 				09:00
 			</h:column>
-			<h:column id="column2">
-				<f:facet name="header">
-					<h:outputText value="HORA SALIDA"></h:outputText>
-				</f:facet>
+				<h:column id="column2">
+					<f:facet name="header">
+						<h:outputText value="HORA SALIDA"></h:outputText>
+					</f:facet>
 				11:00
 			</h:column>
-			<h:column id="column3">
-				<f:facet name="header">
-					<h:outputText value="OPCIONES"></h:outputText>
-				</f:facet>
-				<h:commandLink value="Detalles" action="asistencia.xhtml"></h:commandLink>
-				<h:commandLink value="Listado"></h:commandLink>
-			</h:column>
+				<h:column id="column3">
+					<f:facet name="header">
+						<h:outputText value="OPCIONES"></h:outputText>
+					</f:facet>
+					<h:commandLink value="Detalles"
+						action="#{context.getContextPath()}/syllabo.xhtml"></h:commandLink>
+					<h:commandLink value="Listado"></h:commandLink>
+				</h:column>
 
-		</h:dataTable>
-		<h:commandButton value="Regresar" action="home.xhtml"></h:commandButton>
-		<h:commandButton value="Ver" action="asistencia.xhtml"></h:commandButton>
-	</h:form>
-</body>
+			</p:dataTable>
+			<p:commandButton value="Regresar"></p:commandButton>
+			<p:commandButton value="Ver"></p:commandButton>
+		</h:form>
+
+
+	</ui:define>
+
+</ui:composition>
 </html>

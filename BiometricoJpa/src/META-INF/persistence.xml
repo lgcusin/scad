@@ -17,6 +17,8 @@
 		<class>model.Contenido</class>
 		<class>model.Asistencia</class>
 		<class>model.Seguimiento</class>
+		<class>model.TipoHuella</class>
+		<class>model.HuellaDactilar</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
 			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver"/>
@@ -24,7 +26,7 @@
 			<property name="hibernate.default_schema" value="SA"/>
 			<property name="hibernate.connection.username" value="sa"/>
 			<property name="hibernate.connection.password" value="admin"/>
-			<property name="jboss.entity.manager.factory.jndi.name" value="java:/BiometricoEntityManagerFactory"/>
+			<!-- <property name="jboss.entity.manager.factory.jndi.name" value="java:/BiometricoEntityManagerFactory"/> -->
 			<property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform"/>
 			
 		</properties>

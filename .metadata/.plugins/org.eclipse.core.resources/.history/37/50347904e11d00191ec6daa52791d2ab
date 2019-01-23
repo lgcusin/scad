@@ -1,0 +1,133 @@
+package managedBeans;
+
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
+import java.sql.SQLException;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.imageio.ImageIO;
+import javax.sql.rowset.serial.SerialException;
+import javax.swing.ImageIcon;
+
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+
+import lector.JSDC;
+import lector.JSDCLocal;
+
+@ManagedBean(name = "lector")
+@ViewScoped
+public class Huella implements Serializable{
+
+	@EJB
+	private JSDCLocal jsdcBean;
+	private JSDC jsdc;
+
+	private StreamedContent graphic1;
+	private StreamedContent graphic2;
+	private StreamedContent graphic3;
+
+	@PostConstruct
+	public void init() {
+		jsdc = new JSDC();
+	}
+
+	public String initDevice() {
+		jsdcBean.inicializar();
+		return null;
+	}
+
+	public String encenderLed() {
+		jsdcBean.onLED();
+		return null;
+	}
+
+	public void capturar1() throws SerialException, IOException, SQLException {
+		BufferedImage bimg = jsdcBean.capturar1();
+		ImageIcon imgi = new ImageIcon(bimg.getScaledInstance(130, 150, Image.SCALE_DEFAULT));
+		Image img = imgi.getImage();
+		Graphics2D g2d = bimg.createGraphics();
+		g2d.drawImage(img, 0, 0, null);
+		ByteArrayOutputStream baos = null;
+		try {
+			baos = new ByteArrayOutputStream();
+			ImageIO.write(bimg, "png", baos);
+		} finally {
+			try {
+				baos.close();
+			} catch (Exception e) {
+			}
+		}
+		graphic1 = new DefaultStreamedContent(new ByteArrayInputStream(baos.toByteArray()));
+	}
+
+	public String capturar2() {
+		BufferedImage bufferedImg = jsdcBean.capturar2();
+
+		return "prueba";
+	}
+
+	public String capturar3() {
+		BufferedImage bufferedImg = jsdcBean.capturar3();
+
+		return "prueba";
+	}
+
+	public String verificar() {
+		boolean ver = true;
+		ver = jsdcBean.verificar();
+		if (ver) {
+			return "registro";
+		} else {
+			System.out.println("Huella no ingresada o registrada");
+		}
+		return null;
+	}
+
+	public void registrar() {
+
+	}
+
+	public JSDC getJsdc() {
+		return jsdc;
+	}
+
+	public void setJsdc(JSDC jsdc) {
+		this.jsdc = jsdc;
+	}
+
+	public StreamedContent getGraphic1() {
+		return graphic1;
+	}
+
+	public void setGraphic1(StreamedContent graphic1) {
+		this.graphic1 = graphic1;
+	}
+
+	public StreamedContent getGraphic2() {
+		return graphic2;
+	}
+
+	public void setGraphic2(StreamedContent graphic2) {
+		this.graphic2 = graphic2;
+	}
+
+	public StreamedContent getGraphic3() {
+		return graphic3;
+	}
+
+	public void setGraphic3(StreamedContent graphic3) {
+		this.graphic3 = graphic3;
+	}
+
+	// setters and getters
+
+}
