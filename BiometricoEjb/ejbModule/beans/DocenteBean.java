@@ -58,7 +58,7 @@ public class DocenteBean implements DocenteBeanLocal {
 		List<BufferedImage> lstI = null;
 		for (HuellaDactilar hldc : lsth) {
 			lstI.add(toBufferedImage(hldc.getHldPrimerHuella()));
-			lstI.add( toBufferedImage(hldc.getHldSegundaHuella()));
+			lstI.add(toBufferedImage(hldc.getHldSegundaHuella()));
 		}
 		return lstI;
 	}
@@ -69,6 +69,13 @@ public class DocenteBean implements DocenteBeanLocal {
 		// convert byte-Array into Buffered Image (Subclass of Image)
 		BufferedImage theImage = ImageIO.read(new ByteArrayInputStream(imagebytes));
 		return theImage;
+	}
+
+	@Override
+	public FichaDocente getDocente(Integer id) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UnidadPersistencia");
+		EntityManager em = emf.createEntityManager();
+		return em.find(FichaDocente.class, id);
 	}
 
 }

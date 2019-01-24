@@ -16,7 +16,8 @@
 			style="margin-left: 25px; color: rgb(0, 118, 189); font-size: 16px !important; font-weight: bold">Bienvenido
 			al sistema de Control de Asistencia Docente</p>
 		<h3>
-			<strong></strong>
+			<p:outputLabel
+				value="#{login.usr.fichaDocente.fcdcApellidos} #{login.usr.fichaDocente.fcdcPrimerNombre}"></p:outputLabel>
 		</h3>
 		<br />
 		<br />
@@ -52,16 +53,6 @@
 				</p>
 
 				<hr />
-
-
-				<h:commandButton value="Detalle de Asistencia"
-					action="#{home.verAsistencia}"></h:commandButton>
-				<h:commandButton value="Syllabus" action="syllabo.xhtml"></h:commandButton>
-				<h:commandButton value="Otro"></h:commandButton>
-				<br />
-				<hr />
-				<h:commandButton value="Salir" action="login.xhtml"></h:commandButton>
-
 			</h:form>
 
 		</p>

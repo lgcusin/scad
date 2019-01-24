@@ -16,25 +16,24 @@
 					<f:facet name="header">
 						<h:outputText value="HORA ENTRADA"></h:outputText>
 					</f:facet>
-				09:00
-			</h:column>
+					<h:outputLabel value="13:00"></h:outputLabel>
+				</h:column>
 				<h:column id="column2">
 					<f:facet name="header">
 						<h:outputText value="HORA SALIDA"></h:outputText>
 					</f:facet>
-				11:00
-			</h:column>
+					<h:outputLabel value="15:00"></h:outputLabel>
+				</h:column>
 				<h:column id="column3">
 					<f:facet name="header">
 						<h:outputText value="OPCIONES"></h:outputText>
 					</f:facet>
-					<h:commandLink value="Detalles"
-						action="#{context.getContextPath()}/syllabo.xhtml"></h:commandLink>
+					<h:commandLink value="Detalles"></h:commandLink>
 					<h:commandLink value="Listado"></h:commandLink>
 				</h:column>
 
 			</p:dataTable>
-			<p:commandButton value="Regresar"></p:commandButton>
+			<p:commandButton value="Regresar" action="principal.xhtml"></p:commandButton>
 			<p:commandButton value="Ver"></p:commandButton>
 		</h:form>
 

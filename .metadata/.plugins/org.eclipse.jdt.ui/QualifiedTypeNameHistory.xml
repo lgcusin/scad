@@ -34,19 +34,13 @@
 <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
 <fullyQualifiedTypeName name="javax.ejb.SessionContext"/>
 <fullyQualifiedTypeName name="model.Usuario"/>
-<fullyQualifiedTypeName name="javax.faces.bean.ManagedBean"/>
-<fullyQualifiedTypeName name="javax.ejb.EJB"/>
-<fullyQualifiedTypeName name="beans.DocenteBeanLocal"/>
-<fullyQualifiedTypeName name="javax.annotation.PostConstruct"/>
 <fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="model.FichaDocente"/>
 <fullyQualifiedTypeName name="java.awt.Graphics2D"/>
 <fullyQualifiedTypeName name="org.primefaces.model.DefaultStreamedContent"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="javax.faces.bean.ApplicationScoped"/>
 <fullyQualifiedTypeName name="javax.faces.context.FacesContext"/>
 <fullyQualifiedTypeName name="javax.faces.bean.ViewScoped"/>
-<fullyQualifiedTypeName name="javax.faces.bean.SessionScoped"/>
 <fullyQualifiedTypeName name="javax.faces.application.FacesMessage"/>
 <fullyQualifiedTypeName name="org.primefaces.event.CloseEvent"/>
 <fullyQualifiedTypeName name="model.TipoHuella"/>
@@ -58,4 +52,11 @@
 <fullyQualifiedTypeName name="java.sql.Blob"/>
 <fullyQualifiedTypeName name="java.io.ByteArrayInputStream"/>
 <fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
+<fullyQualifiedTypeName name="javax.ejb.EJB"/>
+<fullyQualifiedTypeName name="beans.DocenteBeanLocal"/>
+<fullyQualifiedTypeName name="model.FichaDocente"/>
+<fullyQualifiedTypeName name="javax.faces.bean.ManagedBean"/>
+<fullyQualifiedTypeName name="javax.faces.bean.SessionScoped"/>
+<fullyQualifiedTypeName name="javax.annotation.PostConstruct"/>
+<fullyQualifiedTypeName name="model.Asistencia"/>
 </qualifiedTypeNameHistroy>

@@ -9,14 +9,19 @@
 	<h:form>
 		<p:menubar>
 			<p:submenu label="Asistencia">
-				<p:menuitem value="Detalle" action=""></p:menuitem>
-				<p:submenu label="Horario">
-					<p:menuitem value="Horario"></p:menuitem>
-				</p:submenu>
+				<p:menuitem value="Detalle de Clases"
+					action="#{principal.verDetalle}"></p:menuitem>
+
 			</p:submenu>
 			<p:submenu label="Seguimiento">
-				<p:menuitem value="Dettalle"></p:menuitem>
+				<p:menuitem value="Detalle de Actividades"></p:menuitem>
 				<p:menuitem value="Syllabo"></p:menuitem>
+			</p:submenu>
+			<p:submenu label="Reportes">
+				<p:submenu label="Horario">
+					<p:menuitem value="Horario de Clases"></p:menuitem>
+					<p:menuitem value="Horario de Examen"></p:menuitem>
+				</p:submenu>
 			</p:submenu>
 			<f:facet name="options">
 				<a href="#{request.contextPath}/j_spring_security_logout">Salir

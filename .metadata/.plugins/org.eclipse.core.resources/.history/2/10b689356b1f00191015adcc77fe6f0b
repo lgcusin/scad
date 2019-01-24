@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<body>
+	<h:form>
+		<p:menubar>
+			<p:submenu label="Asistencia">
+				<p:menuitem value="Detalle"></p:menuitem>
+				<p:submenu label="Horario">
+					<p:menuitem value="Horario"></p:menuitem>
+				</p:submenu>
+			</p:submenu>
+			<p:submenu label="Seguimiento">
+				<p:menuitem value="Dettalle"></p:menuitem>
+				<p:menuitem value="Syllabo"></p:menuitem>
+			</p:submenu>
+			<f:facet name="options">
+				<a href="#{request.contextPath}/j_spring_security_logout">Salir
+					del Sistema</a>
+			</f:facet>
+			<!-- <f:facet name="options">
+					<i class="fa fa-user" style="float: right;margin: 0px 8px 0 5px;;font-size: 20px;border-radius: 50%;background: #4cb6f1;padding: 2px 6px 5px;color: #fff;"></i>
+					<h:outputText style="float: right;margin: 5px;" value="#{generalesConstantesForm.separarNombres(sesionUsuarioForm.frmSuUsuario.usrPersona.prsNombres)[0]} #{generalesConstantesForm.separaCaracteres(sesionUsuarioForm.frmSuUsuario.usrPersona.prsPrimerApellido, 0, 1)}." />
+					<a href="#{request.contextPath}/j_spring_security_logout" class="dropitem-uce">
+						<span style="margin-left: 0.4em;">Cerrar Sesión</span>
+					</a>
+				</f:facet> -->
+		</p:menubar>
+	</h:form>
+</body>
+</html>

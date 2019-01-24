@@ -52,12 +52,12 @@
 				</span>
 				<form action="/Biometrico/j_spring_security_check" method="post">
 					<div class="usuario">
-						<i class="fa fa-user-secret"></i> <input type="text"
-							id="j_username" name="j_username" placeholder="Usuario" />
+						<i class="fa fa-user-secret"></i>
+						<input type="text" id="j_username" name="j_username" placeholder="Usuario" />
 					</div>
 					<div class="password">
-						<i class="fa fa-key"></i> <input type="password" id="j_password"
-							name="j_password" placeholder="Contraseña" />
+						<i class="fa fa-key"></i> 
+						<input type="password" id="j_password" name="j_password" placeholder="Contraseña" />
 					</div>
 					<div class="ingresar">
 						<input type="submit" value="Ingresar" />

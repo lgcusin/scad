@@ -13,6 +13,8 @@ import model.TipoHuella;
 
 @Local
 public interface DocenteBeanLocal {
+	
+	public FichaDocente getDocente(Integer id);
 
 	public List<FichaDocente> listar(String parametro);
 

@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="cuerpo">
+		<h:form id="frmLogin" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<p:panelGrid border="0" columns="2">
+				<p:outputText value="Usuario:	"></p:outputText>
+				<p:inputText value="#{login.usr.usrNick}"></p:inputText>
+				<p:outputText value="Password:	"></p:outputText>
+				<p:inputText value="#{login.usr.usrPassword}"></p:inputText>
+			</p:panelGrid>
+			<p:commandButton action="#{login.ingresar}" value="Ingresar"></p:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -23,7 +23,6 @@ public class Login {
 
 	@PostConstruct
 	public void init() {
-		FacesContext context = FacesContext.getCurrentInstance();
 		usr = new Usuario();
 	}
 
