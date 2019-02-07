@@ -1,5 +1,5 @@
 package model;
-// Generated 22/01/2019 20:17:52 by Hibernate Tools 4.3.5.Final
+// Generated 06/02/2019 19:25:50 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,28 +21,31 @@ import javax.persistence.Table;
 public class Contenido implements java.io.Serializable {
 
 	private BigDecimal cntId;
-	private Set<UnidadCurricular> unidadCurriculars = new HashSet<UnidadCurricular>(0);
+	private UnidadCurricular unidadCurricular;
+	private String cntDescripcion;
 	private Set<Herramienta> herramientas = new HashSet<Herramienta>(0);
 	private Set<Actividad> actividads = new HashSet<Actividad>(0);
 
 	public Contenido() {
 	}
 
-	public Contenido(BigDecimal cntId) {
+	public Contenido(BigDecimal cntId, UnidadCurricular unidadCurricular) {
 		this.cntId = cntId;
+		this.unidadCurricular = unidadCurricular;
 	}
 
-	public Contenido(BigDecimal cntId, Set<UnidadCurricular> unidadCurriculars, Set<Herramienta> herramientas,
-			Set<Actividad> actividads) {
+	public Contenido(BigDecimal cntId, UnidadCurricular unidadCurricular, String cntDescripcion,
+			Set<Herramienta> herramientas, Set<Actividad> actividads) {
 		this.cntId = cntId;
-		this.unidadCurriculars = unidadCurriculars;
+		this.unidadCurricular = unidadCurricular;
+		this.cntDescripcion = cntDescripcion;
 		this.herramientas = herramientas;
 		this.actividads = actividads;
 	}
 
 	@Id
 
-	@Column(name = "CNT_ID", unique = true, nullable = false, precision = 38, scale = 0)
+	@Column(name = "CNT_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	public BigDecimal getCntId() {
 		return this.cntId;
 	}
@@ -49,13 +54,23 @@ public class Contenido implements java.io.Serializable {
 		this.cntId = cntId;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "contenido")
-	public Set<UnidadCurricular> getUnidadCurriculars() {
-		return this.unidadCurriculars;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UNCR_ID", nullable = false)
+	public UnidadCurricular getUnidadCurricular() {
+		return this.unidadCurricular;
 	}
 
-	public void setUnidadCurriculars(Set<UnidadCurricular> unidadCurriculars) {
-		this.unidadCurriculars = unidadCurriculars;
+	public void setUnidadCurricular(UnidadCurricular unidadCurricular) {
+		this.unidadCurricular = unidadCurricular;
+	}
+
+	@Column(name = "CNT_DESCRIPCION", length = 400)
+	public String getCntDescripcion() {
+		return this.cntDescripcion;
+	}
+
+	public void setCntDescripcion(String cntDescripcion) {
+		this.cntDescripcion = cntDescripcion;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "contenido")

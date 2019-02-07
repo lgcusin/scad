@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;beans&apos; to &apos;servicios&apos;&#x0D;&#x0A;- Original project: &apos;BiometricoEjb&apos;&#x0D;&#x0A;- Original element: &apos;BiometricoEjb/ejbModule/beans&apos;&#x0D;&#x0A;- Renamed element: &apos;BiometricoEjb/ejbModule/servicios&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;beans&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/ejbModule&lt;beans" name="servicios" qualified="false" references="true" stamp="1548445051089" textual="false" version="1.0"/>
+</session>

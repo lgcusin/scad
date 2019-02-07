@@ -1,5 +1,5 @@
 package model;
-// Generated 22/01/2019 20:17:52 by Hibernate Tools 4.3.5.Final
+// Generated 06/02/2019 19:25:50 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -37,7 +37,7 @@ public class Herramienta implements java.io.Serializable {
 
 	@Id
 
-	@Column(name = "HRR_ID", unique = true, nullable = false, precision = 38, scale = 0)
+	@Column(name = "HRR_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	public BigDecimal getHrrId() {
 		return this.hrrId;
 	}
@@ -56,7 +56,7 @@ public class Herramienta implements java.io.Serializable {
 		this.contenido = contenido;
 	}
 
-	@Column(name = "HRR_NOMBRE", length = 400)
+	@Column(name = "HRR_NOMBRE", length = 200)
 	public String getHrrNombre() {
 		return this.hrrNombre;
 	}

@@ -1,0 +1,14 @@
+package servicios;
+
+import java.util.List;
+
+import javax.ejb.Local;
+
+import model.Syllabo;
+
+@Local
+public interface SrvSeguimientoLocal {
+
+	List<Materia> listar(String param);
+
+}

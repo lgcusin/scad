@@ -1,5 +1,5 @@
 package model;
-// Generated 22/01/2019 20:17:52 by Hibernate Tools 4.3.5.Final
+// Generated 06/02/2019 19:25:50 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -18,37 +18,27 @@ import javax.persistence.Table;
 public class Seguimiento implements java.io.Serializable {
 
 	private BigDecimal sgmId;
-	private MallaCurricularMateria mallaCurricularMateria;
 	private Asistencia asistencia;
+	private MallaCurricularMateria mallaCurricularMateria;
 
 	public Seguimiento() {
 	}
 
-	public Seguimiento(BigDecimal sgmId, MallaCurricularMateria mallaCurricularMateria, Asistencia asistencia) {
+	public Seguimiento(BigDecimal sgmId, Asistencia asistencia, MallaCurricularMateria mallaCurricularMateria) {
 		this.sgmId = sgmId;
-		this.mallaCurricularMateria = mallaCurricularMateria;
 		this.asistencia = asistencia;
+		this.mallaCurricularMateria = mallaCurricularMateria;
 	}
 
 	@Id
 
-	@Column(name = "SGM_ID", unique = true, nullable = false, precision = 38, scale = 0)
+	@Column(name = "SGM_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	public BigDecimal getSgmId() {
 		return this.sgmId;
 	}
 
 	public void setSgmId(BigDecimal sgmId) {
 		this.sgmId = sgmId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MLCRMT_ID", nullable = false)
-	public MallaCurricularMateria getMallaCurricularMateria() {
-		return this.mallaCurricularMateria;
-	}
-
-	public void setMallaCurricularMateria(MallaCurricularMateria mallaCurricularMateria) {
-		this.mallaCurricularMateria = mallaCurricularMateria;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -59,6 +49,16 @@ public class Seguimiento implements java.io.Serializable {
 
 	public void setAsistencia(Asistencia asistencia) {
 		this.asistencia = asistencia;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MLCRMT_ID", nullable = false)
+	public MallaCurricularMateria getMallaCurricularMateria() {
+		return this.mallaCurricularMateria;
+	}
+
+	public void setMallaCurricularMateria(MallaCurricularMateria mallaCurricularMateria) {
+		this.mallaCurricularMateria = mallaCurricularMateria;
 	}
 
 }

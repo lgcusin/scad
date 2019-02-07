@@ -11,16 +11,16 @@
 <ui:composition
 	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
 	<ui:define name="cuerpo">
-		<h:form id="frmLstRegistro" enctype="multipart/form-data"
+		<h:form id="frmRegistro" enctype="multipart/form-data"
 			acceptcharset="UTF-8">
 			<div style="margin-left: 10px; margin-right: 10px;">
 				<div
 					class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"
-					id="frmLstRegistro:pnlBusqueda_header">
+					id="frmRegistro:pnlBusqueda_header">
 					<span class="ui-panel-title">Ingrese los datos para buscar</span>
 				</div>
 				<div class="ui-panel-content ui-widget-content"
-					id="frmLstRegistro:pnlBusqueda_content">
+					id="frmRegistro:pnlBusqueda_content">
 					<!-- ******************** TABLA RESPONSIVA ************************ -->
 					<div class="grid condensed">
 						<!-- ******************** FILA NUMERO 2 ************************ -->
@@ -31,8 +31,8 @@
 									<div class="row cells8" style="margin: 0 !important">
 										<div class="cell colspan2">
 											<label class="ui-outputlabel ui-widget"
-												id="frmLstRegistro:lblBusqueda"
-												for="frmLstRegistro:slcBusqueda">Busqueda </label>
+												id="frmRegistro:lblBusqueda" for="frmRegistro:slcBusqueda">Busqueda
+											</label>
 										</div>
 										<div class="cell colspan4">
 											<p:inputText value="#{registro.parametro}"></p:inputText>
@@ -46,10 +46,10 @@
 				<div>
 					<p:commandButton action="#{registro.listar}" value="Buscar"
 						update="dtregistro"></p:commandButton>
-					<button name="frmLstRegistro:btnLimpiar"
+					<button name="frmRegistro:btnLimpiar"
 						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-						id="frmLstRegistro:btnLimpiar"
-						onclick="PrimeFaces.ab({s:'frmLstRegistro:btnLimpiar',u:'frmLstRegistro:pnlResultados frmLstRegistro:pnlBusqueda'});return false;"
+						id="frmRegistro:btnLimpiar"
+						onclick="PrimeFaces.ab({s:'frmRegistro:btnLimpiar',u:'frmRegistro:pnlResultados frmRegistro:pnlBusqueda'});return false;"
 						type="submit">
 						<span class="ui-button-text ui-c">Limpiar</span>
 					</button>
@@ -74,53 +74,12 @@
 							value="#{dcnt.fcdcApellidos} #{dcnt.fcdcPrimerNombre} #{dcnt.fcdcSegundoNombre}" />
 					</p:column>
 					<f:facet name="footer">
-						<p:commandButton process="dtregistro"
-							update=":frmLstRegistro:huellaDetalles" value="Registrar"
-							oncomplete="PF('dcntDialog').show()"
-							action="#{registro.encender}" />
+						<p:commandButton id="btnRegistrar" value="registrar" action="#{registro.verHuellas}"></p:commandButton>
+
 					</f:facet>
 				</p:dataTable>
 			</div>
-			<p:dialog header="Registro de Huellas" widgetVar="dcntDialog"
-				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-				<p:outputPanel id="huellaDetalles" style="text-align:center;">
-					<p:panelGrid columns="1">
-						<f:facet name="header">
-							<p:panelGrid columns="2">
-								<h:outputText value="Docente:" />
-								<h:outputText
-									value="#{registro.selectDcnt.fcdcApellidos} #{registro.selectDcnt.fcdcPrimerNombre} #{registro.selectDcnt.fcdcSegundoNombre}" />
-								<h:outputText value="Carrera" />
-								<h:outputText value="INGENIERIA" />
-							</p:panelGrid>
-						</f:facet>
-						<p:tabView value="#{registro.lstTphl}" var="tphl" >
-							<p:tab title="#{tphl.tphlDescripcionDedo}">
-								<p:panelGrid columns="2" columnClasses="image,quality,command">
-									<p:graphicImage id="imagenR1" value="#{registro.graphic1}"
-										width="100" height="130"></p:graphicImage>
-									<p:graphicImage id="imagenR2" value="#{registro.graphic2}"
-										width="100" height="130"></p:graphicImage>
-									<p:progressBar id="calidad1" ajax="true"
-										value="#{registro.quality1}"></p:progressBar>
-									<p:progressBar id="calidad2" ajax="true"
-										value="#{registro.quality2}"></p:progressBar>
-									<p:commandButton id="botonR1" value="Captura R1"
-										action="#{registro.capturar1}" update="imagenR1"></p:commandButton>
-									<p:commandButton id="botonR2" value="Captura R2"
-										action="#{registro.capturar2}" update="imagenR2"></p:commandButton>
-								</p:panelGrid>
-							</p:tab>
-						</p:tabView>
-					</p:panelGrid>
-					<div>
-						<p:commandButton id="botonRegistrar" value="Registrar"
-							action="#{registro.registrar}"></p:commandButton>
-						<p:commandButton id="botonVerificar" value="Verificar"
-							action="#{registro.verificar}"></p:commandButton>
-					</div>
-				</p:outputPanel>
-			</p:dialog>
+
 		</h:form>
 	</ui:define>
 </ui:composition>

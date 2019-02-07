@@ -2,7 +2,6 @@ package model;
 // Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,44 +22,51 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "ASISTENCIA")
+@NamedQuery(name="Asistencia.findAll", query="select a from Asistencia as a where a.fichaDocente.fcdcId=:fcdcId")
 public class Asistencia implements java.io.Serializable {
 
 	/**
 	 * 
 	 */
-	private BigDecimal assId;
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private Integer assId;
 	private FichaDocente fichaDocente;
 	private Date assFecha;
-	private Serializable assHora;
+	private String assHoraEntrada;
+	private String assHoraSalida;
 	private String assEstado;
 	private Set<Seguimiento> seguimientos = new HashSet<Seguimiento>(0);
 
 	public Asistencia() {
 	}
 
-	public Asistencia(BigDecimal assId, FichaDocente fichaDocente) {
+	public Asistencia(Integer assId, FichaDocente fichaDocente) {
 		this.assId = assId;
 		this.fichaDocente = fichaDocente;
 	}
 
-	public Asistencia(BigDecimal assId, FichaDocente fichaDocente, Date assFecha, Serializable assHora,
-			String assEstado, Set<Seguimiento> seguimientos) {
+	public Asistencia(Integer assId, FichaDocente fichaDocente, Date assFecha, String assHoraEntrada,
+			String assHoraSalida, String assEstado, Set<Seguimiento> seguimientos) {
 		this.assId = assId;
 		this.fichaDocente = fichaDocente;
 		this.assFecha = assFecha;
-		this.assHora = assHora;
+		this.assHoraEntrada = assHoraEntrada;
+		this.assHoraSalida = assHoraSalida;
 		this.assEstado = assEstado;
 		this.seguimientos = seguimientos;
 	}
 
 	@Id
 
-	@Column(name = "ASS_ID", unique = true, nullable = false, precision = 38, scale = 0)
-	public BigDecimal getAssId() {
+	@Column(name = "ASS_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	public Integer getAssId() {
 		return this.assId;
 	}
 
-	public void setAssId(BigDecimal assId) {
+	public void setAssId(Integer assId) {
 		this.assId = assId;
 	}
 
@@ -83,13 +90,22 @@ public class Asistencia implements java.io.Serializable {
 		this.assFecha = assFecha;
 	}
 
-	@Column(name = "ASS_HORA")
-	public Serializable getAssHora() {
-		return this.assHora;
+	@Column(name = "ASS_HORA_ENTRADA", length = 8)
+	public String getAssHoraEntrada() {
+		return this.assHoraEntrada;
 	}
 
-	public void setAssHora(Serializable assHora) {
-		this.assHora = assHora;
+	public void setAssHoraEntrada(String assHoraEntrada) {
+		this.assHoraEntrada = assHoraEntrada;
+	}
+
+	@Column(name = "ASS_HORA_SALIDA", length = 8)
+	public String getAssHoraSalida() {
+		return this.assHoraSalida;
+	}
+
+	public void setAssHoraSalida(String assHoraSalida) {
+		this.assHoraSalida = assHoraSalida;
 	}
 
 	@Column(name = "ASS_ESTADO", length = 20)

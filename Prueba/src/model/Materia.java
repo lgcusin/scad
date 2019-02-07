@@ -1,5 +1,5 @@
 package model;
-// Generated 22/01/2019 20:17:52 by Hibernate Tools 4.3.5.Final
+// Generated 06/02/2019 19:25:50 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -24,6 +24,7 @@ public class Materia implements java.io.Serializable {
 	private Carrera carrera;
 	private String mtrNombre;
 	private Set<MallaCurricularMateria> mallaCurricularMaterias = new HashSet<MallaCurricularMateria>(0);
+	private Set<Horario> horarios = new HashSet<Horario>(0);
 
 	public Materia() {
 	}
@@ -34,11 +35,12 @@ public class Materia implements java.io.Serializable {
 	}
 
 	public Materia(BigDecimal mtrId, Carrera carrera, String mtrNombre,
-			Set<MallaCurricularMateria> mallaCurricularMaterias) {
+			Set<MallaCurricularMateria> mallaCurricularMaterias, Set<Horario> horarios) {
 		this.mtrId = mtrId;
 		this.carrera = carrera;
 		this.mtrNombre = mtrNombre;
 		this.mallaCurricularMaterias = mallaCurricularMaterias;
+		this.horarios = horarios;
 	}
 
 	@Id
@@ -78,6 +80,15 @@ public class Materia implements java.io.Serializable {
 
 	public void setMallaCurricularMaterias(Set<MallaCurricularMateria> mallaCurricularMaterias) {
 		this.mallaCurricularMaterias = mallaCurricularMaterias;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "materia")
+	public Set<Horario> getHorarios() {
+		return this.horarios;
+	}
+
+	public void setHorarios(Set<Horario> horarios) {
+		this.horarios = horarios;
 	}
 
 }

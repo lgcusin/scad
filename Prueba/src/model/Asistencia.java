@@ -1,7 +1,6 @@
 package model;
-// Generated 22/01/2019 20:17:52 by Hibernate Tools 4.3.5.Final
+// Generated 06/02/2019 19:25:50 by Hibernate Tools 4.3.5.Final
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -27,7 +26,8 @@ public class Asistencia implements java.io.Serializable {
 	private BigDecimal assId;
 	private FichaDocente fichaDocente;
 	private Date assFecha;
-	private Serializable assHora;
+	private String assHoraEntrada;
+	private String assHoraSalida;
 	private String assEstado;
 	private Set<Seguimiento> seguimientos = new HashSet<Seguimiento>(0);
 
@@ -39,19 +39,20 @@ public class Asistencia implements java.io.Serializable {
 		this.fichaDocente = fichaDocente;
 	}
 
-	public Asistencia(BigDecimal assId, FichaDocente fichaDocente, Date assFecha, Serializable assHora,
-			String assEstado, Set<Seguimiento> seguimientos) {
+	public Asistencia(BigDecimal assId, FichaDocente fichaDocente, Date assFecha, String assHoraEntrada,
+			String assHoraSalida, String assEstado, Set<Seguimiento> seguimientos) {
 		this.assId = assId;
 		this.fichaDocente = fichaDocente;
 		this.assFecha = assFecha;
-		this.assHora = assHora;
+		this.assHoraEntrada = assHoraEntrada;
+		this.assHoraSalida = assHoraSalida;
 		this.assEstado = assEstado;
 		this.seguimientos = seguimientos;
 	}
 
 	@Id
 
-	@Column(name = "ASS_ID", unique = true, nullable = false, precision = 38, scale = 0)
+	@Column(name = "ASS_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	public BigDecimal getAssId() {
 		return this.assId;
 	}
@@ -80,13 +81,22 @@ public class Asistencia implements java.io.Serializable {
 		this.assFecha = assFecha;
 	}
 
-	@Column(name = "ASS_HORA")
-	public Serializable getAssHora() {
-		return this.assHora;
+	@Column(name = "ASS_HORA_ENTRADA", length = 8)
+	public String getAssHoraEntrada() {
+		return this.assHoraEntrada;
 	}
 
-	public void setAssHora(Serializable assHora) {
-		this.assHora = assHora;
+	public void setAssHoraEntrada(String assHoraEntrada) {
+		this.assHoraEntrada = assHoraEntrada;
+	}
+
+	@Column(name = "ASS_HORA_SALIDA", length = 8)
+	public String getAssHoraSalida() {
+		return this.assHoraSalida;
+	}
+
+	public void setAssHoraSalida(String assHoraSalida) {
+		this.assHoraSalida = assHoraSalida;
 	}
 
 	@Column(name = "ASS_ESTADO", length = 20)

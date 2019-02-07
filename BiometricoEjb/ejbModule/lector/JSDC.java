@@ -3,9 +3,11 @@ package lector;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -13,9 +15,11 @@ import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.sql.rowset.serial.SerialException;
 import SecuGen.FDxSDKPro.jni.*;
 import model.FichaDocente;
+import model.HuellaDactilar;
 
 /**
  * Session Bean implementation class JSDC
@@ -40,6 +44,9 @@ public class JSDC implements JSDCLocal {
 	private static int MINIMUM_NUM_MINUTIAE = 20; // User defined
 	private static int MAXIMUM_NFIQ = 2;
 	private int[] quality = new int[1];
+
+	@PersistenceContext
+	EntityManager em;
 
 	public JSDC() {
 		bLEDOn = false;
@@ -103,14 +110,14 @@ public class JSDC implements JSDCLocal {
 				System.out.println("Verification Success (1st Attempt)");
 				System.out.println("Huella Captura 1" + Arrays.toString(regMin1));
 				System.out.println("Huella Captura 2" + Arrays.toString(regMin2));
-				return true;
+				return matched[0];
 			} else {
 				System.out.println("Comparacion Error : " + iError);
-				return false;
+				return matched[0];
 			}
 		} else {
 			System.out.println("MatchTemplate() Error : " + iError);
-			return false;
+			return matched[0];
 		}
 	}
 
@@ -190,7 +197,7 @@ public class JSDC implements JSDCLocal {
 
 	@Override
 	public void onLED() {
-		if (fplib != null) {
+		if (fplib != null && bLEDOn == false) {
 			bLEDOn = !bLEDOn;
 			ret = fplib.SetLedOn(bLEDOn);
 			if (ret == SGFDxErrorCode.SGFDX_ERROR_NONE) {
@@ -225,36 +232,16 @@ public class JSDC implements JSDCLocal {
 			iError = fplib.CloseDevice();
 			fplib.Close();
 			fplib = null;
+			bLEDOn = false;
+			r1Captured = false;
+			r2Captured = false;
+
 		}
 		if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
 			System.out.println("CloseDevice() Success [" + iError + "]");
 		} else {
 			System.out.println("CloseDevice() Error : " + iError);
 		}
-	}
-
-	public void guardarImagen(BufferedImage bimg) throws IOException, SerialException, SQLException {
-		ByteArrayOutputStream baos = null;
-		try {
-			baos = new ByteArrayOutputStream();
-			ImageIO.write(bimg, "png", baos);
-		} finally {
-			try {
-				baos.close();
-			} catch (Exception e) {
-			}
-		}
-		Blob huella = new javax.sql.rowset.serial.SerialBlob(baos.toByteArray());
-		FichaDocente fcdc = new FichaDocente();
-		// fcdc.setFcdcId(2);
-		// fcdc.setFcdcPrimerNombre("lino");
-		// fcdc.setFcdcSegundoNombre("geovany");
-		// fcdc.setFcdcApellidos("cusin");
-		// fcdc.setFcdcHuellaPulgar1(huella);
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("UnidadPersistencia");
-		EntityManager em = emf.createEntityManager();
-		em.merge(fcdc);
-
 	}
 
 	public BufferedImage getImgRegistration1() {
@@ -273,6 +260,63 @@ public class JSDC implements JSDCLocal {
 		this.imgRegistration2 = imgRegistration2;
 	}
 
-	//////
+	@Override
+	public boolean comparar(BufferedImage img) throws SQLException, IOException {
+		long nfiqvalue;
+		int[] numOfMinutiae = new int[1];
+		BufferedImage imgn = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight,
+				BufferedImage.TYPE_BYTE_GRAY);
+		byte[] imageBuffer1 = ((java.awt.image.DataBufferByte) imgn.getRaster().getDataBuffer()).getData();
+		long iError = SGFDxErrorCode.SGFDX_ERROR_NONE;
+		if (fplib != null) {
+			iError = fplib.GetImageEx(imageBuffer1, 5 * 1000, 0, 50);
+			fplib.GetImageQuality(deviceInfo.imageWidth, deviceInfo.imageHeight, imageBuffer1, quality);
+			SGFingerInfo fingerInfo = new SGFingerInfo();
+			fingerInfo.FingerNumber = SGFingerPosition.SG_FINGPOS_LI;
+			fingerInfo.ImageQuality = quality[0];
+			fingerInfo.ImpressionType = SGImpressionType.SG_IMPTYPE_LP;
+			fingerInfo.ViewNumber = 1;
+			if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
+				if (quality[0] < MINIMUM_QUALITY) {
+					System.out.println("GetImageEx() Success [" + ret + "] but image quality is [" + quality[0]
+							+ "]. Please try again");
+				} else {
+					System.out.println("GetImageEx() Success [" + ret + "]");
+					iError = fplib.CreateTemplate(fingerInfo, imageBuffer1, regMin1);
+					if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
+						long ret2 = fplib.GetImageQuality(deviceInfo.imageWidth, deviceInfo.imageHeight, imageBuffer1,
+								quality);
+						nfiqvalue = fplib.ComputeNFIQ(imageBuffer1, deviceInfo.imageWidth, deviceInfo.imageHeight);
+
+						ret2 = fplib.GetNumOfMinutiae(SGFDxTemplateFormat.TEMPLATE_FORMAT_SG400, regMin1,
+								numOfMinutiae);
+						if ((quality[0] >= MINIMUM_QUALITY) && (nfiqvalue <= MAXIMUM_NFIQ)
+								&& (numOfMinutiae[0] >= MINIMUM_NUM_MINUTIAE)) {
+							System.out.println("Reg. Capture PASS QC. Qual[" + quality[0] + "] NFIQ[" + nfiqvalue
+									+ "] Minutiae[" + numOfMinutiae[0] + "]");
+						} else {
+							System.out.println("Reg. Capture FAIL QC. Quality[" + quality[0] + "] NFIQ[" + nfiqvalue
+									+ "] Minutiae[" + numOfMinutiae[0] + "]");
+						}
+					} else {
+						System.out.println("CreateTemplate() Error : " + iError);
+					}
+				}
+			} else {
+				System.out.println("GetImageEx() Error : " + iError);
+			}
+		} else {
+			System.out.println("JSGFPLib is not Initialized");
+		}
+
+		List<HuellaDactilar> lstHd = em.createNamedQuery("HuellaDactilar.findAll", HuellaDactilar.class)
+				.getResultList();
+		for (HuellaDactilar hd : lstHd) {
+			Blob blob = hd.getHldPrimerHuella();
+			InputStream in = blob.getBinaryStream();
+			BufferedImage image = ImageIO.read(in);
+		}
+		return false;
+	}
 
 }

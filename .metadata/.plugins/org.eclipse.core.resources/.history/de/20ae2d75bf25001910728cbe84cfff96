@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">>
+	<ui:define name="cuerpo">
+		<h:form id="frmRegistro" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<div style="margin-left: 10px; margin-right: 10px;">
+				<div
+					class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"
+					id="frmRegistro:pnlBusqueda_header">
+					<span class="ui-panel-title">Ingrese los datos para filtrar</span>
+				</div>
+
+					<p:panel id="pnlBusqueda"
+						styleClass="ui-panel ui-widget ui-widget-content ui-corner-all">
+						<p:panel id="pnlBusqueda_header"
+							styleClass="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+							<h:outputLabel value="Parámetros de búsqueda"
+								styleClass="ui-panel-title"></h:outputLabel>
+						</p:panel>
+						<p:panel id="pnlBusqueda_content"
+							styleClass="ui-panel-content ui-widget-content">
+							<!-- ******************** TABLA RESPONSIVA ************************ -->
+							<div class="grid condensed">
+								<!-- ******************** FILA NUMERO 2 ************************ -->
+								<div class="row cells8">
+									<div class="cell colspan4">
+										<!-- CARRERA -->
+
+										<div class="grid condensed" style="margin: 0 !important">
+											<!-- ******************** FILA NUMERO 1 ************************ -->
+											<div class="row cells8" style="margin: 0 !important">
+												<div class="cell colspan2">
+													<p:outputLabel id="lblCarrera" value="Carrera: "
+														styleClass="ui-outputlabel ui-widget" for="slcCarrera"></p:outputLabel>
+												</div>
+												<div class="cell colspan4">
+													<p:selectOneMenu id="slcCarrera" style="width: 100%">
+														<f:selectItem itemLabel="TODAS" itemValue=""></f:selectItem>
+													</p:selectOneMenu>
+												</div>
+												<div class="cell colspan2">
+													<div id="frmMatricula:msgCarrera" aria-live="polite"
+														class="ui-message"></div>
+												</div>
+											</div>
+										</div>
+
+
+									</div>
+								</div>
+								<!-- ******************** FIN FILA NUMERO 2 ************************ -->
+							</div>
+						</p:panel>
+					</p:panel>
+					
+				</div>
+				
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,53 @@
+package managedBeans;
+
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+
+import model.String;
+import servicios.DocenteBean;
+
+@ManagedBean(name = "detalleAct")
+public class DetalleActividades {
+	@EJB
+	private DocenteBean srvDnt;
+
+	private String act;
+
+	public List<String> lstAc;
+
+	@PostConstruct
+	public void init() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Principal p = context.getApplication().evaluateExpressionGet(context, "#{principal}", Principal.class);
+		act = new String();
+		lstAc = srvDnt.listarActividades(p.fdId);
+	}
+
+	public String regresar() {
+		return "principal";
+	}
+
+	// setters and getters
+
+	public String getAss() {
+		return act;
+	}
+
+	public void setAss(String ass) {
+		this.act = ass;
+	}
+
+	public List<String> getLstAc() {
+		return lstAc;
+	}
+
+	public void setLstAc(List<String> lstAc) {
+		this.lstAc = lstAc;
+	}
+
+
+}

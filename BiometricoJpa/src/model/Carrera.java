@@ -1,13 +1,13 @@
 package model;
 // Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -16,9 +16,14 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CARRERA")
+@NamedQuery(name = "Carrera.findAllC", query = "select c from Carrera as c")
 public class Carrera implements java.io.Serializable {
 
-	private BigDecimal crrId;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer crrId;
 	private String crrNombre;
 	private Set<DetallePuesto> detallePuestos = new HashSet<DetallePuesto>(0);
 	private Set<Materia> materias = new HashSet<Materia>(0);
@@ -27,11 +32,11 @@ public class Carrera implements java.io.Serializable {
 	public Carrera() {
 	}
 
-	public Carrera(BigDecimal crrId) {
+	public Carrera(Integer crrId) {
 		this.crrId = crrId;
 	}
 
-	public Carrera(BigDecimal crrId, String crrNombre, Set<DetallePuesto> detallePuestos, Set<Materia> materias,
+	public Carrera(Integer crrId, String crrNombre, Set<DetallePuesto> detallePuestos, Set<Materia> materias,
 			Set<MallaCurricular> mallaCurriculars) {
 		this.crrId = crrId;
 		this.crrNombre = crrNombre;
@@ -43,11 +48,11 @@ public class Carrera implements java.io.Serializable {
 	@Id
 
 	@Column(name = "CRR_ID", unique = true, nullable = false, precision = 38, scale = 0)
-	public BigDecimal getCrrId() {
+	public Integer getCrrId() {
 		return this.crrId;
 	}
 
-	public void setCrrId(BigDecimal crrId) {
+	public void setCrrId(Integer crrId) {
 		this.crrId = crrId;
 	}
 

@@ -10,18 +10,19 @@ import javax.sql.rowset.serial.SerialException;
 @Local
 public interface JSDCLocal {
 
-	public void inicializar();
+	void inicializar();
 
-	public void onLED();
+	void onLED();
 
-	public BufferedImage capturar();
+	BufferedImage capturar();
 
-	public int calidad();
+	int calidad();
 
-	public boolean verificar();
+	boolean verificar();
 
-	public void cerrar();
+	void cerrar();
 
-	public void configurar();
+	void configurar();
 
+	boolean comparar(BufferedImage img) throws SQLException, IOException;
 }

@@ -1,0 +1,34 @@
+package managedBeans;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+@ManagedBean(name = "control")
+@ViewScoped
+public class Control {
+
+	public String hora;
+	Date ahora;
+	SimpleDateFormat formateador;
+
+	public void init() {
+	}
+
+	public void temporizador() {
+		ahora = new Date();
+		formateador = new SimpleDateFormat("HH:mm:ss");
+		hora = formateador.format(ahora);
+	}
+	
+
+	public String getHora() {
+		return hora;
+	}
+
+	public void setHora(String hora) {
+		this.hora = hora;
+	}
+
+}

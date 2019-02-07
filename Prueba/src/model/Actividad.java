@@ -1,5 +1,5 @@
 package model;
-// Generated 22/01/2019 20:17:52 by Hibernate Tools 4.3.5.Final
+// Generated 06/02/2019 19:25:50 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -19,6 +19,7 @@ public class Actividad implements java.io.Serializable {
 
 	private BigDecimal actId;
 	private Contenido contenido;
+	private String actDescripcion;
 
 	public Actividad() {
 	}
@@ -28,9 +29,15 @@ public class Actividad implements java.io.Serializable {
 		this.contenido = contenido;
 	}
 
+	public Actividad(BigDecimal actId, Contenido contenido, String actDescripcion) {
+		this.actId = actId;
+		this.contenido = contenido;
+		this.actDescripcion = actDescripcion;
+	}
+
 	@Id
 
-	@Column(name = "ACT_ID", unique = true, nullable = false, precision = 38, scale = 0)
+	@Column(name = "ACT_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	public BigDecimal getActId() {
 		return this.actId;
 	}
@@ -47,6 +54,15 @@ public class Actividad implements java.io.Serializable {
 
 	public void setContenido(Contenido contenido) {
 		this.contenido = contenido;
+	}
+
+	@Column(name = "ACT_DESCRIPCION", length = 400)
+	public String getActDescripcion() {
+		return this.actDescripcion;
+	}
+
+	public void setActDescripcion(String actDescripcion) {
+		this.actDescripcion = actDescripcion;
 	}
 
 }

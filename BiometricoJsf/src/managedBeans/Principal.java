@@ -3,18 +3,19 @@ package managedBeans;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import beans.DocenteBeanLocal;
 import model.FichaDocente;
+import servicios.SrvDocenteLocal;
 
 @ManagedBean(name = "principal")
-@SessionScoped
+@RequestScoped
 public class Principal {
 
 	@EJB
-	private DocenteBeanLocal srvDcnt;
+	private SrvDocenteLocal srvDcnt;
 
 	private FichaDocente fd;
 	public Integer fdId;

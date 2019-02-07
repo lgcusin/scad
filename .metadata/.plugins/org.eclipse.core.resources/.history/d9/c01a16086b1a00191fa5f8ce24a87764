@@ -1,5 +1,0 @@
-package ec.edu.uce.Biometrico.jsf.springSecurity;
-
-public class ConexionLdap {
-
-}

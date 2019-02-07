@@ -3,15 +3,16 @@ package managedBeans;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import beans.LoginBean;
-import beans.LoginBeanLocal;
 import model.Usuario;
+import servicios.LoginBean;
+import servicios.LoginBeanLocal;
 
 @ManagedBean(name = "login")
-@SessionScoped
+@RequestScoped
 public class Login {
 
 	@EJB
@@ -27,14 +28,15 @@ public class Login {
 	}
 
 	public String ingresar() {
-		usr = loginBean.verificar(usr);
+		
+		usr = loginBean.verificar(nick, clave);
 
 		if (usr.getUrsId() != null) {
 			return "principal";
 		} else {
 			System.out.println("usuario o contraseña no validos");
 		}
-		return null;
+		return "errorLogin";
 	}
 
 	public String getNick() {

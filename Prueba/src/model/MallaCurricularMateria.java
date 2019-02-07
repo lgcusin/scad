@@ -1,5 +1,5 @@
 package model;
-// Generated 22/01/2019 20:17:52 by Hibernate Tools 4.3.5.Final
+// Generated 06/02/2019 19:25:50 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -23,9 +23,10 @@ public class MallaCurricularMateria implements java.io.Serializable {
 	private BigDecimal mlcrmtId;
 	private MallaCurricular mallaCurricular;
 	private Materia materia;
-	private BigDecimal mlcrmtEstado;
-	private Set<UnidadCurricular> unidadCurriculars = new HashSet<UnidadCurricular>(0);
+	private String mlcrmtEstado;
+	private Set<MallaCurricularParalelo> mallaCurricularParalelos = new HashSet<MallaCurricularParalelo>(0);
 	private Set<Seguimiento> seguimientos = new HashSet<Seguimiento>(0);
+	private Set<Syllabo> syllabos = new HashSet<Syllabo>(0);
 
 	public MallaCurricularMateria() {
 	}
@@ -37,13 +38,15 @@ public class MallaCurricularMateria implements java.io.Serializable {
 	}
 
 	public MallaCurricularMateria(BigDecimal mlcrmtId, MallaCurricular mallaCurricular, Materia materia,
-			BigDecimal mlcrmtEstado, Set<UnidadCurricular> unidadCurriculars, Set<Seguimiento> seguimientos) {
+			String mlcrmtEstado, Set<MallaCurricularParalelo> mallaCurricularParalelos, Set<Seguimiento> seguimientos,
+			Set<Syllabo> syllabos) {
 		this.mlcrmtId = mlcrmtId;
 		this.mallaCurricular = mallaCurricular;
 		this.materia = materia;
 		this.mlcrmtEstado = mlcrmtEstado;
-		this.unidadCurriculars = unidadCurriculars;
+		this.mallaCurricularParalelos = mallaCurricularParalelos;
 		this.seguimientos = seguimientos;
+		this.syllabos = syllabos;
 	}
 
 	@Id
@@ -77,22 +80,22 @@ public class MallaCurricularMateria implements java.io.Serializable {
 		this.materia = materia;
 	}
 
-	@Column(name = "MLCRMT_ESTADO", precision = 38, scale = 0)
-	public BigDecimal getMlcrmtEstado() {
+	@Column(name = "MLCRMT_ESTADO", length = 20)
+	public String getMlcrmtEstado() {
 		return this.mlcrmtEstado;
 	}
 
-	public void setMlcrmtEstado(BigDecimal mlcrmtEstado) {
+	public void setMlcrmtEstado(String mlcrmtEstado) {
 		this.mlcrmtEstado = mlcrmtEstado;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mallaCurricularMateria")
-	public Set<UnidadCurricular> getUnidadCurriculars() {
-		return this.unidadCurriculars;
+	public Set<MallaCurricularParalelo> getMallaCurricularParalelos() {
+		return this.mallaCurricularParalelos;
 	}
 
-	public void setUnidadCurriculars(Set<UnidadCurricular> unidadCurriculars) {
-		this.unidadCurriculars = unidadCurriculars;
+	public void setMallaCurricularParalelos(Set<MallaCurricularParalelo> mallaCurricularParalelos) {
+		this.mallaCurricularParalelos = mallaCurricularParalelos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mallaCurricularMateria")
@@ -102,6 +105,15 @@ public class MallaCurricularMateria implements java.io.Serializable {
 
 	public void setSeguimientos(Set<Seguimiento> seguimientos) {
 		this.seguimientos = seguimientos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mallaCurricularMateria")
+	public Set<Syllabo> getSyllabos() {
+		return this.syllabos;
+	}
+
+	public void setSyllabos(Set<Syllabo> syllabos) {
+		this.syllabos = syllabos;
 	}
 
 }

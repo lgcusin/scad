@@ -1,0 +1,33 @@
+package servicios;
+
+import java.util.List;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import model.Materia;
+import model.Syllabo;
+
+/**
+ * Session Bean implementation class SrvSeguimiento
+ */
+@Stateless
+@LocalBean
+public class SrvSeguimiento implements SrvSeguimientoLocal {
+
+	@PersistenceContext
+	EntityManager em;
+
+	public SrvSeguimiento() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public List<Materia> listar(String param) {
+		List<Materia> lstM = em.createNamedQuery("", Materia.class).setParameter("", "").getResultList();
+		return lstM;
+	}
+
+}

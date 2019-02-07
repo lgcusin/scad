@@ -1,5 +1,5 @@
 package model;
-// Generated 22/01/2019 20:17:52 by Hibernate Tools 4.3.5.Final
+// Generated 06/02/2019 19:25:50 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -26,6 +26,7 @@ public class FichaDocente implements java.io.Serializable {
 	private Set<HuellaDactilar> huellaDactilars = new HashSet<HuellaDactilar>(0);
 	private Set<DetallePuesto> detallePuestos = new HashSet<DetallePuesto>(0);
 	private Set<Asistencia> asistencias = new HashSet<Asistencia>(0);
+	private Set<Horario> horarios = new HashSet<Horario>(0);
 	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 
 	public FichaDocente() {
@@ -37,7 +38,8 @@ public class FichaDocente implements java.io.Serializable {
 
 	public FichaDocente(BigDecimal fcdcId, BigDecimal fcdcIdentificacion, String fcdcPrimerNombre,
 			String fcdcSegundoNombre, String fcdcApellidos, Set<HuellaDactilar> huellaDactilars,
-			Set<DetallePuesto> detallePuestos, Set<Asistencia> asistencias, Set<Usuario> usuarios) {
+			Set<DetallePuesto> detallePuestos, Set<Asistencia> asistencias, Set<Horario> horarios,
+			Set<Usuario> usuarios) {
 		this.fcdcId = fcdcId;
 		this.fcdcIdentificacion = fcdcIdentificacion;
 		this.fcdcPrimerNombre = fcdcPrimerNombre;
@@ -46,6 +48,7 @@ public class FichaDocente implements java.io.Serializable {
 		this.huellaDactilars = huellaDactilars;
 		this.detallePuestos = detallePuestos;
 		this.asistencias = asistencias;
+		this.horarios = horarios;
 		this.usuarios = usuarios;
 	}
 
@@ -121,6 +124,15 @@ public class FichaDocente implements java.io.Serializable {
 
 	public void setAsistencias(Set<Asistencia> asistencias) {
 		this.asistencias = asistencias;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaDocente")
+	public Set<Horario> getHorarios() {
+		return this.horarios;
+	}
+
+	public void setHorarios(Set<Horario> horarios) {
+		this.horarios = horarios;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaDocente")

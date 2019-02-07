@@ -1,7 +1,6 @@
 package model;
 // Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -10,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,9 +19,16 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "MATERIA")
+@NamedQueries({ @NamedQuery(name = "Materia.findAll", query = "select m from Materia as m"),
+		@NamedQuery(name = "Materia.findAllById", query = "select m from Materia as m where m.carrera.crrId=:idcr") })
+
 public class Materia implements java.io.Serializable {
 
-	private BigDecimal mtrId;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer mtrId;
 	private Carrera carrera;
 	private String mtrNombre;
 	private Set<MallaCurricularMateria> mallaCurricularMaterias = new HashSet<MallaCurricularMateria>(0);
@@ -28,12 +36,12 @@ public class Materia implements java.io.Serializable {
 	public Materia() {
 	}
 
-	public Materia(BigDecimal mtrId, Carrera carrera) {
+	public Materia(Integer mtrId, Carrera carrera) {
 		this.mtrId = mtrId;
 		this.carrera = carrera;
 	}
 
-	public Materia(BigDecimal mtrId, Carrera carrera, String mtrNombre,
+	public Materia(Integer mtrId, Carrera carrera, String mtrNombre,
 			Set<MallaCurricularMateria> mallaCurricularMaterias) {
 		this.mtrId = mtrId;
 		this.carrera = carrera;
@@ -44,11 +52,11 @@ public class Materia implements java.io.Serializable {
 	@Id
 
 	@Column(name = "MTR_ID", unique = true, nullable = false, precision = 38, scale = 0)
-	public BigDecimal getMtrId() {
+	public Integer getMtrId() {
 		return this.mtrId;
 	}
 
-	public void setMtrId(BigDecimal mtrId) {
+	public void setMtrId(Integer mtrId) {
 		this.mtrId = mtrId;
 	}
 

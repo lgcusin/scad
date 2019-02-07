@@ -1,0 +1,27 @@
+package servicios;
+
+import java.util.List;
+
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+import model.Syllabo;
+
+/**
+ * Session Bean implementation class SrvSeguimiento
+ */
+@Stateless
+@LocalBean
+public class SrvSeguimiento implements SrvSeguimientoLocal {
+
+	public SrvSeguimiento() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public List<Syllabo> listar(String param) {
+
+		return null;
+	}
+
+}

@@ -1,13 +1,13 @@
 package model;
-// Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
+// Generated 29/01/2019 23:19:04 by Hibernate Tools 4.3.5.Final
 
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -15,27 +15,37 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ACTIVIDAD")
+@NamedQuery(name = "Actividad.findByFdId", query = "select act.actDescripcion from Actividad as act "
+		+ "where act.contenido.unidadCurricular.syllabo.mallaCurricularMateria.mlcrmtId in "
+		+ "(select sgm.mallaCurricularMateria.mlcrmtId from Seguimiento as sgm where sgm.asistencia.fichaDocente.fcdcId=:fcdcId)")
 public class Actividad implements java.io.Serializable {
 
-	private BigDecimal actId;
+	private Integer actId;
 	private Contenido contenido;
+	private String actDescripcion;
 
 	public Actividad() {
 	}
 
-	public Actividad(BigDecimal actId, Contenido contenido) {
+	public Actividad(Integer actId, Contenido contenido) {
 		this.actId = actId;
 		this.contenido = contenido;
 	}
 
+	public Actividad(Integer actId, Contenido contenido, String actDescripcion) {
+		this.actId = actId;
+		this.contenido = contenido;
+		this.actDescripcion = actDescripcion;
+	}
+
 	@Id
 
-	@Column(name = "ACT_ID", unique = true, nullable = false, precision = 38, scale = 0)
-	public BigDecimal getActId() {
+	@Column(name = "ACT_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	public Integer getActId() {
 		return this.actId;
 	}
 
-	public void setActId(BigDecimal actId) {
+	public void setActId(Integer actId) {
 		this.actId = actId;
 	}
 
@@ -47,6 +57,15 @@ public class Actividad implements java.io.Serializable {
 
 	public void setContenido(Contenido contenido) {
 		this.contenido = contenido;
+	}
+
+	@Column(name = "ACT_DESCRIPCION", length = 400)
+	public String getActDescripcion() {
+		return this.actDescripcion;
+	}
+
+	public void setActDescripcion(String actDescripcion) {
+		this.actDescripcion = actDescripcion;
 	}
 
 }

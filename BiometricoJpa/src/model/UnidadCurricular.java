@@ -1,13 +1,15 @@
 package model;
-// Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
+// Generated 29/01/2019 23:19:04 by Hibernate Tools 4.3.5.Final
 
-import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -17,61 +19,38 @@ import javax.persistence.Table;
 @Table(name = "UNIDAD_CURRICULAR")
 public class UnidadCurricular implements java.io.Serializable {
 
-	private BigDecimal uncrId;
-	private Contenido contenido;
-	private MallaCurricularMateria mallaCurricularMateria;
+	private Integer uncrId;
 	private Syllabo syllabo;
 	private String uncrDescripcion;
+	private Integer uncrTotalHoras;
+	private Set<Contenido> contenidos = new HashSet<Contenido>(0);
 
 	public UnidadCurricular() {
 	}
 
-	public UnidadCurricular(BigDecimal uncrId, Contenido contenido, MallaCurricularMateria mallaCurricularMateria,
-			Syllabo syllabo) {
+	public UnidadCurricular(Integer uncrId, Syllabo syllabo) {
 		this.uncrId = uncrId;
-		this.contenido = contenido;
-		this.mallaCurricularMateria = mallaCurricularMateria;
 		this.syllabo = syllabo;
 	}
 
-	public UnidadCurricular(BigDecimal uncrId, Contenido contenido, MallaCurricularMateria mallaCurricularMateria,
-			Syllabo syllabo, String uncrDescripcion) {
+	public UnidadCurricular(Integer uncrId, Syllabo syllabo, String uncrDescripcion, Integer uncrTotalHoras,
+			Set<Contenido> contenidos) {
 		this.uncrId = uncrId;
-		this.contenido = contenido;
-		this.mallaCurricularMateria = mallaCurricularMateria;
 		this.syllabo = syllabo;
 		this.uncrDescripcion = uncrDescripcion;
+		this.uncrTotalHoras = uncrTotalHoras;
+		this.contenidos = contenidos;
 	}
 
 	@Id
 
-	@Column(name = "UNCR_ID", unique = true, nullable = false, precision = 38, scale = 0)
-	public BigDecimal getUncrId() {
+	@Column(name = "UNCR_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	public Integer getUncrId() {
 		return this.uncrId;
 	}
 
-	public void setUncrId(BigDecimal uncrId) {
+	public void setUncrId(Integer uncrId) {
 		this.uncrId = uncrId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CNT_ID", nullable = false)
-	public Contenido getContenido() {
-		return this.contenido;
-	}
-
-	public void setContenido(Contenido contenido) {
-		this.contenido = contenido;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MLCRMT_ID", nullable = false)
-	public MallaCurricularMateria getMallaCurricularMateria() {
-		return this.mallaCurricularMateria;
-	}
-
-	public void setMallaCurricularMateria(MallaCurricularMateria mallaCurricularMateria) {
-		this.mallaCurricularMateria = mallaCurricularMateria;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -91,6 +70,24 @@ public class UnidadCurricular implements java.io.Serializable {
 
 	public void setUncrDescripcion(String uncrDescripcion) {
 		this.uncrDescripcion = uncrDescripcion;
+	}
+
+	@Column(name = "UNCR_TOTAL_HORAS", precision = 22, scale = 0)
+	public Integer getUncrTotalHoras() {
+		return this.uncrTotalHoras;
+	}
+
+	public void setUncrTotalHoras(Integer uncrTotalHoras) {
+		this.uncrTotalHoras = uncrTotalHoras;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "unidadCurricular")
+	public Set<Contenido> getContenidos() {
+		return this.contenidos;
+	}
+
+	public void setContenidos(Set<Contenido> contenidos) {
+		this.contenidos = contenidos;
 	}
 
 }

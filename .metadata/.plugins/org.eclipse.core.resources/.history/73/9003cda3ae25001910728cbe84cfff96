@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="UnidadPersistencia" transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:/BiometricoDS</jta-data-source>
+		<class>model.Usuario</class>
+		<class>model.FichaDocente</class>
+		<class>model.Actividad</class>
+		<class>model.Carrera</class>
+		<class>model.DetallePuesto</class>
+		<class>model.Herramienta</class>
+		<class>model.MallaCurricular</class>
+		<class>model.MallaCurricularMateria</class>
+		<class>model.Materia</class>
+		<class>model.Syllabo</class>
+		<class>model.UnidadCurricular</class>
+		<class>model.Contenido</class>
+		<class>model.Asistencia</class>
+		<class>model.Seguimiento</class>
+		<class>model.TipoHuella</class>
+		<class>model.HuellaDactilar</class>
+		<class>model.Aula</class>
+		<class>model.Paralelo</class>
+		<class>model.MallaCurricularParalelo</class>
+		<class>model.DetalleMatricula</class>
+		<class>model.DiaSemana</class>
+		<class>model.FichaEstudiante</class>
+		<class>model.Horario</class>
+		<class>model.TipoHorario</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver"/>
+			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+			<property name="hibernate.default_schema" value="SA"/>
+			<property name="hibernate.connection.username" value="sa"/>
+			<property name="hibernate.connection.password" value="admin"/>
+			<!-- <property name="jboss.entity.manager.factory.jndi.name" value="java:/BiometricoEntityManagerFactory"/> -->
+			<property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform"/>
+			
+		</properties>
+	</persistence-unit>
+</persistence>
