@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -15,6 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "HERRAMIENTA")
+@NamedQuery(name = "Herramienta.findAllByCnId",query="select hrr from Herramienta as hrr where hrr.contenido.cntId=:cntId")
 public class Herramienta implements java.io.Serializable {
 
 	private BigDecimal hrrId;

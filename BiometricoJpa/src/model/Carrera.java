@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,7 +17,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CARRERA")
-@NamedQuery(name = "Carrera.findAllC", query = "select c from Carrera as c")
+@NamedQueries({ @NamedQuery(name = "Carrera.findAllC", query = "select c from Carrera as c"),
+		@NamedQuery(name = "Carrera.findByMtrId", query = "select m.carrera from Materia as m where m.mtrId=:mtrId") })
+
 public class Carrera implements java.io.Serializable {
 
 	/**

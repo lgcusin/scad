@@ -1,0 +1,110 @@
+package managedBeans;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
+
+import model.Carrera;
+import model.Materia;
+import model.Syllabo;
+import servicios.SrvSeguimientoLocal;
+
+@ManagedBean(name = "syllabus")
+@SessionScoped
+public class Syllabus {
+
+	@EJB
+	private SrvSeguimientoLocal srvSgm;
+
+	public Materia mtr;
+	public Syllabus syl;
+	public Carrera selectCrr;
+	public Integer crrId;
+	public List<Carrera> lstC;
+	public List<Materia> lstM;
+	public List<String> itemsDts;
+
+	@PostConstruct
+	public void init() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		selectCrr = new Carrera();
+		mtr = new Materia();
+		lstC = srvSgm.listarAllCrr();
+		lstM = srvSgm.listarAllMat();
+
+	}
+
+	public void buscar() {
+		if (crrId != null) {
+			selectCrr = srvSgm.getCarrera(crrId);
+			lstM = srvSgm.listarMatByCrr(crrId);
+		} else {
+			lstM = srvSgm.listarAllMat();
+		}
+	}
+
+	public void verDetaSyllabus() {
+		selectCrr = srvSgm.getCarrera(crrId);
+	}
+
+	// Setters and getters
+	public Materia getMtr() {
+		return mtr;
+	}
+
+	public void setMtr(Materia mtr) {
+		this.mtr = mtr;
+	}
+
+	public List<Materia> getLstM() {
+		return lstM;
+	}
+
+	public void setLstM(List<Materia> lstM) {
+		this.lstM = lstM;
+	}
+
+	public List<Carrera> getLstC() {
+		return lstC;
+	}
+
+	public void setLstC(List<Carrera> lstC) {
+		this.lstC = lstC;
+	}
+
+	public Carrera getSelectCrr() {
+		return selectCrr;
+	}
+
+	public void setSelectCrr(Carrera selectCrr) {
+		this.selectCrr = selectCrr;
+	}
+
+	public Integer getCrrId() {
+		return crrId;
+	}
+
+	public void setCrrId(Integer crrId) {
+		this.crrId = crrId;
+	}
+	// Getters Syllabus
+
+	public List<String> getItemsDts() {
+		return itemsDts;
+	}
+
+	public void setItemsDts(List<String> itemsDts) {
+		this.itemsDts = itemsDts;
+	}
+
+}

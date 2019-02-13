@@ -1,24 +1,31 @@
 package lector;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-import javax.sql.rowset.serial.SerialException;
-import SecuGen.FDxSDKPro.jni.*;
+
+import SecuGen.FDxSDKPro.jni.JSGFPLib;
+import SecuGen.FDxSDKPro.jni.SGDeviceInfoParam;
+import SecuGen.FDxSDKPro.jni.SGFDxDeviceName;
+import SecuGen.FDxSDKPro.jni.SGFDxErrorCode;
+import SecuGen.FDxSDKPro.jni.SGFDxTemplateFormat;
+import SecuGen.FDxSDKPro.jni.SGFingerInfo;
+import SecuGen.FDxSDKPro.jni.SGFingerPosition;
+import SecuGen.FDxSDKPro.jni.SGImpressionType;
+import SecuGen.FDxSDKPro.jni.SGPPPortAddr;
 import model.FichaDocente;
+import model.Horario;
 import model.HuellaDactilar;
 
 /**
@@ -35,9 +42,8 @@ public class JSDC implements JSDCLocal {
 	private boolean bLEDOn;
 	private byte[] regMin1 = new byte[400];
 	private byte[] regMin2 = new byte[400];
+	private byte[] regMin3 = new byte[400];
 	private SGDeviceInfoParam deviceInfo = new SGDeviceInfoParam();
-	private BufferedImage imgRegistration1;
-	private BufferedImage imgRegistration2;
 	private boolean r1Captured = false;
 	private boolean r2Captured = false;
 	private static int MINIMUM_QUALITY = 60; // User defined
@@ -244,24 +250,8 @@ public class JSDC implements JSDCLocal {
 		}
 	}
 
-	public BufferedImage getImgRegistration1() {
-		return imgRegistration1;
-	}
-
-	public void setImgRegistration1(BufferedImage imgRegistration1) {
-		this.imgRegistration1 = imgRegistration1;
-	}
-
-	public BufferedImage getImgRegistration2() {
-		return imgRegistration2;
-	}
-
-	public void setImgRegistration2(BufferedImage imgRegistration2) {
-		this.imgRegistration2 = imgRegistration2;
-	}
-
 	@Override
-	public boolean comparar(BufferedImage img) throws SQLException, IOException {
+	public FichaDocente comparar() throws SQLException, IOException {
 		long nfiqvalue;
 		int[] numOfMinutiae = new int[1];
 		BufferedImage imgn = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight,
@@ -294,29 +284,114 @@ public class JSDC implements JSDCLocal {
 								&& (numOfMinutiae[0] >= MINIMUM_NUM_MINUTIAE)) {
 							System.out.println("Reg. Capture PASS QC. Qual[" + quality[0] + "] NFIQ[" + nfiqvalue
 									+ "] Minutiae[" + numOfMinutiae[0] + "]");
+							// Obtenemos una lista de huellas primeras de base
+							List<HuellaDactilar> lstHd = em
+									.createNamedQuery("HuellaDactilar.findAll", HuellaDactilar.class).getResultList();
+							for (HuellaDactilar hd : lstHd) {
+								Blob blob = hd.getHldPrimerHuella();
+								InputStream in = blob.getBinaryStream();
+								BufferedImage image = ImageIO.read(in);
+								byte[] imageBuffer2 = ((java.awt.image.DataBufferByte) image.getRaster()
+										.getDataBuffer()).getData();
+								iError = fplib.CreateTemplate(fingerInfo, imageBuffer2, regMin2);
+								if (verificar()) {
+									FichaDocente fd = em.createNamedQuery("Docente.findByHdId", FichaDocente.class)
+											.setParameter("hdId", hd.getHldcId()).getSingleResult();
+									return fd;
+								} else {
+									blob = hd.getHldSegundaHuella();
+									in = blob.getBinaryStream();
+									image = ImageIO.read(in);
+									imageBuffer2 = ((java.awt.image.DataBufferByte) image.getRaster().getDataBuffer())
+											.getData();
+									iError = fplib.CreateTemplate(fingerInfo, imageBuffer2, regMin2);
+									if (verificar()) {
+										FichaDocente fd = em.createNamedQuery("Docente.findByHdId", FichaDocente.class)
+												.setParameter("hdId", hd.getHldcId()).getSingleResult();
+										return fd;
+									}
+								}
+							}
+
 						} else {
 							System.out.println("Reg. Capture FAIL QC. Quality[" + quality[0] + "] NFIQ[" + nfiqvalue
 									+ "] Minutiae[" + numOfMinutiae[0] + "]");
+							return null;
 						}
 					} else {
 						System.out.println("CreateTemplate() Error : " + iError);
+						return null;
 					}
 				}
 			} else {
 				System.out.println("GetImageEx() Error : " + iError);
+				return null;
 			}
 		} else {
 			System.out.println("JSGFPLib is not Initialized");
+			return null;
+		}
+		return null;
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public Horario verificarHorario(Date fecha, Integer fcdcId) {
+		final int parametro = 15;
+		int horas = Integer.parseInt(fecha.getHours() + "");
+		int minutos = Integer.parseInt(fecha.getMinutes() + "");
+		int horasProceso = 0;
+		int minutosProceso = 0;
+		int holguraInicio = minutos - parametro;
+		int holguraFin = minutos + parametro;
+		String horaRegistro = fecha.getHours() + ":" + fecha.getMinutes();
+		System.out.println("Hora actual: " + horaRegistro);
+		if (holguraInicio <= 0) {
+			horasProceso = horas - 1;
+			if (holguraInicio == 0) {
+				minutosProceso = 0;
+			} else {
+				minutosProceso = 60 + holguraInicio;
+			}
+		} else {
+			horasProceso = horas;
+			minutosProceso = holguraInicio;
+		}
+		String horIni = horasProceso + ":" + validarTamMinutos(minutosProceso);
+		if (holguraFin >= 60) {
+			horasProceso = horas + 1;
+			minutosProceso = holguraFin - 60;
+		} else {
+			horasProceso = horas;
+			minutosProceso = holguraFin;
 		}
 
-		List<HuellaDactilar> lstHd = em.createNamedQuery("HuellaDactilar.findAll", HuellaDactilar.class)
-				.getResultList();
-		for (HuellaDactilar hd : lstHd) {
-			Blob blob = hd.getHldPrimerHuella();
-			InputStream in = blob.getBinaryStream();
-			BufferedImage image = ImageIO.read(in);
+		String horFin = horasProceso + ":" + validarTamMinutos(minutosProceso);
+		Horario hr;
+		try {
+			hr = em.createNamedQuery("Horario.findInicioByFdId", Horario.class).setParameter("diaId", fecha.getDay())
+					.setParameter("fdId", fcdcId).setParameter("iniH", horIni).setParameter("finH", horFin)
+					.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al obtener horarios: " + e);
+			return null;
 		}
-		return false;
+		return hr;
+	}
+
+	/**
+	 * Metodo que valida que los minutos menores a 10 tengan 2 digitos
+	 * 
+	 * @param minutosProceso
+	 */
+	private String validarTamMinutos(int minutosProceso) {
+		String tamMinutos = "";
+		if (minutosProceso < 10) {
+			tamMinutos = "0" + minutosProceso;
+		} else {
+			tamMinutos = minutosProceso + "";
+		}
+		return tamMinutos;
 	}
 
 }

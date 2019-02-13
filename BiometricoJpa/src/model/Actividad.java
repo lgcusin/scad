@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -15,9 +16,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ACTIVIDAD")
-@NamedQuery(name = "Actividad.findByFdId", query = "select act.actDescripcion from Actividad as act "
-		+ "where act.contenido.unidadCurricular.syllabo.mallaCurricularMateria.mlcrmtId in "
-		+ "(select sgm.mallaCurricularMateria.mlcrmtId from Seguimiento as sgm where sgm.asistencia.fichaDocente.fcdcId=:fcdcId)")
+@NamedQueries({
+		@NamedQuery(name = "Actividad.findAllByCnId", query = "select act from Actividad as act where act.contenido.cntId=:cntId"),
+		@NamedQuery(name = "Actividad.findByFdId", query = "select act.actDescripcion from Actividad as act "
+				+ "where act.contenido.unidadCurricular.syllabo.mallaCurricularMateria.mlcrmtId in "
+				+ "(select sgm.mallaCurricularMateria.mlcrmtId from Seguimiento as sgm where sgm.asistencia.fichaDocente.fcdcId=:fcdcId)") })
+
 public class Actividad implements java.io.Serializable {
 
 	private Integer actId;

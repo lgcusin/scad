@@ -1,5 +1,5 @@
 package model;
-// Generated 06/02/2019 19:25:50 by Hibernate Tools 4.3.5.Final
+// Generated 13/02/2019 17:29:01 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.sql.Blob;

@@ -15,8 +15,7 @@
 			<div style="margin-left: 10px; margin-right: 10px;">
 				<p:panel id="pnlBusqueda"
 					styleClass="ui-panel ui-widget ui-widget-content ui-corner-all">
-					<p:panel id="pnlBusqueda_header"
-						styleClass="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+					<p:panel id="pnlBusqueda_header">
 						<h:outputLabel value="Parámetros de búsqueda"
 							styleClass="ui-panel-title"></h:outputLabel>
 					</p:panel>
@@ -63,15 +62,14 @@
 				<div>
 					<p:panel id="pnlResultados"
 						styleClass="ui-panel ui-widget ui-widget-content ui-corner-all">
-						<p:panel id="pnlResultados_header"
-							styleClass="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+						<p:panel id="pnlResultados_header">
 							<h:outputLabel value="Resultados de la búsqueda"
 								styleClass="ui-panel-title"></h:outputLabel>
 						</p:panel>
 						<p:panel id="pnlResultados_content"
 							styleClass="ui-panel-content ui-widget-content">
 							<p:dataTable id="dtsSyllabus" value="#{syllabus.lstM}" var="mat"
-								rows="10" paginator="true"
+								rows="10" paginator="true" paginatorPosition="bottom"
 								paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								rowsPerPageTemplate="5,10,15" style="text-align: center;"
 								styleClass="stui-datatable ui-widget">
@@ -82,20 +80,207 @@
 									<h:outputText value="#{mat.mtrNombre}" />
 								</p:column>
 								<p:column headerText="Opciones">
-									<p:commandButton value="Ver" title="Ver Syllabo">
+									<p:commandButton value="Ver" title="Ver Syllabo"
+										action="#{syllabus.verDetaSyllabus}"
+										update=":frmSyllabus:otpnSylDetalles"
+										oncomplete="PF('dlgSyl').show()">
 										<f:setPropertyActionListener value="#{mat}"
-											target="#{syllabus.mtr}" />
+											target="#{syllabus.selectMtr}" />
 									</p:commandButton>
 									<p:commandButton value="Editar" title="Editar Syllabo">
 										<f:setPropertyActionListener value="#{mat}"
-											target="#{syllabus.mtr}" />
+											target="#{syllabus.selectMtr}" />
 									</p:commandButton>
 								</p:column>
 							</p:dataTable>
+							<!-- VISTA PARA EDITAR EL SYLLBUS -->
+
+							<p:dialog id="dlgSyllabus" header="Informacion Syllabus"
+								widgetVar="dlgSyl" modal="true" showEffect="fade"
+								hideEffect="fade"
+								style="margin-left: 100px; margin-right: 100px;"
+								position="center">
+								<p:outputPanel id="otpnSylDetalles">
+									<p:panel id="pnlDatos">
+										<p:panel id="pnlDatos_header">
+											<h:outputLabel value="Datos Informativos"
+												styleClass="ui-panel-title"></h:outputLabel>
+										</p:panel>
+										<p:panel id="pnlDatos_content">
+											<center>
+												<p:panelGrid columns="2">
+													<h:outputText value="FACULTAD:"></h:outputText>
+													<h:outputText
+														value="INGENIERÍA, CIENCIAS FÍSICAS Y MATEMÁTICA"></h:outputText>
+													<h:outputText value="CARRERA:"></h:outputText>
+													<h:inputText value="#{syllabus.selectCrr.crrNombre}"
+														disabled="true"></h:inputText>
+													<h:outputText value="ASIGNATURA"></h:outputText>
+													<h:outputText value="#{syllabus.selectMtr.mtrNombre}"></h:outputText>
+													<h:outputText value="CODIGO DE LA ASIGNATURA"></h:outputText>
+													<h:outputText value="#{syllabus.selectMtr.mtrId}"></h:outputText>
+													<h:outputText value="CREDITOS"></h:outputText>
+													<h:outputText value=""></h:outputText>
+													<h:outputText value="SEMESTRE"></h:outputText>
+													<h:outputText value=""></h:outputText>
+													<h:outputText value="UNIDAD DE ORGANIZACIÓN CURRICULAR:"></h:outputText>
+													<h:outputText value=""></h:outputText>
+													<h:outputText value="TIPO ASIGNATURA"></h:outputText>
+													<h:outputText value="OBLIGTORIA"></h:outputText>
+													<h:outputText value="PROFESOR COORDINADOR DE ASIGNATURA:"></h:outputText>
+													<h:outputText value=""></h:outputText>
+													<h:outputText value="PERIODO ACADEMICO"></h:outputText>
+													<h:outputText value=""></h:outputText>
+													<h:outputText value="N°. HORAS DE CLASE"></h:outputText>
+													<h:outputText value="#{syllabus.syl.sylHorasClase}"></h:outputText>
+													<h:outputText value="N°. HORAS TUTORIAS"></h:outputText>
+													<h:outputText value="#{syllabus.syl.sylHorasTutorias}"></h:outputText>
+												</p:panelGrid>
+											</center>
+										</p:panel>
+									</p:panel>
+									<p:panel id="pnlDescripcion">
+										<p:panel id="pnlDescrpcion_header">
+											<h:outputLabel value="Descripion de asignatura"
+												styleClass="ui-panel-title"></h:outputLabel>
+										</p:panel>
+										<p:panel id="pnlDescripcion_content">
+											<h:outputLabel value="#{syllabus.syl.sylDescripcion}"></h:outputLabel>
+										</p:panel>
+									</p:panel>
+									<p:panel id="pnlObjetivos">
+										<p:panel id="pnlObjetivos_header">
+											<h:outputLabel value="Objetivos de asignatura"
+												styleClass="ui-panel-title"></h:outputLabel>
+										</p:panel>
+										<p:panel id="pnlObjetivoGeneral_content" header="General"
+											styleClass="ui-panel-content ui-widget-content">
+											<h:outputLabel value="#{syllabus.syl.sylObjetivoGnrl}"></h:outputLabel>
+										</p:panel>
+										<p:panel id="pnlObjetivoEspecifico_content"
+											header="Especifico"
+											styleClass="ui-panel-content ui-widget-content">
+											<h:outputLabel value="#{syllabus.syl.sylObjetivoEspc}"></h:outputLabel>
+										</p:panel>
+									</p:panel>
+									<p:panel id="pnlContribucion">
+										<p:panel id="pnlContribucion_header">
+											<h:outputLabel value="Contribucion de asignatura"
+												styleClass="ui-panel-title"></h:outputLabel>
+										</p:panel>
+										<p:panel id="pnlContribucion_content"
+											styleClass="ui-panel-content ui-widget-content">
+											<h:outputLabel
+												value="#{syllabus.syl.sylContribucionProfesional}"></h:outputLabel>
+										</p:panel>
+									</p:panel>
+									<p:panel id="pnlResultado"
+										styleClass="ui-panel ui-widget ui-widget-content ui-corner-all">
+										<p:panel id="pnlResultado_header">
+											<h:outputLabel value="Resultados de asignatura"
+												styleClass="ui-panel-title"></h:outputLabel>
+										</p:panel>
+										<p:panel id="pnlResultado_content"
+											styleClass="ui-panel-content ui-widget-content">
+											<h:outputLabel
+												value="#{syllabus.syl.sylResultadosAprendizaje}"></h:outputLabel>
+										</p:panel>
+									</p:panel>
+									<p:panel id="pnlProgramacion">
+										<p:panel id="pnlProgramacion_header"
+											header="Programacion de asignatura">
+										</p:panel>
+										<p:panel id="pnlProgramacion_content">
+											<p:dataGrid id="dtgUnidades" var="Uncr"
+												value="#{syllabus.lstUC}" columns="1">
+
+												<h:outputText value="#{Uncr.uncrDescripcion}"
+													style="font-weight:bold"></h:outputText>
+												<p:panelGrid columns="2">
+													<h:outputLabel value="NOMBRE DE LA UNIDAD:"></h:outputLabel>
+													<h:outputText value="#{Uncr.uncrNombre}"></h:outputText>
+													<h:outputLabel value="OBJETIVO DE LA UNIDAD:"></h:outputLabel>
+													<h:outputText value="#{Uncr.uncrObjetivo}"></h:outputText>
+													<h:outputLabel
+														value="RESULTADOS DE APRENDIZAJE DE LA UNIDAD:"></h:outputLabel>
+													<h:outputText value="#{Uncr.uncrResultado}"></h:outputText>
+												</p:panelGrid>
+
+												<p:panelGrid>
+													<p:row>
+														<p:column rowspan="4">
+															<h:outputLabel value="CÁLCULO DE HORAS DE LA UNIDAD:"></h:outputLabel>
+														</p:column>
+														<p:column rowspan="2">
+															<h:outputLabel value="ESCENARIOS DE APRENDIZAJE"></h:outputLabel>
+														</p:column>
+														<p:column>
+															<h:outputLabel value="N°. Horas aprendizaje Teóricas"></h:outputLabel>
+														</p:column>
+														<p:column>
+															<h:outputText value="6"></h:outputText>
+														</p:column>
+													</p:row>
+													<p:row>
+														<p:column>
+															<h:outputLabel value="N°. Horas Prácticas- laboratorio"></h:outputLabel>
+														</p:column>
+														<p:column>
+															<h:outputText value="6"></h:outputText>
+														</p:column>
+													</p:row>
+													<p:row>
+														<p:column rowspan="2">
+															<h:outputLabel value="TUTORIAS"></h:outputLabel>
+														</p:column>
+														<p:column>
+															<h:outputLabel value="N°. Horas Presenciales"></h:outputLabel>
+														</p:column>
+														<p:column>
+															<h:outputText value="2"></h:outputText>
+														</p:column>
+													</p:row>
+													<p:row>
+														<p:column>
+															<h:outputLabel value="N°. Horas Aprendizaje Aula Virtual"></h:outputLabel>
+														</p:column>
+														<p:column>
+															<h:outputText value="1"></h:outputText>
+														</p:column>
+													</p:row>
+												</p:panelGrid>
+												<h:outputText value="PROGRAMACIÓN CURRICULAR"></h:outputText>
+												<p:panelGrid columns="1">
+													<p:dataTable value="#{Uncr.contenidos}" var="cn">
+														<p:column headerText="CONTENIDOS">
+															<h:outputText value="#{cn.cntDescripcion}"></h:outputText>
+														</p:column>
+														<p:column
+															headerText="ACTIVIDADES DE TRABAJO AUTÓNOMO, ACTIVIDADES DE INVESTIGACIÓN Y DE VINCULACIÓN CON LA SOCIEDAD">
+															<p:dataGrid value="#{cn.actividads}" var="ac" columns="1">
+																<h:outputText value="#{ac.actDescripcion}"></h:outputText>
+															</p:dataGrid>
+														</p:column>
+														<p:column headerText="MECANISMOS DE EVALUACIÓN">
+															<p:dataGrid value="#{cn.herramientas}" var="hr"
+																columns="1">
+																<h:outputText value="#{hr.hrrNombre}"></h:outputText>
+															</p:dataGrid>
+														</p:column>
+													</p:dataTable>
+												</p:panelGrid>
+												<br />
+											</p:dataGrid>
+										</p:panel>
+									</p:panel>
+								</p:outputPanel>
+							</p:dialog>
 						</p:panel>
 					</p:panel>
 				</div>
 			</div>
+
+
 
 		</h:form>
 	</ui:define>

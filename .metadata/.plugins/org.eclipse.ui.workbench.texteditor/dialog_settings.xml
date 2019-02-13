@@ -2,37 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="int" key="selection"/>
+		<item value="Integer" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="Integer"/>
 			<item value="BigDecimal"/>
-			<item value="float: right"/>
-			<item value="background: rgba(255,255,255,0.0);"/>
-			<item value="fa-map-marker"/>
-			<item value="fa fa-map-marker"/>
-			<item value="Asistencia"/>
-			<item value="registro"/>
+			<item value="findInicioByFdId"/>
+			<item value="tamMinutos"/>
+			<item value="validarTamMinutos"/>
+			<item value="hrrIniSec"/>
+			<item value="hrrFin"/>
+			<item value="hrrInicio"/>
+			<item value="findByFdId"/>
 		</list>
 		<list key="replacehistory">
-			<item value="int"/>
 			<item value="Integer"/>
+			<item value="List"/>
+			<item value=" "/>
+			<item value="int"/>
 			<item value="Actividad"/>
 			<item value="huella"/>
 			<item value="frmRegistro"/>
 			<item value="registro"/>
-			<item value="Registro"/>
-			<item value=""/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="284" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="391" key="DIALOG_HEIGHT"/>
-		<item value="981" key="DIALOG_X_ORIGIN"/>
-		<item value="355" key="DIALOG_Y_ORIGIN"/>
+		<item value="677" key="DIALOG_X_ORIGIN"/>
+		<item value="336" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

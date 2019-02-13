@@ -1,7 +1,6 @@
 package model;
 // Generated 29/01/2019 23:19:04 by Hibernate Tools 4.3.5.Final
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -18,18 +17,18 @@ import javax.persistence.Table;
 @Table(name = "DIA_SEMANA")
 public class DiaSemana implements java.io.Serializable {
 
-	private BigDecimal dsmId;
+	private Integer dsmId;
 	private String dsmNombreDia;
 	private Set<Horario> horarios = new HashSet<Horario>(0);
 
 	public DiaSemana() {
 	}
 
-	public DiaSemana(BigDecimal dsmId) {
+	public DiaSemana(Integer dsmId) {
 		this.dsmId = dsmId;
 	}
 
-	public DiaSemana(BigDecimal dsmId, String dsmNombreDia, Set<Horario> horarios) {
+	public DiaSemana(Integer dsmId, String dsmNombreDia, Set<Horario> horarios) {
 		this.dsmId = dsmId;
 		this.dsmNombreDia = dsmNombreDia;
 		this.horarios = horarios;
@@ -38,11 +37,11 @@ public class DiaSemana implements java.io.Serializable {
 	@Id
 
 	@Column(name = "DSM_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public BigDecimal getDsmId() {
+	public Integer getDsmId() {
 		return this.dsmId;
 	}
 
-	public void setDsmId(BigDecimal dsmId) {
+	public void setDsmId(Integer dsmId) {
 		this.dsmId = dsmId;
 	}
 

@@ -1,7 +1,9 @@
 package model;
 // Generated 29/01/2019 23:19:04 by Hibernate Tools 4.3.5.Final
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -17,13 +20,14 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CONTENIDO")
+@NamedQuery(name = "Contenido.findAllByUcId", query = "select cnt from Contenido as cnt where cnt.unidadCurricular.uncrId=:ucId")
 public class Contenido implements java.io.Serializable {
 
 	private Integer cntId;
 	private UnidadCurricular unidadCurricular;
 	private String cntDescripcion;
-	private Set<Herramienta> herramientas = new HashSet<Herramienta>(0);
-	private Set<Actividad> actividads = new HashSet<Actividad>(0);
+	private List<Herramienta> herramientas = new ArrayList<Herramienta>(0);
+	private List<Actividad> actividads = new ArrayList<Actividad>(0);
 
 	public Contenido() {
 	}
@@ -34,7 +38,7 @@ public class Contenido implements java.io.Serializable {
 	}
 
 	public Contenido(Integer cntId, UnidadCurricular unidadCurricular, String cntDescripcion,
-			Set<Herramienta> herramientas, Set<Actividad> actividads) {
+			List<Herramienta> herramientas, List<Actividad> actividads) {
 		this.cntId = cntId;
 		this.unidadCurricular = unidadCurricular;
 		this.cntDescripcion = cntDescripcion;
@@ -73,20 +77,20 @@ public class Contenido implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "contenido")
-	public Set<Herramienta> getHerramientas() {
+	public List<Herramienta> getHerramientas() {
 		return this.herramientas;
 	}
 
-	public void setHerramientas(Set<Herramienta> herramientas) {
+	public void setHerramientas(List<Herramienta> herramientas) {
 		this.herramientas = herramientas;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "contenido")
-	public Set<Actividad> getActividads() {
+	public List<Actividad> getActividads() {
 		return this.actividads;
 	}
 
-	public void setActividads(Set<Actividad> actividads) {
+	public void setActividads(List<Actividad> actividads) {
 		this.actividads = actividads;
 	}
 

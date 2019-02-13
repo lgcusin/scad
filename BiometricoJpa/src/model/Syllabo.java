@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -18,11 +19,18 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "SYLLABO", uniqueConstraints = @UniqueConstraint(columnNames = "MCM_ID"))
+@NamedQuery(name = "Syllabo.findByMtrId", query = "select s from Syllabo as s where s.mallaCurricularMateria.materia.mtrId=:mtrId")
 public class Syllabo implements java.io.Serializable {
 
 	private Integer sylId;
 	private MallaCurricularMateria mallaCurricularMateria;
 	private String sylDescripcion;
+	private Integer sylHorasClase;
+	private Integer sylHorasTutorias;
+	private String sylObjetivoGnrl;
+	private String sylObjetivoEspc;
+	private String sylContribucionProfesional;
+	private String sylResultadosAprendizaje;
 	private Set<UnidadCurricular> unidadCurriculars = new HashSet<UnidadCurricular>(0);
 
 	public Syllabo() {
@@ -34,10 +42,18 @@ public class Syllabo implements java.io.Serializable {
 	}
 
 	public Syllabo(Integer sylId, MallaCurricularMateria mallaCurricularMateria, String sylDescripcion,
+			Integer sylHorasClase, Integer sylHorasTutorias, String sylObjetivoGnrl, String sylObjetivoEspc,
+			String sylContribucionProfesional, String sylResultadosAprendizaje,
 			Set<UnidadCurricular> unidadCurriculars) {
 		this.sylId = sylId;
 		this.mallaCurricularMateria = mallaCurricularMateria;
 		this.sylDescripcion = sylDescripcion;
+		this.sylHorasClase = sylHorasClase;
+		this.sylHorasTutorias = sylHorasTutorias;
+		this.sylObjetivoGnrl = sylObjetivoGnrl;
+		this.sylObjetivoEspc = sylObjetivoEspc;
+		this.sylContribucionProfesional = sylContribucionProfesional;
+		this.sylResultadosAprendizaje = sylResultadosAprendizaje;
 		this.unidadCurriculars = unidadCurriculars;
 	}
 
@@ -62,13 +78,67 @@ public class Syllabo implements java.io.Serializable {
 		this.mallaCurricularMateria = mallaCurricularMateria;
 	}
 
-	@Column(name = "SYL_DESCRIPCION", length = 100)
+	@Column(name = "SYL_DESCRIPCION", length = 700)
 	public String getSylDescripcion() {
 		return this.sylDescripcion;
 	}
 
 	public void setSylDescripcion(String sylDescripcion) {
 		this.sylDescripcion = sylDescripcion;
+	}
+
+	@Column(name = "SYL_HORAS_CLASE", precision = 22, scale = 0)
+	public Integer getSylHorasClase() {
+		return this.sylHorasClase;
+	}
+
+	public void setSylHorasClase(Integer sylHorasClase) {
+		this.sylHorasClase = sylHorasClase;
+	}
+
+	@Column(name = "SYL_HORAS_TUTORIAS", precision = 22, scale = 0)
+	public Integer getSylHorasTutorias() {
+		return this.sylHorasTutorias;
+	}
+
+	public void setSylHorasTutorias(Integer sylHorasTutorias) {
+		this.sylHorasTutorias = sylHorasTutorias;
+	}
+
+	@Column(name = "SYL_OBJETIVO_GNRL", length = 700)
+	public String getSylObjetivoGnrl() {
+		return this.sylObjetivoGnrl;
+	}
+
+	public void setSylObjetivoGnrl(String sylObjetivoGnrl) {
+		this.sylObjetivoGnrl = sylObjetivoGnrl;
+	}
+
+	@Column(name = "SYL_OBJETIVO_ESPC", length = 700)
+	public String getSylObjetivoEspc() {
+		return this.sylObjetivoEspc;
+	}
+
+	public void setSylObjetivoEspc(String sylObjetivoEspc) {
+		this.sylObjetivoEspc = sylObjetivoEspc;
+	}
+
+	@Column(name = "SYL_CONTRIBUCION_PROFESIONAL", length = 700)
+	public String getSylContribucionProfesional() {
+		return this.sylContribucionProfesional;
+	}
+
+	public void setSylContribucionProfesional(String sylContribucionProfesional) {
+		this.sylContribucionProfesional = sylContribucionProfesional;
+	}
+
+	@Column(name = "SYL_RESULTADOS_APRENDIZAJE", length = 700)
+	public String getSylResultadosAprendizaje() {
+		return this.sylResultadosAprendizaje;
+	}
+
+	public void setSylResultadosAprendizaje(String sylResultadosAprendizaje) {
+		this.sylResultadosAprendizaje = sylResultadosAprendizaje;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "syllabo")

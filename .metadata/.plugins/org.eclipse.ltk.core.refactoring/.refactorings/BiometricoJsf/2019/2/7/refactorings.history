@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;fecha&apos; in &apos;managedBeans.Control&apos; to &apos;fechahora&apos;&#x0D;&#x0A;- Original project: &apos;BiometricoJsf&apos;&#x0D;&#x0A;- Original element: &apos;managedBeans.Control.fecha&apos;&#x0D;&#x0A;- Renamed element: &apos;managedBeans.Control.fechahora&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;fecha&apos;" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;managedBeans{Control.java[Control^fecha" name="fechahora" references="true" setter="false" stamp="1550000800295" textual="false" version="1.0"/>
+</session>

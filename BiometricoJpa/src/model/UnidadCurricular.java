@@ -1,7 +1,9 @@
 package model;
 // Generated 29/01/2019 23:19:04 by Hibernate Tools 4.3.5.Final
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -17,13 +20,17 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "UNIDAD_CURRICULAR")
+@NamedQuery(name = "UnidadCurricular.findAllBySylId", query = "select uc from UnidadCurricular as uc where uc.syllabo.mallaCurricularMateria.materia.mtrId=:mtrId")
 public class UnidadCurricular implements java.io.Serializable {
 
 	private Integer uncrId;
 	private Syllabo syllabo;
 	private String uncrDescripcion;
 	private Integer uncrTotalHoras;
-	private Set<Contenido> contenidos = new HashSet<Contenido>(0);
+	private String uncrNombre;
+	private String uncrObjetivo;
+	private String uncrResultado;
+	private List<Contenido> contenidos = new ArrayList<Contenido>(0);
 
 	public UnidadCurricular() {
 	}
@@ -34,11 +41,14 @@ public class UnidadCurricular implements java.io.Serializable {
 	}
 
 	public UnidadCurricular(Integer uncrId, Syllabo syllabo, String uncrDescripcion, Integer uncrTotalHoras,
-			Set<Contenido> contenidos) {
+			String uncrNombre, String uncrObjetivo, String uncrResultado, List<Contenido> contenidos) {
 		this.uncrId = uncrId;
 		this.syllabo = syllabo;
 		this.uncrDescripcion = uncrDescripcion;
 		this.uncrTotalHoras = uncrTotalHoras;
+		this.uncrNombre = uncrNombre;
+		this.uncrObjetivo = uncrObjetivo;
+		this.uncrResultado = uncrResultado;
 		this.contenidos = contenidos;
 	}
 
@@ -63,7 +73,7 @@ public class UnidadCurricular implements java.io.Serializable {
 		this.syllabo = syllabo;
 	}
 
-	@Column(name = "UNCR_DESCRIPCION", length = 400)
+	@Column(name = "UNCR_DESCRIPCION", length = 100)
 	public String getUncrDescripcion() {
 		return this.uncrDescripcion;
 	}
@@ -81,12 +91,39 @@ public class UnidadCurricular implements java.io.Serializable {
 		this.uncrTotalHoras = uncrTotalHoras;
 	}
 
+	@Column(name = "UNCR_NOMBRE", length = 100)
+	public String getUncrNombre() {
+		return this.uncrNombre;
+	}
+
+	public void setUncrNombre(String uncrNombre) {
+		this.uncrNombre = uncrNombre;
+	}
+
+	@Column(name = "UNCR_OBJETIVO", length = 400)
+	public String getUncrObjetivo() {
+		return this.uncrObjetivo;
+	}
+
+	public void setUncrObjetivo(String uncrObjetivo) {
+		this.uncrObjetivo = uncrObjetivo;
+	}
+
+	@Column(name = "UNCR_RESULTADO", length = 400)
+	public String getUncrResultado() {
+		return this.uncrResultado;
+	}
+
+	public void setUncrResultado(String uncrResultado) {
+		this.uncrResultado = uncrResultado;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "unidadCurricular")
-	public Set<Contenido> getContenidos() {
+	public List<Contenido> getContenidos() {
 		return this.contenidos;
 	}
 
-	public void setContenidos(Set<Contenido> contenidos) {
+	public void setContenidos(List<Contenido> contenidos) {
 		this.contenidos = contenidos;
 	}
 

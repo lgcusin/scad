@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-<typeInfo handle="=BiometricoJpa/src&lt;model{HuellaDactilar.java[HuellaDactilar" modifiers="1" timestamp="1549494309899"/>
+<typeInfo handle="=BiometricoJpa/src&lt;model{HuellaDactilar.java[HuellaDactilar" modifiers="1" timestamp="1549510277650"/>
 <typeInfo handle="=BiometricoJpa/src&lt;model{Aula.java[Aula" modifiers="1" timestamp="1548821945806"/>
 <typeInfo handle="=BiometricoJpa/src&lt;model{TipoHuella.java[TipoHuella" modifiers="1" timestamp="1548196593078"/>
-<typeInfo handle="=BiometricoJpa/src&lt;model{Contenido.java[Contenido" modifiers="1" timestamp="1548977382312"/>
+<typeInfo handle="=BiometricoJpa/src&lt;model{Contenido.java[Contenido" modifiers="1" timestamp="1549771581692"/>
 <typeInfo handle="=BiometricoJpa/src&lt;model{Paralelo.java[Paralelo" modifiers="1" timestamp="1548821946071"/>
 <typeInfo handle="=BiometricoJpa/src&lt;model{MallaCurricularParalelo.java[MallaCurricularParalelo" modifiers="1" timestamp="1548906766541"/>
 <typeInfo handle="=BiometricoJpa/src&lt;model{DetalleMatricula.java[DetalleMatricula" modifiers="1" timestamp="1548821945884"/>
-<typeInfo handle="=BiometricoJpa/src&lt;model{DiaSemana.java[DiaSemana" modifiers="1" timestamp="1548821945978"/>
+<typeInfo handle="=BiometricoJpa/src&lt;model{DiaSemana.java[DiaSemana" modifiers="1" timestamp="1549862535620"/>
 <typeInfo handle="=BiometricoJpa/src&lt;model{FichaEstudiante.java[FichaEstudiante" modifiers="1" timestamp="1548821945993"/>
-<typeInfo handle="=BiometricoJpa/src&lt;model{Horario.java[Horario" modifiers="1" timestamp="1548821946040"/>
+<typeInfo handle="=BiometricoJpa/src&lt;model{Horario.java[Horario" modifiers="1" timestamp="1550095495424"/>
 <typeInfo handle="=BiometricoJpa/src&lt;model{TipoHorario.java[TipoHorario" modifiers="1" timestamp="1548821946149"/>
 <typeInfo handle="=BiometricoJpa/src&lt;model{FichaMatricula.java[FichaMatricula" modifiers="1" timestamp="1548821945837"/>
 </typeInfoHistroy>

@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,8 +18,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "FICHA_DOCENTE")
-@NamedQuery(name = "Docente.listar", query = "select fd from FichaDocente as fd "
-		+ "where fd.fcdcApellidos LIKE :apellido or fd.fcdcPrimerNombre LIKE :primernombre or fd.fcdcSegundoNombre LIKE :segundonombre")
+@NamedQueries({
+		@NamedQuery(name = "Docente.findByHdId", query = "select hd.fichaDocente from HuellaDactilar as hd where hd.hldcId=:hdId"),
+		@NamedQuery(name = "Docente.listar", query = "select fd from FichaDocente as fd "
+				+ "where fd.fcdcApellidos LIKE :apellido or fd.fcdcPrimerNombre LIKE :primernombre or fd.fcdcSegundoNombre LIKE :segundonombre") })
+
 public class FichaDocente implements java.io.Serializable {
 
 	private Integer fcdcId;
@@ -38,9 +42,9 @@ public class FichaDocente implements java.io.Serializable {
 		this.fcdcId = fcdcId;
 	}
 
-	public FichaDocente(Integer fcdcId, Integer fcdcIdentificacion, String fcdcPrimerNombre,
-			String fcdcSegundoNombre, String fcdcApellidos, Set<HuellaDactilar> huellaDactilars,
-			Set<DetallePuesto> detallePuestos, Set<Asistencia> asistencias, Set<Usuario> usuarios) {
+	public FichaDocente(Integer fcdcId, Integer fcdcIdentificacion, String fcdcPrimerNombre, String fcdcSegundoNombre,
+			String fcdcApellidos, Set<HuellaDactilar> huellaDactilars, Set<DetallePuesto> detallePuestos,
+			Set<Asistencia> asistencias, Set<Usuario> usuarios) {
 		this.fcdcId = fcdcId;
 		this.fcdcIdentificacion = fcdcIdentificacion;
 		this.fcdcPrimerNombre = fcdcPrimerNombre;

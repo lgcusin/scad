@@ -3,9 +3,13 @@ package lector;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.ejb.Local;
 import javax.sql.rowset.serial.SerialException;
+
+import model.FichaDocente;
+import model.Horario;
 
 @Local
 public interface JSDCLocal {
@@ -24,5 +28,7 @@ public interface JSDCLocal {
 
 	void configurar();
 
-	boolean comparar(BufferedImage img) throws SQLException, IOException;
+	FichaDocente comparar() throws SQLException, IOException;
+
+	Horario verificarHorario(Date fecha, Integer fcdcId);
 }

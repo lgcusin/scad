@@ -1,5 +1,5 @@
 package model;
-// Generated 06/02/2019 19:25:50 by Hibernate Tools 4.3.5.Final
+// Generated 13/02/2019 17:29:01 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -24,6 +24,9 @@ public class UnidadCurricular implements java.io.Serializable {
 	private Syllabo syllabo;
 	private String uncrDescripcion;
 	private BigDecimal uncrTotalHoras;
+	private String uncrNombre;
+	private String uncrObjetivo;
+	private String uncrResultado;
 	private Set<Contenido> contenidos = new HashSet<Contenido>(0);
 
 	public UnidadCurricular() {
@@ -35,11 +38,14 @@ public class UnidadCurricular implements java.io.Serializable {
 	}
 
 	public UnidadCurricular(BigDecimal uncrId, Syllabo syllabo, String uncrDescripcion, BigDecimal uncrTotalHoras,
-			Set<Contenido> contenidos) {
+			String uncrNombre, String uncrObjetivo, String uncrResultado, Set<Contenido> contenidos) {
 		this.uncrId = uncrId;
 		this.syllabo = syllabo;
 		this.uncrDescripcion = uncrDescripcion;
 		this.uncrTotalHoras = uncrTotalHoras;
+		this.uncrNombre = uncrNombre;
+		this.uncrObjetivo = uncrObjetivo;
+		this.uncrResultado = uncrResultado;
 		this.contenidos = contenidos;
 	}
 
@@ -64,7 +70,7 @@ public class UnidadCurricular implements java.io.Serializable {
 		this.syllabo = syllabo;
 	}
 
-	@Column(name = "UNCR_DESCRIPCION", length = 400)
+	@Column(name = "UNCR_DESCRIPCION", length = 100)
 	public String getUncrDescripcion() {
 		return this.uncrDescripcion;
 	}
@@ -80,6 +86,33 @@ public class UnidadCurricular implements java.io.Serializable {
 
 	public void setUncrTotalHoras(BigDecimal uncrTotalHoras) {
 		this.uncrTotalHoras = uncrTotalHoras;
+	}
+
+	@Column(name = "UNCR_NOMBRE", length = 100)
+	public String getUncrNombre() {
+		return this.uncrNombre;
+	}
+
+	public void setUncrNombre(String uncrNombre) {
+		this.uncrNombre = uncrNombre;
+	}
+
+	@Column(name = "UNCR_OBJETIVO", length = 400)
+	public String getUncrObjetivo() {
+		return this.uncrObjetivo;
+	}
+
+	public void setUncrObjetivo(String uncrObjetivo) {
+		this.uncrObjetivo = uncrObjetivo;
+	}
+
+	@Column(name = "UNCR_RESULTADO", length = 400)
+	public String getUncrResultado() {
+		return this.uncrResultado;
+	}
+
+	public void setUncrResultado(String uncrResultado) {
+		this.uncrResultado = uncrResultado;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "unidadCurricular")
