@@ -53,7 +53,7 @@ public class Control {
 		if (regDcnt != null) {
 			hrr = srvJsdc.verificarHorario(ahora, regDcnt.getFcdcId());
 			if (hrr.getHrrId() != null) {
-				System.out.println("Si hay datos");
+				System.out.println("Si hay datos...");
 			} else {
 				System.out.println("Si hay datos");
 			}
