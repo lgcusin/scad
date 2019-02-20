@@ -1,5 +1,4 @@
 package model;
-// Generated 14/02/2019 12:12:32 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -18,25 +17,21 @@ import javax.persistence.Table;
 public class DetallePuesto implements java.io.Serializable {
 
 	private BigDecimal dtpsId;
-	private Carrera carrera;
 	private FichaDocente fichaDocente;
 	private FichaEmpleado fichaEmpleado;
+	private Carrera carrera;
 	private String dtpsEstado;
 
 	public DetallePuesto() {
 	}
 
-	public DetallePuesto(BigDecimal dtpsId, Carrera carrera) {
-		this.dtpsId = dtpsId;
-		this.carrera = carrera;
-	}
 
-	public DetallePuesto(BigDecimal dtpsId, Carrera carrera, FichaDocente fichaDocente, FichaEmpleado fichaEmpleado,
-			String dtpsEstado) {
+
+	public DetallePuesto(BigDecimal dtpsId, FichaDocente fichaDocente, Carrera carrera, String dtpsEstado) {
 		this.dtpsId = dtpsId;
-		this.carrera = carrera;
 		this.fichaDocente = fichaDocente;
 		this.fichaEmpleado = fichaEmpleado;
+		this.carrera = carrera;
 		this.dtpsEstado = dtpsEstado;
 	}
 
@@ -62,7 +57,7 @@ public class DetallePuesto implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "FCDC_ID")
+	@JoinColumn(name = "FCDC_ID", nullable = false)
 	public FichaDocente getFichaDocente() {
 		return this.fichaDocente;
 	}
@@ -79,6 +74,13 @@ public class DetallePuesto implements java.io.Serializable {
 
 	public void setFichaEmpleado(FichaEmpleado fichaEmpleado) {
 		this.fichaEmpleado = fichaEmpleado;
+	@JoinColumn(name = "CRR_ID", nullable = false)
+	public Carrera getCarrera() {
+		return this.carrera;
+	}
+
+	public void setCarrera(Carrera carrera) {
+		this.carrera = carrera;
 	}
 
 	@Column(name = "DTPS_ESTADO", length = 20)

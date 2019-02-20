@@ -1,5 +1,4 @@
 package model;
-// Generated 14/02/2019 12:12:32 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -21,8 +20,9 @@ import javax.persistence.Table;
 public class MallaCurricularMateria implements java.io.Serializable {
 
 	private BigDecimal mlcrmtId;
-	private MallaCurricular mallaCurricular;
+	private Semestre semestre;
 	private Materia materia;
+	private MallaCurricular mallaCurricular;
 	private String mlcrmtEstado;
 	private Set<MallaCurricularParalelo> mallaCurricularParalelos = new HashSet<MallaCurricularParalelo>(0);
 	private Set<Seguimiento> seguimientos = new HashSet<Seguimiento>(0);
@@ -31,18 +31,19 @@ public class MallaCurricularMateria implements java.io.Serializable {
 	public MallaCurricularMateria() {
 	}
 
-	public MallaCurricularMateria(BigDecimal mlcrmtId, MallaCurricular mallaCurricular, Materia materia) {
+	public MallaCurricularMateria(BigDecimal mlcrmtId, Materia materia, MallaCurricular mallaCurricular) {
 		this.mlcrmtId = mlcrmtId;
-		this.mallaCurricular = mallaCurricular;
 		this.materia = materia;
+		this.mallaCurricular = mallaCurricular;
 	}
 
-	public MallaCurricularMateria(BigDecimal mlcrmtId, MallaCurricular mallaCurricular, Materia materia,
-			String mlcrmtEstado, Set<MallaCurricularParalelo> mallaCurricularParalelos, Set<Seguimiento> seguimientos,
-			Set<Syllabo> syllabos) {
+	public MallaCurricularMateria(BigDecimal mlcrmtId, Semestre semestre, Materia materia,
+			MallaCurricular mallaCurricular, String mlcrmtEstado, Set<MallaCurricularParalelo> mallaCurricularParalelos,
+			Set<Seguimiento> seguimientos, Set<Syllabo> syllabos) {
 		this.mlcrmtId = mlcrmtId;
-		this.mallaCurricular = mallaCurricular;
+		this.semestre = semestre;
 		this.materia = materia;
+		this.mallaCurricular = mallaCurricular;
 		this.mlcrmtEstado = mlcrmtEstado;
 		this.mallaCurricularParalelos = mallaCurricularParalelos;
 		this.seguimientos = seguimientos;
@@ -61,13 +62,13 @@ public class MallaCurricularMateria implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MLCR_ID", nullable = false)
-	public MallaCurricular getMallaCurricular() {
-		return this.mallaCurricular;
+	@JoinColumn(name = "SMS_ID")
+	public Semestre getSemestre() {
+		return this.semestre;
 	}
 
-	public void setMallaCurricular(MallaCurricular mallaCurricular) {
-		this.mallaCurricular = mallaCurricular;
+	public void setSemestre(Semestre semestre) {
+		this.semestre = semestre;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -78,6 +79,16 @@ public class MallaCurricularMateria implements java.io.Serializable {
 
 	public void setMateria(Materia materia) {
 		this.materia = materia;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MLCR_ID", nullable = false)
+	public MallaCurricular getMallaCurricular() {
+		return this.mallaCurricular;
+	}
+
+	public void setMallaCurricular(MallaCurricular mallaCurricular) {
+		this.mallaCurricular = mallaCurricular;
 	}
 
 	@Column(name = "MLCRMT_ESTADO", length = 20)

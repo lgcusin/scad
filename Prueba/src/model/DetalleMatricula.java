@@ -1,5 +1,4 @@
 package model;
-// Generated 14/02/2019 12:12:32 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -18,17 +17,17 @@ import javax.persistence.Table;
 public class DetalleMatricula implements java.io.Serializable {
 
 	private BigDecimal dtmtId;
-	private FichaMatricula fichaMatricula;
 	private MallaCurricularParalelo mallaCurricularParalelo;
+	private FichaMatricula fichaMatricula;
 
 	public DetalleMatricula() {
 	}
 
-	public DetalleMatricula(BigDecimal dtmtId, FichaMatricula fichaMatricula,
-			MallaCurricularParalelo mallaCurricularParalelo) {
+	public DetalleMatricula(BigDecimal dtmtId, MallaCurricularParalelo mallaCurricularParalelo,
+			FichaMatricula fichaMatricula) {
 		this.dtmtId = dtmtId;
-		this.fichaMatricula = fichaMatricula;
 		this.mallaCurricularParalelo = mallaCurricularParalelo;
+		this.fichaMatricula = fichaMatricula;
 	}
 
 	@Id
@@ -43,16 +42,6 @@ public class DetalleMatricula implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "FCMT_ID", nullable = false)
-	public FichaMatricula getFichaMatricula() {
-		return this.fichaMatricula;
-	}
-
-	public void setFichaMatricula(FichaMatricula fichaMatricula) {
-		this.fichaMatricula = fichaMatricula;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MLCRPR_ID", nullable = false)
 	public MallaCurricularParalelo getMallaCurricularParalelo() {
 		return this.mallaCurricularParalelo;
@@ -60,6 +49,16 @@ public class DetalleMatricula implements java.io.Serializable {
 
 	public void setMallaCurricularParalelo(MallaCurricularParalelo mallaCurricularParalelo) {
 		this.mallaCurricularParalelo = mallaCurricularParalelo;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FCMT_ID", nullable = false)
+	public FichaMatricula getFichaMatricula() {
+		return this.fichaMatricula;
+	}
+
+	public void setFichaMatricula(FichaMatricula fichaMatricula) {
+		this.fichaMatricula = fichaMatricula;
 	}
 
 }

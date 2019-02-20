@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">>
+	<ui:define name="cuerpo">
+		<h:form id="frmHorarioDetalle" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<div style="margin-left: 10px; margin-right: 10px;">
+				<p:panel id="pnlBusqueda"
+					styleClass="ui-panel ui-widget ui-widget-content ui-corner-all">
+					<!-- FILA NUMERO 1 -->
+					<p:panel id="pnlBusqueda_header">
+						<h:outputLabel value="#{detalleHorario.title}"
+							styleClass="ui-panel-title"></h:outputLabel>
+					</p:panel>
+					<p:panel id="pnlBusqueda_content"
+						styleClass="ui-panel-content ui-widget-content"
+						rendered="#{horario.flagEditar}">
+						<div class="grid condensed">
+							<div class="row cells12">
+								<div class="cell colspan4">
+									<p:outputLabel>DIA</p:outputLabel>
+								</div>
+								<div class="cell colspan4">
+									<p:outputLabel>HORA ENTRADA</p:outputLabel>
+								</div>
+								<div class="cell colspan4">
+									<p:outputLabel>HORA SALIDA</p:outputLabel>
+								</div>
+							</div>
+							<div class="row cells12">
+								<div class="cell colspan3">
+									<p:selectOneMenu id="slcDiaSemanaRegistro"
+										value="#{detalleHorario.registroHorario.diaSemana.dsmId}"
+										style="width: 100%">
+										<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+										<f:selectItems value="#{detalleHorario.lstDia}" var="d"
+											itemLabel="#{d.dsmNombreDia}" itemValue="#{d.dsmId}" />
+									</p:selectOneMenu>
+								</div>
+								<div class="cell colspan1"></div>
+								<div class="cell colspan4">
+									<p:inputText type="time"
+										value="#{detalleHorario.registroHorario.hrrInicio}"></p:inputText>
+								</div>
+								<div class="cell colspan3">
+									<p:inputText type="time"
+										value="#{detalleHorario.registroHorario.hrrFin}"></p:inputText>
+								</div>
+							</div>
+							<div class="row cells12">
+								<div class="cell colspan4">
+									<p:outputLabel>TIPO HORARIO</p:outputLabel>
+								</div>
+								<div class="cell colspan4">
+									<p:outputLabel>DOCENTE</p:outputLabel>
+								</div>
+								<div class="cell colspan4">
+									<p:outputLabel>AULA</p:outputLabel>
+								</div>
+							</div>
+							<div class="row cells12">
+								<div class="cell colspan3">
+									<p:selectOneMenu id="slcTipoHorarioRegistro"
+										value="#{detalleHorario.registroHorario.tipoHorario.tphrId}"
+										style="width: 100%"
+										valueChangeListener="#{detalleHorario.setTipoHorarioID}">
+										<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+										<f:selectItems value="#{detalleHorario.lstTipoHorario}"
+											var="th" itemLabel="#{th.tphrDescripcion}"
+											itemValue="#{th.tphrId}" />
+									</p:selectOneMenu>
+								</div>
+								<div class="cell colspan1"></div>
+								<div class="cell colspan3">
+									<p:selectOneMenu id="slcDocenteRegistro" style="width: 100%"
+										value="#{detalleHorario.registroHorario.fichaDocente.fcdcId}"
+										valueChangeListener="#{detalleHorario.setDocenteID}">
+										<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+										<f:selectItems value="#{detalleHorario.lstFichaDocente}"
+											var="fd" itemLabel="#{fd.fcdcPrimerNombre}"
+											itemValue="#{fd.fcdcId}" />
+									</p:selectOneMenu>
+								</div>
+								<div class="cell colspan1"></div>
+								<div class="cell colspan3">
+									<p:selectOneMenu id="slcAulaRegistro" style="width: 100%"
+										value="#{detalleHorario.registroHorario.aula.aulId}"
+										valueChangeListener="#{detalleHorario.setAulaID}">
+										<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+										<f:selectItems value="#{detalleHorario.lstAula}" var="au"
+											itemLabel="#{au.aulNombre}" itemValue="#{au.aulId}" />
+									</p:selectOneMenu>
+								</div>
+							</div>
+							<div class="row cells12">
+								<div class="cell colspan1">
+									<p:commandButton id="btnGuardarRegistro" value="Guardar"
+										action="#{detalleHorario.guardar}"
+										styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"></p:commandButton>
+								</div>
+							</div>
+						</div>
+					</p:panel>
+				</p:panel>
+
+				<!-- PANEL RESULTADOS -->
+				<div>
+					<p:panel id="pnlResultados"
+						styleClass="ui-panel ui-widget ui-widget-content ui-corner-all">
+						<p:panel id="pnlResultados_header">
+							<h:outputLabel value="Resultados de la búsqueda"
+								styleClass="ui-panel-title"></h:outputLabel>
+						</p:panel>
+						<p:panel id="pnlResultados_content"
+							styleClass="ui-panel-content ui-widget-content">
+							<p:dataTable id="dtsParalelos" editable="true"
+								value="#{detalleHorario.lstHorarios}" var="hor" rows="10"
+								paginator="true" paginatorPosition="bottom"
+								paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15" style="text-align: center;"
+								styleClass="stui-datatable ui-widget">
+
+								<p:column headerText="#">
+									<h:outputText value="#{hor.hrrId}" />
+								</p:column>
+								<p:column headerText="D&iacute;a">
+									<p:selectOneMenu disabled="#{!horario.flagEditar}"
+										id="slcDiaSemana" value="#{hor.diaSemana.dsmId}"
+										style="width: 100%"
+										valueChangeListener="#{detalleHorario.setDiaID}">
+										<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+										<f:selectItems value="#{detalleHorario.lstDia}" var="d"
+											itemLabel="#{d.dsmNombreDia}" itemValue="#{d.dsmId}" />
+									</p:selectOneMenu>
+								</p:column>
+								<p:column headerText="Hora entrada">
+									<h:outputText value="#{hor.hrrInicio}"></h:outputText>
+								</p:column>
+								<p:column headerText="Hora salida">
+									<h:outputText value="#{hor.hrrFin}"></h:outputText>
+								</p:column>
+								<p:column headerText="Tipo horario">
+									<p:selectOneMenu disabled="#{!horario.flagEditar}"
+										id="slcTipoHorario" value="#{hor.tipoHorario.tphrId}"
+										style="width: 100%"
+										valueChangeListener="#{detalleHorario.setTipoHorarioID}">
+										<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+										<f:selectItems value="#{detalleHorario.lstTipoHorario}"
+											var="th" itemLabel="#{th.tphrDescripcion}"
+											itemValue="#{th.tphrId}" />
+									</p:selectOneMenu>
+								</p:column>
+								<p:column headerText="Docente">
+									<p:selectOneMenu disabled="#{!horario.flagEditar}"
+										id="slcDocente" value="#{hor.fichaDocente.fcdcId}"
+										style="width: 100%"
+										valueChangeListener="#{detalleHorario.setDocenteID}">
+										<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+										<f:selectItems value="#{detalleHorario.lstFichaDocente}"
+											var="fd" itemLabel="#{fd.fcdcPrimerNombre}"
+											itemValue="#{fd.fcdcId}" />
+									</p:selectOneMenu>
+								</p:column>
+								<p:column headerText="Aula">
+									<p:selectOneMenu disabled="#{!horario.flagEditar}" id="slcAula"
+										value="#{hor.aula.aulId}" style="width: 100%"
+										valueChangeListener="#{detalleHorario.setAulaID}">
+										<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+										<f:selectItems value="#{detalleHorario.lstAula}" var="au"
+											itemLabel="#{au.aulNombre}" itemValue="#{au.aulId}" />
+									</p:selectOneMenu>
+								</p:column>
+								<p:column headerText="Opciones">
+									<p:commandButton rendered="#{horario.flagEditar}"
+										value="Editar" title="Editar Horario"
+										action="#{detalleHorario.setDataHorario}"
+										update=":frmHorarioDetalle:otpnHorDetalles"
+										oncomplete="PF('dlgHor').show()">
+										<f:setPropertyActionListener value="#{hor}"
+											target="#{detalleHorario.selectHorario}" />
+									</p:commandButton>
+								</p:column>
+								<p:column style="width:32px" headerText="Opc">
+									<p:rowEditor />
+								</p:column>
+							</p:dataTable>
+							<div class="ui-g">
+								<div class="ui-g-12">
+									<p:commandButton value="Add new row" process="@this"
+										update="pnlResultados_content"
+										action="#{detalleHorario.onAddNew()}"
+										oncomplete="PF('dtsParalelos').addRow();" />
+								</div>
+							</div>
+							<!-- VISTA PARA EDITAR EL SYLLBUS -->
+							<p:dialog id="dlgHorario" header="Informacion del Horario"
+								widgetVar="dlgHor" modal="true" showEffect="fade"
+								hideEffect="fade"
+								style="margin-left: 100px; margin-right: 100px;"
+								position="center">
+								<p:outputPanel id="otpnHorDetalles">
+									<p:panel id="pnlDatos">
+										<p:panel id="pnlDatos_header">
+											<h:outputLabel value="Datos Informativos"
+												styleClass="ui-panel-title"></h:outputLabel>
+										</p:panel>
+										<p:panel id="pnlDatos_content"
+											rendered="#{detalleHorario.validarRow()}">
+											<center>
+												<p:panelGrid columns="2">
+													<h:outputText value="D&Iacute;a:"></h:outputText>
+													<p:selectOneMenu id="slcDiaSemana"
+														value="#{detalleHorario.selectHorario.diaSemana.dsmId}"
+														style="width: 100%"
+														valueChangeListener="#{detalleHorario.setDiaID}">
+														<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+														<f:selectItems value="#{detalleHorario.lstDia}" var="d"
+															itemLabel="#{d.dsmNombreDia}" itemValue="#{d.dsmId}" />
+													</p:selectOneMenu>
+													<h:outputText value="Hora entrada:"></h:outputText>
+													<p:inputText type="time"
+														value="#{detalleHorario.selectHorario.hrrInicio}"></p:inputText>
+													<h:outputText value="Hora salida:"></h:outputText>
+													<p:inputText type="time"
+														value="#{detalleHorario.selectHorario.hrrFin}"></p:inputText>
+													<h:outputText value="Tipo horario"></h:outputText>
+													<p:selectOneMenu id="slcTipoHorario"
+														value="#{detalleHorario.selectHorario.tipoHorario.tphrId}"
+														style="width: 100%"
+														valueChangeListener="#{detalleHorario.setTipoHorarioID}">
+														<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+														<f:selectItems value="#{detalleHorario.lstTipoHorario}"
+															var="th" itemLabel="#{th.tphrDescripcion}"
+															itemValue="#{th.tphrId}" />
+													</p:selectOneMenu>
+													<h:outputText value="Docente:"></h:outputText>
+													<p:selectOneMenu id="slcDocente"
+														value="#{detalleHorario.selectHorario.fichaDocente.fcdcId}"
+														style="width: 100%"
+														valueChangeListener="#{detalleHorario.setDocenteID}">
+														<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+														<f:selectItems value="#{detalleHorario.lstFichaDocente}"
+															var="fd" itemLabel="#{fd.fcdcPrimerNombre}"
+															itemValue="#{fd.fcdcId}" />
+													</p:selectOneMenu>
+													<h:outputText value="Aula"></h:outputText>
+													<p:selectOneMenu id="slcAula"
+														value="#{detalleHorario.selectHorario.aula.aulId}"
+														style="width: 100%"
+														valueChangeListener="#{detalleHorario.setAulaID}">
+														<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+														<f:selectItems value="#{detalleHorario.lstAula}" var="au"
+															itemLabel="#{au.aulNombre}" itemValue="#{au.aulId}" />
+													</p:selectOneMenu>
+												</p:panelGrid>
+												<p:commandButton rendered="#{horario.flagEditar}"
+													id="btnGuardar" value="Guardar"
+													action="#{detalleHorario.actualizar}"
+													styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"></p:commandButton>
+											</center>
+										</p:panel>
+									</p:panel>
+								</p:outputPanel>
+							</p:dialog>
+						</p:panel>
+					</p:panel>
+				</div>
+				<p:commandButton id="btnBuscar" value="Regresar"
+					action="#{detalleHorario.regresar}"
+					styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"></p:commandButton>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

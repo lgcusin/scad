@@ -1,5 +1,4 @@
 package model;
-// Generated 14/02/2019 12:12:32 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -16,45 +15,46 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "HORARIO", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "HRR_INICIO", "HRR_FIN", "FCES_ID", "MTR_ID" }),
 		@UniqueConstraint(columnNames = { "HRR_INICIO", "HRR_FIN", "FCDC_ID", "DSM_ID" }),
+		@UniqueConstraint(columnNames = { "HRR_INICIO", "HRR_FIN", "FCES_ID", "MTR_ID" }),
 		@UniqueConstraint(columnNames = { "HRR_INICIO", "HRR_FIN", "AUL_ID", "DSM_ID" }) })
 public class Horario implements java.io.Serializable {
 
 	private BigDecimal hrrId;
 	private TipoHorario tipoHorario;
-	private Aula aula;
-	private DiaSemana diaSemana;
+	private Paralelo paralelo;
+	private Materia materia;
 	private FichaEstudiante fichaEstudiante;
 	private FichaDocente fichaDocente;
-	private Materia materia;
+	private DiaSemana diaSemana;
+	private Aula aula;
 	private String hrrInicio;
 	private String hrrFin;
 
 	public Horario() {
 	}
 
-	public Horario(BigDecimal hrrId, TipoHorario tipoHorario, Aula aula, DiaSemana diaSemana,
-			FichaEstudiante fichaEstudiante, FichaDocente fichaDocente, Materia materia) {
+	public Horario(BigDecimal hrrId, TipoHorario tipoHorario, Materia materia, FichaDocente fichaDocente,
+			DiaSemana diaSemana, Aula aula) {
 		this.hrrId = hrrId;
 		this.tipoHorario = tipoHorario;
-		this.aula = aula;
-		this.diaSemana = diaSemana;
-		this.fichaEstudiante = fichaEstudiante;
-		this.fichaDocente = fichaDocente;
 		this.materia = materia;
+		this.fichaDocente = fichaDocente;
+		this.diaSemana = diaSemana;
+		this.aula = aula;
 	}
 
-	public Horario(BigDecimal hrrId, TipoHorario tipoHorario, Aula aula, DiaSemana diaSemana,
-			FichaEstudiante fichaEstudiante, FichaDocente fichaDocente, Materia materia, String hrrInicio,
-			String hrrFin) {
+	public Horario(BigDecimal hrrId, TipoHorario tipoHorario, Paralelo paralelo, Materia materia,
+			FichaEstudiante fichaEstudiante, FichaDocente fichaDocente, DiaSemana diaSemana, Aula aula,
+			String hrrInicio, String hrrFin) {
 		this.hrrId = hrrId;
 		this.tipoHorario = tipoHorario;
-		this.aula = aula;
-		this.diaSemana = diaSemana;
+		this.paralelo = paralelo;
+		this.materia = materia;
 		this.fichaEstudiante = fichaEstudiante;
 		this.fichaDocente = fichaDocente;
-		this.materia = materia;
+		this.diaSemana = diaSemana;
+		this.aula = aula;
 		this.hrrInicio = hrrInicio;
 		this.hrrFin = hrrFin;
 	}
@@ -81,27 +81,27 @@ public class Horario implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "AUL_ID", nullable = false)
-	public Aula getAula() {
-		return this.aula;
+	@JoinColumn(name = "PRL_ID")
+	public Paralelo getParalelo() {
+		return this.paralelo;
 	}
 
-	public void setAula(Aula aula) {
-		this.aula = aula;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "DSM_ID", nullable = false)
-	public DiaSemana getDiaSemana() {
-		return this.diaSemana;
-	}
-
-	public void setDiaSemana(DiaSemana diaSemana) {
-		this.diaSemana = diaSemana;
+	public void setParalelo(Paralelo paralelo) {
+		this.paralelo = paralelo;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "FCES_ID", nullable = false)
+	@JoinColumn(name = "MTR_ID", nullable = false)
+	public Materia getMateria() {
+		return this.materia;
+	}
+
+	public void setMateria(Materia materia) {
+		this.materia = materia;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FCES_ID")
 	public FichaEstudiante getFichaEstudiante() {
 		return this.fichaEstudiante;
 	}
@@ -121,13 +121,23 @@ public class Horario implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MTR_ID", nullable = false)
-	public Materia getMateria() {
-		return this.materia;
+	@JoinColumn(name = "DSM_ID", nullable = false)
+	public DiaSemana getDiaSemana() {
+		return this.diaSemana;
 	}
 
-	public void setMateria(Materia materia) {
-		this.materia = materia;
+	public void setDiaSemana(DiaSemana diaSemana) {
+		this.diaSemana = diaSemana;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "AUL_ID", nullable = false)
+	public Aula getAula() {
+		return this.aula;
+	}
+
+	public void setAula(Aula aula) {
+		this.aula = aula;
 	}
 
 	@Column(name = "HRR_INICIO", length = 10)
