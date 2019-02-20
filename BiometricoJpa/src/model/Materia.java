@@ -21,7 +21,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "MATERIA")
 @NamedQueries({ @NamedQuery(name = "Materia.findAll", query = "select m from Materia as m"),
-		@NamedQuery(name = "Materia.findAllById", query = "select m from Materia as m where m.carrera.crrId=:idcr") })
+		@NamedQuery(name = "Materia.findAllById", query = "select m from Materia as m where m.carrera.crrId=:idcr"),
+		@NamedQuery(name = "Materia.findByHrId", query = "select h.materia from Horario as h where h.hrrId=:hrId") })
 
 public class Materia implements java.io.Serializable {
 

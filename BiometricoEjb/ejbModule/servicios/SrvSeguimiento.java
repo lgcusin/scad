@@ -1,5 +1,6 @@
 package servicios;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -11,6 +12,7 @@ import model.Actividad;
 import model.Carrera;
 import model.Contenido;
 import model.Herramienta;
+import model.Horario;
 import model.Materia;
 import model.Syllabo;
 import model.UnidadCurricular;
@@ -37,7 +39,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 
 	@Override
 	public List<Carrera> listarAllCrr() {
-		List<Carrera> lstC = em.createNamedQuery("Carrera.findAllC", Carrera.class).getResultList();
+		List<Carrera> lstC = em.createNamedQuery("Carrera.findAll", Carrera.class).getResultList();
 		return lstC;
 	}
 
@@ -90,4 +92,78 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 		return lstHr;
 	}
 
+	@SuppressWarnings("deprecation")
+	@Override
+	public Horario verificarHorario(Date fecha, Integer fcdcId) {
+		final int parametro = 15;
+		int horas = Integer.parseInt(fecha.getHours() + "");
+		int minutos = Integer.parseInt(fecha.getMinutes() + "");
+		int horasProceso = 0;
+		int minutosProceso = 0;
+		int holguraInicio = minutos - parametro;
+		int holguraFin = minutos + parametro;
+		String horaRegistro = fecha.getHours() + ":" + fecha.getMinutes();
+		System.out.println("Hora actual: " + horaRegistro);
+		if (holguraInicio < 0) {
+			horasProceso = horas - 1;
+			if (holguraInicio == 0) {
+				minutosProceso = 0;
+			} else {
+				minutosProceso = 60 + holguraInicio;
+			}
+		} else {
+			horasProceso = horas;
+			minutosProceso = holguraInicio;
+		}
+		String horIni = horasProceso + ":" + validarTamMinutos(minutosProceso);
+		if (holguraFin >= 60) {
+			horasProceso = horas + 1;
+			minutosProceso = holguraFin - 60;
+		} else {
+			horasProceso = horas;
+			minutosProceso = holguraFin;
+		}
+
+		String horFin = horasProceso + ":" + validarTamMinutos(minutosProceso);
+		Horario hr;
+		System.out.println("Hora Inicio:" + horIni + "\nHora Fin:" + horFin);
+		try {
+			hr = em.createNamedQuery("Horario.findInicioByFdId", Horario.class).setParameter("diaId", fecha.getDay())
+					.setParameter("fdId", fcdcId).setParameter("iniH", horIni).setParameter("finH", horFin)
+					.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al obtener horarios: " + e);
+			return hr = null;
+		}
+		return hr;
+	}
+
+	/**
+	 * Metodo que valida que los minutos menores a 10 tengan 2 digitos
+	 * 
+	 * @param minutosProceso
+	 */
+
+	private String validarTamMinutos(int minutosProceso) {
+		String tamMinutos = "";
+		if (minutosProceso < 10) {
+			tamMinutos = "0" + minutosProceso;
+		} else {
+			tamMinutos = minutosProceso + "";
+		}
+		return tamMinutos;
+	}
+
+	@Override
+	public Materia getMateria(Integer hrrId) {
+		Materia mt;
+		try {
+			mt = em.createNamedQuery("Materia.findByHrId", Materia.class).setParameter("hrrId", hrrId)
+					.getSingleResult();
+		} catch (Exception e) {
+			System.out.println(e);
+			return mt = null;
+		}
+		return mt;
+	}
 }

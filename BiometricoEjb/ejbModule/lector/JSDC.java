@@ -334,64 +334,6 @@ public class JSDC implements JSDCLocal {
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
-	@Override
-	public Horario verificarHorario(Date fecha, Integer fcdcId) {
-		final int parametro = 15;
-		int horas = Integer.parseInt(fecha.getHours() + "");
-		int minutos = Integer.parseInt(fecha.getMinutes() + "");
-		int horasProceso = 0;
-		int minutosProceso = 0;
-		int holguraInicio = minutos - parametro;
-		int holguraFin = minutos + parametro;
-		String horaRegistro = fecha.getHours() + ":" + fecha.getMinutes();
-		System.out.println("Hora actual: " + horaRegistro);
-		if (holguraInicio <= 0) {
-			horasProceso = horas - 1;
-			if (holguraInicio == 0) {
-				minutosProceso = 0;
-			} else {
-				minutosProceso = 60 + holguraInicio;
-			}
-		} else {
-			horasProceso = horas;
-			minutosProceso = holguraInicio;
-		}
-		String horIni = horasProceso + ":" + validarTamMinutos(minutosProceso);
-		if (holguraFin >= 60) {
-			horasProceso = horas + 1;
-			minutosProceso = holguraFin - 60;
-		} else {
-			horasProceso = horas;
-			minutosProceso = holguraFin;
-		}
 
-		String horFin = horasProceso + ":" + validarTamMinutos(minutosProceso);
-		Horario hr;
-		try {
-			hr = em.createNamedQuery("Horario.findInicioByFdId", Horario.class).setParameter("diaId", fecha.getDay())
-					.setParameter("fdId", fcdcId).setParameter("iniH", horIni).setParameter("finH", horFin)
-					.getSingleResult();
-		} catch (Exception e) {
-			System.out.println("Error al obtener horarios: " + e);
-			return null;
-		}
-		return hr;
-	}
-
-	/**
-	 * Metodo que valida que los minutos menores a 10 tengan 2 digitos
-	 * 
-	 * @param minutosProceso
-	 */
-	private String validarTamMinutos(int minutosProceso) {
-		String tamMinutos = "";
-		if (minutosProceso < 10) {
-			tamMinutos = "0" + minutosProceso;
-		} else {
-			tamMinutos = minutosProceso + "";
-		}
-		return tamMinutos;
-	}
 
 }

@@ -60,7 +60,7 @@ public class Syllabus {
 		}
 	}
 
-	public void verDetaSyllabus() {
+	public String verDetaSyllabus() {
 		selectCrr = srvSgm.getCarrera(selectMtr.getMtrId());
 		syl = srvSgm.getSyllabus(selectMtr.getMtrId());
 		lstUC = srvSgm.listarUnidadCurricular(selectMtr.getMtrId());
@@ -74,6 +74,7 @@ public class Syllabus {
 			}
 			unidad.setContenidos(lstCnt);
 		}
+		return "syllabo";
 	}
 
 	// Setters and getters

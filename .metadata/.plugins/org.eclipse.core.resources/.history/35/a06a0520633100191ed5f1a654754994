@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<head>
+<title>Pagina del Syllabus</title>
+</head>
+
+<body>
+	<h:form>
+		<!-- <h:outputLabel value="Materia"></h:outputLabel>
+
+		<h:outputLabel value="Docente"></h:outputLabel>
+		<br />
+		<h:panelGrid border="0" columns="2">
+			<h:dataTable border="1">
+				<h:column id="column1">
+					<p:facet name="header">
+						<h:outputText value="Unidad"></h:outputText>
+					</p:facet>
+				</h:column>
+				<h:column id="column2">
+					<p:facet name="header">
+						<h:outputText value="Contenido"></h:outputText>
+					</p:facet>
+				</h:column>
+				<h:column id="column3">
+					<p:facet name="header">
+						<h:outputText id="text3" value="Herramienta"></h:outputText>
+					</p:facet>
+				</h:column>
+				<h:column id="column4">
+					<p:facet name="header">
+						<h:outputText id="text4" value="Opciones"></h:outputText>
+					</p:facet>
+
+				</h:column>
+			</h:dataTable>
+			<h:commandButton value="Agregar"></h:commandButton>
+		</h:panelGrid>
+		<h:commandButton value="Regresar" action="home.xhtml"></h:commandButton>
+		<h:commandButton value="Guardar" action="home.xhtml"></h:commandButton>
+
+ -->
+	</h:form>
+
+</body>
+
+
+</html>

@@ -1,0 +1,7 @@
+#Wed Feb 20 17:59:54 COT 2019
+__DEFAULT__=false
+org.eclipse.sdk.Eclipse.master=true
+org.eclipse.sdk.Google.master=true
+org.eclipse.help.ui.localSearch.master=true
+org.hibernate.eclipse.help.HibernateWiki.master=true
+expression=findAllC

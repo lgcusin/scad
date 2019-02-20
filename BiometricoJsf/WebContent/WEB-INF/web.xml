@@ -49,19 +49,19 @@
 	<!-- <context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring-context.xml</param-value>
-	</context-param>-->
+	</context-param> -->
 	<!-- Definicion del listener para la carga de contexto spring -->
-	<!-- <listener>
+	 <!-- <listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>-->
+	</listener> -->
 	<!-- Definicion del listener para el contexto de peticiones spring -->
 	<!-- <listener>
 		<listener-class>
 			org.springframework.web.context.request.RequestContextListener
 		</listener-class>
-	</listener> -->
+	</listener>  -->
 	<!-- Definicion del filtro de spring -->
-	<!-- <filter>
+	 <!-- <filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
@@ -72,8 +72,6 @@
 	<!-- ==================================================== -->
 	<!-- ============ CONFIGURACION DEL TIEMPO MAXIMO DE SESION ========== -->
 	<!-- =================================================== -->
-	<!-- <session-config>
-		<session-timeout>15</session-timeout>
-	</session-config>-->
+	<!-- <session-config> <session-timeout>15</session-timeout> </session-config> -->
 
 </web-app>

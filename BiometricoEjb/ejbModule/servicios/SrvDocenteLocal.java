@@ -17,8 +17,6 @@ import model.TipoHuella;
 @Local
 public interface SrvDocenteLocal {
 
-	FichaDocente getDocente(Integer id);
-
 	List<FichaDocente> listar(String parametro);
 
 	List<TipoHuella> listarDedos();
@@ -29,6 +27,6 @@ public interface SrvDocenteLocal {
 			throws IOException, SerialException, SQLException;
 
 	List<Asistencia> listarAsistencia(Integer id);
-	
+
 	List<String> listarActividades(Integer id);
 }

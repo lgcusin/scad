@@ -1,5 +1,6 @@
 package servicios;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -8,6 +9,7 @@ import model.Actividad;
 import model.Carrera;
 import model.Contenido;
 import model.Herramienta;
+import model.Horario;
 import model.Materia;
 import model.Syllabo;
 import model.UnidadCurricular;
@@ -32,5 +34,9 @@ public interface SrvSeguimientoLocal {
 	List<Actividad> listarActividades(Integer cntId);
 
 	List<Herramienta> listarHerramientas(Integer cntId);
+	
+	Horario verificarHorario(Date fecha, Integer fcdcId);
+
+	Materia getMateria(Integer hrrId);
 
 }

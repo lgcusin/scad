@@ -31,6 +31,7 @@
 		<class>model.Horario</class>
 		<class>model.TipoHorario</class>
 		<class>model.FichaMatricula</class>
+		<class>model.FichaEmpleado</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
 			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" />

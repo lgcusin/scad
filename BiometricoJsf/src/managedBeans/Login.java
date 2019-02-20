@@ -7,17 +7,24 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import model.FichaDocente;
+import model.FichaEmpleado;
 import model.Usuario;
-import servicios.LoginBean;
-import servicios.LoginBeanLocal;
+import servicios.SrvLogin;
+import servicios.SrvLoginLocal;
+import servicios.SrvDocente;
 
 @ManagedBean(name = "login")
-@RequestScoped
+@SessionScoped
 public class Login {
 
 	@EJB
-	private LoginBeanLocal loginBean;
+	private SrvLoginLocal srvlgn;
 	private Usuario usr;
+	private FichaDocente fd;
+	private FichaEmpleado fem;
+	boolean Docente = false;
+	boolean Empleado = false;
 
 	public String nick;
 	public String clave;
@@ -28,15 +35,25 @@ public class Login {
 	}
 
 	public String ingresar() {
-		
-		usr = loginBean.verificar(nick, clave);
 
-		if (usr.getUrsId() != null) {
+		usr = srvlgn.verificar(nick, clave);
+
+		if (usr != null) {
+			fd = usr.getFichaDocente();
+			if (fd != null) {
+				Docente = true;
+			}
+			fem = usr.getFichaEmpleado();
+			if (fem != null) {
+				Empleado = true;
+			}
+
 			return "principal";
 		} else {
 			System.out.println("usuario o contraseña no validos");
+			return "errorLogin";
 		}
-		return "errorLogin";
+
 	}
 
 	public String getNick() {
@@ -61,6 +78,38 @@ public class Login {
 
 	public void setUsr(Usuario usr) {
 		this.usr = usr;
+	}
+
+	public FichaDocente getFd() {
+		return fd;
+	}
+
+	public void setFd(FichaDocente fd) {
+		this.fd = fd;
+	}
+
+	public FichaEmpleado getFem() {
+		return fem;
+	}
+
+	public void setFem(FichaEmpleado fem) {
+		this.fem = fem;
+	}
+
+	public boolean isDocente() {
+		return Docente;
+	}
+
+	public void setDocente(boolean docente) {
+		Docente = docente;
+	}
+
+	public boolean isEmpleado() {
+		return Empleado;
+	}
+
+	public void setEmpleado(boolean empleado) {
+		Empleado = empleado;
 	}
 
 }

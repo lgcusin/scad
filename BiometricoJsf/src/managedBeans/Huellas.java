@@ -11,6 +11,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
@@ -54,8 +55,10 @@ public class Huellas {
 
 	@PostConstruct
 	public void init() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		Registro beanDcnt = context.getApplication().evaluateExpressionGet(context, "#{registro}", Registro.class);
+		 FacesContext context = FacesContext.getCurrentInstance();
+		 Registro beanDcnt =
+		 context.getApplication().evaluateExpressionGet(context,
+		 "#{registro}", Registro.class);
 		jsdcBean.inicializar();
 		jsdcBean.onLED();
 		selectDcnt = beanDcnt.getSelectDcnt();
@@ -98,6 +101,7 @@ public class Huellas {
 
 	public void registrar() throws SerialException, IOException, SQLException {
 		if (tpId != null) {
+			// selectDcnt = beanDcnt.getSelectDcnt();
 			selectTp = new TipoHuella();
 			selectTp.setTphlId(tpId);
 			srvDcnt.guardarImagen(bimg1, bimg2, selectDcnt, selectTp);

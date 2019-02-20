@@ -1,7 +1,6 @@
 package model;
 // Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,35 +16,37 @@ import javax.persistence.Table;
 @Table(name = "DETALLE_PUESTO")
 public class DetallePuesto implements java.io.Serializable {
 
-	private BigDecimal dtpsId;
+	private Integer dtpsId;
 	private Carrera carrera;
 	private FichaDocente fichaDocente;
+	private FichaEmpleado fichaEmpleado;
 	private String dtpsEstado;
 
 	public DetallePuesto() {
 	}
 
-	public DetallePuesto(BigDecimal dtpsId, Carrera carrera, FichaDocente fichaDocente) {
+	public DetallePuesto(Integer dtpsId, Carrera carrera) {
 		this.dtpsId = dtpsId;
 		this.carrera = carrera;
-		this.fichaDocente = fichaDocente;
 	}
 
-	public DetallePuesto(BigDecimal dtpsId, Carrera carrera, FichaDocente fichaDocente, String dtpsEstado) {
+	public DetallePuesto(Integer dtpsId, Carrera carrera, FichaDocente fichaDocente, FichaEmpleado fichaEmpleado,
+			String dtpsEstado) {
 		this.dtpsId = dtpsId;
 		this.carrera = carrera;
 		this.fichaDocente = fichaDocente;
+		this.fichaEmpleado = fichaEmpleado;
 		this.dtpsEstado = dtpsEstado;
 	}
 
 	@Id
 
 	@Column(name = "DTPS_ID", unique = true, nullable = false, precision = 38, scale = 0)
-	public BigDecimal getDtpsId() {
+	public Integer getDtpsId() {
 		return this.dtpsId;
 	}
 
-	public void setDtpsId(BigDecimal dtpsId) {
+	public void setDtpsId(Integer dtpsId) {
 		this.dtpsId = dtpsId;
 	}
 
@@ -60,13 +61,23 @@ public class DetallePuesto implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "FCDC_ID", nullable = false)
+	@JoinColumn(name = "FCDC_ID")
 	public FichaDocente getFichaDocente() {
 		return this.fichaDocente;
 	}
 
 	public void setFichaDocente(FichaDocente fichaDocente) {
 		this.fichaDocente = fichaDocente;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FCEM_ID")
+	public FichaEmpleado getFichaEmpleado() {
+		return this.fichaEmpleado;
+	}
+
+	public void setFichaEmpleado(FichaEmpleado fichaEmpleado) {
+		this.fichaEmpleado = fichaEmpleado;
 	}
 
 	@Column(name = "DTPS_ESTADO", length = 20)

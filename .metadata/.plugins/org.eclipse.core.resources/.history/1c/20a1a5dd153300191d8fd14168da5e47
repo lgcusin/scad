@@ -1,0 +1,85 @@
+package managedBeans;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import model.FichaDocente;
+import model.FichaEmpleado;
+import model.Usuario;
+import servicios.SrvLogin;
+import servicios.LoginBeanLocal;
+import servicios.SrvDocente;
+
+@ManagedBean(name = "login")
+@SessionScoped
+public class Login {
+
+	@EJB
+	private LoginBeanLocal loginBean;
+	private Usuario usr;
+	private FichaDocente fd;
+	private FichaEmpleado fem;
+	
+
+	public String nick;
+	public String clave;
+
+	@PostConstruct
+	public void init() {
+		usr = new Usuario();
+	}
+
+	public String ingresar() {
+
+		usr = loginBean.verificar(nick, clave);
+
+		if (usr!= null) {
+			if(usr.getFichaDocente().getFcdcId()!=null){
+				fd = srvDcnt.getDocente(usr.getFichaDocente().getFcdcId());
+			}
+			if(usr.getFichaEmpleado().getFcemId()!=null){
+				
+			}
+			
+			return "principal";
+		}
+		// if (usr.getUrsId() != null &&
+		// usr.getFichaEmpleado().getFcemId()!=null) {
+		// return "principalA";
+		// }
+		else {
+			System.out.println("usuario o contraseña no validos");
+			return "errorLogin";
+		}
+
+	}
+
+	public String getNick() {
+		return nick;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+
+	public String getClave() {
+		return clave;
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+
+	public Usuario getUsr() {
+		return usr;
+	}
+
+	public void setUsr(Usuario usr) {
+		this.usr = usr;
+	}
+
+}

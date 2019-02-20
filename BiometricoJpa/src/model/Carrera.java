@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CARRERA")
-@NamedQueries({ @NamedQuery(name = "Carrera.findAllC", query = "select c from Carrera as c"),
+@NamedQueries({ @NamedQuery(name = "Carrera.findAll", query = "select c from Carrera as c"),
 		@NamedQuery(name = "Carrera.findByMtrId", query = "select m.carrera from Materia as m where m.mtrId=:mtrId") })
 
 public class Carrera implements java.io.Serializable {
