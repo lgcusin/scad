@@ -1,7 +1,6 @@
 package model;
-// Generated 29/01/2019 23:19:04 by Hibernate Tools 4.3.5.Final
+// Generated 16/02/2019 21:05:27 by Hibernate Tools 4.3.5.Final
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -20,25 +19,30 @@ import javax.persistence.Table;
 @Table(name = "PARALELO")
 public class Paralelo implements java.io.Serializable {
 
-	private BigDecimal prlId;
+	private Integer prlId;
+	private Semestre semestre;
+	private Materia materia;
 	private Carrera carrera;
 	private String prlCodigo;
 	private String prlDescripcion;
-	private BigDecimal prlEstado;
-	private BigDecimal prlCupo;
+	private Integer prlEstado;
+	private Integer prlCupo;
 	private Set<MallaCurricularParalelo> mallaCurricularParalelos = new HashSet<MallaCurricularParalelo>(0);
 
 	public Paralelo() {
 	}
 
-	public Paralelo(BigDecimal prlId, Carrera carrera) {
+	public Paralelo(Integer prlId, Carrera carrera) {
 		this.prlId = prlId;
 		this.carrera = carrera;
 	}
 
-	public Paralelo(BigDecimal prlId, Carrera carrera, String prlCodigo, String prlDescripcion, BigDecimal prlEstado,
-			BigDecimal prlCupo, Set<MallaCurricularParalelo> mallaCurricularParalelos) {
+	public Paralelo(Integer prlId, Semestre semestre, Materia materia, Carrera carrera, String prlCodigo,
+			String prlDescripcion, Integer prlEstado, Integer prlCupo,
+			Set<MallaCurricularParalelo> mallaCurricularParalelos) {
 		this.prlId = prlId;
+		this.semestre = semestre;
+		this.materia = materia;
 		this.carrera = carrera;
 		this.prlCodigo = prlCodigo;
 		this.prlDescripcion = prlDescripcion;
@@ -50,12 +54,32 @@ public class Paralelo implements java.io.Serializable {
 	@Id
 
 	@Column(name = "PRL_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public BigDecimal getPrlId() {
+	public Integer getPrlId() {
 		return this.prlId;
 	}
 
-	public void setPrlId(BigDecimal prlId) {
+	public void setPrlId(Integer prlId) {
 		this.prlId = prlId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "SMS_ID")
+	public Semestre getSemestre() {
+		return this.semestre;
+	}
+
+	public void setSemestre(Semestre semestre) {
+		this.semestre = semestre;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MTR_ID")
+	public Materia getMateria() {
+		return this.materia;
+	}
+
+	public void setMateria(Materia materia) {
+		this.materia = materia;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -87,20 +111,20 @@ public class Paralelo implements java.io.Serializable {
 	}
 
 	@Column(name = "PRL_ESTADO", precision = 22, scale = 0)
-	public BigDecimal getPrlEstado() {
+	public Integer getPrlEstado() {
 		return this.prlEstado;
 	}
 
-	public void setPrlEstado(BigDecimal prlEstado) {
+	public void setPrlEstado(Integer prlEstado) {
 		this.prlEstado = prlEstado;
 	}
 
 	@Column(name = "PRL_CUPO", precision = 22, scale = 0)
-	public BigDecimal getPrlCupo() {
+	public Integer getPrlCupo() {
 		return this.prlCupo;
 	}
 
-	public void setPrlCupo(BigDecimal prlCupo) {
+	public void setPrlCupo(Integer prlCupo) {
 		this.prlCupo = prlCupo;
 	}
 

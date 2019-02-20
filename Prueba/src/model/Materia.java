@@ -1,5 +1,5 @@
 package model;
-// Generated 13/02/2019 17:29:01 by Hibernate Tools 4.3.5.Final
+// Generated 17/02/2019 21:49:48 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -24,6 +24,7 @@ public class Materia implements java.io.Serializable {
 	private Carrera carrera;
 	private String mtrNombre;
 	private Set<MallaCurricularMateria> mallaCurricularMaterias = new HashSet<MallaCurricularMateria>(0);
+	private Set<Paralelo> paralelos = new HashSet<Paralelo>(0);
 	private Set<Horario> horarios = new HashSet<Horario>(0);
 
 	public Materia() {
@@ -35,11 +36,12 @@ public class Materia implements java.io.Serializable {
 	}
 
 	public Materia(BigDecimal mtrId, Carrera carrera, String mtrNombre,
-			Set<MallaCurricularMateria> mallaCurricularMaterias, Set<Horario> horarios) {
+			Set<MallaCurricularMateria> mallaCurricularMaterias, Set<Paralelo> paralelos, Set<Horario> horarios) {
 		this.mtrId = mtrId;
 		this.carrera = carrera;
 		this.mtrNombre = mtrNombre;
 		this.mallaCurricularMaterias = mallaCurricularMaterias;
+		this.paralelos = paralelos;
 		this.horarios = horarios;
 	}
 
@@ -80,6 +82,15 @@ public class Materia implements java.io.Serializable {
 
 	public void setMallaCurricularMaterias(Set<MallaCurricularMateria> mallaCurricularMaterias) {
 		this.mallaCurricularMaterias = mallaCurricularMaterias;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "materia")
+	public Set<Paralelo> getParalelos() {
+		return this.paralelos;
+	}
+
+	public void setParalelos(Set<Paralelo> paralelos) {
+		this.paralelos = paralelos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "materia")

@@ -21,7 +21,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "MATERIA")
 @NamedQueries({ @NamedQuery(name = "Materia.findAll", query = "select m from Materia as m"),
-		@NamedQuery(name = "Materia.findAllById", query = "select m from Materia as m where m.carrera.crrId=:idcr") })
+		@NamedQuery(name = "Materia.findAllById", query = "select m from Materia as m where m.carrera.crrId=:idcr"),
+		@NamedQuery(name = "Materia.findMateriaBySemestre", query = "select m.mtrId,m.mtrNombre from MallaCurricularMateria as mcm"
+				+ " join mcm.materia as m join mcm.semestre as s where s.smsId=:smsId") })
 
 public class Materia implements java.io.Serializable {
 
@@ -89,4 +91,14 @@ public class Materia implements java.io.Serializable {
 		this.mallaCurricularMaterias = mallaCurricularMaterias;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Materia [mtrId=" + mtrId + ", carrera=" + carrera + ", mtrNombre=" + mtrNombre
+				+ ", mallaCurricularMaterias=" + mallaCurricularMaterias + "]";
+	}
 }
