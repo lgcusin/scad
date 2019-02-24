@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import model.Actividad;
+import model.Asistencia;
 import model.Aula;
 import model.Carrera;
 import model.Contenido;
@@ -36,10 +37,16 @@ public interface SrvSeguimientoLocal {
 
 	List<Herramienta> listarHerramientas(Integer cntId);
 
-	Horario verificarHorario(Date fecha, Integer fcdcId);
+	Horario verificarHorario(Date fecha, Integer fcdcId, Boolean tipo);
 
 	Materia getMateria(Integer hrrId);
 
 	Aula getAula(Integer hrrId);
+
+	List<Contenido> getContenidos(Integer mtrId);
+
+	Asistencia marcacionReg(Date fecha, Integer fcdcId);
+
+	void guardarRegistro(Asistencia regAss);
 
 }

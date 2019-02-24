@@ -4,16 +4,20 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 import com.sun.org.apache.xml.internal.resolver.helpers.Debug;
 
 import lector.JSDCLocal;
+import model.Asistencia;
 import model.Aula;
+import model.Contenido;
 import model.FichaDocente;
 import model.Horario;
 import model.Materia;
@@ -33,12 +37,14 @@ public class Control {
 	private Horario hrr;
 	private Materia mtr;
 	private Aula aul;
+	private Asistencia regAss;
+	private List<Contenido> lstCnt;
+	private List<String> selecCnts;
 
 	public String hora;
 	public Date fechahora;
 	public Date ahora;
 	public SimpleDateFormat formateador;
-	public boolean exist;
 
 	@PostConstruct
 	public void init() {
@@ -50,7 +56,6 @@ public class Control {
 
 	public void temporizador() {
 		ahora = new Date();
-
 		formateador = new SimpleDateFormat("HH:mm:ss");
 		hora = formateador.format(ahora);
 	}
@@ -59,20 +64,64 @@ public class Control {
 
 		regDcnt = srvJsdc.comparar();
 		if (regDcnt != null) {
-			hrr = srvSgmt.verificarHorario(ahora, regDcnt.getFcdcId());
+			hrr = srvSgmt.verificarHorario(ahora, regDcnt.getFcdcId(), true);
 			if (hrr != null) {
-				mtr = srvSgmt.getMateria(hrr.getHrrId());
-				aul = srvSgmt.getAula(hrr.getHrrId());
+				regAss = srvSgmt.marcacionReg(ahora, regDcnt.getFcdcId());
+				if (regAss == null) {
+					regAss = new Asistencia();
+					regAss.setAssId(10);
+					formateador = new SimpleDateFormat("dd/MM/yyyy");
+					regAss.setAssFecha(new Date(formateador.format(ahora)));
+					formateador = new SimpleDateFormat("HH:mm:ss");
+					regAss.setAssHoraEntrada(formateador.format(ahora));
+					regAss.setAssEstado("Iniciado");
+					mtr = srvSgmt.getMateria(hrr.getHrrId());
+					aul = srvSgmt.getAula(hrr.getHrrId());
+					hrr.setMateria(mtr);
+					hrr.setAula(aul);
+					lstCnt = srvSgmt.getContenidos(mtr.getMtrId());
+				} else {
+					if (regAss.getAssHoraEntrada() != null && regAss.getAssEstado().equals("Iniciado")) {
+						hrr = srvSgmt.verificarHorario(ahora, regDcnt.getFcdcId(), false);
+						if (hrr != null) {
+							regAss = new Asistencia();
+							regAss.setAssId(20);
+							formateador = new SimpleDateFormat("dd/MM/yyyy");
+							regAss.setAssFecha(new Date(formateador.format(ahora)));
+							formateador = new SimpleDateFormat("HH:mm:ss");
+							regAss.setAssHoraSalida(formateador.format(ahora));
+							regAss.setAssEstado("Finalizado");
+							mtr = srvSgmt.getMateria(hrr.getHrrId());
+							aul = srvSgmt.getAula(hrr.getHrrId());
+							hrr.setMateria(mtr);
+							hrr.setAula(aul);
+							lstCnt = srvSgmt.getContenidos(mtr.getMtrId());
+						} else {
+							System.out.println("Esta fuera del horario de salida!!!!!!!!!!!!!!!!!");
+						}
 
-				hrr.setMateria(mtr);
-				hrr.setAula(aul);
+					} else {
+						System.out.println("Sin hora de entrada, xfavor justifique su atraso!!!!");
+					}
+				}
 			} else {
-
-				System.out.println("Esta fuera del horario!!!!!!!!!!!!!!!!!");
+				System.out.println("Esta fuera del horario de entrada!!!!!!!!!!!!!!!!!");
 			}
 		}
 
 	}
+
+	public void guardarAsis() {
+		srvSgmt.guardarRegistro(regAss);
+	}
+
+	public void cerrarDiag() {
+		selecCnts = null;
+		lstCnt = null;
+		regAss = null;
+	}
+
+	// setters and getters
 
 	public String getHora() {
 		return hora;
@@ -98,20 +147,28 @@ public class Control {
 		this.hrr = hrr;
 	}
 
-	public Materia getMtr() {
-		return mtr;
+	public List<Contenido> getLstCnt() {
+		return lstCnt;
 	}
 
-	public void setMtr(Materia mtr) {
-		this.mtr = mtr;
+	public void setLstCnt(List<Contenido> lstCnt) {
+		this.lstCnt = lstCnt;
 	}
 
-	public Aula getAul() {
-		return aul;
+	public List<String> getSelecCnts() {
+		return selecCnts;
 	}
 
-	public void setAul(Aula aul) {
-		this.aul = aul;
+	public void setSelecCnts(List<String> selecCnts) {
+		this.selecCnts = selecCnts;
+	}
+
+	public Asistencia getRegAss() {
+		return regAss;
+	}
+
+	public void setRegAss(Asistencia regAss) {
+		this.regAss = regAss;
 	}
 
 }

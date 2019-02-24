@@ -20,11 +20,6 @@ public class SrvLogin implements SrvLoginLocal {
 
 	@PersistenceContext
 	EntityManager em;
-
-	// private EntityManagerFactory emf =
-	// Persistence.createEntityManagerFactory("UnidadPersistencia");
-	// private EntityManager em = emf.createEntityManager();
-
 	public SrvLogin() {
 	}
 

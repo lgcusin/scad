@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,7 +23,10 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "ASISTENCIA")
-@NamedQuery(name="Asistencia.findAll", query="select a from Asistencia as a where a.fichaDocente.fcdcId=:fcdcId")
+@NamedQueries({
+//		@NamedQuery(name = "Asistencia.findByFdIdyDt", query = "select ass from Asistencia as ass where ass.fichaDocente.fcdcId=1 and day(ass.assFecha)=02 and month(ass.assFecha)=01 and year(ass.assFecha)=2019"),
+		@NamedQuery(name = "Asistencia.findAll", query = "select a from Asistencia as a where a.fichaDocente.fcdcId=:fcdcId") })
+
 public class Asistencia implements java.io.Serializable {
 
 	/**

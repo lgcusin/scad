@@ -176,14 +176,9 @@ public class SrvHorario implements SrvHorarioLocal {
 					+ " join h.paralelo as p where h.materia.mtrId=:mtrId and h.paralelo.prlId=:prlId order by h.hrrId asc");
 			query.setParameter("prlId", idParalelo);
 			query.setParameter("mtrId", idMateria);
-			// result = query.getResultList();
-			// lstHorario = query.getResultList();
 			System.out.println("Valores de la lista");
 			for (Object obj : query.getResultList()) {
 				Object[] objArray = (Object[]) obj;
-				// System.out.println(objArray[0] + ";" + objArray[1] + ";" +
-				// objArray[2] + ";" + objArray[3] + ";"
-				// + objArray[4] + ";" + objArray[5] + ";" + objArray[6]);
 				lstHorario.add((Horario) objArray[0]);
 			}
 		} catch (Exception e) {

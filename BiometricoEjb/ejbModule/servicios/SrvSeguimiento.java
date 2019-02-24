@@ -1,5 +1,6 @@
 package servicios;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,8 +9,10 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import model.Actividad;
+import model.Asistencia;
 import model.Aula;
 import model.Carrera;
 import model.Contenido;
@@ -109,7 +112,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public Horario verificarHorario(Date fecha, Integer fcdcId) {
+	public Horario verificarHorario(Date fecha, Integer fcdcId, Boolean tipo) {
 		final int parametro = 15;
 		int horas = Integer.parseInt(fecha.getHours() + "");
 		int minutos = Integer.parseInt(fecha.getMinutes() + "");
@@ -130,7 +133,8 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			horasProceso = horas;
 			minutosProceso = holguraInicio;
 		}
-		String horIni = horasProceso + ":" + validarTamMinutos(minutosProceso);
+		String horIni = validarTamMinutos(horasProceso) + ":" + validarTamMinutos(minutosProceso);
+
 		if (holguraFin >= 60) {
 			horasProceso = horas + 1;
 			minutosProceso = holguraFin - 60;
@@ -139,13 +143,19 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			minutosProceso = holguraFin;
 		}
 
-		String horFin = horasProceso + ":" + validarTamMinutos(minutosProceso);
+		String horFin = validarTamMinutos(horasProceso) + ":" + validarTamMinutos(minutosProceso);
 		Horario hr;
-		System.out.println("Hora Inicio:" + horIni + "\nHora Fin:" + horFin);
+		System.out.println("Hora Holgura Inicio:" + horIni + "\nHora holgura Fin:" + horFin);
 		try {
-			hr = em.createNamedQuery("Horario.findInicioByFdId", Horario.class).setParameter("diaId", fecha.getDay())
-					.setParameter("fdId", fcdcId).setParameter("iniH", horIni).setParameter("finH", horFin)
-					.getSingleResult();
+			if (tipo) {
+				hr = em.createNamedQuery("Horario.findInicioByFdId", Horario.class)
+						.setParameter("diaId", fecha.getDay()).setParameter("fdId", fcdcId).setParameter("iniH", horIni)
+						.setParameter("finH", horFin).getSingleResult();
+			} else {
+				hr = em.createNamedQuery("Horario.findFinByFdId", Horario.class).setParameter("diaId", fecha.getDay())
+						.setParameter("fdId", fcdcId).setParameter("iniH", horIni).setParameter("finH", horFin)
+						.getSingleResult();
+			}
 		} catch (Exception e) {
 			System.out.println("Error al obtener horarios: " + e);
 			return hr = null;
@@ -192,5 +202,49 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			return aul = null;
 		}
 		return aul;
+	}
+
+	@Override
+	public List<Contenido> getContenidos(Integer mtrId) {
+		List<Contenido> lstCn;
+		try {
+			lstCn = em.createNamedQuery("Contenido.findAllByMtrId", Contenido.class).setParameter("mtId", mtrId)
+					.getResultList();
+		} catch (Exception e) {
+			System.out.println("No tiene contenidos:" + e);
+			return lstCn = new ArrayList<>();
+		}
+		return lstCn;
+	}
+
+	@Override
+	public Asistencia marcacionReg(Date fecha, Integer fcdcId) {
+		Asistencia asis;
+		SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
+		String hora = formateador.format(fecha);
+		System.out.println("Fecha actual: " + hora);
+		try {
+			Query q = em.createQuery(
+					"select ass from Asistencia as ass where ass.fichaDocente.fcdcId=:fdId and to_char( ass.assFecha,"
+							+ "'" + "dd/mm/yyyy" + "'" + ") =:hora");
+			q.setParameter("fdId", fcdcId);
+			q.setParameter("hora", hora);
+			asis = (Asistencia) q.getSingleResult();
+
+		} catch (Exception e) {
+			System.out.println("No hay una asistencia gregistrada" + e);
+			return asis = null;
+		}
+		return asis;
+	}
+
+	@Override
+	public void guardarRegistro(Asistencia regAss) {
+		try {
+			em.persist(regAss);
+		} catch (Exception e) {
+			System.out.println("No se puede guardar");
+		}
+
 	}
 }
