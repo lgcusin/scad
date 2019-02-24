@@ -173,7 +173,7 @@ public class SrvHorario implements SrvHorarioLocal {
 		try {
 			Query query = em.createQuery("select h,th,m,fd,a,ds,p from Horario as h join h.tipoHorario as th"
 					+ " join h.materia as m join h.fichaDocente as fd join h.aula as a join h.diaSemana as ds"
-					+ " join h.paralelo as p where h.materia.mtrId=:mtrId and h.paralelo.prlId=:prlId");
+					+ " join h.paralelo as p where h.materia.mtrId=:mtrId and h.paralelo.prlId=:prlId order by h.hrrId asc");
 			query.setParameter("prlId", idParalelo);
 			query.setParameter("mtrId", idMateria);
 			// result = query.getResultList();
