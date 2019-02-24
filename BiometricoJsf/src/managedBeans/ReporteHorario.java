@@ -74,7 +74,6 @@ public class ReporteHorario {
 		System.out.println("Metodo de imprimir");
 	}
 
-
 	/**
 	 * The selectCrr to get.
 	 * 
