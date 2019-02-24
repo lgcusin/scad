@@ -46,13 +46,8 @@
 				<div>
 					<p:commandButton action="#{registro.listar}" value="Buscar"
 						update="dtregistro"></p:commandButton>
-					<button name="frmRegistro:btnLimpiar"
-						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-						id="frmRegistro:btnLimpiar"
-						onclick="PrimeFaces.ab({s:'frmRegistro:btnLimpiar',u:'frmRegistro:pnlResultados frmRegistro:pnlBusqueda'});return false;"
-						type="submit">
-						<span class="ui-button-text ui-c">Limpiar</span>
-					</button>
+					<p:commandButton id="btnLimpiar" value="Limpiar"></p:commandButton>
+
 				</div>
 			</div>
 
@@ -74,8 +69,8 @@
 							value="#{dcnt.fcdcApellidos} #{dcnt.fcdcPrimerNombre} #{dcnt.fcdcSegundoNombre}" />
 					</p:column>
 					<f:facet name="footer">
-						<p:commandButton id="btnRegistrar" value="registrar" action="#{registro.verHuellas}"></p:commandButton>
-
+						<p:commandButton id="btnRegistrar" value="registrar"
+							process="dtregistro" action="#{registro.verHuellas}"></p:commandButton>
 					</f:facet>
 				</p:dataTable>
 			</div>

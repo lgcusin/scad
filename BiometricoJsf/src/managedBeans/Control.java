@@ -15,6 +15,9 @@ import com.sun.org.apache.xml.internal.resolver.helpers.Debug;
 import lector.JSDCLocal;
 import model.FichaDocente;
 import model.Horario;
+import model.Materia;
+import servicios.SrvSeguimiento;
+import servicios.SrvSeguimientoLocal;
 
 @ManagedBean(name = "control")
 @ViewScoped
@@ -22,9 +25,11 @@ public class Control {
 
 	@EJB
 	private JSDCLocal srvJsdc;
+	private SrvSeguimientoLocal srvSgmt;
 
 	private FichaDocente regDcnt;
 	private Horario hrr;
+	private Materia mtr;
 
 	public String hora;
 	public Date fechahora;
@@ -51,11 +56,12 @@ public class Control {
 
 		regDcnt = srvJsdc.comparar();
 		if (regDcnt != null) {
-			hrr = srvJsdc.verificarHorario(ahora, regDcnt.getFcdcId());
-			if (hrr.getHrrId() != null) {
-				System.out.println("Si hay datos...");
+			hrr = srvSgmt.verificarHorario(ahora, regDcnt.getFcdcId());
+			if (hrr != null) {
+				mtr = srvSgmt.getMateria(hrr.getHrrId());
 			} else {
-				System.out.println("Si hay datos");
+
+				System.out.println("Esta fuera del horario!!!!!!!!!!!!!!!!!");
 			}
 		}
 
@@ -85,4 +91,14 @@ public class Control {
 		this.hrr = hrr;
 	}
 
+	public Materia getMtr() {
+		return mtr;
+	}
+
+	public void setMtr(Materia mtr) {
+		this.mtr = mtr;
+	}
+
+	
+	
 }

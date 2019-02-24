@@ -30,5 +30,4 @@ public interface JSDCLocal {
 
 	FichaDocente comparar() throws SQLException, IOException;
 
-	Horario verificarHorario(Date fecha, Integer fcdcId);
 }

@@ -24,7 +24,7 @@ import javax.persistence.UniqueConstraint;
 		@UniqueConstraint(columnNames = { "HRR_INICIO", "HRR_FIN", "AUL_ID", "DSM_ID" }) })
 @NamedQueries({
 		@NamedQuery(name = "Horario.findInicioByFdId", query = "select h from Horario as h where h.diaSemana.dsmId=:diaId and h.fichaDocente.fcdcId=:fdId  and (h.hrrInicio between :iniH and :finH)"),
-		@NamedQuery(name = "Horario.findFinByFdId", query = "select h from Horario as h where h.diaSemana.dsmId=:diaId and h.fichaDocente.fcdcId=:fdId  and h.hrrFin between :iniH and :finH") })
+		@NamedQuery(name = "Horario.findFinByFdId", query = "select h from Horario as h where h.diaSemana.dsmId=:diaId and h.fichaDocente.fcdcId=:fdId  and h.hrrFin between :iniH and :finH"), })
 public class Horario implements java.io.Serializable {
 
 	private Integer hrrId;

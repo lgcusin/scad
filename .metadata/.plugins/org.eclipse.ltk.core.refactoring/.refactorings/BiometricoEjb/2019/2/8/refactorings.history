@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;servicios.LoginBeanLocal&apos; to &apos;SrvLoginLocal&apos;&#x0D;&#x0A;- Original project: &apos;BiometricoEjb&apos;&#x0D;&#x0A;- Original element: &apos;servicios.LoginBeanLocal&apos;&#x0D;&#x0A;- Renamed element: &apos;servicios.SrvLoginLocal&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Rename similarly named elements&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;LoginBeanLocal&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/ejbModule&lt;servicios{LoginBeanLocal.java[LoginBeanLocal" matchStrategy="1" name="SrvLoginLocal" qualified="false" references="true" similarDeclarations="true" stamp="1550450462242" textual="false" version="1.0"/>
+</session>

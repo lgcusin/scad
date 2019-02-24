@@ -31,6 +31,7 @@
 		<class>model.Horario</class>
 		<class>model.TipoHorario</class>
 		<class>model.FichaMatricula</class>
+		<class>model.FichaEmpleado</class>
 		<class>model.Semestre</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />

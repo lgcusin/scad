@@ -20,6 +20,7 @@ import javax.persistence.Table;
 @Table(name = "FICHA_DOCENTE")
 @NamedQueries({
 		@NamedQuery(name = "Docente.findByHdId", query = "select hd.fichaDocente from HuellaDactilar as hd where hd.hldcId=:hdId"),
+		@NamedQuery(name ="Docente.findByUsrId", query="select u.fichaDocente from Usuario as u where u.ursId=:usrId"),
 		@NamedQuery(name = "Docente.listar", query = "select fd from FichaDocente as fd "
 				+ "where fd.fcdcApellidos LIKE :apellido or fd.fcdcPrimerNombre LIKE :primernombre or fd.fcdcSegundoNombre LIKE :segundonombre") })
 

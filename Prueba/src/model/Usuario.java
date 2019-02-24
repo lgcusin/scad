@@ -1,5 +1,5 @@
 package model;
-// Generated 13/02/2019 17:29:01 by Hibernate Tools 4.3.5.Final
+// Generated 14/02/2019 12:12:32 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -19,6 +19,7 @@ public class Usuario implements java.io.Serializable {
 
 	private BigDecimal ursId;
 	private FichaDocente fichaDocente;
+	private FichaEmpleado fichaEmpleado;
 	private String usrIdentificacion;
 	private String usrNick;
 	private String usrPassword;
@@ -26,15 +27,15 @@ public class Usuario implements java.io.Serializable {
 	public Usuario() {
 	}
 
-	public Usuario(BigDecimal ursId, FichaDocente fichaDocente) {
+	public Usuario(BigDecimal ursId) {
 		this.ursId = ursId;
-		this.fichaDocente = fichaDocente;
 	}
 
-	public Usuario(BigDecimal ursId, FichaDocente fichaDocente, String usrIdentificacion, String usrNick,
-			String usrPassword) {
+	public Usuario(BigDecimal ursId, FichaDocente fichaDocente, FichaEmpleado fichaEmpleado, String usrIdentificacion,
+			String usrNick, String usrPassword) {
 		this.ursId = ursId;
 		this.fichaDocente = fichaDocente;
+		this.fichaEmpleado = fichaEmpleado;
 		this.usrIdentificacion = usrIdentificacion;
 		this.usrNick = usrNick;
 		this.usrPassword = usrPassword;
@@ -52,13 +53,23 @@ public class Usuario implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "FCDC_ID", nullable = false)
+	@JoinColumn(name = "FCDC_ID")
 	public FichaDocente getFichaDocente() {
 		return this.fichaDocente;
 	}
 
 	public void setFichaDocente(FichaDocente fichaDocente) {
 		this.fichaDocente = fichaDocente;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FCEM_ID")
+	public FichaEmpleado getFichaEmpleado() {
+		return this.fichaEmpleado;
+	}
+
+	public void setFichaEmpleado(FichaEmpleado fichaEmpleado) {
+		this.fichaEmpleado = fichaEmpleado;
 	}
 
 	@Column(name = "USR_IDENTIFICACION", length = 13)

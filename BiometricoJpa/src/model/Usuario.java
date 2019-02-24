@@ -1,6 +1,7 @@
 package model;
 // Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,8 +20,10 @@ import javax.persistence.Table;
 		+ "where u.usrNick=:nick and u.usrPassword=:clave")
 public class Usuario implements java.io.Serializable {
 
+
 	private Integer ursId;
 	private FichaDocente fichaDocente;
+	private FichaEmpleado fichaEmpleado;
 	private String usrIdentificacion;
 	private String usrNick;
 	private String usrPassword;
@@ -28,15 +31,15 @@ public class Usuario implements java.io.Serializable {
 	public Usuario() {
 	}
 
-	public Usuario(Integer ursId, FichaDocente fichaDocente) {
+	public Usuario(Integer ursId) {
 		this.ursId = ursId;
-		this.fichaDocente = fichaDocente;
 	}
 
-	public Usuario(Integer ursId, FichaDocente fichaDocente, String usrIdentificacion, String usrNick,
-			String usrPassword) {
+	public Usuario(Integer ursId, FichaDocente fichaDocente, FichaEmpleado fichaEmpleado, String usrIdentificacion,
+			String usrNick, String usrPassword) {
 		this.ursId = ursId;
 		this.fichaDocente = fichaDocente;
+		this.fichaEmpleado = fichaEmpleado;
 		this.usrIdentificacion = usrIdentificacion;
 		this.usrNick = usrNick;
 		this.usrPassword = usrPassword;
@@ -54,13 +57,23 @@ public class Usuario implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "FCDC_ID", nullable = false)
+	@JoinColumn(name = "FCDC_ID")
 	public FichaDocente getFichaDocente() {
 		return this.fichaDocente;
 	}
 
 	public void setFichaDocente(FichaDocente fichaDocente) {
 		this.fichaDocente = fichaDocente;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FCEM_ID")
+	public FichaEmpleado getFichaEmpleado() {
+		return this.fichaEmpleado;
+	}
+
+	public void setFichaEmpleado(FichaEmpleado fichaEmpleado) {
+		this.fichaEmpleado = fichaEmpleado;
 	}
 
 	@Column(name = "USR_IDENTIFICACION", length = 13)

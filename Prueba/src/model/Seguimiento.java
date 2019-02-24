@@ -1,5 +1,5 @@
 package model;
-// Generated 17/02/2019 21:49:48 by Hibernate Tools 4.3.5.Final
+
 
 import java.math.BigDecimal;
 import javax.persistence.Column;

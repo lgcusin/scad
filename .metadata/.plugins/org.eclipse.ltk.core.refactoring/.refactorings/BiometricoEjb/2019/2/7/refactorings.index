@@ -1,3 +1,4 @@
 1550018262074	Rename local variable 'valorAtrazo'
 1550019508511	Extract method 'validarTamañoMinutos'
 1550019520919	Rename method 'validarTamañoMinutos'
+1550434814201	Rename type 'LoginBean'
