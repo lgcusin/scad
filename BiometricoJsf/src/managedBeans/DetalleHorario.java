@@ -4,17 +4,18 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
+import org.primefaces.event.RowEditEvent;
+
 import model.Aula;
 import model.DiaSemana;
 import model.FichaDocente;
-import model.FichaEstudiante;
 import model.Materia;
 import model.Paralelo;
 import model.TipoHorario;
@@ -30,7 +31,6 @@ public class DetalleHorario {
 	@ManagedProperty("#{horario}")
 	private Horario horario;
 
-	private String title;
 	private List<DiaSemana> lstDia;
 	private List<TipoHorario> lstTipoHorario;
 	private List<FichaDocente> lstFichaDocente;
@@ -48,10 +48,8 @@ public class DetalleHorario {
 
 	@PostConstruct
 	public void init() {
-		title = null;
 		FacesContext context = FacesContext.getCurrentInstance();
 		lstHorarios = horario.getLstHorarios();
-		tituloDetalleHorario();
 		lstDia = srvHor.listarAllDias();
 		lstTipoHorario = srvHor.listarTipoHorario();
 		lstFichaDocente = srvHor.listarDocentes();
@@ -79,26 +77,73 @@ public class DetalleHorario {
 		registroHorario.setTipoHorario(new TipoHorario());
 	}
 
-	private void tituloDetalleHorario() {
-		if (horario.getFlagEditar()) {
-			title = "Informaci\u00f3n del horario a editar";
-		} else {
-			title = "Informaci\u00f3n del horario registrado";
+	public String actualizar(model.Horario hor) {
+		System.out.println("Guardar cambios de horario");
+		try {
+			if (hor.getHrrId() != null) {
+				System.out.println("Horario editado nuevo");
+				validarHorario(hor);
+			} else {
+				System.out.println("Es registro nuevo");
+				validarHorario(hor);
+			}
+		} catch (Exception e) {
+			System.out.println("Error al guardar horario" + e);
 		}
+		return "horario";
 	}
 
-	public String actualizar() {
-		System.out.println("Guardar cambios de horario");
-		// selectHorario.setHrrId(selectHorario.getHrrId());
-		// selectHorario.setHrrInicio(selectHorario.getHrrInicio());
-		// selectHorario.setHrrFin(selectHorario.getHrrFin());
-		// selectHorario.setTipoHorario(selectTipoHorario);
-		// selectHorario.setFichaDocente(selectDocente);
-		// selectHorario.setMateria(horario.getSelectMtr());
-		// selectHorario.setAula(selectAula);
-		// selectHorario.setDiaSemana(selectDia);
-		srvHor.guardarHorario(selectHorario);
-		return "horario";
+	/**
+	 * Metodo que valida campos para el registro o actualizacion del horario
+	 * 
+	 * @param horario
+	 */
+	private void validarHorario(model.Horario hor) {
+		boolean cambios = false;
+		for (DiaSemana dia : lstDia) {
+			if (hor.getDiaSemana().getDsmNombreDia().equals(dia.getDsmNombreDia())) {
+				if (hor.getDiaSemana().getDsmId() == null
+						|| hor.getDiaSemana().getDsmId().compareTo(dia.getDsmId()) != 0) {
+					cambios = true;
+					hor.getDiaSemana().setDsmId(dia.getDsmId());
+				}
+				break;
+			}
+		}
+		for (TipoHorario tipoHorario : lstTipoHorario) {
+			if (hor.getTipoHorario().getTphrDescripcion().equals(tipoHorario.getTphrDescripcion())) {
+				if (hor.getTipoHorario().getTphrId() == null
+						|| hor.getTipoHorario().getTphrId().compareTo(tipoHorario.getTphrId()) != 0) {
+					cambios = true;
+					hor.getTipoHorario().setTphrId(tipoHorario.getTphrId());
+				}
+				break;
+			}
+		}
+		for (FichaDocente fichaDocente : lstFichaDocente) {
+			if (hor.getFichaDocente().getFcdcPrimerNombre().equals(fichaDocente.getFcdcPrimerNombre())) {
+				if (hor.getFichaDocente().getFcdcId() == null
+						|| hor.getFichaDocente().getFcdcId().compareTo(fichaDocente.getFcdcId()) != 0) {
+					cambios = true;
+					hor.getFichaDocente().setFcdcId(fichaDocente.getFcdcId());
+				}
+				break;
+			}
+		}
+		for (Aula aula : lstAula) {
+			if (hor.getAula().getAulNombre().equals(aula.getAulNombre())) {
+				if (hor.getAula().getAulId() == null || hor.getAula().getAulId().compareTo(aula.getAulId()) != 0) {
+					cambios = true;
+					hor.getAula().setAulId(aula.getAulId());
+				}
+				break;
+			}
+		}
+		if (cambios) {
+			srvHor.guardarHorario(hor);
+		} else {
+			System.out.println("Registro sin cambios: " + hor.getHrrId());
+		}
 	}
 
 	public String guardar() {
@@ -116,11 +161,11 @@ public class DetalleHorario {
 	}
 
 	public void setDiaID(ValueChangeEvent event) {
-		System.out.println("Dia de la semana " + event);
+		System.out.println("Dia de la semana ");
 	}
 
 	public void setTipoHorarioID(ValueChangeEvent event) {
-		System.out.println("Tipo horario " + event);
+		System.out.println("Tipo horario " + event.getNewValue());
 	}
 
 	public void setDocenteID(ValueChangeEvent event) {
@@ -151,16 +196,36 @@ public class DetalleHorario {
 
 	}
 
+	public void onRowEdit(RowEditEvent event) {
+		actualizar((model.Horario) event.getObject());
+		FacesMessage msg = new FacesMessage("Registro editado",
+				((model.Horario) event.getObject()).getDiaSemana().getDsmNombreDia());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowCancel(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Edicion cancelada",
+				((model.Horario) event.getObject()).getDiaSemana().getDsmNombreDia());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
 	public void onAddNew() {
 		model.Horario h = new model.Horario();
 		h.setAula(new Aula());
 		h.setDiaSemana(new DiaSemana());
 		h.setFichaDocente(new FichaDocente());
 		h.setMateria(new Materia());
+
 		// h.setParalelo(new Paralelo());
+
+		h.getMateria().setMtrId(lstHorarios.get(0).getMateria().getMtrId());
+		h.setParalelo(new Paralelo());
+		h.getParalelo().setPrlId(lstHorarios.get(0).getParalelo().getPrlId());
 		h.setTipoHorario(new TipoHorario());
-		// horario.getLstHorarios().add(h);
 		lstHorarios.add(h);
+
+		FacesMessage msg = new FacesMessage("Nuevo registro añadido");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	/**
@@ -197,24 +262,6 @@ public class DetalleHorario {
 	 */
 	public void setHorario(Horario horario) {
 		this.horario = horario;
-	}
-
-	/**
-	 * The title to get.
-	 * 
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title;
-	}
-
-	/**
-	 * The title to set.
-	 * 
-	 * @param title
-	 */
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	/**

@@ -109,9 +109,13 @@ public class Horario {
 	public String verDataHorario() {
 		flagEditar = false;
 		System.out.println("Metodo para ver informacion de horario");
+
 		// lstHorarios = srvHor.listarHorarios(selectPar.getPrlId(),
 		// selectMtr.getMtrId());
 		lstHorarios = srvHor.listarHorarios(selectPar.getPrlCodigo());
+
+		//lstHorarios = srvHor.listarHorarios(selectPar.getPrlId(), selectMtr.getMtrId());
+
 		return "detalleHorario";
 	}
 
