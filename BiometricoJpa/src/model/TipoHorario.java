@@ -1,9 +1,9 @@
 package model;
 // Generated 29/01/2019 23:19:04 by Hibernate Tools 4.3.5.Final
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,18 +18,18 @@ import javax.persistence.Table;
 @Table(name = "TIPO_HORARIO")
 public class TipoHorario implements java.io.Serializable {
 
-	private BigDecimal tphrId;
+	private Integer tphrId;
 	private String tphrDescripcion;
 	private Set<Horario> horarios = new HashSet<Horario>(0);
 
 	public TipoHorario() {
 	}
 
-	public TipoHorario(BigDecimal tphrId) {
+	public TipoHorario(Integer tphrId) {
 		this.tphrId = tphrId;
 	}
 
-	public TipoHorario(BigDecimal tphrId, String tphrDescripcion, Set<Horario> horarios) {
+	public TipoHorario(Integer tphrId, String tphrDescripcion, Set<Horario> horarios) {
 		this.tphrId = tphrId;
 		this.tphrDescripcion = tphrDescripcion;
 		this.horarios = horarios;
@@ -38,11 +38,11 @@ public class TipoHorario implements java.io.Serializable {
 	@Id
 
 	@Column(name = "TPHR_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public BigDecimal getTphrId() {
+	public Integer getTphrId() {
 		return this.tphrId;
 	}
 
-	public void setTphrId(BigDecimal tphrId) {
+	public void setTphrId(Integer tphrId) {
 		this.tphrId = tphrId;
 	}
 
