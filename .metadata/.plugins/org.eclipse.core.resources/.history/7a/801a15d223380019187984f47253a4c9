@@ -32,6 +32,7 @@ public class SrvReporteHorario implements SrvReporteHorarioLocal {
 
 	@SuppressWarnings("unchecked")
 	@Override
+	// public List<Horario> listarHorarios(Integer fcdcId, Integer crrId) {
 	public Collection<String[]> listarHorarios(Integer fcdcId, Integer crrId, Integer tphrId) {
 		List<Horario> lstHorario = new ArrayList<>();
 		Collection<String[]> resultHorarios = new ArrayList<>();
@@ -76,6 +77,7 @@ public class SrvReporteHorario implements SrvReporteHorarioLocal {
 		} catch (Exception e) {
 			System.out.println("Error al consultar los horarios" + e);
 		}
+		// return lstHorario;
 		return resultHorarios;
 	}
 
