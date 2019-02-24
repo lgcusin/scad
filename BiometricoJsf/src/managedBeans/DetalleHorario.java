@@ -219,8 +219,8 @@ public class DetalleHorario {
 		// h.setParalelo(new Paralelo());
 
 		h.getMateria().setMtrId(lstHorarios.get(0).getMateria().getMtrId());
-		h.setParalelo(new Paralelo());
-		h.getParalelo().setPrlId(lstHorarios.get(0).getParalelo().getPrlId());
+//		h.setParalelo(new Paralelo());
+//		h.getParalelo().setPrlId(lstHorarios.get(0).getParalelo().getPrlId());
 		h.setTipoHorario(new TipoHorario());
 		lstHorarios.add(h);
 
