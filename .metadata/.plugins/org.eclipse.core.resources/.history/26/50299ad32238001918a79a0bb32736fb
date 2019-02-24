@@ -12,7 +12,7 @@ import javax.faces.context.FacesContext;
 import model.Carrera;
 import model.FichaDocente;
 import model.TipoHorario;
-import servicios.SrvReporteHorarioLocal;
+import servicios.SrvReporteHorario;
 
 /**
  * @author wilso
@@ -24,7 +24,7 @@ import servicios.SrvReporteHorarioLocal;
 public class ReporteHorario {
 
 	@EJB
-	private SrvReporteHorarioLocal srvRepHor;
+	private SrvReporteHorario srvRepHor;
 
 	private Carrera selectCrr;
 	private FichaDocente fichaDocente;
@@ -74,6 +74,23 @@ public class ReporteHorario {
 		System.out.println("Metodo de imprimir");
 	}
 
+	/**
+	 * The srvRepHor to get.
+	 * 
+	 * @return the srvRepHor
+	 */
+	public SrvReporteHorario getSrvRepHor() {
+		return srvRepHor;
+	}
+
+	/**
+	 * The srvRepHor to set.
+	 * 
+	 * @param srvRepHor
+	 */
+	public void setSrvRepHor(SrvReporteHorario srvRepHor) {
+		this.srvRepHor = srvRepHor;
+	}
 
 	/**
 	 * The selectCrr to get.

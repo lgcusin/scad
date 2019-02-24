@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Integer" key="selection"/>
+		<item value="Error al obtener horarios:" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="Error al obtener horarios:"/>
 			<item value="BigDecimal"/>
 			<item value="icon"/>
 			<item value="No se enontranos horarios"/>
@@ -15,7 +16,6 @@
 			<item value="Metodo para ver informacion de horario"/>
 			<item value="model"/>
 			<item value=".syl"/>
-			<item value="syl"/>
 		</list>
 		<list key="replacehistory">
 			<item value="Integer"/>

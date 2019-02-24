@@ -74,6 +74,23 @@ public class ReporteHorario {
 		System.out.println("Metodo de imprimir");
 	}
 
+	/**
+	 * The srvRepHor to get.
+	 * 
+	 * @return the srvRepHor
+	 */
+	public SrvReporteHorario getSrvRepHor() {
+		return srvRepHor;
+	}
+
+	/**
+	 * The srvRepHor to set.
+	 * 
+	 * @param srvRepHor
+	 */
+	public void setSrvRepHor(SrvReporteHorario srvRepHor) {
+		this.srvRepHor = srvRepHor;
+	}
 
 	/**
 	 * The selectCrr to get.
