@@ -10,6 +10,7 @@ import javax.sql.rowset.serial.SerialException;
 
 import model.Actividad;
 import model.Asistencia;
+import model.Contenido;
 import model.FichaDocente;
 import model.MallaCurricularMateria;
 import model.TipoHuella;
@@ -29,4 +30,7 @@ public interface SrvDocenteLocal {
 	List<Asistencia> listarAsistencia(Integer id);
 
 	List<String> listarActividades(Integer id);
+
+	List<Contenido> listarContenidos(Integer fdId);
+
 }

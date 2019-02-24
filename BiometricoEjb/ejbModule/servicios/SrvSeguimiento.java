@@ -1,5 +1,6 @@
 package servicios;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import model.Actividad;
+import model.Aula;
 import model.Carrera;
 import model.Contenido;
 import model.Herramienta;
@@ -32,14 +34,27 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	}
 
 	@Override
-	public List<Materia> listarAllMat() {
-		List<Materia> lstM = em.createNamedQuery("Materia.findAll", Materia.class).getResultList();
+	public List<Materia> listarAllMatByFcdc(Integer fdcId) {
+		List<Materia> lstM;
+		try {
+			lstM = em.createNamedQuery("Materia.findAll", Materia.class).getResultList();
+		} catch (Exception e) {
+			System.out.println("No se encontraron " + e);
+			return lstM = new ArrayList<>();
+		}
 		return lstM;
 	}
 
 	@Override
-	public List<Carrera> listarAllCrr() {
-		List<Carrera> lstC = em.createNamedQuery("Carrera.findAll", Carrera.class).getResultList();
+	public List<Carrera> listarAllCrrByFcdc(Integer fdcId) {
+		List<Carrera> lstC;
+		try {
+			lstC = em.createNamedQuery("Carrera.findAllByFdId", Carrera.class).setParameter("fcdcId", fdcId)
+					.getResultList();
+		} catch (Exception e) {
+			System.out.println("No se encontraron materias:" + e);
+			return lstC = new ArrayList<>();
+		}
 		return lstC;
 	}
 
@@ -165,5 +180,17 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			return mt = null;
 		}
 		return mt;
+	}
+
+	@Override
+	public Aula getAula(Integer hrrId) {
+		Aula aul;
+		try {
+			aul = em.createNamedQuery("Aula.findByHrId", Aula.class).setParameter("hrrId", hrrId).getSingleResult();
+		} catch (Exception e) {
+			System.out.println("No se encontro aula: " + e);
+			return aul = null;
+		}
+		return aul;
 	}
 }

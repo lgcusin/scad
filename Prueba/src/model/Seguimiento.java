@@ -1,5 +1,5 @@
 package model;
-
+// Generated 23/02/2019 19:40:29 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -18,16 +18,16 @@ import javax.persistence.Table;
 public class Seguimiento implements java.io.Serializable {
 
 	private BigDecimal sgmId;
-	private MallaCurricularMateria mallaCurricularMateria;
 	private Asistencia asistencia;
+	private MallaCurricularMateria mallaCurricularMateria;
 
 	public Seguimiento() {
 	}
 
-	public Seguimiento(BigDecimal sgmId, MallaCurricularMateria mallaCurricularMateria, Asistencia asistencia) {
+	public Seguimiento(BigDecimal sgmId, Asistencia asistencia, MallaCurricularMateria mallaCurricularMateria) {
 		this.sgmId = sgmId;
-		this.mallaCurricularMateria = mallaCurricularMateria;
 		this.asistencia = asistencia;
+		this.mallaCurricularMateria = mallaCurricularMateria;
 	}
 
 	@Id
@@ -42,16 +42,6 @@ public class Seguimiento implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MLCRMT_ID", nullable = false)
-	public MallaCurricularMateria getMallaCurricularMateria() {
-		return this.mallaCurricularMateria;
-	}
-
-	public void setMallaCurricularMateria(MallaCurricularMateria mallaCurricularMateria) {
-		this.mallaCurricularMateria = mallaCurricularMateria;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ASS_ID", nullable = false)
 	public Asistencia getAsistencia() {
 		return this.asistencia;
@@ -59,6 +49,16 @@ public class Seguimiento implements java.io.Serializable {
 
 	public void setAsistencia(Asistencia asistencia) {
 		this.asistencia = asistencia;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MLCRMT_ID", nullable = false)
+	public MallaCurricularMateria getMallaCurricularMateria() {
+		return this.mallaCurricularMateria;
+	}
+
+	public void setMallaCurricularMateria(MallaCurricularMateria mallaCurricularMateria) {
+		this.mallaCurricularMateria = mallaCurricularMateria;
 	}
 
 }

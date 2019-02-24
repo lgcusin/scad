@@ -1,8 +1,6 @@
 package managedBeans;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -21,6 +19,7 @@ import model.Herramienta;
 import model.Materia;
 import model.Syllabo;
 import model.UnidadCurricular;
+import servicios.SrvEmpleadoLocal;
 import servicios.SrvSeguimientoLocal;
 
 @ManagedBean(name = "syllabus")
@@ -29,6 +28,8 @@ public class Syllabus {
 
 	@EJB
 	private SrvSeguimientoLocal srvSgm;
+	@EJB
+	private SrvEmpleadoLocal srvEmp;
 
 	public Materia selectMtr;
 	public Syllabo syl;
@@ -44,20 +45,25 @@ public class Syllabus {
 	@PostConstruct
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		selectCrr = new Carrera();
-		selectMtr = new Materia();
-		syl = new Syllabo();
-		lstC = srvSgm.listarAllCrr();
-		lstM = srvSgm.listarAllMat();
+		Principal p = context.getApplication().evaluateExpressionGet(context, "#{principal}", Principal.class);
+		if (p.docente) {
+			selectMtr = new Materia();
+			lstC = srvSgm.listarAllCrrByFcdc(p.fdId);
+			lstM = srvSgm.listarAllMatByFcdc(p.fdId);
+		}
+		if (p.empleado) {
+			lstC = srvEmp.listarCarreras();
+		}
 
 	}
 
 	public void buscar() {
 		if (crrId != null) {
 			lstM = srvSgm.listarMatByCrr(crrId);
-		} else {
-			lstM = srvSgm.listarAllMat();
-		}
+		} 
+		// else {
+		// lstM = srvSgm.listarAllMat();
+		// }
 	}
 
 	public String verDetaSyllabus() {

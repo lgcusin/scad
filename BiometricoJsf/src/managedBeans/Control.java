@@ -13,6 +13,7 @@ import javax.faces.bean.ViewScoped;
 import com.sun.org.apache.xml.internal.resolver.helpers.Debug;
 
 import lector.JSDCLocal;
+import model.Aula;
 import model.FichaDocente;
 import model.Horario;
 import model.Materia;
@@ -25,11 +26,13 @@ public class Control {
 
 	@EJB
 	private JSDCLocal srvJsdc;
+	@EJB
 	private SrvSeguimientoLocal srvSgmt;
 
 	private FichaDocente regDcnt;
 	private Horario hrr;
 	private Materia mtr;
+	private Aula aul;
 
 	public String hora;
 	public Date fechahora;
@@ -59,6 +62,10 @@ public class Control {
 			hrr = srvSgmt.verificarHorario(ahora, regDcnt.getFcdcId());
 			if (hrr != null) {
 				mtr = srvSgmt.getMateria(hrr.getHrrId());
+				aul = srvSgmt.getAula(hrr.getHrrId());
+
+				hrr.setMateria(mtr);
+				hrr.setAula(aul);
 			} else {
 
 				System.out.println("Esta fuera del horario!!!!!!!!!!!!!!!!!");
@@ -99,6 +106,12 @@ public class Control {
 		this.mtr = mtr;
 	}
 
-	
-	
+	public Aula getAul() {
+		return aul;
+	}
+
+	public void setAul(Aula aul) {
+		this.aul = aul;
+	}
+
 }

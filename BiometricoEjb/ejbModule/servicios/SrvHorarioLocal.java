@@ -41,4 +41,8 @@ public interface SrvHorarioLocal {
 
 	List<Horario> listarHorarios(Integer idParalelo, Integer idMateria);
 
+	List<Paralelo> listarParalelosHorario(Integer mtrId);
+
+	List<model.Horario> listarHorarios(String prcdId);
+
 }

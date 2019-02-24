@@ -1,4 +1,5 @@
 package model;
+// Generated 23/02/2019 19:40:29 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -20,15 +21,12 @@ import javax.persistence.Table;
 public class Paralelo implements java.io.Serializable {
 
 	private BigDecimal prlId;
-	private Semestre semestre;
-	private Materia materia;
 	private Carrera carrera;
 	private String prlCodigo;
 	private String prlDescripcion;
 	private BigDecimal prlEstado;
 	private BigDecimal prlCupo;
 	private Set<MallaCurricularParalelo> mallaCurricularParalelos = new HashSet<MallaCurricularParalelo>(0);
-	private Set<Horario> horarios = new HashSet<Horario>(0);
 
 	public Paralelo() {
 	}
@@ -38,19 +36,15 @@ public class Paralelo implements java.io.Serializable {
 		this.carrera = carrera;
 	}
 
-	public Paralelo(BigDecimal prlId, Semestre semestre, Materia materia, Carrera carrera, String prlCodigo,
-			String prlDescripcion, BigDecimal prlEstado, BigDecimal prlCupo,
-			Set<MallaCurricularParalelo> mallaCurricularParalelos, Set<Horario> horarios) {
+	public Paralelo(BigDecimal prlId, Carrera carrera, String prlCodigo, String prlDescripcion, BigDecimal prlEstado,
+			BigDecimal prlCupo, Set<MallaCurricularParalelo> mallaCurricularParalelos) {
 		this.prlId = prlId;
-		this.semestre = semestre;
-		this.materia = materia;
 		this.carrera = carrera;
 		this.prlCodigo = prlCodigo;
 		this.prlDescripcion = prlDescripcion;
 		this.prlEstado = prlEstado;
 		this.prlCupo = prlCupo;
 		this.mallaCurricularParalelos = mallaCurricularParalelos;
-		this.horarios = horarios;
 	}
 
 	@Id
@@ -62,26 +56,6 @@ public class Paralelo implements java.io.Serializable {
 
 	public void setPrlId(BigDecimal prlId) {
 		this.prlId = prlId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "SMS_ID")
-	public Semestre getSemestre() {
-		return this.semestre;
-	}
-
-	public void setSemestre(Semestre semestre) {
-		this.semestre = semestre;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MTR_ID")
-	public Materia getMateria() {
-		return this.materia;
-	}
-
-	public void setMateria(Materia materia) {
-		this.materia = materia;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -137,15 +111,6 @@ public class Paralelo implements java.io.Serializable {
 
 	public void setMallaCurricularParalelos(Set<MallaCurricularParalelo> mallaCurricularParalelos) {
 		this.mallaCurricularParalelos = mallaCurricularParalelos;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "paralelo")
-	public Set<Horario> getHorarios() {
-		return this.horarios;
-	}
-
-	public void setHorarios(Set<Horario> horarios) {
-		this.horarios = horarios;
 	}
 
 }

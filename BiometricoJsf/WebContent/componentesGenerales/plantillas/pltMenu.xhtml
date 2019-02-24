@@ -13,14 +13,20 @@
 				<p:menuitem value="Detalle de Clases" rendered="#{login.docente}"
 					action="#{principal.verDetalle(login.docente,'DOCENTE')}"
 					ajax="false"></p:menuitem>
-				<p:menuitem value="Detalle de Clases" rendered="#{login.empleado}"
+				<p:menuitem value="Asistencias" rendered="#{login.empleado}"
 					action="#{principal.verDetalle(login.empleado,'EMPLEADO')}"
 					ajax="false"></p:menuitem>
 
 			</p:submenu>
-			<p:submenu label="Seguimiento">
+			<p:submenu label="Seguimiento"
+				rendered="#{login.docente or login.empleado}">
 				<p:menuitem value="Detalle de Actividades"
-					action="#{principal.verActividades}"></p:menuitem>
+					rendered="#{login.docente}"
+					action="#{principal.verActividades(login.docente,'DOCENTE')}"
+					ajax="false"></p:menuitem>
+				<p:menuitem value="Actividades" rendered="#{login.empleado}"
+					action="#{principal.verActividades(login.empleado,'EMPLEADO')}"
+					ajax="false"></p:menuitem>
 				<p:menuitem value="Syllabus" action="#{principal.verSyllabus}"></p:menuitem>
 			</p:submenu>
 			<p:submenu label="Reportes">
@@ -28,8 +34,13 @@
 					<p:menuitem value="Horario de Clases"></p:menuitem>
 					<p:menuitem value="Horario de Examen"></p:menuitem>
 				</p:submenu>
+
 			</p:submenu>
 			<p:submenu label="Biometrico" rendered="#{login.empleado}">
+				<p:submenu label="Horario">
+					<p:menuitem value="Agregar Horario"
+						action="#{principal.verHorario}" ajax="false"></p:menuitem>
+				</p:submenu>
 				<p:menuitem value="Enrolar Docente"
 					action="#{principal.verRegistro}" ajax="false"></p:menuitem>
 				<p:menuitem value="Sistema de Control"

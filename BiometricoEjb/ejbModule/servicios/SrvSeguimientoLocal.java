@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import model.Actividad;
+import model.Aula;
 import model.Carrera;
 import model.Contenido;
 import model.Herramienta;
@@ -17,9 +18,9 @@ import model.UnidadCurricular;
 @Local
 public interface SrvSeguimientoLocal {
 
-	List<Carrera> listarAllCrr();
+	List<Carrera> listarAllCrrByFcdc(Integer fdcId);
 
-	List<Materia> listarAllMat();
+	List<Materia> listarAllMatByFcdc(Integer fdcID);
 
 	List<Materia> listarMatByCrr(Integer id);
 
@@ -34,9 +35,11 @@ public interface SrvSeguimientoLocal {
 	List<Actividad> listarActividades(Integer cntId);
 
 	List<Herramienta> listarHerramientas(Integer cntId);
-	
+
 	Horario verificarHorario(Date fecha, Integer fcdcId);
 
 	Materia getMateria(Integer hrrId);
+
+	Aula getAula(Integer hrrId);
 
 }

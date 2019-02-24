@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+
+	<ui:define name="cuerpo">
+
+		<h:form id="frmAsistencia" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<div style="margin-left: 10px; margin-right: 10px;">
+				<p:panel id="pnlBusquedaEmpleado" rendered="#{principal.empleado}">
+					<p:panel id="pnlBusqueda_header" header="Parametros de búsqueda"></p:panel>
+					<p:panel id="pnlBusqueda_content"
+						styleClass="ui-panel-content ui-widget-content">
+						<!-- TABLA RESPONSIVA -->
+						<div class="grid condensed">
+							<!-- FILA NUMERO 2 -->
+							<div class="row cells12">
+								<div class="cell colspan4">
+									<!-- CARRERA -->
+									<div class="grid condensed" style="padding: 10px;">
+										<div class="row cells4">
+											<div class="cell colspan2">
+												<p:outputLabel id="lblCarrera" value="Carrera: "
+													styleClass="ui-outputlabel ui-widget" for="slcCarrera"></p:outputLabel>
+											</div>
+											<div class="cell colspan2">
+												<p:selectOneMenu id="slcCarrera"
+													value="#{detalleAss.selectCrr.crrId}" style="width: 100%"
+													valueChangeListener="#{horario.setCarreraID}">
+													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+													<f:selectItems value="#{detalleAss.lstC}" var="cr"
+														itemLabel="#{cr.crrNombre}" itemValue="#{cr.crrId}" />
+													<p:ajax update="slcDocente" />
+													<p:ajax update="slcMateria" />
+												</p:selectOneMenu>
+											</div>
+											<div class="cell colspan2">
+												<p:outputLabel id="lblDocente" value="Docente: "
+													styleClass="ui-outputlabel ui-widget" for="slcSemestre"></p:outputLabel>
+											</div>
+											<div class="cell colspan2">
+												<p:selectOneMenu id="slcDocente"
+													value="#{horario.selectSem.smsId}" style="width: 100%"
+													valueChangeListener="#{horario.buscarMateria}">
+													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+													<f:selectItems value="#{horario.lstS}" var="sms"
+														itemLabel="#{sms.smsDescripcion}" itemValue="#{sms.smsId}" />
+													<p:ajax update="slcMateria" />
+												</p:selectOneMenu>
+											</div>
+											<!-- <div class="cell colspan2">
+												<p:outputLabel id="lblMateria" value="Materia: "
+													styleClass="ui-outputlabel ui-widget" for="slcMateria"></p:outputLabel>
+											</div>
+											<div class="cell colspan2">
+												<p:selectOneMenu id="slcMateria"
+													value="#{horario.selectMtr.mtrId}" style="width: 100%"
+													valueChangeListener="#{horario.mostrarHorariosMateria}">
+													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+													<f:selectItems value="#{horario.lstMbySemestre}" var="m"
+														itemLabel="#{m.mtrNombre}" itemValue="#{m.mtrId}" />
+													<p:ajax update="@this" />
+												</p:selectOneMenu>
+											</div> -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</p:panel>
+					<p:outputLabel id="lblCarrera" value="Carrera: " for="slcCarrera"></p:outputLabel>
+					<p:selectOneMenu id="slcCarrera" value="#{detalleAss.selectCrr}"
+						style="width: 100%">
+						<f:selectItem itemLabel="SELECCIONE---" itemValue=""></f:selectItem>
+						<f:selectItems value="" var="cr" itemLabel="#{cr.crrNombre}"
+							itemValue="#{cr}" />
+					</p:selectOneMenu>
+
+
+				</p:panel>
+
+				<p:panel id="pnlAsistenciaDocente"
+					rendered="#{principal.docente or principal.empleado}">
+					<p:dataTable id="tblAsistencia" value="#{detalleAss.lstA}" var="As">
+						<p:column id="column1">
+							<f:facet name="header">
+								<h:outputText value="HORA ENTRADA"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{As.assHoraEntrada}" />
+						</p:column>
+						<p:column id="column2">
+							<f:facet name="header">
+								<h:outputText value="HORA SALIDA"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{As.assHoraSalida}" />
+						</p:column>
+						<p:column style="text-align: center">
+							<f:facet name="header">
+								<h:outputText value="OPCIONES"></h:outputText>
+							</f:facet>
+							<p:commandButton id="btnVer" update=":frmAsistencia:ActDetail"
+								oncomplete="PF('ActDialog').show()" value="Ver"
+								title="Ver Actividades">
+								<f:setPropertyActionListener value="#{As}"
+									target="#{detalleAss.ass}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+				<div style="margin-left: 10px; margin-right: 10px;">
+					<p:commandButton value="Regresar" action="principal.xhtml"></p:commandButton>
+				</div>
+
+			</div>
+
+
+			<p:dialog header="Actividades" widgetVar="ActDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="ActDetail" style="text-align:center;">
+
+				</p:outputPanel>
+
+			</p:dialog>
+		</h:form>
+
+
+	</ui:define>
+
+</ui:composition>
+</html>

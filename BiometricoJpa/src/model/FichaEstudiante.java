@@ -1,7 +1,6 @@
 package model;
 // Generated 29/01/2019 23:19:04 by Hibernate Tools 4.3.5.Final
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -17,39 +16,38 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "FICHA_ESTUDIANTE")
 public class FichaEstudiante implements java.io.Serializable {
-
-	private BigDecimal fcesId;
+	private Integer fcesId;
 	private String fcesPrimerNombre;
 	private String fcesSegundoNombre;
 	private String fcesApellidos;
-	private Set<Horario> horarios = new HashSet<Horario>(0);
+	private Set<HorarioFichaEstudiante> horarioFichaEstudiantes = new HashSet<HorarioFichaEstudiante>(0);
 	private Set<FichaMatricula> fichaMatriculas = new HashSet<FichaMatricula>(0);
 
 	public FichaEstudiante() {
 	}
 
-	public FichaEstudiante(BigDecimal fcesId) {
+	public FichaEstudiante(Integer fcesId) {
 		this.fcesId = fcesId;
 	}
 
-	public FichaEstudiante(BigDecimal fcesId, String fcesPrimerNombre, String fcesSegundoNombre, String fcesApellidos,
-			Set<Horario> horarios, Set<FichaMatricula> fichaMatriculas) {
+	public FichaEstudiante(Integer fcesId, String fcesPrimerNombre, String fcesSegundoNombre, String fcesApellidos,
+			Set<HorarioFichaEstudiante> horarioFichaEstudiantes, Set<FichaMatricula> fichaMatriculas) {
 		this.fcesId = fcesId;
 		this.fcesPrimerNombre = fcesPrimerNombre;
 		this.fcesSegundoNombre = fcesSegundoNombre;
 		this.fcesApellidos = fcesApellidos;
-		this.horarios = horarios;
+		this.horarioFichaEstudiantes = horarioFichaEstudiantes;
 		this.fichaMatriculas = fichaMatriculas;
 	}
 
 	@Id
 
 	@Column(name = "FCES_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public BigDecimal getFcesId() {
+	public Integer getFcesId() {
 		return this.fcesId;
 	}
 
-	public void setFcesId(BigDecimal fcesId) {
+	public void setFcesId(Integer fcesId) {
 		this.fcesId = fcesId;
 	}
 
@@ -81,12 +79,12 @@ public class FichaEstudiante implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaEstudiante")
-	public Set<Horario> getHorarios() {
-		return this.horarios;
+	public Set<HorarioFichaEstudiante> getHorarioFichaEstudiantes() {
+		return this.horarioFichaEstudiantes;
 	}
 
-	public void setHorarios(Set<Horario> horarios) {
-		this.horarios = horarios;
+	public void setHorarioFichaEstudiantes(Set<HorarioFichaEstudiante> horarioFichaEstudiantes) {
+		this.horarioFichaEstudiantes = horarioFichaEstudiantes;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaEstudiante")

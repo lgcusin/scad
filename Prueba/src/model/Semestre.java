@@ -1,5 +1,5 @@
 package model;
-// Generated 17/02/2019 21:49:48 by Hibernate Tools 4.3.5.Final
+// Generated 23/02/2019 19:40:29 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -22,7 +22,6 @@ public class Semestre implements java.io.Serializable {
 	private String smsDescripcion;
 	private String smsEstado;
 	private Set<MallaCurricularMateria> mallaCurricularMaterias = new HashSet<MallaCurricularMateria>(0);
-	private Set<Paralelo> paralelos = new HashSet<Paralelo>(0);
 
 	public Semestre() {
 	}
@@ -32,12 +31,11 @@ public class Semestre implements java.io.Serializable {
 	}
 
 	public Semestre(BigDecimal smsId, String smsDescripcion, String smsEstado,
-			Set<MallaCurricularMateria> mallaCurricularMaterias, Set<Paralelo> paralelos) {
+			Set<MallaCurricularMateria> mallaCurricularMaterias) {
 		this.smsId = smsId;
 		this.smsDescripcion = smsDescripcion;
 		this.smsEstado = smsEstado;
 		this.mallaCurricularMaterias = mallaCurricularMaterias;
-		this.paralelos = paralelos;
 	}
 
 	@Id
@@ -76,15 +74,6 @@ public class Semestre implements java.io.Serializable {
 
 	public void setMallaCurricularMaterias(Set<MallaCurricularMateria> mallaCurricularMaterias) {
 		this.mallaCurricularMaterias = mallaCurricularMaterias;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "semestre")
-	public Set<Paralelo> getParalelos() {
-		return this.paralelos;
-	}
-
-	public void setParalelos(Set<Paralelo> paralelos) {
-		this.paralelos = paralelos;
 	}
 
 }

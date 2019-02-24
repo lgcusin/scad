@@ -20,9 +20,6 @@ public class Principal {
 	@EJB
 	private SrvDocenteLocal srvDcnt;
 
-	private FichaDocente fd;
-	private FichaEmpleado fem;
-
 	boolean docente = false;
 	boolean empleado = false;
 
@@ -32,10 +29,13 @@ public class Principal {
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Login l = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
-		docente = l.isDocente();
-		fdId = l.getFd().getFcdcId();
-		empleado = l.isEmpleado();
-
+		if (l.isDocente()) {
+			docente = l.isDocente();
+			fdId = l.getFd().getFcdcId();
+		}
+		if (l.isEmpleado()) {
+			empleado = l.isEmpleado();
+		}
 	}
 
 	public String verDetalle(boolean sesionUsuarioForm, String rol) {
@@ -54,16 +54,27 @@ public class Principal {
 
 	}
 
-	public String verActividades() {
-		return "detalleActividades";
+	public String verActividades(boolean sesionUsuarioForm, String rol) {
+		if (sesionUsuarioForm) {
+			switch (rol) {
+			case "DOCENTE":
+				return "detalleActividad";
+			case "EMPLEADO":
+				return "detalleActividad";
+			default:
+				return null;
+			}
+		} else {
+			return null;
+		}
 	}
 
 	public String verSyllabo() {
 		return "syllabo";
 	}
 
-	public String verHorarioClases() {
-		return "horarioClases";
+	public String verHorario() {
+		return "horario";
 	}
 
 	public String verHorarioExamen() {

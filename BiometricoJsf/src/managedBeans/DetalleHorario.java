@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
@@ -20,7 +21,7 @@ import model.TipoHorario;
 import servicios.SrvHorarioLocal;
 
 @ManagedBean(name = "detalleHorario")
-@SessionScoped
+@ViewScoped
 public class DetalleHorario {
 
 	@EJB
@@ -74,7 +75,7 @@ public class DetalleHorario {
 		registroHorario.setDiaSemana(new DiaSemana());
 		registroHorario.setFichaDocente(new FichaDocente());
 		registroHorario.setMateria(new Materia());
-		registroHorario.setParalelo(new Paralelo());
+		// registroHorario.setParalelo(new Paralelo());
 		registroHorario.setTipoHorario(new TipoHorario());
 	}
 
@@ -103,7 +104,7 @@ public class DetalleHorario {
 	public String guardar() {
 		System.out.println("Guardar cambios de horario");
 		registroHorario.getMateria().setMtrId(horario.getSelectMtr().getMtrId());
-		registroHorario.getParalelo().setPrlId(horario.getSelectPar().getPrlId());
+		// registroHorario.getParalelo().setPrlId(horario.getSelectPar().getPrlId());
 		srvHor.guardarHorario(registroHorario);
 		initRegistroHorario();
 		return "horario";
@@ -156,7 +157,7 @@ public class DetalleHorario {
 		h.setDiaSemana(new DiaSemana());
 		h.setFichaDocente(new FichaDocente());
 		h.setMateria(new Materia());
-		h.setParalelo(new Paralelo());
+		// h.setParalelo(new Paralelo());
 		h.setTipoHorario(new TipoHorario());
 		// horario.getLstHorarios().add(h);
 		lstHorarios.add(h);

@@ -9,30 +9,30 @@
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
 			<item value="BigDecimal"/>
-			<item value="findInicioByFdId"/>
-			<item value="tamMinutos"/>
-			<item value="validarTamMinutos"/>
-			<item value="hrrIniSec"/>
-			<item value="hrrFin"/>
-			<item value="hrrInicio"/>
-			<item value="findByFdId"/>
+			<item value="icon"/>
+			<item value="No se enontranos horarios"/>
+			<item value="Paralelos encontrados:"/>
+			<item value="Metodo para ver informacion de horario"/>
+			<item value="model"/>
+			<item value=".syl"/>
+			<item value="syl"/>
 		</list>
 		<list key="replacehistory">
 			<item value="Integer"/>
+			<item value="detalleAct"/>
 			<item value="List"/>
 			<item value=" "/>
 			<item value="int"/>
 			<item value="Actividad"/>
 			<item value="huella"/>
 			<item value="frmRegistro"/>
-			<item value="registro"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="284" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="391" key="DIALOG_HEIGHT"/>
-		<item value="677" key="DIALOG_X_ORIGIN"/>
-		<item value="336" key="DIALOG_Y_ORIGIN"/>
+		<item value="971" key="DIALOG_X_ORIGIN"/>
+		<item value="174" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

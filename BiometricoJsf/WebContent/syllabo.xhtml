@@ -192,7 +192,9 @@
 						value="Seleccione el archivo que contiene el syllabus con su respectivo formato:"></h:outputLabel>
 					<p:panelGrid>
 						<p:fileUpload id="flupArchivoSubir" label="Buscar"
-							uploadLabel="Cargar" cancelLabel="Cancelar"></p:fileUpload>
+							uploadLabel="Cargar" cancelLabel="Cancelar"
+							allowTypes="/^.*\.(xls|xlsx|csv)$/"
+							invalidFileMessage="Tipo de archivo no valido"></p:fileUpload>
 						<p:inputText id="txtArchivo"></p:inputText>
 						<p:commandButton id="btnGuardar" value="Guardar"></p:commandButton>
 					</p:panelGrid>

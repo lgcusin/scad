@@ -1,0 +1,64 @@
+package managedBeans;
+
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+
+import model.Carrera;
+import model.Contenido;
+import model.FichaDocente;
+import servicios.SrvDocente;
+import servicios.SrvEmpleadoLocal;
+
+@ManagedBean(name = "detalleAct")
+@ViewScoped
+public class DetalleActividad {
+	@EJB
+	private SrvDocente srvDnt;
+	@EJB
+	private SrvEmpleadoLocal srvEmp;
+
+	public List<String> lstAc;
+	public List<Carrera> lstC;
+	public List<FichaDocente> lstD;
+
+	public Integer crrId;
+	public Integer fcdId;
+	public Contenido cnt;
+
+	@PostConstruct
+	public void init() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Principal p = context.getApplication().evaluateExpressionGet(context, "#{principal}", Principal.class);
+		cnt = new Contenido();
+		lstAc = srvDnt.listarActividades(p.fdId);
+	}
+
+	public String regresar() {
+		return "principal";
+	}
+
+	public String getAct() {
+		return cnt;
+	}
+
+	public void setAct(String act) {
+		this.cnt = act;
+	}
+
+	public List<String> getLstAc() {
+		return lstAc;
+	}
+
+	public void setLstAc(List<String> lstAc) {
+		this.lstAc = lstAc;
+	}
+
+	// setters and getters
+
+}

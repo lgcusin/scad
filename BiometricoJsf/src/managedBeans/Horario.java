@@ -51,7 +51,7 @@ public class Horario {
 	public void buscarParalelos() {
 		System.out.println("Metodo que busca paralelos existentes por materia y semestre");
 		if (crrId != null && mtrId != null && smsId != null) {
-			lstParalelos = srvHor.listarParalelosHorario(smsId, mtrId, crrId);
+			lstParalelos = srvHor.listarParalelosHorario(mtrId);
 			if (lstParalelos != null) {
 				System.out.println("Paralelos encontrados: " + lstParalelos.size());
 			} else {
@@ -89,8 +89,10 @@ public class Horario {
 		if (event.getNewValue() != null) {
 			System.out.println("Metodo de setear codigo carrera: " + event.getNewValue());
 			crrId = (Integer) event.getNewValue();
+			// lstS= srvHor.listarAllSem();
 			selectSem.setSmsId(null);
 			selectMtr.setMtrId(null);
+
 		} else {
 			selectSem.setSmsId(null);
 			selectMtr.setMtrId(null);
@@ -107,14 +109,17 @@ public class Horario {
 	public String verDataHorario() {
 		flagEditar = false;
 		System.out.println("Metodo para ver informacion de horario");
-		lstHorarios = srvHor.listarHorarios(selectPar.getPrlId(), selectMtr.getMtrId());
+		// lstHorarios = srvHor.listarHorarios(selectPar.getPrlId(),
+		// selectMtr.getMtrId());
+		lstHorarios = srvHor.listarHorarios(selectPar.getPrlCodigo());
 		return "detalleHorario";
 	}
 
 	public String editarDataHorario() {
 		flagEditar = true;
 		System.out.println("Metodo para ver informacion de horario");
-		lstHorarios = srvHor.listarHorarios(selectPar.getPrlId(), selectMtr.getMtrId());
+		// lstHorarios = srvHor.listarHorarios(selectPar.getPrlId(),
+		// selectMtr.getMtrId());
 		return "detalleHorario";
 	}
 

@@ -1,5 +1,5 @@
 package model;
-// Generated 14/02/2019 12:12:32 by Hibernate Tools 4.3.5.Final
+// Generated 23/02/2019 19:40:29 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -22,7 +22,7 @@ public class FichaEstudiante implements java.io.Serializable {
 	private String fcesPrimerNombre;
 	private String fcesSegundoNombre;
 	private String fcesApellidos;
-	private Set<Horario> horarios = new HashSet<Horario>(0);
+	private Set<HorarioFichaEstudiante> horarioFichaEstudiantes = new HashSet<HorarioFichaEstudiante>(0);
 	private Set<FichaMatricula> fichaMatriculas = new HashSet<FichaMatricula>(0);
 
 	public FichaEstudiante() {
@@ -33,12 +33,12 @@ public class FichaEstudiante implements java.io.Serializable {
 	}
 
 	public FichaEstudiante(BigDecimal fcesId, String fcesPrimerNombre, String fcesSegundoNombre, String fcesApellidos,
-			Set<Horario> horarios, Set<FichaMatricula> fichaMatriculas) {
+			Set<HorarioFichaEstudiante> horarioFichaEstudiantes, Set<FichaMatricula> fichaMatriculas) {
 		this.fcesId = fcesId;
 		this.fcesPrimerNombre = fcesPrimerNombre;
 		this.fcesSegundoNombre = fcesSegundoNombre;
 		this.fcesApellidos = fcesApellidos;
-		this.horarios = horarios;
+		this.horarioFichaEstudiantes = horarioFichaEstudiantes;
 		this.fichaMatriculas = fichaMatriculas;
 	}
 
@@ -81,12 +81,12 @@ public class FichaEstudiante implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaEstudiante")
-	public Set<Horario> getHorarios() {
-		return this.horarios;
+	public Set<HorarioFichaEstudiante> getHorarioFichaEstudiantes() {
+		return this.horarioFichaEstudiantes;
 	}
 
-	public void setHorarios(Set<Horario> horarios) {
-		this.horarios = horarios;
+	public void setHorarioFichaEstudiantes(Set<HorarioFichaEstudiante> horarioFichaEstudiantes) {
+		this.horarioFichaEstudiantes = horarioFichaEstudiantes;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaEstudiante")

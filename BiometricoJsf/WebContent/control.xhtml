@@ -59,11 +59,12 @@
 					<p:panel id="pnlDatosDocente">
 						<p:panelGrid columns="2">
 							<h:outputLabel value="Docente:"></h:outputLabel>
-							<h:outputText value="#{control.regDcnt.fcdcApellidos}"></h:outputText>
+							<h:outputText
+								value="#{control.regDcnt.fcdcApellidos} #{control.regDcnt.fcdcPrimerNombre} #{control.regDcnt.fcdcSegundoNombre}"></h:outputText>
 							<h:outputLabel value="Materia"></h:outputLabel>
-							<h:outputText value="#{control.mtr.mtrNombre}"></h:outputText>
+							<h:outputText value="#{control.hrr.materia.mtrNombre}"></h:outputText>
 							<h:outputLabel value="Aula"></h:outputLabel>
-							<h:outputText value=""></h:outputText>
+							<h:outputText value="#{control.hrr.aula.aulNombre}"></h:outputText>
 						</p:panelGrid>
 					</p:panel>
 					<p:panel id="pnlActividades">

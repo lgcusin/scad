@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -24,6 +25,7 @@ import javax.sql.rowset.serial.SerialException;
 
 import model.Actividad;
 import model.Asistencia;
+import model.Contenido;
 import model.FichaDocente;
 import model.HuellaDactilar;
 import model.TipoHuella;
@@ -38,9 +40,6 @@ public class SrvDocente implements SrvDocenteLocal {
 
 	@PersistenceContext
 	EntityManager em;
-	// private EntityManagerFactory emf =
-	// Persistence.createEntityManagerFactory("UnidadPersistencia");
-	// private EntityManager em = emf.createEntityManager();
 
 	public SrvDocente() {
 		//
@@ -77,8 +76,6 @@ public class SrvDocente implements SrvDocenteLocal {
 		BufferedImage image = ImageIO.read(in);
 		return image;
 	}
-
-	
 
 	@Override
 	public void guardarImagen(BufferedImage bimg1, BufferedImage bimg2, FichaDocente fcdc, TipoHuella tphl)
@@ -117,10 +114,24 @@ public class SrvDocente implements SrvDocenteLocal {
 	}
 
 	@Override
+	public List<Contenido> listarContenidos(Integer fdId) {
+		List<Contenido> lstCn;
+		try {
+			lstCn = em.createNamedQuery("Contenido.findAllByFdId", Contenido.class).setParameter("fdId", fdId)
+					.getResultList();
+		} catch (Exception e) {
+			System.out.println(e);
+			return lstCn = new ArrayList<>();
+		}
+		return lstCn;
+	}
+
+	@Override
 	public List<String> listarActividades(Integer id) {
 		List<String> lstAc = em.createNamedQuery("Actividad.findByFdId", String.class).setParameter("fcdcId", id)
 				.getResultList();
 		return lstAc;
 	}
 
+	
 }

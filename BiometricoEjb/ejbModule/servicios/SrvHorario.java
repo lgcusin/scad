@@ -37,7 +37,7 @@ public class SrvHorario implements SrvHorarioLocal {
 
 	@Override
 	public List<Carrera> listarAllCrr() {
-		List<Carrera> lstC = em.createNamedQuery("Carrera.findAllC", Carrera.class).getResultList();
+		List<Carrera> lstC = em.createNamedQuery("Carrera.findAll", Carrera.class).getResultList();
 		return lstC;
 	}
 
@@ -190,5 +190,30 @@ public class SrvHorario implements SrvHorarioLocal {
 			System.out.println("Error al consultar los horarios" + e);
 		}
 		return lstHorario;
+	}
+
+	@Override
+	public List<Paralelo> listarParalelosHorario(Integer mtrId) {
+		List<Paralelo> lstP;
+		try {
+			lstP = em.createNamedQuery("Paralelo.findAllByMtrId", Paralelo.class).setParameter("mtId", mtrId)
+					.getResultList();
+		} catch (Exception e) {
+			System.out.println("No se encontraron paralelos" + e);
+			return lstP = new ArrayList<>();
+		}
+		return lstP;
+	}
+
+	@Override
+	public List<Horario> listarHorarios(String prcdId) {
+		List<Horario> lstH;
+		try{
+			lstH = em.createNamedQuery("Horario.findAllByPrlId", Horario.class).setParameter("prlId", prcdId).getResultList();
+		}catch (Exception e) {
+			System.out.println("No se enontranos horarios "+ e);
+			return lstH= new ArrayList<>();
+		}
+		return lstH;
 	}
 }

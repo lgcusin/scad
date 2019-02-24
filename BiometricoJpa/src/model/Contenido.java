@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,7 +21,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CONTENIDO")
-@NamedQuery(name = "Contenido.findAllByUcId", query = "select cnt from Contenido as cnt where cnt.unidadCurricular.uncrId=:ucId")
+@NamedQueries({
+		@NamedQuery(name = "Contenido.findAllByUcId", query = "select cnt from Contenido as cnt where cnt.unidadCurricular.uncrId=:ucId"),
+		@NamedQuery(name = "Contenido.findAllByFdId", query = "select cnt from Contenido as cnt "
+				+ "where cnt.unidadCurricular.syllabo.mallaCurricularMateria.mlcrmtId in (select sgm.mallaCurricularMateria.mlcrmtId from Seguimiento as sgm "
+				+ "where sgm.asistencia.fichaDocente.fcdcId=:fdId)") })
+
 public class Contenido implements java.io.Serializable {
 
 	private Integer cntId;

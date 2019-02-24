@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -16,6 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "AULA")
+@NamedQueries({@NamedQuery(name="Aula.findByHrId",query="select h.aula from Horario as h where h.hrrId=:hrrId")})
 public class Aula implements java.io.Serializable {
 
 	private BigDecimal aulId;
