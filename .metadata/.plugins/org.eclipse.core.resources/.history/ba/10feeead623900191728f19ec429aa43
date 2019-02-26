@@ -60,6 +60,8 @@ public class DetalleHorario {
 		selectHorario = new Horario();
 		selectAula = new Aula();
 		initRegistroHorario();
+		horaEntrada = "08:00";
+		horaSalida = "10:00";
 	}
 
 	/**
