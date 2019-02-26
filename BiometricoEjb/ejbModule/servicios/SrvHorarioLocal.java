@@ -45,4 +45,6 @@ public interface SrvHorarioLocal {
 
 	List<model.Horario> listarHorarios(String prcdId);
 
+	void eliminarHorario(Horario horario);
+
 }
