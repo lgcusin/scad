@@ -202,12 +202,23 @@ public class SrvHorario implements SrvHorarioLocal {
 
 	@Override
 	public List<Horario> listarHorarios(String prcdId) {
-		List<Horario> lstH;
-		try{
-			lstH = em.createNamedQuery("Horario.findAllByPrlId", Horario.class).setParameter("prlId", prcdId).getResultList();
-		}catch (Exception e) {
-			System.out.println("No se enontranos horarios "+ e);
-			return lstH= new ArrayList<>();
+		List<Horario> lstH = new ArrayList<>();
+		try {
+			// lstH = em.createNamedQuery("Horario.findAllByPrlId",
+			// Horario.class).setParameter("prlId", prcdId).getResultList();
+			Query query = em.createQuery("select  h,th,m,fd,a,ds from Horario as h join h.tipoHorario as th "
+					+ " join h.materia as m join h.fichaDocente as fd join h.aula as a join h.diaSemana as ds "
+					+ "where m.mtrId in(select mcp.mallaCurricularMateria.materia.mtrId from MallaCurricularParalelo as mcp where mcp.paralelo.prlCodigo=:prlCd) "
+					+ "order by ds,h asc");
+			query.setParameter("prlCd", prcdId);
+			System.out.println("Valores de la lista");
+			for (Object obj : query.getResultList()) {
+				Object[] objArray = (Object[]) obj;
+				lstH.add((Horario) objArray[0]);
+			}
+		} catch (Exception e) {
+			System.out.println("No se enontranos horarios " + e);
+			return lstH;
 		}
 		return lstH;
 	}

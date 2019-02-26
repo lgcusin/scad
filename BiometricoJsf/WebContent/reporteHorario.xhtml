@@ -39,7 +39,7 @@
 													value="#{reporteHorario.selectCrr.crrId}"
 													style="width: 100%">
 													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
-													<f:selectItems value="#{horario.lstC}" var="cr"
+													<f:selectItems value="#{reporteHorario.lstCr}" var="cr"
 														itemLabel="#{cr.crrNombre}" itemValue="#{cr.crrId}" />
 												</p:selectOneMenu>
 											</div>
@@ -119,7 +119,7 @@
 						</p:panel>
 						<div>
 							<p:commandButton id="btnRegresar" value="Regresar"
-								action="#{reporteHorario.regresar}"></p:commandButton>
+								action="principal.xhtml"></p:commandButton>
 							<p:commandButton id="btnImprimir" value="Imprimir"
 								action="#{reporteHorario.imprimir}"></p:commandButton>
 						</div>

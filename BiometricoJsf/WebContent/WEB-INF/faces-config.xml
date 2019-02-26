@@ -6,7 +6,7 @@
 	<!-- =============================================================================================== 
 		======================================== MANEJADOR DE LENGUAJE ================================= 
 		=============================================================================================== -->
-	<!-- <application>
+	<application>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 		<locale-config>
 			<default-locale>es</default-locale>
@@ -16,13 +16,17 @@
 			<supported-locale>fr</supported-locale>
 			<supported-locale>tr</supported-locale>
 		</locale-config>
-	</application> -->
+	</application>
 	<!-- =============================================================================================== 
 		=============================== NAVEGACION DESDE EL CUALQUIER PAGINA (*)======================= 
 		=============================================================================================== -->
-	<!-- <navigation-rule> <from-view-id>*</from-view-id> <navigation-case> 
-		<from-outcome>logout</from-outcome> <to-view-id>/j_spring_security_logout</to-view-id> 
-		</navigation-case> </navigation-rule> -->
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>logout</from-outcome>
+			<to-view-id>/j_spring_security_logout</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config> 
  
  

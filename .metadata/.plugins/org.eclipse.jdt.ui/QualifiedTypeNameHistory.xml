@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="managedBeans.Registro"/>
 <fullyQualifiedTypeName name="com.sun.org.glassfish.gmbal.ManagedAttribute"/>
 <fullyQualifiedTypeName name="javax.faces.view.ViewScoped"/>
 <fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
@@ -31,25 +30,21 @@
 <fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
 <fullyQualifiedTypeName name="com.sun.org.apache.xml.internal.resolver.helpers.Debug"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
-<fullyQualifiedTypeName name="model.Horario"/>
 <fullyQualifiedTypeName name="javax.faces.bean.ManagedProperty"/>
 <fullyQualifiedTypeName name="servicios.SrvSeguimiento"/>
 <fullyQualifiedTypeName name="model.Materia"/>
-<fullyQualifiedTypeName name="servicios.SrvSeguimientoLocal"/>
 <fullyQualifiedTypeName name="java.lang.Override"/>
 <fullyQualifiedTypeName name="servicios.SrvDocente"/>
 <fullyQualifiedTypeName name="model.FichaEmpleado"/>
 <fullyQualifiedTypeName name="org.apache.commons.collections.functors.SwitchTransformer"/>
 <fullyQualifiedTypeName name="model.Carrera"/>
 <fullyQualifiedTypeName name="servicios.SrvEmpleadoLocal"/>
-<fullyQualifiedTypeName name="model.FichaDocente"/>
 <fullyQualifiedTypeName name="servicios.SrvDocenteLocal"/>
 <fullyQualifiedTypeName name="model.Paralelo"/>
 <fullyQualifiedTypeName name="javax.inject.Named"/>
 <fullyQualifiedTypeName name="com.sun.xml.internal.bind.v2.runtime.Name"/>
 <fullyQualifiedTypeName name="javax.faces.bean.ViewScoped"/>
 <fullyQualifiedTypeName name="model.Aula"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="model.Contenido"/>
 <fullyQualifiedTypeName name="javax.faces.bean.RequestScoped"/>
@@ -60,4 +55,9 @@
 <fullyQualifiedTypeName name="model.Asistencia"/>
 <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
 <fullyQualifiedTypeName name="servicios.SrvReporteHorarioLocal"/>
+<fullyQualifiedTypeName name="managedBeans.DetalleParalelo"/>
+<fullyQualifiedTypeName name="model.Horario"/>
+<fullyQualifiedTypeName name="model.FichaDocente"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="servicios.SrvSeguimientoLocal"/>
 </qualifiedTypeNameHistroy>

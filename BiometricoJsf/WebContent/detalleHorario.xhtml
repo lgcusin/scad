@@ -125,12 +125,12 @@
 									</p:cellEditor>
 								</p:column>
 								<p:column style="width:60px" headerText="Opciones"
-									rendered="#{horario.flagEditar}">
+									rendered="#{registroPrl.flagEditar}">
 									<p:rowEditor />
 								</p:column>
 								<f:facet name="footer">
 									<p:commandButton value="Agregar"
-										rendered="#{horario.flagEditar}" process="@this"
+										rendered="#{registroPrl.flagEditar}" process="@this"
 										update="dtsParalelos" action="#{detalleHorario.onAddNew}" />
 								</f:facet>
 							</p:dataTable>

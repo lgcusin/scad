@@ -29,17 +29,21 @@
 					ajax="false"></p:menuitem>
 				<p:menuitem value="Syllabus" action="#{principal.verSyllabus}"></p:menuitem>
 			</p:submenu>
-			<p:submenu label="Reportes">
-				<p:submenu label="Horario">
-					<p:menuitem value="Horario de Clases"></p:menuitem>
-					<p:menuitem value="Horario de Examen"></p:menuitem>
-				</p:submenu>
-
+			<p:submenu label="Reportes"
+				rendered="#{login.docente or login.empleado}">
+				<p:menuitem value="Horario" rendered="#{login.docente}"
+					action="#{principal.verReporteHorario(login.docente,'DOCENTE')}"
+					ajax="false">
+				</p:menuitem>
+				<p:menuitem value="Horarios" rendered="#{login.empleado}"
+					action="#{principal.verReporteHorario(login.empleado,'EMPLEADO')}"
+					ajax="false">
+				</p:menuitem>
 			</p:submenu>
 			<p:submenu label="Biometrico" rendered="#{login.empleado}">
 				<p:submenu label="Horario">
 					<p:menuitem value="Agregar Horario"
-						action="#{principal.verHorario}" ajax="false"></p:menuitem>
+						action="#{principal.regParalelo}" ajax="false"></p:menuitem>
 				</p:submenu>
 				<p:menuitem value="Enrolar Docente"
 					action="#{principal.verRegistro}" ajax="false"></p:menuitem>

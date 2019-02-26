@@ -16,6 +16,7 @@ import org.primefaces.event.RowEditEvent;
 import model.Aula;
 import model.DiaSemana;
 import model.FichaDocente;
+import model.Horario;
 import model.Materia;
 import model.Paralelo;
 import model.TipoHorario;
@@ -28,8 +29,8 @@ public class DetalleHorario {
 	@EJB
 	private SrvHorarioLocal srvHor;
 
-	@ManagedProperty("#{horario}")
-	private Horario horario;
+	@ManagedProperty("#{registroPrl}")
+	private RegistroParalelo paralelo;
 
 	private List<DiaSemana> lstDia;
 	private List<TipoHorario> lstTipoHorario;
@@ -39,17 +40,16 @@ public class DetalleHorario {
 	private TipoHorario selectTipoHorario;
 	private FichaDocente selectDocente;
 	private Aula selectAula;
-	private model.Horario selectHorario;
-	private model.Horario registroHorario;
-	private List<model.Horario> lstHorarios;
+	private Horario selectHorario;
+	private Horario registroHorario;
+	private List<Horario> lstHorarios;
 
 	private String horaEntrada;
 	private String horaSalida;
 
 	@PostConstruct
 	public void init() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		lstHorarios = horario.getLstHorarios();
+		lstHorarios = paralelo.getLstHorarios();
 		lstDia = srvHor.listarAllDias();
 		lstTipoHorario = srvHor.listarTipoHorario();
 		lstFichaDocente = srvHor.listarDocentes();
@@ -57,9 +57,9 @@ public class DetalleHorario {
 		selectDia = new DiaSemana();
 		selectTipoHorario = new TipoHorario();
 		selectDocente = new FichaDocente();
-		selectHorario = new model.Horario();
-		initRegistroHorario();
+		selectHorario = new Horario();
 		selectAula = new Aula();
+		initRegistroHorario();
 		horaEntrada = "08:00";
 		horaSalida = "10:00";
 	}
@@ -68,7 +68,7 @@ public class DetalleHorario {
 	 * Metodo que inicializa el objeto a guardar
 	 */
 	private void initRegistroHorario() {
-		registroHorario = new model.Horario();
+		registroHorario = new Horario();
 		registroHorario.setAula(new Aula());
 		registroHorario.setDiaSemana(new DiaSemana());
 		registroHorario.setFichaDocente(new FichaDocente());
@@ -96,9 +96,9 @@ public class DetalleHorario {
 	/**
 	 * Metodo que valida campos para el registro o actualizacion del horario
 	 * 
-	 * @param horario
+	 * @param paralelo
 	 */
-	private void validarHorario(model.Horario hor) {
+	private void validarHorario(Horario hor) {
 		boolean cambios = false;
 		for (DiaSemana dia : lstDia) {
 			if (hor.getDiaSemana().getDsmNombreDia().equals(dia.getDsmNombreDia())) {
@@ -148,7 +148,7 @@ public class DetalleHorario {
 
 	public String guardar() {
 		System.out.println("Guardar cambios de horario");
-		registroHorario.getMateria().setMtrId(horario.getSelectMtr().getMtrId());
+		registroHorario.getMateria().setMtrId(paralelo.getSelectMtr().getMtrId());
 		// registroHorario.getParalelo().setPrlId(horario.getSelectPar().getPrlId());
 		srvHor.guardarHorario(registroHorario);
 		initRegistroHorario();
@@ -157,7 +157,7 @@ public class DetalleHorario {
 
 	public String regresar() {
 		System.out.println("Regresar al menu de horarios");
-		return "horario";
+		return "registroParalelo";
 	}
 
 	public void setDiaID(ValueChangeEvent event) {
@@ -197,28 +197,34 @@ public class DetalleHorario {
 	}
 
 	public void onRowEdit(RowEditEvent event) {
-		actualizar((model.Horario) event.getObject());
+		actualizar((Horario) event.getObject());
 		FacesMessage msg = new FacesMessage("Registro editado",
-				((model.Horario) event.getObject()).getDiaSemana().getDsmNombreDia());
+				((Horario) event.getObject()).getDiaSemana().getDsmNombreDia());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void onRowCancel(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Edicion cancelada",
-				((model.Horario) event.getObject()).getDiaSemana().getDsmNombreDia());
+				((Horario) event.getObject()).getDiaSemana().getDsmNombreDia());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void onAddNew() {
-		model.Horario h = new model.Horario();
+		Horario h = new Horario();
 		h.setAula(new Aula());
 		h.setDiaSemana(new DiaSemana());
 		h.setFichaDocente(new FichaDocente());
 		h.setMateria(new Materia());
 
 		// h.setParalelo(new Paralelo());
-
-		h.getMateria().setMtrId(lstHorarios.get(0).getMateria().getMtrId());
+		if (lstHorarios.size() == 0) {
+			FacesContext context = FacesContext.getCurrentInstance();
+			RegistroParalelo rp = context.getApplication().evaluateExpressionGet(context, "#{registroPrl}",
+					RegistroParalelo.class);
+			h.getMateria().setMtrId(rp.getMtrId());
+		} else {
+			h.getMateria().setMtrId(lstHorarios.get(0).getMateria().getMtrId());
+		}
 		// h.setParalelo(new Paralelo());
 		// h.getParalelo().setPrlId(lstHorarios.get(0).getParalelo().getPrlId());
 
@@ -247,22 +253,12 @@ public class DetalleHorario {
 		this.srvHor = srvHor;
 	}
 
-	/**
-	 * The horario to get.
-	 * 
-	 * @return the horario
-	 */
-	public Horario getHorario() {
-		return horario;
+	public RegistroParalelo getParalelo() {
+		return paralelo;
 	}
 
-	/**
-	 * The horario to set.
-	 * 
-	 * @param horario
-	 */
-	public void setHorario(Horario horario) {
-		this.horario = horario;
+	public void setParalelo(RegistroParalelo paralelo) {
+		this.paralelo = paralelo;
 	}
 
 	/**

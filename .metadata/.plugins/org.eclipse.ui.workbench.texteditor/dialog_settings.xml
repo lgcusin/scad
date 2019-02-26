@@ -2,37 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Error al obtener horarios:" key="selection"/>
+		<item value="flag" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="Error al obtener horarios:"/>
-			<item value="BigDecimal"/>
-			<item value="icon"/>
-			<item value="No se enontranos horarios"/>
-			<item value="Paralelos encontrados:"/>
-			<item value="Metodo para ver informacion de horario"/>
+			<item value="flag"/>
+			<item value="regresar"/>
+			<item value="listarHorarios"/>
+			<item value="limpiarFiltros"/>
+			<item value="lstHorarios"/>
+			<item value="model."/>
 			<item value="model"/>
-			<item value=".syl"/>
+			<item value="horario"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
+			<item value="registroPrl"/>
+			<item value="detallePrl"/>
+			<item value="paralelo"/>
 			<item value="Integer"/>
 			<item value="detalleAct"/>
 			<item value="List"/>
 			<item value=" "/>
-			<item value="int"/>
-			<item value="Actividad"/>
-			<item value="huella"/>
-			<item value="frmRegistro"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="284" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="391" key="DIALOG_HEIGHT"/>
-		<item value="971" key="DIALOG_X_ORIGIN"/>
-		<item value="174" key="DIALOG_Y_ORIGIN"/>
+		<item value="1007" key="DIALOG_X_ORIGIN"/>
+		<item value="109" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

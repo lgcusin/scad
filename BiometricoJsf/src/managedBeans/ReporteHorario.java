@@ -1,6 +1,7 @@
 package managedBeans;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -12,7 +13,9 @@ import javax.faces.context.FacesContext;
 import model.Carrera;
 import model.FichaDocente;
 import model.TipoHorario;
+import servicios.SrvEmpleadoLocal;
 import servicios.SrvReporteHorarioLocal;
+import servicios.SrvSeguimientoLocal;
 
 /**
  * @author wilso
@@ -25,32 +28,48 @@ public class ReporteHorario {
 
 	@EJB
 	private SrvReporteHorarioLocal srvRepHor;
+	@EJB
+	private SrvSeguimientoLocal srvSegm;
+	@EJB
+	private SrvEmpleadoLocal srvEmp;
 
 	private Carrera selectCrr;
-	private FichaDocente fichaDocente;
-	private Collection<String[]> resultHorarios;
 	private TipoHorario selectTipoHorario;
+	private FichaDocente fcDc;
+	private Collection<String[]> resultHorarios;
 	private Collection<TipoHorario> lstTH;
+	private List<Carrera> lstCr;
+	public Integer fdId;
 
 	@PostConstruct
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		Login login = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
-		fichaDocente = login.getFd();
+		Principal p = context.getApplication().evaluateExpressionGet(context, "#{principal}", Principal.class);
+		if (p.docente) {
+			fdId = p.getFdId();
+			lstCr = srvSegm.listarAllCrrByFcdc(fdId);
+		}
+		if (p.empleado) {
+			lstCr = srvEmp.listarCarreras();
+		}
+		lstTH = srvRepHor.listarTipoHorario();
 		selectCrr = new Carrera();
 		selectTipoHorario = new TipoHorario();
-		lstTH = srvRepHor.listarTipoHorario();
+
 	}
 
 	public void buscarHorarios() {
 		System.out.println("Metodo para ver informacion de horario");
-		// if (fichaDocente.getFcdcId() != null && selectCrr.getCrrId() != null)
-		// {
 		if (selectCrr.getCrrId() != null && selectTipoHorario.getTphrId() != null) {
 			// resultHorarios =
 			// srvRepHor.listarHorarios(fichaDocente.getFcdcId(),
 			// selectCrr.getCrrId());
-			resultHorarios = srvRepHor.listarHorarios(2, selectCrr.getCrrId(), selectTipoHorario.getTphrId());
+			if(fdId!=null){
+				resultHorarios = srvRepHor.listarHorarios(fdId, selectCrr.getCrrId(), selectTipoHorario.getTphrId());
+			}else{
+				resultHorarios = srvRepHor.listarHorarios(selectCrr.getCrrId(), selectTipoHorario.getTphrId());
+			}
+			
 		} else {
 			resultHorarios = null;
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -98,7 +117,7 @@ public class ReporteHorario {
 	 * @return the fichaDocente
 	 */
 	public FichaDocente getFichaDocente() {
-		return fichaDocente;
+		return fcDc;
 	}
 
 	/**
@@ -107,7 +126,7 @@ public class ReporteHorario {
 	 * @param fichaDocente
 	 */
 	public void setFichaDocente(FichaDocente fichaDocente) {
-		this.fichaDocente = fichaDocente;
+		this.fcDc = fichaDocente;
 	}
 
 	/**
@@ -163,4 +182,13 @@ public class ReporteHorario {
 	public void setLstTH(Collection<TipoHorario> lstTH) {
 		this.lstTH = lstTH;
 	}
+
+	public List<Carrera> getLstCr() {
+		return lstCr;
+	}
+
+	public void setLstCr(List<Carrera> lstCr) {
+		this.lstCr = lstCr;
+	}
+
 }

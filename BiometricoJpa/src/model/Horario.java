@@ -32,6 +32,10 @@ import com.sun.xml.internal.bind.v2.runtime.Name;
 		@NamedQuery(name = "Horario.findFinByFdId", query = "select h from Horario as h where h.diaSemana.dsmId=:diaId and h.fichaDocente.fcdcId=:fdId  and h.hrrFin between :iniH and :finH"), })
 public class Horario implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer hrrId;
 	private TipoHorario tipoHorario;
 	private Aula aula;

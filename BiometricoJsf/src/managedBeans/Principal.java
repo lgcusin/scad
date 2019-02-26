@@ -73,12 +73,26 @@ public class Principal {
 		return "syllabo";
 	}
 
-	public String verHorario() {
-		return "horario";
+	public String regParalelo() {
+		return "registroParalelo";
 	}
 
-	public String verHorarioExamen() {
-		return "horarioExamen";
+	public String verReporteHorario(boolean sesionUsuarioForm, String rol) {
+		if (sesionUsuarioForm) {
+			switch (rol) {
+			case "DOCENTE":
+				return "reporteHorario";
+			case "EMPLEADO":
+				return "reporteHorario";
+			default:
+				System.out.println("Rol no encontrado");
+				return null;
+			}
+		} else {
+			System.out.println("Ho hay ningun rol");
+			return null;
+		}
+
 	}
 
 	// Administrador
@@ -108,6 +122,14 @@ public class Principal {
 
 	public void setEmpleado(boolean empleado) {
 		this.empleado = empleado;
+	}
+
+	public Integer getFdId() {
+		return fdId;
+	}
+
+	public void setFdId(Integer fdId) {
+		this.fdId = fdId;
 	}
 
 	// setters and getters
