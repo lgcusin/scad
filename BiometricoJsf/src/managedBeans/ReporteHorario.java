@@ -61,15 +61,12 @@ public class ReporteHorario {
 	public void buscarHorarios() {
 		System.out.println("Metodo para ver informacion de horario");
 		if (selectCrr.getCrrId() != null && selectTipoHorario.getTphrId() != null) {
-			// resultHorarios =
-			// srvRepHor.listarHorarios(fichaDocente.getFcdcId(),
-			// selectCrr.getCrrId());
-			if(fdId!=null){
+			if (fdId != null) {
 				resultHorarios = srvRepHor.listarHorarios(fdId, selectCrr.getCrrId(), selectTipoHorario.getTphrId());
-			}else{
-				resultHorarios = srvRepHor.listarHorarios(selectCrr.getCrrId(), selectTipoHorario.getTphrId());
+			} else {
+				resultHorarios = srvRepHor.listarHorarios(null, selectCrr.getCrrId(), selectTipoHorario.getTphrId());
 			}
-			
+
 		} else {
 			resultHorarios = null;
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
