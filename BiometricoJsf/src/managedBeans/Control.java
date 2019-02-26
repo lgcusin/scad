@@ -60,6 +60,7 @@ public class Control {
 		hora = formateador.format(ahora);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void registrar() throws SQLException, IOException {
 
 		regDcnt = srvJsdc.comparar();
@@ -69,9 +70,11 @@ public class Control {
 				regAss = srvSgmt.marcacionReg(ahora, regDcnt.getFcdcId());
 				if (regAss == null) {
 					regAss = new Asistencia();
-					regAss.setAssId(10);
-					formateador = new SimpleDateFormat("dd/MM/yyyy");
-					regAss.setAssFecha(new Date(formateador.format(ahora)));
+					regAss.setFichaDocente(regDcnt);
+					// regAss.setAssId(10);
+					formateador = new SimpleDateFormat("dd/mm/yyyy");
+					Date dt = new Date(formateador.format(ahora));
+					regAss.setAssFecha(dt);
 					formateador = new SimpleDateFormat("HH:mm:ss");
 					regAss.setAssHoraEntrada(formateador.format(ahora));
 					regAss.setAssEstado("Iniciado");
@@ -85,7 +88,8 @@ public class Control {
 						hrr = srvSgmt.verificarHorario(ahora, regDcnt.getFcdcId(), false);
 						if (hrr != null) {
 							regAss = new Asistencia();
-							regAss.setAssId(20);
+							regAss.setFichaDocente(regDcnt);
+							// regAss.setAssId(20);
 							formateador = new SimpleDateFormat("dd/MM/yyyy");
 							regAss.setAssFecha(new Date(formateador.format(ahora)));
 							formateador = new SimpleDateFormat("HH:mm:ss");
