@@ -16,6 +16,4 @@ public interface SrvReporteHorarioLocal {
 
 	Collection<TipoHorario> listarTipoHorario();
 
-	Collection<String[]> listarHorarios(Integer crrId, Integer tphrId);
-
 }
