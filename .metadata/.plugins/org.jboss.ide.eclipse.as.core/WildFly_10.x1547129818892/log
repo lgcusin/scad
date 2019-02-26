@@ -5238,3 +5238,6 @@
 
 !ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2019-02-25 19:18:45.099
 !MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.wtp.core 1 16973825 2019-02-25 20:24:58.355
+!MESSAGE Server processes have terminated prematurely. Please check your server logs for more details. 
