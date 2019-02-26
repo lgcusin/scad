@@ -222,4 +222,16 @@ public class SrvHorario implements SrvHorarioLocal {
 		}
 		return lstH;
 	}
+
+	@Override
+	public void eliminarHorario(Horario horario) {
+		try {
+			Horario h = em.find(Horario.class, horario.getHrrId());
+			if (h != null) {
+				em.remove(h);
+			}
+		} catch (Exception e) {
+			System.out.println("Error al eliminar horario" + e);
+		}
+	}
 }

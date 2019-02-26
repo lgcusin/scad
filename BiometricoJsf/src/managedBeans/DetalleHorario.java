@@ -1,5 +1,6 @@
 package managedBeans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -231,6 +232,20 @@ public class DetalleHorario {
 
 		FacesMessage msg = new FacesMessage("Nuevo registro añadido");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void eliminarHorario(model.Horario hor) {
+		System.out.println("Metodo que elimina el horario");
+		List<Horario> lstAux = new ArrayList<>();
+		for (Horario horario : lstHorarios) {
+			if (horario.getHrrId() != hor.getHrrId()) {
+				lstAux.add(horario);
+			} else {
+				srvHor.eliminarHorario(horario);
+			}
+		}
+		System.out.println("Nueva lista de horarios" + lstAux.size());
+		lstHorarios = lstAux;
 	}
 
 	/**

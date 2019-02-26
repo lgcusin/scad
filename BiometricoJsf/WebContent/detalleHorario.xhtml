@@ -127,6 +127,9 @@
 								<p:column style="width:60px" headerText="Opciones"
 									rendered="#{registroPrl.flagEditar}">
 									<p:rowEditor />
+									<p:commandButton value="Del" style="width:50px"
+										update="dtsParalelos"
+										action="#{detalleHorario.eliminarHorario(hor)}" />
 								</p:column>
 								<f:facet name="footer">
 									<p:commandButton value="Agregar"
