@@ -246,10 +246,28 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	@Override
 	public void guardarRegistro(Asistencia regAss) {
 		try {
-			em.persist(regAss);
+			if (regAss.getAssId() != null) {
+				em.merge(regAss);
+			} else {
+				regAss.setAssId(obtenerSecAsistencia() + 1);
+				em.persist(regAss);
+			}
 		} catch (Exception e) {
-			System.out.println("No se puede guardar");
+			System.out.println("No se puede guardar asistencia");
 		}
 
+	}
+
+	private int obtenerSecAsistencia() {
+		int id;
+		try {
+			Query query = em.createQuery("select a.assId from Asistencia as a order by a.assId desc");
+			query.setMaxResults(1);
+			id = (int) query.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al consultar los horarios secuencia" + e);
+			return 0;
+		}
+		return id;
 	}
 }

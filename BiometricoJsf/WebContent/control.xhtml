@@ -68,17 +68,18 @@
 						</p:panelGrid>
 					</p:panel>
 					<p:panel id="pnlActividades">
+						<h:outputLabel value="Actividades(Selecione una):"></h:outputLabel>
+						<p:selectManyMenu id="slmmContenido" value="#{control.selecCnts}"
+							var="Cnt" showCheckbox="true">
+							<f:selectItems value="#{control.lstCnt}" var="cn"
+								itemLabel="#{cn.cntDescripcion}"
+								itemValue="#{cn.cntDescripcion}"></f:selectItems>
+							<p:column>
+								<h:inputText value="#{Cnt}" />
+							</p:column>
+						</p:selectManyMenu>
 						<p:panelGrid columns="2">
-							<h:outputLabel value="Actividades(Selecione una):"></h:outputLabel>
-							<p:selectManyMenu id="slmmContenido" value="#{control.selecCnts}"
-								var="Cnt" showCheckbox="true">
-								<f:selectItems value="#{control.lstCnt}" var="cn"
-									itemLabel="#{cn.cntDescripcion}"
-									itemValue="#{cn.cntDescripcion}"></f:selectItems>
-								<p:column>
-									<h:inputText value="#{Cnt}" />
-								</p:column>
-							</p:selectManyMenu>
+
 							<h:outputLabel value="Observacion:"></h:outputLabel>
 							<p:inputTextarea counter="display" title="Ingrese la observacion"
 								maxlength="100" counterTemplate="{0} characters remaining" />
@@ -93,7 +94,8 @@
 							<h:outputText value="#{control.regAss.assEstado}"></h:outputText>
 						</p:panelGrid>
 					</p:panel>
-					<p:commandButton id="btnGuardar" value="GUARDAR" action="#{control.guardarAsis}"></p:commandButton>
+					<p:commandButton id="btnGuardar" value="GUARDAR"
+						action="#{control.guardarAsis()}"></p:commandButton>
 					<p:commandButton id="btnCancelar" value="CANCELAR"
 						onclick="PF('dlgControl').hide();"></p:commandButton>
 				</p:outputPanel>
