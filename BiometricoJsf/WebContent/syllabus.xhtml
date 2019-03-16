@@ -80,12 +80,8 @@
 									<h:outputText value="#{mat.mtrNombre}" />
 								</p:column>
 								<p:column headerText="Opciones">
-									<p:commandButton value="Ver" title="Ver Syllabo"
+									<p:commandButton value="Syllabo" title="Ver Syllabo"
 										action="#{syllabus.verDetaSyllabus}">
-										<f:setPropertyActionListener value="#{mat}"
-											target="#{syllabus.selectMtr}" />
-									</p:commandButton>
-									<p:commandButton value="Editar" title="Editar Syllabo">
 										<f:setPropertyActionListener value="#{mat}"
 											target="#{syllabus.selectMtr}" />
 									</p:commandButton>

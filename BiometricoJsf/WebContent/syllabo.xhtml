@@ -13,7 +13,7 @@
 		<h:form id="frmSylDetalles" enctype="multipart/form-data"
 			acceptcharset="UTF-8">
 
-			<p:panel id="dlgSyllabus">
+			<p:panel id="dlgSyllabus" rendered="#{syllabus.dataSyllabo}">
 				<p:outputPanel id="otpnSylDetalles">
 					<p:panel id="pnlDatos">
 						<p:panel id="pnlDatos_header">
@@ -26,8 +26,8 @@
 									<h:outputText value="FACULTAD:"></h:outputText>
 									<h:outputText value="INGENIERÍA, CIENCIAS FÍSICAS Y MATEMÁTICA"></h:outputText>
 									<h:outputText value="CARRERA:"></h:outputText>
-									<h:inputText value="#{syllabus.selectCrr.crrNombre}"
-										disabled="true"></h:inputText>
+									<h:outputText value="#{syllabus.selectCrr.crrNombre}"
+										disabled="true"></h:outputText>
 									<h:outputText value="ASIGNATURA"></h:outputText>
 									<h:outputText value="#{syllabus.selectMtr.mtrNombre}"></h:outputText>
 									<h:outputText value="CODIGO DE LA ASIGNATURA"></h:outputText>
@@ -183,9 +183,10 @@
 					</p:panel>
 				</p:outputPanel>
 			</p:panel>
-			<p:commandButton id="bntRegresar" value="Regresar"
-				action="syllabus.xhtml"></p:commandButton>
-			<p:commandButton id="btnModoficar" value="Modificar"></p:commandButton>
+			<p:panel rendered="#{!syllabus.dataSyllabo}">
+				<h:outputLabel
+					value="Agregar un nuevo syllabo, la materia no tiene uno disponible"></h:outputLabel>
+			</p:panel>
 			<p:panel visible="true">
 				<p:panelGrid columns="2">
 					<h:outputLabel
@@ -200,6 +201,8 @@
 					</p:panelGrid>
 				</p:panelGrid>
 			</p:panel>
+			<p:commandButton id="bntRegresar" value="Regresar"
+				action="syllabus.xhtml"></p:commandButton>
 		</h:form>
 	</ui:define>
 </ui:composition>
