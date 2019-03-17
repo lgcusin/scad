@@ -77,8 +77,13 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 
 	@Override
 	public Syllabo getSyllabus(Integer mtrId) {
-		Syllabo syl = em.createNamedQuery("Syllabo.findByMtrId", Syllabo.class).setParameter("mtrId", mtrId)
-				.getSingleResult();
+		Syllabo syl = null;
+		try {
+			syl = em.createNamedQuery("Syllabo.findByMtrId", Syllabo.class).setParameter("mtrId", mtrId)
+					.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("No se ha encontrado Syllabo de la materia seleccionada");
+		}
 		return syl;
 	}
 

@@ -1,16 +1,12 @@
 package managedBeans;
 
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 
 import model.Actividad;
 import model.Carrera;
@@ -41,6 +37,7 @@ public class Syllabus {
 	public List<Contenido> lstCnt;
 	public List<Actividad> lstAct;
 	public List<Herramienta> lstHrr;
+	public Boolean dataSyllabo;
 
 	@PostConstruct
 	public void init() {
@@ -60,7 +57,7 @@ public class Syllabus {
 	public void buscar() {
 		if (crrId != null) {
 			lstM = srvSgm.listarMatByCrr(crrId);
-		} 
+		}
 		// else {
 		// lstM = srvSgm.listarAllMat();
 		// }
@@ -68,17 +65,27 @@ public class Syllabus {
 
 	public String verDetaSyllabus() {
 		selectCrr = srvSgm.getCarrera(selectMtr.getMtrId());
-		syl = srvSgm.getSyllabus(selectMtr.getMtrId());
-		lstUC = srvSgm.listarUnidadCurricular(selectMtr.getMtrId());
-		for (UnidadCurricular unidad : lstUC) {
-			lstCnt = srvSgm.listarContenidos(unidad.getUncrId());
-			for (Contenido contenido : lstCnt) {
-				lstAct = srvSgm.listarActividades(contenido.getCntId());
-				lstHrr = srvSgm.listarHerramientas(contenido.getCntId());
-				contenido.setActividads(lstAct);
-				contenido.setHerramientas(lstHrr);
+		if (selectMtr.getMtrId() != null) {
+			syl = srvSgm.getSyllabus(selectMtr.getMtrId());
+			lstUC = srvSgm.listarUnidadCurricular(selectMtr.getMtrId());
+		} else {
+			System.out.println("Debe seleccionar una carrera");
+		}
+
+		if (syl != null && !lstUC.isEmpty()) {
+			for (UnidadCurricular unidad : lstUC) {
+				lstCnt = srvSgm.listarContenidos(unidad.getUncrId());
+				for (Contenido contenido : lstCnt) {
+					lstAct = srvSgm.listarActividades(contenido.getCntId());
+					lstHrr = srvSgm.listarHerramientas(contenido.getCntId());
+					contenido.setActividads(lstAct);
+					contenido.setHerramientas(lstHrr);
+				}
+				unidad.setContenidos(lstCnt);
 			}
-			unidad.setContenidos(lstCnt);
+			dataSyllabo = Boolean.TRUE;
+		} else {
+			dataSyllabo = Boolean.FALSE;
 		}
 		return "syllabo";
 	}
@@ -142,4 +149,11 @@ public class Syllabus {
 		this.lstUC = lstUC;
 	}
 
+	public Boolean getDataSyllabo() {
+		return dataSyllabo;
+	}
+
+	public void setDataSyllabo(Boolean dataSyllabo) {
+		this.dataSyllabo = dataSyllabo;
+	}
 }
