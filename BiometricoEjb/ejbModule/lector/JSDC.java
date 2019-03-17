@@ -59,7 +59,7 @@ public class JSDC implements JSDCLocal {
 	}
 
 	@Override
-	public void inicializar() {
+	public boolean inicializar() {
 		// AUTO
 		// FDU08 Hamster Pro 20A
 		// FDU07A Hamster Pro 10AP
@@ -94,13 +94,20 @@ public class JSDC implements JSDCLocal {
 					System.out.println(new String(Integer.toString(deviceInfo.imageDPI)));
 					System.out.println(new String(Integer.toString(deviceInfo.imageHeight)));
 					System.out.println(new String(Integer.toString(deviceInfo.imageWidth)));
-				} else
+					return true;
+				} else {
 					System.out.println("GetDeviceInfo() Error [" + ret + "]");
-			} else
+					return false;
+				}
+			} else {
 				System.out.println("OpenDevice() Error [" + ret + "]");
+				return false;
+			}
 
-		} else
+		} else {
 			System.out.println("JSGFPLib Initialization Failed");
+			return false;
+		}
 	}
 
 	@Override
@@ -333,7 +340,5 @@ public class JSDC implements JSDCLocal {
 		}
 		return null;
 	}
-
-
 
 }

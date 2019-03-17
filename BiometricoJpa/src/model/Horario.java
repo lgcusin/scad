@@ -27,9 +27,7 @@ import com.sun.xml.internal.bind.v2.runtime.Name;
 		@UniqueConstraint(columnNames = { "HRR_INICIO", "HRR_FIN", "FCDC_ID", "DSM_ID" }),
 		@UniqueConstraint(columnNames = { "HRR_INICIO", "HRR_FIN", "AUL_ID", "DSM_ID" }) })
 @NamedQueries({
-		@NamedQuery(name = "Horario.findAllByPrlId", query = "select h from Horario as h where h.materia.mtrId in (select mcp.mallaCurricularMateria.materia.mtrId from MallaCurricularParalelo as mcp where mcp.paralelo.prlCodigo=:prlId)"),
-		@NamedQuery(name = "Horario.findInicioByFdId", query = "select h from Horario as h where h.diaSemana.dsmId=:diaId and h.fichaDocente.fcdcId=:fdId  and (h.hrrInicio between :iniH and :finH)"),
-		@NamedQuery(name = "Horario.findFinByFdId", query = "select h from Horario as h where h.diaSemana.dsmId=:diaId and h.fichaDocente.fcdcId=:fdId  and h.hrrFin between :iniH and :finH"), })
+		@NamedQuery(name = "Horario.findAllByPrlId", query = "select h from Horario as h where h.materia.mtrId in (select mcp.mallaCurricularMateria.materia.mtrId from MallaCurricularParalelo as mcp where mcp.paralelo.prlCodigo=:prlId)") })
 public class Horario implements java.io.Serializable {
 
 	/**

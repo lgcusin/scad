@@ -77,39 +77,81 @@ public class SrvDocente implements SrvDocenteLocal {
 		return image;
 	}
 
-	@Override
-	public void guardarImagen(BufferedImage bimg1, BufferedImage bimg2, FichaDocente fcdc, TipoHuella tphl)
-			throws IOException, SerialException, SQLException {
-		HuellaDactilar hldc = new HuellaDactilar();
-		for (int i = 0; i < 2; i++) {
-			ByteArrayOutputStream baos = null;
-			try {
-				baos = new ByteArrayOutputStream();
-				if (i == 0) {
-					ImageIO.write(bimg1, "png", baos);
-				}
-				ImageIO.write(bimg2, "png", baos);
-			} finally {
-				try {
-					baos.close();
-				} catch (Exception e) {
-				}
-			}
-			Blob huella = new javax.sql.rowset.serial.SerialBlob(baos.toByteArray());
-			if (i == 0) {
-				hldc.setHldPrimerHuella(huella);
-			}
-			hldc.setHldSegundaHuella(huella);
+	public HuellaDactilar findHuella(Integer fdId, Integer thid) {
+		HuellaDactilar hldc;
+		try {
+			hldc = em.createNamedQuery("HuellaDactilar.findByFdicThid", HuellaDactilar.class).setParameter("fdId", fdId)
+					.setParameter("thid", thid).getSingleResult();
+
+		} catch (Exception e) {
+			System.out.println(e);
+			return hldc = new HuellaDactilar();
 		}
-		hldc.setFichaDocente(fcdc);
-		hldc.setTipoHuella(tphl);
-		em.persist(hldc);
+		return hldc;
 	}
 
 	@Override
-	public List<Asistencia> listarAsistencia(Integer id) {
-		List<Asistencia> listAs = em.createNamedQuery("Asistencia.findAll", Asistencia.class).setParameter("fcdcId", id)
-				.getResultList();
+	public void guardarImagen(BufferedImage bimg1, BufferedImage bimg2, FichaDocente fcdc, TipoHuella tphl)
+			throws IOException, SerialException, SQLException {
+		HuellaDactilar hldc;
+		hldc = findHuella(fcdc.getFcdcId(), tphl.getTphlId());
+		if (hldc != null) {
+			for (int i = 0; i < 2; i++) {
+				ByteArrayOutputStream baos = null;
+				try {
+					baos = new ByteArrayOutputStream();
+					if (i == 0) {
+						ImageIO.write(bimg1, "png", baos);
+					}
+					ImageIO.write(bimg2, "png", baos);
+				} finally {
+					try {
+						baos.close();
+					} catch (Exception e) {
+					}
+				}
+				Blob huella = new javax.sql.rowset.serial.SerialBlob(baos.toByteArray());
+				if (i == 0) {
+					hldc.setHldPrimerHuella(huella);
+				}
+				hldc.setHldSegundaHuella(huella);
+			}
+			hldc.setFichaDocente(fcdc);
+			hldc.setTipoHuella(tphl);
+			em.merge(hldc);
+		} else {
+			hldc = new HuellaDactilar();
+			for (int i = 0; i < 2; i++) {
+				ByteArrayOutputStream baos = null;
+				try {
+					baos = new ByteArrayOutputStream();
+					if (i == 0) {
+						ImageIO.write(bimg1, "png", baos);
+					}
+					ImageIO.write(bimg2, "png", baos);
+				} finally {
+					try {
+						baos.close();
+					} catch (Exception e) {
+					}
+				}
+				Blob huella = new javax.sql.rowset.serial.SerialBlob(baos.toByteArray());
+				if (i == 0) {
+					hldc.setHldPrimerHuella(huella);
+				}
+				hldc.setHldSegundaHuella(huella);
+			}
+			hldc.setFichaDocente(fcdc);
+			hldc.setTipoHuella(tphl);
+
+			em.persist(hldc);
+		}
+	}
+
+	@Override
+	public List<Asistencia> listarAsistencia(Integer fdId) {
+		List<Asistencia> listAs = em.createNamedQuery("Asistencia.findAll", Asistencia.class)
+				.setParameter("fcdcId", fdId).getResultList();
 		return listAs;
 	}
 
@@ -127,11 +169,10 @@ public class SrvDocente implements SrvDocenteLocal {
 	}
 
 	@Override
-	public List<String> listarActividades(Integer id) {
-		List<String> lstAc = em.createNamedQuery("Actividad.findByFdId", String.class).setParameter("fcdcId", id)
+	public List<String> listarActividades(Integer fdId) {
+		List<String> lstAc = em.createNamedQuery("Actividad.findByFdId", String.class).setParameter("fcdcId", fdId)
 				.getResultList();
 		return lstAc;
 	}
 
-	
 }

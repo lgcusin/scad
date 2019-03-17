@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
 	http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
-<!-- 
-	<application>
+
+	<!-- <application>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 		<locale-config>
 			<default-locale>es</default-locale>
@@ -15,7 +15,7 @@
 			<supported-locale>fr</supported-locale>
 			<supported-locale>tr</supported-locale>
 		</locale-config>
-	</application>
+	</application> -->
 
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
@@ -24,8 +24,8 @@
 			<to-view-id>/j_spring_security_logout</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
-	 -->
+
+
 </faces-config> 
  
  

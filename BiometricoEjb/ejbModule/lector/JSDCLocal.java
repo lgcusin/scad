@@ -14,7 +14,7 @@ import model.Horario;
 @Local
 public interface JSDCLocal {
 
-	void inicializar();
+	boolean inicializar();
 
 	void onLED();
 

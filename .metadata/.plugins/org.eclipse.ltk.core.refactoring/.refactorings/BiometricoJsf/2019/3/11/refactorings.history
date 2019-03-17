@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;flag&apos; in &apos;managedBeans.Control&apos; to &apos;flagIni&apos;&#x0D;&#x0A;- Original project: &apos;BiometricoJsf&apos;&#x0D;&#x0A;- Original element: &apos;managedBeans.Control.flag&apos;&#x0D;&#x0A;- Renamed element: &apos;managedBeans.Control.flagIni&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;flag&apos;" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;managedBeans{Control.java[Control^flag" name="flagIni" references="true" setter="false" stamp="1552348651188" textual="false" version="1.0"/>
+</session>

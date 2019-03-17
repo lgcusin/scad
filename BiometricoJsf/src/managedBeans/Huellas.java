@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -19,15 +20,18 @@ import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import javax.sql.rowset.serial.SerialException;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+
+import com.sun.javafx.iio.ImageStorage.ImageType;
 
 import servicios.SrvDocenteLocal;
 import lector.JSDCLocal;
 import model.FichaDocente;
 import model.TipoHuella;
 
-@ManagedBean(name = "huella")
+@ManagedBean(name = "huella", eager = true)
 @ViewScoped
 public class Huellas {
 
@@ -46,69 +50,98 @@ public class Huellas {
 
 	private StreamedContent graphic1;
 	private StreamedContent graphic2;
-	private StreamedContent image;
 	private BufferedImage bimg1;
 	private BufferedImage bimg2;
 	private int quality1;
 	private int quality2;
-	private boolean verificado;
+	private boolean flagVrf;
+	private boolean flagDvc;
 
 	@PostConstruct
 	public void init() {
-		 FacesContext context = FacesContext.getCurrentInstance();
-		 Registro beanDcnt =
-		 context.getApplication().evaluateExpressionGet(context,
-		 "#{registro}", Registro.class);
-		jsdcBean.inicializar();
-		jsdcBean.onLED();
+		FacesContext context = FacesContext.getCurrentInstance();
+		Registro beanDcnt = context.getApplication().evaluateExpressionGet(context, "#{registro}", Registro.class);
+		if (jsdcBean.inicializar()) {
+			jsdcBean.onLED();
+			flagDvc = true;
+		} else {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Lector no encontrado", null);
+			ctx.addMessage(null, msg);
+			flagDvc = false;
+		}
 		selectDcnt = beanDcnt.getSelectDcnt();
 		lstTphl = srvDcnt.listarDedos();
-		verificado = true;
+		flagVrf = true;
 
-	}
-
-	// ####### Panel de huellas #######
-	public void resetear() {
-		InputStream stream = this.getClass().getResourceAsStream("/img/direccion.png");
-		image = new DefaultStreamedContent(stream, "image/png");
-		this.graphic1 = image;
-		this.graphic2 = image;
 	}
 
 	public void apagar() {
 		jsdcBean.cerrar();
 		bimg1 = null;
 		bimg2 = null;
+		graphic1 = null;
+		graphic2 = null;
+		quality1 = 0;
+		quality2 = 0;
 		lstTphl = null;
-
 	}
 
 	public void capturar1() throws IOException {
 		bimg1 = jsdcBean.capturar();
-		quality1 = jsdcBean.calidad();
-		graphic1 = toImage(bimg1);
+		if (bimg1 == null) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Captura de huella fallida", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} else {
+			quality1 = jsdcBean.calidad();
+			graphic1 = toImage(bimg1);
+		}
+
 	}
 
 	public void capturar2() throws IOException {
 		bimg2 = jsdcBean.capturar();
-		quality2 = jsdcBean.calidad();
-		graphic2 = toImage(bimg2);
+		if (bimg2 == null) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Captura de huella fallida", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} else {
+			quality2 = jsdcBean.calidad();
+			graphic2 = toImage(bimg2);
+		}
 	}
 
-	public void verificar() throws SerialException, IOException, SQLException {
-		verificado = !jsdcBean.verificar();
+	public String verificar() throws SerialException, IOException, SQLException {
+		if (bimg1 == null || bimg2 == null) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Huellas vacias", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
+		flagVrf = !jsdcBean.verificar();
+		if (flagVrf) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Verificacion de huellas fallida", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		} else {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Huellas coinciden", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
+
 	}
 
 	public void registrar() throws SerialException, IOException, SQLException {
-		if (tpId != null) {
-			// selectDcnt = beanDcnt.getSelectDcnt();
+		if (tpId != null && selectDcnt != null) {
 			selectTp = new TipoHuella();
 			selectTp.setTphlId(tpId);
 			srvDcnt.guardarImagen(bimg1, bimg2, selectDcnt, selectTp);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Huellas guardadas", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			jsdcBean.cerrar();
 		} else {
-			System.out.println("#####ESCOJA LA HUELLA#####");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Escoja el dedo al que pertece las huellas",
+					null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-
 	}
 
 	public StreamedContent toImage(BufferedImage bimg) throws IOException {
@@ -130,6 +163,21 @@ public class Huellas {
 		return grafico;
 	}
 
+	public String regresar() {
+		return "registro";
+	}
+
+	public String limpiar() {
+		bimg1 = null;
+		bimg2 = null;
+		graphic1 = null;
+		graphic2 = null;
+		quality1 = 0;
+		quality2 = 0;
+		flagVrf = true;
+		jsdcBean.inicializar();
+		return null;
+	}
 	// ####### Setters y Getters Tipo Huella #######
 
 	public List<TipoHuella> getLstTphl() {
@@ -144,6 +192,14 @@ public class Huellas {
 
 	public Integer getTpId() {
 		return tpId;
+	}
+
+	public boolean isFlagDvc() {
+		return flagDvc;
+	}
+
+	public void setFlagDvc(boolean flagDvc) {
+		this.flagDvc = flagDvc;
 	}
 
 	public void setTpId(Integer tpId) {
@@ -182,12 +238,12 @@ public class Huellas {
 		this.quality2 = quality2;
 	}
 
-	public boolean isVerificado() {
-		return verificado;
+	public boolean isFlagVrf() {
+		return flagVrf;
 	}
 
-	public void setVerificado(boolean verificado) {
-		this.verificado = verificado;
+	public void setFlagVrf(boolean flagVrf) {
+		this.flagVrf = flagVrf;
 	}
 
 }

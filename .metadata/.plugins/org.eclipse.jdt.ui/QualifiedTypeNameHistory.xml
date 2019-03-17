@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="javax.faces.view.ViewScoped"/>
-<fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
-<fullyQualifiedTypeName name="java.util.HashSet"/>
-<fullyQualifiedTypeName name="servicios.DocenteBean"/>
-<fullyQualifiedTypeName name="managedBeans.Principal"/>
-<fullyQualifiedTypeName name="java.util.Set"/>
 <fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="model.MallaCurricularMateria"/>
 <fullyQualifiedTypeName name="javax.faces.convert.FacesConverter"/>
@@ -18,7 +12,6 @@
 <fullyQualifiedTypeName name="javax.ejb.EJB"/>
 <fullyQualifiedTypeName name="lector.JSDCLocal"/>
 <fullyQualifiedTypeName name="javax.persistence.EntityManager"/>
-<fullyQualifiedTypeName name="model.HuellaDactilar"/>
 <fullyQualifiedTypeName name="javax.persistence.PersistenceContext"/>
 <fullyQualifiedTypeName name="javax.faces.bean.SessionScoped"/>
 <fullyQualifiedTypeName name="managedBeans.Syllabus"/>
@@ -26,11 +19,9 @@
 <fullyQualifiedTypeName name="model.UnidadCurricular"/>
 <fullyQualifiedTypeName name="model.Actividad"/>
 <fullyQualifiedTypeName name="model.Herramienta"/>
-<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
 <fullyQualifiedTypeName name="com.sun.org.apache.xml.internal.resolver.helpers.Debug"/>
 <fullyQualifiedTypeName name="javax.faces.bean.ManagedProperty"/>
 <fullyQualifiedTypeName name="servicios.SrvSeguimiento"/>
-<fullyQualifiedTypeName name="model.Materia"/>
 <fullyQualifiedTypeName name="java.lang.Override"/>
 <fullyQualifiedTypeName name="servicios.SrvDocente"/>
 <fullyQualifiedTypeName name="model.FichaEmpleado"/>
@@ -42,8 +33,6 @@
 <fullyQualifiedTypeName name="javax.inject.Named"/>
 <fullyQualifiedTypeName name="com.sun.xml.internal.bind.v2.runtime.Name"/>
 <fullyQualifiedTypeName name="javax.faces.bean.ViewScoped"/>
-<fullyQualifiedTypeName name="model.Aula"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="model.Contenido"/>
 <fullyQualifiedTypeName name="javax.faces.bean.RequestScoped"/>
 <fullyQualifiedTypeName name="javax.persistence.NamedQueries"/>
@@ -60,4 +49,15 @@
 <fullyQualifiedTypeName name="managedBeans.RegistroParalelo"/>
 <fullyQualifiedTypeName name="model.Asistencia"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="model.Materia"/>
+<fullyQualifiedTypeName name="model.Aula"/>
+<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
+<fullyQualifiedTypeName name="com.sun.javafx.iio.ImageStorage.ImageType"/>
+<fullyQualifiedTypeName name="org.primefaces.model.DefaultStreamedContent"/>
+<fullyQualifiedTypeName name="model.HuellaDactilar"/>
+<fullyQualifiedTypeName name="javax.faces.application.FacesMessage.Severity"/>
+<fullyQualifiedTypeName name="javax.faces.application.FacesMessage"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="javax.faces.context.FacesContext"/>
+<fullyQualifiedTypeName name="org.primefaces.context.RequestContext"/>
 </qualifiedTypeNameHistroy>

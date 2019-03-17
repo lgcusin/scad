@@ -22,7 +22,8 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "HUELLA_DACTILAR", uniqueConstraints = @UniqueConstraint(columnNames = { "FCDC_ID", "TPHL_ID" }))
 @NamedQueries({ @NamedQuery(name = "HuellaDactilar.findAll", query = "select hd from HuellaDactilar as hd"),
-		@NamedQuery(name = "HuellaDactilar.findAllById", query = "select hd from HuellaDactilar as hd where hd.fichaDocente.fcdcId=:idDcnt") })
+		@NamedQuery(name = "HuellaDactilar.findAllById", query = "select hd from HuellaDactilar as hd where hd.fichaDocente.fcdcId=:idDcnt"),
+		@NamedQuery(name = "HuellaDactilar.findByFdicThid", query = "select hd from HuellaDactilar as hd where hd.fichaDocente.fcdcId=:fdId and hd.tipoHuella.tphlId=:thid")})
 
 public class HuellaDactilar implements java.io.Serializable {
 

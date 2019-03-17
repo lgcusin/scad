@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import model.FichaDocente;
 import servicios.SrvDocenteLocal;
@@ -42,7 +44,23 @@ public class Registro {
 	}
 
 	public String verHuellas() {
-		return "huellas";
+		if (selectDcnt == null) {
+			FacesMessage msg = new FacesMessage("No ha seleccionado ningun docente");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		} else {
+			return "huellas";
+		}
+	}
+
+	public String regresar() {
+		lstDcnt = null;
+		return "principal";
+	}
+	
+	public String limpiar(){
+		lstDcnt = null;
+		return null;
 	}
 
 	// ####### Setters y Getters Busqueda #######

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="cuerpo">
+		<h:form id="frmHuellas" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<p:panel id="pnlRegistroHuellas_header"
+				header="Registro de Huellas dactilares" />
+			<center>
+				<p:panel id="pnlRegitroHuellas_content"
+					header="Datos y detalle del docente">
+					<!-- style="margin-left: 500px; margin-right: 500px;"> -->
+					<br />
+					<p:panelGrid columns="2">
+						<h:outputLabel value="Docente:"
+							style="font-size: 14px !important; font-weight: bold" />
+						<h:outputLabel
+							value="#{registro.selectDcnt.fcdcApellidos} #{registro.selectDcnt.fcdcPrimerNombre} #{registro.selectDcnt.fcdcSegundoNombre} " />
+						<h:outputLabel value="Carrera"
+							style="font-size: 14px !important; font-weight: bold" />
+						<h:outputLabel value="INGENIERIA" />
+					</p:panelGrid>
+				</p:panel>
+			</center>
+			<p:panel id="huellaDetalles" style="text-align:center;">
+				<p:panelGrid columns="2">
+
+					<p:selectOneMenu id="tipoHuella" value="#{huella.tpId}">
+						<f:selectItem itemLabel="Selecione su huella" itemValue="" />
+						<f:selectItems value="#{huella.lstTphl}" var="th"
+							itemLabel="#{th.tphlId},#{th.tphlDescripcionDedo}"
+							itemValue="#{th.tphlId}" />
+					</p:selectOneMenu>
+					<p:panelGrid id="pnlHuellas" columns="2">
+						<p:graphicImage id="imagenR1" value="#{huella.graphic1}"
+							width="100" height="130"></p:graphicImage>
+						<p:graphicImage id="imagenR2" value="#{huella.graphic2}"
+							width="100" height="130"></p:graphicImage>
+						<p:progressBar id="calidad1" ajax="true"
+							value="#{huella.quality1}"></p:progressBar>
+						<p:progressBar id="calidad2" ajax="true"
+							value="#{huella.quality2}"></p:progressBar>
+						<p:commandButton id="botonR1" value="Captura H1"
+							update="imagenR1 calidad1" action="#{huella.capturar1}"></p:commandButton>
+						<p:commandButton id="botonR2" value="Captura H2"
+							update="imagenR2 calidad2" action="#{huella.capturar2}"></p:commandButton>
+					</p:panelGrid>
+				</p:panelGrid>
+				<div>
+					<p:commandButton id="btnRegistrar" value="Registrar"
+						action="#{huella.registrar}" disabled="#{huella.flagVrf}"></p:commandButton>
+					<p:commandButton id="btnVerificar" value="Verificar"
+						disabled="false" action="#{huella.verificar}"></p:commandButton>
+				</div>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnRegresar" action="registro.xhtml"
+					actionListener="#{huella.apagar}" value="regresar"></p:commandButton>
+
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

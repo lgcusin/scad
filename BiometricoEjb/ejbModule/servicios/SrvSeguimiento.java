@@ -147,14 +147,23 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 		Horario hr;
 		System.out.println("Hora Holgura Inicio:" + horIni + "\nHora holgura Fin:" + horFin);
 		try {
+			Query query;
+			Object[] objArray;
+			Object obj;
 			if (tipo) {
-				hr = em.createNamedQuery("Horario.findInicioByFdId", Horario.class)
-						.setParameter("diaId", fecha.getDay()).setParameter("fdId", fcdcId).setParameter("iniH", horIni)
-						.setParameter("finH", horFin).getSingleResult();
+				query = em.createQuery(
+						"select h,m,a from Horario as h join h.materia as m join h.aula as a where h.diaSemana.dsmId=:diaId and h.fichaDocente.fcdcId=:fdId  and (h.hrrInicio between :iniH and :finH)");
+				obj = query.setParameter("diaId", fecha.getDay()).setParameter("fdId", fcdcId)
+						.setParameter("iniH", horIni).setParameter("finH", horFin).getSingleResult();
+				objArray = (Object[]) obj;
+				hr = (Horario) objArray[0];
 			} else {
-				hr = em.createNamedQuery("Horario.findFinByFdId", Horario.class).setParameter("diaId", fecha.getDay())
-						.setParameter("fdId", fcdcId).setParameter("iniH", horIni).setParameter("finH", horFin)
-						.getSingleResult();
+				query = em.createQuery(
+						"select h,m,a from Horario as h join h.materia as m join h.aula as a where h.diaSemana.dsmId=:diaId and h.fichaDocente.fcdcId=:fdId  and (h.hrrFin between :iniH and :finH)");
+				obj = query.setParameter("diaId", fecha.getDay()).setParameter("fdId", fcdcId)
+						.setParameter("iniH", horIni).setParameter("finH", horFin).getSingleResult();
+				objArray = (Object[]) obj;
+				hr = (Horario) objArray[0];
 			}
 		} catch (Exception e) {
 			System.out.println("Error al obtener horarios: " + e);
@@ -164,7 +173,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	}
 
 	/**
-	 * Metodo que valida que los minutos menores a 10 tengan 2 digitos
+	 * Metodo que valida que los minutos/horas menores a 10 tengan 2 digitos
 	 * 
 	 * @param minutosProceso
 	 */
@@ -218,22 +227,25 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	}
 
 	@Override
-	public Asistencia marcacionReg(Date fecha, Integer fcdcId) {
-		Asistencia asis;
+	public List<Asistencia> marcacionReg(Date fecha, Integer fcdcId) {
+		List<Asistencia> asis;
 		SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
 		String hora = formateador.format(fecha);
 		System.out.println("Fecha actual: " + hora);
+		String format = "dd/mm/yyyy";
+		String estado = "Finalizado";
 		try {
 			Query q = em.createQuery(
-					"select ass from Asistencia as ass where ass.fichaDocente.fcdcId=:fdId and to_char( ass.assFecha,"
-							+ "'" + "dd/mm/yyyy" + "'" + ") =:hora");
+					"select ass from Asistencia as ass where ass.fichaDocente.fcdcId=:fdId and to_char( ass.assFecha,:format) =:hora and ass.assEstado <> :estado");
 			q.setParameter("fdId", fcdcId);
 			q.setParameter("hora", hora);
-			asis = (Asistencia) q.getSingleResult();
+			q.setParameter("format", format);
+			q.setParameter("estado", estado);
+			asis = q.getResultList();
 
 		} catch (Exception e) {
 			System.out.println("No hay una asistencia gregistrada" + e);
-			return asis = null;
+			return asis = new ArrayList<>();
 		}
 		return asis;
 	}
@@ -242,8 +254,11 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	public void guardarRegistro(Asistencia regAss) {
 		try {
 			if (regAss.getAssId() != null) {
+				System.out.println(regAss.getAssHoraSalida());
 				em.merge(regAss);
 			} else {
+				System.out.println(regAss.getFichaDocente().getFcdcId());
+				System.out.println(regAss.getAssHoraEntrada());
 				regAss.setAssId(obtenerSecAsistencia() + 1);
 				em.persist(regAss);
 			}

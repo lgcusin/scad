@@ -67,16 +67,13 @@
 				<p:panel id="pnlAsistenciaDocente"
 					rendered="#{principal.docente or principal.empleado}">
 					<p:dataTable id="tblAsistencia" value="#{detalleAss.lstA}" var="As">
-						<p:column id="column1">
-							<f:facet name="header">
-								<h:outputText value="HORA ENTRADA"></h:outputText>
-							</f:facet>
+						<p:column id="clmFecha" headerText="FECHA">
+							<h:outputText value="#{As.assFecha}" />
+						</p:column>
+						<p:column id="clmEntrada" headerText="HORA ENTRADA">
 							<h:outputText value="#{As.assHoraEntrada}" />
 						</p:column>
-						<p:column id="column2">
-							<f:facet name="header">
-								<h:outputText value="HORA SALIDA"></h:outputText>
-							</f:facet>
+						<p:column id="clmSalida" headerText="HORA SALIDA">
 							<h:outputText value="#{As.assHoraSalida}" />
 						</p:column>
 						<p:column style="text-align: center">
