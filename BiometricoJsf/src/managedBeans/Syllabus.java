@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import model.Actividad;
@@ -37,7 +40,8 @@ public class Syllabus {
 	public List<Contenido> lstCnt;
 	public List<Actividad> lstAct;
 	public List<Herramienta> lstHrr;
-	public Boolean dataSyllabo;
+	public boolean dataSyllabo;
+	public boolean modiSyllabo;
 
 	@PostConstruct
 	public void init() {
@@ -57,10 +61,15 @@ public class Syllabus {
 	public void buscar() {
 		if (crrId != null) {
 			lstM = srvSgm.listarMatByCrr(crrId);
+		} else {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione una carrera", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-		// else {
-		// lstM = srvSgm.listarAllMat();
-		// }
+	}
+
+	public String limpiar() {
+		lstM = null;
+		return null;
 	}
 
 	public String verDetaSyllabus() {
@@ -69,7 +78,8 @@ public class Syllabus {
 			syl = srvSgm.getSyllabus(selectMtr.getMtrId());
 			lstUC = srvSgm.listarUnidadCurricular(selectMtr.getMtrId());
 		} else {
-			System.out.println("Debe seleccionar una carrera");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione una materia", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 
 		if (syl != null && !lstUC.isEmpty()) {
@@ -83,11 +93,22 @@ public class Syllabus {
 				}
 				unidad.setContenidos(lstCnt);
 			}
-			dataSyllabo = Boolean.TRUE;
+			dataSyllabo = true;
 		} else {
-			dataSyllabo = Boolean.FALSE;
+			dataSyllabo = false;
 		}
 		return "syllabo";
+	}
+
+	public String modificar() {
+		modiSyllabo = true;
+		dataSyllabo = false;
+		return null;
+	}
+
+	public String regresar() {
+		modiSyllabo = false;
+		return "syllabus";
 	}
 
 	// Setters and getters
@@ -131,7 +152,16 @@ public class Syllabus {
 	public void setCrrId(Integer crrId) {
 		this.crrId = crrId;
 	}
+
 	// Getters Syllabus
+
+	public boolean isModiSyllabo() {
+		return modiSyllabo;
+	}
+
+	public void setModiSyllabo(boolean modiSyllabo) {
+		this.modiSyllabo = modiSyllabo;
+	}
 
 	public Syllabo getSyl() {
 		return syl;
@@ -149,11 +179,12 @@ public class Syllabus {
 		this.lstUC = lstUC;
 	}
 
-	public Boolean getDataSyllabo() {
+	public boolean isDataSyllabo() {
 		return dataSyllabo;
 	}
 
-	public void setDataSyllabo(Boolean dataSyllabo) {
+	public void setDataSyllabo(boolean dataSyllabo) {
 		this.dataSyllabo = dataSyllabo;
 	}
+
 }

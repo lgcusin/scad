@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -16,6 +18,7 @@ import model.Asistencia;
 import model.Aula;
 import model.Carrera;
 import model.Contenido;
+import model.FichaDocente;
 import model.Herramienta;
 import model.Horario;
 import model.Materia;
@@ -220,10 +223,17 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 
 	@Override
 	public List<Contenido> getContenidos(Integer mtrId) {
-		List<Contenido> lstCn;
+		List<Contenido> lstCn = new ArrayList<>();
 		try {
-			lstCn = em.createNamedQuery("Contenido.findAllByMtrId", Contenido.class).setParameter("mtId", mtrId)
-					.getResultList();
+			Query query;
+			query = em.createQuery(
+					"select cnt,un from Contenido as cnt join cnt.unidadCurricular as un where cnt.unidadCurricular.syllabo.mallaCurricularMateria.materia.mtrId=:mtId order by un.uncrId,cnt.cntId");
+			query.setParameter("mtId", mtrId);
+			for (Object obj : query.getResultList()) {
+				Object[] objArray = (Object[]) obj;
+				lstCn.add((Contenido) objArray[0]);
+			}
+			
 		} catch (Exception e) {
 			System.out.println("No tiene contenidos:" + e);
 			return lstCn = new ArrayList<>();
@@ -238,14 +248,15 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 		String hora = formateador.format(fecha);
 		System.out.println("Fecha actual: " + hora);
 		String format = "dd/mm/yyyy";
-		String estado = "Finalizado";
+		// String estado = "Finalizado";
 		try {
 			Query q = em.createQuery(
-					"select ass from Asistencia as ass where ass.fichaDocente.fcdcId=:fdId and to_char( ass.assFecha,:format) =:hora and ass.assEstado <> :estado");
+					"select ass from Asistencia as ass where ass.fichaDocente.fcdcId=:fdId and to_char( ass.assFecha,:format) =:hora");
+			// and ass.assEstado <> :estado
 			q.setParameter("fdId", fcdcId);
 			q.setParameter("hora", hora);
 			q.setParameter("format", format);
-			q.setParameter("estado", estado);
+			// q.setParameter("estado", estado);
 			asis = q.getResultList();
 
 		} catch (Exception e) {
@@ -285,4 +296,66 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 		}
 		return id;
 	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public void generar(Date ahora) {
+		List<Object> lstO = null;
+		Horario hrr;
+		FichaDocente fd = new FichaDocente();
+		SimpleDateFormat formateador = new SimpleDateFormat("yyyy/MM/dd");
+		Date fecha = new Date(formateador.format(ahora));
+		try {
+			Query query;
+			Object[] objArray;
+			query = em.createQuery(
+					"select h,fd from Horario as h join h.fichaDocente as fd where h.diaSemana.dsmId=:diaId order by h.hrrInicio");
+			query.setParameter("diaId", ahora.getDay());
+			lstO = query.getResultList();
+			for (Object obj : lstO) {
+				objArray = (Object[]) obj;
+				hrr = (Horario) objArray[0];
+				fd = (FichaDocente) objArray[1];
+				Asistencia ass = new Asistencia();
+				ass.setAssFecha(fecha);
+				ass.setHorario(hrr);
+				ass.setFichaDocente(fd);
+				guardarRegistro(ass);
+			}
+		} catch (Exception e) {
+			System.out.println("Error al crear registro laboral docente");
+		}
+		System.out.println("Registro laboral docente creado");
+	}
+
+	@Override
+	public void guardarContenido(Contenido cnt) {
+		try {
+			if (cnt.getCntId() != null) {
+				System.out.println(cnt.getCntDescripcion());
+				em.merge(cnt);
+			} else {
+
+				cnt.setCntId(obtenerCntdAsistencia() + 1);
+				em.persist(cnt);
+			}
+		} catch (Exception e) {
+			System.out.println("No se puede guardar contenido");
+		}
+
+	}
+
+	private int obtenerCntdAsistencia() {
+		int id;
+		try {
+			Query query = em.createQuery("select cont.cntId from Contenido as cont order by cont.cntId desc");
+			query.setMaxResults(1);
+			id = (int) query.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al consultar los contenidos secuencia" + e);
+			return 0;
+		}
+		return id;
+	}
+
 }

@@ -24,7 +24,10 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "ASISTENCIA")
 @NamedQueries({
-//		@NamedQuery(name = "Asistencia.findByFdIdyDt", query = "select ass from Asistencia as ass where ass.fichaDocente.fcdcId=1 and day(ass.assFecha)=02 and month(ass.assFecha)=01 and year(ass.assFecha)=2019"),
+		// @NamedQuery(name = "Asistencia.findByFdIdyDt", query = "select ass
+		// from Asistencia as ass where ass.fichaDocente.fcdcId=1 and
+		// day(ass.assFecha)=02 and month(ass.assFecha)=01 and
+		// year(ass.assFecha)=2019"),
 		@NamedQuery(name = "Asistencia.findAll", query = "select a from Asistencia as a where a.fichaDocente.fcdcId=:fcdcId") })
 
 public class Asistencia implements java.io.Serializable {
@@ -37,6 +40,7 @@ public class Asistencia implements java.io.Serializable {
 	 * 
 	 */
 	private Integer assId;
+	private Horario horario;
 	private FichaDocente fichaDocente;
 	private Date assFecha;
 	private String assHoraEntrada;
@@ -47,14 +51,16 @@ public class Asistencia implements java.io.Serializable {
 	public Asistencia() {
 	}
 
-	public Asistencia(Integer assId, FichaDocente fichaDocente) {
+	public Asistencia(Integer assId, Horario horario, FichaDocente fichaDocente) {
 		this.assId = assId;
+		this.horario = horario;
 		this.fichaDocente = fichaDocente;
 	}
 
-	public Asistencia(Integer assId, FichaDocente fichaDocente, Date assFecha, String assHoraEntrada,
+	public Asistencia(Integer assId, Horario horario, FichaDocente fichaDocente, Date assFecha, String assHoraEntrada,
 			String assHoraSalida, String assEstado, Set<Seguimiento> seguimientos) {
 		this.assId = assId;
+		this.horario = horario;
 		this.fichaDocente = fichaDocente;
 		this.assFecha = assFecha;
 		this.assHoraEntrada = assHoraEntrada;
@@ -72,6 +78,16 @@ public class Asistencia implements java.io.Serializable {
 
 	public void setAssId(Integer assId) {
 		this.assId = assId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "HRR_ID", nullable = false)
+	public Horario getHorario() {
+		return this.horario;
+	}
+
+	public void setHorario(Horario horario) {
+		this.horario = horario;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

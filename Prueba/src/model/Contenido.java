@@ -1,5 +1,5 @@
 package model;
-// Generated 23/02/2019 19:40:29 by Hibernate Tools 4.3.5.Final
+// Generated 20/03/2019 20:46:57 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -23,6 +23,7 @@ public class Contenido implements java.io.Serializable {
 	private BigDecimal cntId;
 	private UnidadCurricular unidadCurricular;
 	private String cntDescripcion;
+	private String cntEstado;
 	private Set<Herramienta> herramientas = new HashSet<Herramienta>(0);
 	private Set<Actividad> actividads = new HashSet<Actividad>(0);
 
@@ -34,11 +35,12 @@ public class Contenido implements java.io.Serializable {
 		this.unidadCurricular = unidadCurricular;
 	}
 
-	public Contenido(BigDecimal cntId, UnidadCurricular unidadCurricular, String cntDescripcion,
+	public Contenido(BigDecimal cntId, UnidadCurricular unidadCurricular, String cntDescripcion, String cntEstado,
 			Set<Herramienta> herramientas, Set<Actividad> actividads) {
 		this.cntId = cntId;
 		this.unidadCurricular = unidadCurricular;
 		this.cntDescripcion = cntDescripcion;
+		this.cntEstado = cntEstado;
 		this.herramientas = herramientas;
 		this.actividads = actividads;
 	}
@@ -71,6 +73,15 @@ public class Contenido implements java.io.Serializable {
 
 	public void setCntDescripcion(String cntDescripcion) {
 		this.cntDescripcion = cntDescripcion;
+	}
+
+	@Column(name = "CNT_ESTADO", length = 15)
+	public String getCntEstado() {
+		return this.cntEstado;
+	}
+
+	public void setCntEstado(String cntEstado) {
+		this.cntEstado = cntEstado;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "contenido")

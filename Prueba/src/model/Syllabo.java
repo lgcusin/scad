@@ -1,5 +1,5 @@
 package model;
-// Generated 23/02/2019 19:40:29 by Hibernate Tools 4.3.5.Final
+// Generated 20/03/2019 20:46:57 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;

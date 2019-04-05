@@ -1,5 +1,5 @@
 package model;
-// Generated 23/02/2019 19:40:29 by Hibernate Tools 4.3.5.Final
+// Generated 20/03/2019 20:46:57 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -24,6 +24,7 @@ import javax.persistence.TemporalType;
 public class Asistencia implements java.io.Serializable {
 
 	private BigDecimal assId;
+	private Horario horario;
 	private FichaDocente fichaDocente;
 	private Date assFecha;
 	private String assHoraEntrada;
@@ -34,14 +35,16 @@ public class Asistencia implements java.io.Serializable {
 	public Asistencia() {
 	}
 
-	public Asistencia(BigDecimal assId, FichaDocente fichaDocente) {
+	public Asistencia(BigDecimal assId, Horario horario, FichaDocente fichaDocente) {
 		this.assId = assId;
+		this.horario = horario;
 		this.fichaDocente = fichaDocente;
 	}
 
-	public Asistencia(BigDecimal assId, FichaDocente fichaDocente, Date assFecha, String assHoraEntrada,
-			String assHoraSalida, String assEstado, Set<Seguimiento> seguimientos) {
+	public Asistencia(BigDecimal assId, Horario horario, FichaDocente fichaDocente, Date assFecha,
+			String assHoraEntrada, String assHoraSalida, String assEstado, Set<Seguimiento> seguimientos) {
 		this.assId = assId;
+		this.horario = horario;
 		this.fichaDocente = fichaDocente;
 		this.assFecha = assFecha;
 		this.assHoraEntrada = assHoraEntrada;
@@ -59,6 +62,16 @@ public class Asistencia implements java.io.Serializable {
 
 	public void setAssId(BigDecimal assId) {
 		this.assId = assId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "HRR_ID", nullable = false)
+	public Horario getHorario() {
+		return this.horario;
+	}
+
+	public void setHorario(Horario horario) {
+		this.horario = horario;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

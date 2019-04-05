@@ -12,9 +12,6 @@
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="poi-3.10-FINAL.jar" deploy-path="/lib" handle="module:/classpath/lib/BiometricoEar/librerias/jasperReport/poi-3.10-FINAL.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="jasperreports-6.0.0.jar" deploy-path="/lib" handle="module:/classpath/lib/BiometricoEar/librerias/jasperReport/jasperreports-6.0.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -94,7 +91,13 @@
         <dependent-module archiveName="spring-expression-4.0.5.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/BiometricoEar/librerias/springSecurity/spring-expression-4.0.5.RELEASE.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="commons-collections-3.2.2.jar" deploy-path="/lib" handle="module:/classpath/lib/BiometricoEar/librerias/jasperReport/commons-collections-3.2.2.jar">
+        <dependent-module archiveName="poi-ooxml-4.0.1.jar" deploy-path="/lib" handle="module:/classpath/lib/BiometricoEar/librerias/jasperReport/poi-ooxml-4.0.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="poi-4.0.1.jar" deploy-path="/lib" handle="module:/classpath/lib/BiometricoEar/librerias/jasperReport/poi-4.0.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-collections4-4.1.jar" deploy-path="/lib" handle="module:/classpath/lib/BiometricoEar/librerias/jasperReport/commons-collections4-4.1.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>

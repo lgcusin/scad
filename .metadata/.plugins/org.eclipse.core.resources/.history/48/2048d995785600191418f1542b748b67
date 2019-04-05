@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">>
+	<ui:define name="cuerpo">
+		<h:form id="frmSylDetalles" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<p:panel id="DtllSyllabus" rendered="#{syllabus.dataSyllabo}">
+
+				<p:panel id="pnlDatos" header="Datos Informativos">
+					<p:panel id="pnlDatos_content">
+						<center>
+							<p:panelGrid columns="2">
+								<h:outputText value="FACULTAD:"></h:outputText>
+								<h:outputText value="INGENIERÍA, CIENCIAS FÍSICAS Y MATEMÁTICA"></h:outputText>
+								<h:outputText value="CARRERA:"></h:outputText>
+								<h:outputText value="#{syllabus.selectCrr.crrNombre}"
+									disabled="true"></h:outputText>
+								<h:outputText value="ASIGNATURA"></h:outputText>
+								<h:outputText value="#{syllabus.selectMtr.mtrNombre}"></h:outputText>
+								<h:outputText value="CODIGO DE LA ASIGNATURA"></h:outputText>
+								<h:outputText value="#{syllabus.selectMtr.mtrId}"></h:outputText>
+								<h:outputText value="CREDITOS"></h:outputText>
+								<h:outputText value=""></h:outputText>
+								<h:outputText value="SEMESTRE"></h:outputText>
+								<h:outputText value=""></h:outputText>
+								<h:outputText value="UNIDAD DE ORGANIZACIÓN CURRICULAR:"></h:outputText>
+								<h:outputText value=""></h:outputText>
+								<h:outputText value="TIPO ASIGNATURA"></h:outputText>
+								<h:outputText value="OBLIGTORIA"></h:outputText>
+								<h:outputText value="PROFESOR COORDINADOR DE ASIGNATURA:"></h:outputText>
+								<h:outputText value=""></h:outputText>
+								<h:outputText value="PERIODO ACADEMICO"></h:outputText>
+								<h:outputText value=""></h:outputText>
+								<h:outputText value="N°. HORAS DE CLASE"></h:outputText>
+								<h:outputText value="#{syllabus.syl.sylHorasClase}"></h:outputText>
+								<h:outputText value="N°. HORAS TUTORIAS"></h:outputText>
+								<h:outputText value="#{syllabus.syl.sylHorasTutorias}"></h:outputText>
+							</p:panelGrid>
+						</center>
+					</p:panel>
+				</p:panel>
+				<p:panel id="pnlDescripcion" header="Descripion de asignatura">
+					<p:panel id="pnlDescripcion_content">
+						<h:outputLabel value="#{syllabus.syl.sylDescripcion}"></h:outputLabel>
+					</p:panel>
+				</p:panel>
+				<p:panel id="pnlObjetivos" header="Objetivos de asignatura">
+					<p:panel id="pnlObjetivoGeneral_content" header="General">
+						<h:outputLabel value="#{syllabus.syl.sylObjetivoGnrl}"></h:outputLabel>
+					</p:panel>
+					<p:panel id="pnlObjetivoEspecifico_content" header="Especifico">
+						<h:outputLabel value="#{syllabus.syl.sylObjetivoEspc}"></h:outputLabel>
+					</p:panel>
+				</p:panel>
+				<p:panel id="pnlContribucion" header="Contribucion de asignatura">
+					<p:panel id="pnlContribucion_content">
+						<h:outputLabel value="#{syllabus.syl.sylContribucionProfesional}"></h:outputLabel>
+					</p:panel>
+				</p:panel>
+				<p:panel id="pnlResultado" header="Resultados de asignatura">
+					<p:panel id="pnlResultado_content">
+						<h:outputLabel value="#{syllabus.syl.sylResultadosAprendizaje}"></h:outputLabel>
+					</p:panel>
+				</p:panel>
+				<p:panel id="pnlProgramacion" header="Programacion de asignatura">
+					<p:panel id="pnlProgramacion_content">
+						<p:dataGrid id="dtgUnidades" var="Uncr" value="#{syllabus.lstUC}"
+							columns="1">
+							<h:outputText value="#{Uncr.uncrDescripcion}"
+								style="font-weight:bold"></h:outputText>
+							<p:panelGrid columns="2">
+								<h:outputLabel value="NOMBRE DE LA UNIDAD:"></h:outputLabel>
+								<h:outputText value="#{Uncr.uncrNombre}"></h:outputText>
+								<h:outputLabel value="OBJETIVO DE LA UNIDAD:"></h:outputLabel>
+								<h:outputText value="#{Uncr.uncrObjetivo}"></h:outputText>
+								<h:outputLabel value="RESULTADOS DE APRENDIZAJE DE LA UNIDAD:"></h:outputLabel>
+								<h:outputText value="#{Uncr.uncrResultado}"></h:outputText>
+							</p:panelGrid>
+
+							<p:panelGrid>
+								<p:row>
+									<p:column rowspan="4">
+										<h:outputLabel value="CÁLCULO DE HORAS DE LA UNIDAD:"></h:outputLabel>
+									</p:column>
+									<p:column rowspan="2">
+										<h:outputLabel value="ESCENARIOS DE APRENDIZAJE"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<h:outputLabel value="N°. Horas aprendizaje Teóricas"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<h:outputText value="6"></h:outputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel value="N°. Horas Prácticas- laboratorio"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<h:outputText value="6"></h:outputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column rowspan="2">
+										<h:outputLabel value="TUTORIAS"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<h:outputLabel value="N°. Horas Presenciales"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<h:outputText value="2"></h:outputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel value="N°. Horas Aprendizaje Aula Virtual"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<h:outputText value="1"></h:outputText>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+							<h:outputText value="PROGRAMACIÓN CURRICULAR"></h:outputText>
+							<p:panelGrid columns="1">
+								<p:dataTable value="#{Uncr.contenidos}" var="cn">
+									<p:column headerText="CONTENIDOS">
+										<h:outputText value="#{cn.cntDescripcion}"></h:outputText>
+									</p:column>
+									<p:column
+										headerText="ACTIVIDADES DE TRABAJO AUTÓNOMO, ACTIVIDADES DE INVESTIGACIÓN Y DE VINCULACIÓN CON LA SOCIEDAD">
+										<p:dataGrid value="#{cn.actividads}" var="ac" columns="1">
+											<h:outputText value="#{ac.actDescripcion}"></h:outputText>
+										</p:dataGrid>
+									</p:column>
+									<p:column headerText="MECANISMOS DE EVALUACIÓN">
+										<p:dataGrid value="#{cn.herramientas}" var="hr" columns="1">
+											<h:outputText value="#{hr.hrrNombre}"></h:outputText>
+										</p:dataGrid>
+									</p:column>
+								</p:dataTable>
+							</p:panelGrid>
+							<br />
+						</p:dataGrid>
+					</p:panel>
+				</p:panel>
+				<p:commandButton value="Modificar" action="#{syllabus.modificar}"
+					update="frmSylDetalles:MdfcSyllabus" />
+			</p:panel>
+			<p:panel rendered="#{!syllabus.dataSyllabo}">
+				<h:outputLabel
+					value="Agregar un nuevo syllabo, la materia no tiene uno disponible" />
+				<p:commandButton value="Crear nuevo Syllabo" />
+			</p:panel>
+
+			<p:panel id="MdfcSyllabus" rendered="#{!syllabus.dataSyllabo}">
+				<p:panel id="pnlDatosM" header="Datos Informativos">
+					<p:panel id="pnlDatosM_content">
+						<center>
+							<p:panelGrid columns="2">
+								<h:inputText></h:inputText>
+								<h:inputText value="FACULTAD:"></h:inputText>
+								<h:inputText value="INGENIERÍA, CIENCIAS FÍSICAS Y MATEMÁTICA"></h:inputText>
+								<h:inputText value="CARRERA:"></h:inputText>
+								<h:inputText value="#{syllabus.selectCrr.crrNombre}"
+									disabled="true"></h:inputText>
+								<h:inputText value="ASIGNATURA"></h:inputText>
+								<h:inputText value="#{syllabus.selectMtr.mtrNombre}"></h:inputText>
+								<h:inputText value="CODIGO DE LA ASIGNATURA"></h:inputText>
+								<h:inputText value="#{syllabus.selectMtr.mtrId}"></h:inputText>
+								<h:inputText value="CREDITOS"></h:inputText>
+								<h:inputText value=""></h:inputText>
+								<h:inputText value="SEMESTRE"></h:inputText>
+								<h:inputText value=""></h:inputText>
+								<h:inputText value="UNIDAD DE ORGANIZACIÓN CURRICULAR:"></h:inputText>
+								<h:inputText value=""></h:inputText>
+								<h:inputText value="TIPO ASIGNATURA"></h:inputText>
+								<h:inputText value="OBLIGTORIA"></h:inputText>
+								<h:inputText value="PROFESOR COORDINADOR DE ASIGNATURA:"></h:inputText>
+								<h:inputText value=""></h:inputText>
+								<h:inputText value="PERIODO ACADEMICO"></h:inputText>
+								<h:inputText value=""></h:inputText>
+								<h:inputText value="N°. HORAS DE CLASE"></h:inputText>
+								<h:inputText value="#{syllabus.syl.sylHorasClase}"></h:inputText>
+								<h:inputText value="N°. HORAS TUTORIAS"></h:inputText>
+								<h:inputText value="#{syllabus.syl.sylHorasTutorias}"></h:inputText>
+							</p:panelGrid>
+						</center>
+					</p:panel>
+				</p:panel>
+				<p:panel id="pnlDescripcionM">
+					<p:panel id="pnlDescripcionM_content"
+						header="Descripion de asignatura">
+						<h:outputLabel value="#{syllabus.syl.sylDescripcion}"></h:outputLabel>
+					</p:panel>
+				</p:panel>
+				<p:panel id="pnlObjetivosM" header="Objetivos de asignatura">
+					<p:panel id="pnlObjetivoGeneralM_content" header="General">
+						<h:outputLabel value="#{syllabus.syl.sylObjetivoGnrl}"></h:outputLabel>
+					</p:panel>
+					<p:panel id="pnlObjetivoEspecificoM_content" header="Especifico">
+						<h:outputLabel value="#{syllabus.syl.sylObjetivoEspc}"></h:outputLabel>
+					</p:panel>
+				</p:panel>
+				<p:panel id="pnlContribucionM" header="Contribucion de asignatura">
+					<p:panel id="pnlContribucionM_content">
+						<h:outputLabel value="#{syllabus.syl.sylContribucionProfesional}"></h:outputLabel>
+					</p:panel>
+				</p:panel>
+				<p:panel id="pnlResultadoM" header="Resultados de asignatura">
+					<p:panel id="pnlResultadoM_content">
+						<h:outputLabel value="#{syllabus.syl.sylResultadosAprendizaje}"></h:outputLabel>
+					</p:panel>
+				</p:panel>
+				<p:panel id="pnlProgramacionM" header="Programacion de asignatura">
+					<p:panel id="pnlProgramacionM_content">
+						<p:dataGrid id="dtgUnidadesM" var="Uncr" value="#{syllabus.lstUC}"
+							columns="1">
+							<h:inputText value="#{Uncr.uncrDescripcion}"
+								style="font-weight:bold"></h:inputText>
+							<p:panelGrid columns="2">
+								<h:outputLabel value="NOMBRE DE LA UNIDAD:"></h:outputLabel>
+								<h:inputText value="#{Uncr.uncrNombre}"></h:inputText>
+								<h:outputLabel value="OBJETIVO DE LA UNIDAD:"></h:outputLabel>
+								<h:inputText value="#{Uncr.uncrObjetivo}"></h:inputText>
+								<h:outputLabel value="RESULTADOS DE APRENDIZAJE DE LA UNIDAD:"></h:outputLabel>
+								<h:inputText value="#{Uncr.uncrResultado}"></h:inputText>
+							</p:panelGrid>
+
+							<p:panelGrid>
+								<p:row>
+									<p:column rowspan="4">
+										<h:outputLabel value="CÁLCULO DE HORAS DE LA UNIDAD:"></h:outputLabel>
+									</p:column>
+									<p:column rowspan="2">
+										<h:outputLabel value="ESCENARIOS DE APRENDIZAJE"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<h:outputLabel value="N°. Horas aprendizaje Teóricas"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<h:inputText value="6"></h:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel value="N°. Horas Prácticas- laboratorio"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<h:inputText value="6"></h:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column rowspan="2">
+										<h:outputLabel value="TUTORIAS"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<h:outputLabel value="N°. Horas Presenciales"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<h:inputText value="2"></h:inputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<h:outputLabel value="N°. Horas Aprendizaje Aula Virtual"></h:outputLabel>
+									</p:column>
+									<p:column>
+										<h:inputText value="1"></h:inputText>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+							<h:inputText value="PROGRAMACIÓN CURRICULAR"></h:inputText>
+							<p:panelGrid columns="1">
+								<p:dataTable value="#{Uncr.contenidos}" var="cn">
+									<p:column headerText="CONTENIDOS">
+										<h:inputText value="#{cn.cntDescripcion}"></h:inputText>
+									</p:column>
+									<p:column
+										headerText="ACTIVIDADES DE TRABAJO AUTÓNOMO, ACTIVIDADES DE INVESTIGACIÓN Y DE VINCULACIÓN CON LA SOCIEDAD">
+										<p:dataGrid value="#{cn.actividads}" var="ac" columns="1">
+											<h:inputText value="#{ac.actDescripcion}"></h:inputText>
+										</p:dataGrid>
+									</p:column>
+									<p:column headerText="MECANISMOS DE EVALUACIÓN">
+										<p:dataGrid value="#{cn.herramientas}" var="hr" columns="1">
+											<h:inputText value="#{hr.hrrNombre}"></h:inputText>
+										</p:dataGrid>
+									</p:column>
+								</p:dataTable>
+							</p:panelGrid>
+							<br />
+						</p:dataGrid>
+					</p:panel>
+				</p:panel>
+			</p:panel>
+
+
+			<p:commandButton id="bntRegresar" value="Regresar"
+				action="syllabus.xhtml"></p:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+
+</html>

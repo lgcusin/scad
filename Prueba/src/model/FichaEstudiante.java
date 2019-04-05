@@ -1,5 +1,5 @@
 package model;
-// Generated 23/02/2019 19:40:29 by Hibernate Tools 4.3.5.Final
+// Generated 20/03/2019 20:46:57 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -23,7 +23,6 @@ public class FichaEstudiante implements java.io.Serializable {
 	private String fcesSegundoNombre;
 	private String fcesApellidos;
 	private Set<HorarioFichaEstudiante> horarioFichaEstudiantes = new HashSet<HorarioFichaEstudiante>(0);
-	private Set<FichaMatricula> fichaMatriculas = new HashSet<FichaMatricula>(0);
 
 	public FichaEstudiante() {
 	}
@@ -33,13 +32,12 @@ public class FichaEstudiante implements java.io.Serializable {
 	}
 
 	public FichaEstudiante(BigDecimal fcesId, String fcesPrimerNombre, String fcesSegundoNombre, String fcesApellidos,
-			Set<HorarioFichaEstudiante> horarioFichaEstudiantes, Set<FichaMatricula> fichaMatriculas) {
+			Set<HorarioFichaEstudiante> horarioFichaEstudiantes) {
 		this.fcesId = fcesId;
 		this.fcesPrimerNombre = fcesPrimerNombre;
 		this.fcesSegundoNombre = fcesSegundoNombre;
 		this.fcesApellidos = fcesApellidos;
 		this.horarioFichaEstudiantes = horarioFichaEstudiantes;
-		this.fichaMatriculas = fichaMatriculas;
 	}
 
 	@Id
@@ -87,15 +85,6 @@ public class FichaEstudiante implements java.io.Serializable {
 
 	public void setHorarioFichaEstudiantes(Set<HorarioFichaEstudiante> horarioFichaEstudiantes) {
 		this.horarioFichaEstudiantes = horarioFichaEstudiantes;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaEstudiante")
-	public Set<FichaMatricula> getFichaMatriculas() {
-		return this.fichaMatriculas;
-	}
-
-	public void setFichaMatriculas(Set<FichaMatricula> fichaMatriculas) {
-		this.fichaMatriculas = fichaMatriculas;
 	}
 
 }

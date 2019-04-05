@@ -25,12 +25,10 @@
 		<class>model.Aula</class>
 		<class>model.Paralelo</class>
 		<class>model.MallaCurricularParalelo</class>
-		<class>model.DetalleMatricula</class>
 		<class>model.DiaSemana</class>
 		<class>model.FichaEstudiante</class>
 		<class>model.Horario</class>
 		<class>model.TipoHorario</class>
-		<class>model.FichaMatricula</class>
 		<class>model.FichaEmpleado</class>
 		<class>model.Semestre</class>
 		<properties>

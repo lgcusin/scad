@@ -1,5 +1,5 @@
 package model;
-// Generated 23/02/2019 19:40:29 by Hibernate Tools 4.3.5.Final
+// Generated 20/03/2019 20:46:57 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -19,7 +19,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "HORARIO", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "HRR_INICIO", "HRR_FIN", "AUL_ID", "DSM_ID" }),
+		@UniqueConstraint(columnNames = { "HRR_INICIO", "HRR_FIN", "AUL_ID", "DSM_ID", "FCDC_ID", "MTR_ID" }),
 		@UniqueConstraint(columnNames = { "HRR_INICIO", "HRR_FIN", "FCDC_ID", "DSM_ID" }) })
 public class Horario implements java.io.Serializable {
 
@@ -31,6 +31,7 @@ public class Horario implements java.io.Serializable {
 	private Materia materia;
 	private String hrrInicio;
 	private String hrrFin;
+	private Set<Asistencia> asistencias = new HashSet<Asistencia>(0);
 	private Set<HorarioFichaEstudiante> horarioFichaEstudiantes = new HashSet<HorarioFichaEstudiante>(0);
 
 	public Horario() {
@@ -47,7 +48,8 @@ public class Horario implements java.io.Serializable {
 	}
 
 	public Horario(BigDecimal hrrId, TipoHorario tipoHorario, Aula aula, DiaSemana diaSemana, FichaDocente fichaDocente,
-			Materia materia, String hrrInicio, String hrrFin, Set<HorarioFichaEstudiante> horarioFichaEstudiantes) {
+			Materia materia, String hrrInicio, String hrrFin, Set<Asistencia> asistencias,
+			Set<HorarioFichaEstudiante> horarioFichaEstudiantes) {
 		this.hrrId = hrrId;
 		this.tipoHorario = tipoHorario;
 		this.aula = aula;
@@ -56,6 +58,7 @@ public class Horario implements java.io.Serializable {
 		this.materia = materia;
 		this.hrrInicio = hrrInicio;
 		this.hrrFin = hrrFin;
+		this.asistencias = asistencias;
 		this.horarioFichaEstudiantes = horarioFichaEstudiantes;
 	}
 
@@ -136,6 +139,15 @@ public class Horario implements java.io.Serializable {
 
 	public void setHrrFin(String hrrFin) {
 		this.hrrFin = hrrFin;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "horario")
+	public Set<Asistencia> getAsistencias() {
+		return this.asistencias;
+	}
+
+	public void setAsistencias(Set<Asistencia> asistencias) {
+		this.asistencias = asistencias;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "horario")

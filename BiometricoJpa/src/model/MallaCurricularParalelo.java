@@ -23,7 +23,6 @@ public class MallaCurricularParalelo implements java.io.Serializable {
 	private Paralelo paralelo;
 	private MallaCurricularMateria mallaCurricularMateria;
 	private Integer mlcrprInscritos;
-	private Set<DetalleMatricula> detalleMatriculas = new HashSet<DetalleMatricula>(0);
 
 	public MallaCurricularParalelo() {
 	}
@@ -35,12 +34,11 @@ public class MallaCurricularParalelo implements java.io.Serializable {
 	}
 
 	public MallaCurricularParalelo(Integer mlcrprId, Paralelo paralelo, MallaCurricularMateria mallaCurricularMateria,
-			Integer mlcrprInscritos, Set<DetalleMatricula> detalleMatriculas) {
+			Integer mlcrprInscritos) {
 		this.mlcrprId = mlcrprId;
 		this.paralelo = paralelo;
 		this.mallaCurricularMateria = mallaCurricularMateria;
 		this.mlcrprInscritos = mlcrprInscritos;
-		this.detalleMatriculas = detalleMatriculas;
 	}
 
 	@Id
@@ -81,15 +79,6 @@ public class MallaCurricularParalelo implements java.io.Serializable {
 
 	public void setMlcrprInscritos(Integer mlcrprInscritos) {
 		this.mlcrprInscritos = mlcrprInscritos;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mallaCurricularParalelo")
-	public Set<DetalleMatricula> getDetalleMatriculas() {
-		return this.detalleMatriculas;
-	}
-
-	public void setDetalleMatriculas(Set<DetalleMatricula> detalleMatriculas) {
-		this.detalleMatriculas = detalleMatriculas;
 	}
 
 }

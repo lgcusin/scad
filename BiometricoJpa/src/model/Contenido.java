@@ -33,8 +33,9 @@ public class Contenido implements java.io.Serializable {
 	private Integer cntId;
 	private UnidadCurricular unidadCurricular;
 	private String cntDescripcion;
-	private List<Herramienta> herramientas = new ArrayList<Herramienta>(0);
-	private List<Actividad> actividads = new ArrayList<Actividad>(0);
+	private String cntEstado;
+	private List<Herramienta> herramientas = new ArrayList<>();
+	private List<Actividad> actividads = new ArrayList<>();
 
 	public Contenido() {
 	}
@@ -44,11 +45,12 @@ public class Contenido implements java.io.Serializable {
 		this.unidadCurricular = unidadCurricular;
 	}
 
-	public Contenido(Integer cntId, UnidadCurricular unidadCurricular, String cntDescripcion,
+	public Contenido(Integer cntId, UnidadCurricular unidadCurricular, String cntDescripcion, String cntEstado,
 			List<Herramienta> herramientas, List<Actividad> actividads) {
 		this.cntId = cntId;
 		this.unidadCurricular = unidadCurricular;
 		this.cntDescripcion = cntDescripcion;
+		this.cntEstado = cntEstado;
 		this.herramientas = herramientas;
 		this.actividads = actividads;
 	}
@@ -81,6 +83,15 @@ public class Contenido implements java.io.Serializable {
 
 	public void setCntDescripcion(String cntDescripcion) {
 		this.cntDescripcion = cntDescripcion;
+	}
+
+	@Column(name = "CNT_ESTADO", length = 15)
+	public String getCntEstado() {
+		return this.cntEstado;
+	}
+
+	public void setCntEstado(String cntEstado) {
+		this.cntEstado = cntEstado;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "contenido")

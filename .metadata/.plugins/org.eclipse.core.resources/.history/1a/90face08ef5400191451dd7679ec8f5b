@@ -1,0 +1,230 @@
+package managedBeans;
+
+import java.io.File;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.Part;
+import javax.ws.rs.Consumes;
+
+import org.apache.commons.io.FileUtils;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+
+import helper.ExcelHelper;
+import helper.UploadHelper;
+import model.Actividad;
+import model.Carrera;
+import model.Contenido;
+import model.Herramienta;
+import model.Materia;
+import model.Syllabo;
+import model.UnidadCurricular;
+import servicios.SrvEmpleadoLocal;
+import servicios.SrvSeguimientoLocal;
+
+@ManagedBean(name = "syllabus")
+@ViewScoped
+public class Syllabus {
+
+	@EJB
+	private SrvSeguimientoLocal srvSgm;
+	@EJB
+	private SrvEmpleadoLocal srvEmp;
+
+	public Materia selectMtr;
+	public Syllabo syl;
+	public Carrera selectCrr;
+	public Integer crrId;
+	public List<Carrera> lstC;
+	public List<Materia> lstM;
+	public List<UnidadCurricular> lstUC;
+	public List<Contenido> lstCnt;
+	public List<Actividad> lstAct;
+	public List<Herramienta> lstHrr;
+	public boolean dataSyllabo;
+
+	private UploadedFile file;
+
+	private String excel = "";
+	private Part p;
+
+	@PostConstruct
+	public void init() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Principal p = context.getApplication().evaluateExpressionGet(context, "#{principal}", Principal.class);
+		if (p.docente) {
+			selectMtr = new Materia();
+			lstC = srvSgm.listarAllCrrByFcdc(p.fdId);
+			lstM = srvSgm.listarAllMatByFcdc(p.fdId);
+		}
+		if (p.empleado) {
+			lstC = srvEmp.listarCarreras();
+		}
+
+	}
+
+	public void buscar() {
+		if (crrId != null) {
+			lstM = srvSgm.listarMatByCrr(crrId);
+		} else {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione una carrera", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	}
+
+	public String verDetaSyllabus() {
+		selectCrr = srvSgm.getCarrera(selectMtr.getMtrId());
+		if (selectMtr.getMtrId() != null) {
+			syl = srvSgm.getSyllabus(selectMtr.getMtrId());
+			lstUC = srvSgm.listarUnidadCurricular(selectMtr.getMtrId());
+		} else {
+			FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+
+		if (syl != null && !lstUC.isEmpty()) {
+			for (UnidadCurricular unidad : lstUC) {
+				lstCnt = srvSgm.listarContenidos(unidad.getUncrId());
+				for (Contenido contenido : lstCnt) {
+					lstAct = srvSgm.listarActividades(contenido.getCntId());
+					lstHrr = srvSgm.listarHerramientas(contenido.getCntId());
+					contenido.setActividads(lstAct);
+					contenido.setHerramientas(lstHrr);
+				}
+				unidad.setContenidos(lstCnt);
+			}
+			dataSyllabo = true;
+		} else {
+			dataSyllabo = false;
+		}
+		return "syllabo";
+	}
+
+	public void cargar() {
+
+		FacesMessage msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void handleFileUpload(FileUploadEvent event) {
+		file = event.getFile();
+		System.out.println(
+				"Uploaded File Name Is :: " + file.getFileName() + " :: Uploaded File Size :: " + file.getSize());
+	}
+
+	public void processUpload() {
+		UploadHelper uh = new UploadHelper();
+		this.excel = uh.processUpload(this.p);
+		String basePath = FacesContext.getCurrentInstance().getExternalContext()
+				.getRealPath("/resources/files/" + this.excel);
+		ExcelHelper eh = new ExcelHelper(basePath);
+		try {
+			lstUC = eh.readData(UnidadCurricular.class.getName());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		for (UnidadCurricular uc : lstUC) {
+			srvEmp.create(uc);
+		}
+	}
+
+	// Setters and getters
+
+	public List<Materia> getLstM() {
+		return lstM;
+	}
+
+	public Materia getSelectMtr() {
+		return selectMtr;
+	}
+
+	public void setSelectMtr(Materia selectMtr) {
+		this.selectMtr = selectMtr;
+	}
+
+	public void setLstM(List<Materia> lstM) {
+		this.lstM = lstM;
+	}
+
+	public List<Carrera> getLstC() {
+		return lstC;
+	}
+
+	public void setLstC(List<Carrera> lstC) {
+		this.lstC = lstC;
+	}
+
+	public Carrera getSelectCrr() {
+		return selectCrr;
+	}
+
+	public void setSelectCrr(Carrera selectCrr) {
+		this.selectCrr = selectCrr;
+	}
+
+	public Integer getCrrId() {
+		return crrId;
+	}
+
+	public void setCrrId(Integer crrId) {
+		this.crrId = crrId;
+	}
+	// Getters Syllabus
+
+	public Syllabo getSyl() {
+		return syl;
+	}
+
+	public void setSyl(Syllabo syl) {
+		this.syl = syl;
+	}
+
+	public List<UnidadCurricular> getLstUC() {
+		return lstUC;
+	}
+
+	public void setLstUC(List<UnidadCurricular> lstUC) {
+		this.lstUC = lstUC;
+	}
+
+	public boolean isDataSyllabo() {
+		return dataSyllabo;
+	}
+
+	public void setDataSyllabo(boolean dataSyllabo) {
+		this.dataSyllabo = dataSyllabo;
+	}
+
+	public UploadedFile getFile() {
+		return file;
+	}
+
+	public void setFile(UploadedFile file) {
+		this.file = file;
+	}
+
+	public String getExcel() {
+		return excel;
+	}
+
+	public void setExcel(String excel) {
+		this.excel = excel;
+	}
+
+	public Part getP() {
+		return p;
+	}
+
+	public void setP(Part p) {
+		this.p = p;
+	}
+
+}

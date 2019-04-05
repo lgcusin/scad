@@ -49,4 +49,9 @@ public interface SrvSeguimientoLocal {
 
 	void guardarRegistro(Asistencia regAss);
 
+	void generar(Date ahora);
+
+	void guardarContenido(Contenido contenido);
+
+
 }

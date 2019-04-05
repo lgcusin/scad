@@ -38,7 +38,7 @@
 											<div class="cell colspan4">
 												<p:selectOneMenu id="slcCarrera" value="#{syllabus.crrId}"
 													style="width: 100%">
-													<f:selectItem itemLabel="TODAS" itemValue=""></f:selectItem>
+													<f:selectItem itemLabel="Seleccione Carrera..." itemValue=""></f:selectItem>
 													<f:selectItems value="#{syllabus.lstC}" var="cr"
 														itemLabel="#{cr.crrNombre}" itemValue="#{cr.crrId}" />
 												</p:selectOneMenu>
@@ -56,7 +56,8 @@
 						rendered="#{principal.docente or principal.empleado}"
 						action="#{syllabus.buscar}" update="pnlResultados"></p:commandButton>
 					<p:commandButton id="btnLimpiar" value="Limpiar"
-						rendered="#{principal.docente or principal.empleado}"></p:commandButton>
+						rendered="#{principal.docente or principal.empleado}"
+						action="#{syllabus.limpiar}" update="pnlBusqueda pnlResultados"></p:commandButton>
 				</div>
 				<!-- ******************** PANEL RESULTADOS DE BUSQUEDA************************ -->
 				<div>

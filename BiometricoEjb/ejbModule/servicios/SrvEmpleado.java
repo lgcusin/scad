@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 
 import model.Carrera;
 import model.FichaDocente;
+import model.UnidadCurricular;
 
 /**
  * Session Bean implementation class SrvEmpleado
@@ -52,6 +53,12 @@ public class SrvEmpleado implements SrvEmpleadoLocal {
 			return lstD = new ArrayList<>();
 		}
 		return lstD;
+	}
+
+	@Override
+	public void create(UnidadCurricular uc) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

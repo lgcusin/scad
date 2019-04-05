@@ -7,8 +7,6 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import org.apache.commons.collections.functors.SwitchTransformer;
-
 import model.FichaDocente;
 import model.FichaEmpleado;
 import servicios.SrvDocenteLocal;
@@ -106,6 +104,10 @@ public class Principal {
 
 	public String verControl() {
 		return "control";
+	}
+
+	public String verJustificacion() {
+		return "justificacion";
 	}
 
 	public boolean isDocente() {

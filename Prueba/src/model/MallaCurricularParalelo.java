@@ -1,16 +1,13 @@
 package model;
-// Generated 23/02/2019 19:40:29 by Hibernate Tools 4.3.5.Final
+// Generated 20/03/2019 20:46:57 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -24,7 +21,6 @@ public class MallaCurricularParalelo implements java.io.Serializable {
 	private Paralelo paralelo;
 	private MallaCurricularMateria mallaCurricularMateria;
 	private BigDecimal mlcrprInscritos;
-	private Set<DetalleMatricula> detalleMatriculas = new HashSet<DetalleMatricula>(0);
 
 	public MallaCurricularParalelo() {
 	}
@@ -37,13 +33,11 @@ public class MallaCurricularParalelo implements java.io.Serializable {
 	}
 
 	public MallaCurricularParalelo(BigDecimal mlcrprId, Paralelo paralelo,
-			MallaCurricularMateria mallaCurricularMateria, BigDecimal mlcrprInscritos,
-			Set<DetalleMatricula> detalleMatriculas) {
+			MallaCurricularMateria mallaCurricularMateria, BigDecimal mlcrprInscritos) {
 		this.mlcrprId = mlcrprId;
 		this.paralelo = paralelo;
 		this.mallaCurricularMateria = mallaCurricularMateria;
 		this.mlcrprInscritos = mlcrprInscritos;
-		this.detalleMatriculas = detalleMatriculas;
 	}
 
 	@Id
@@ -84,15 +78,6 @@ public class MallaCurricularParalelo implements java.io.Serializable {
 
 	public void setMlcrprInscritos(BigDecimal mlcrprInscritos) {
 		this.mlcrprInscritos = mlcrprInscritos;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mallaCurricularParalelo")
-	public Set<DetalleMatricula> getDetalleMatriculas() {
-		return this.detalleMatriculas;
-	}
-
-	public void setDetalleMatriculas(Set<DetalleMatricula> detalleMatriculas) {
-		this.detalleMatriculas = detalleMatriculas;
 	}
 
 }
