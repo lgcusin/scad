@@ -2,7 +2,9 @@ package model;
 // Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +35,7 @@ public class FichaDocente implements java.io.Serializable {
 	private String fcdcSegundoNombre;
 	private String fcdcApellidos;
 	private Set<HuellaDactilar> huellaDactilars = new HashSet<HuellaDactilar>(0);
-	private Set<DetallePuesto> detallePuestos = new HashSet<DetallePuesto>(0);
+	private List<DetallePuesto> detallePuestos = new ArrayList<DetallePuesto>();
 	private Set<Asistencia> asistencias = new HashSet<Asistencia>(0);
 	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 
@@ -45,7 +47,7 @@ public class FichaDocente implements java.io.Serializable {
 	}
 
 	public FichaDocente(Integer fcdcId, Integer fcdcIdentificacion, String fcdcPrimerNombre, String fcdcSegundoNombre,
-			String fcdcApellidos, Set<HuellaDactilar> huellaDactilars, Set<DetallePuesto> detallePuestos,
+			String fcdcApellidos, Set<HuellaDactilar> huellaDactilars, List<DetallePuesto> detallePuestos,
 			Set<Asistencia> asistencias, Set<Usuario> usuarios) {
 		this.fcdcId = fcdcId;
 		this.fcdcIdentificacion = fcdcIdentificacion;
@@ -115,11 +117,11 @@ public class FichaDocente implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaDocente")
-	public Set<DetallePuesto> getDetallePuestos() {
+	public List<DetallePuesto> getDetallePuestos() {
 		return this.detallePuestos;
 	}
 
-	public void setDetallePuestos(Set<DetallePuesto> detallePuestos) {
+	public void setDetallePuestos(List<DetallePuesto> detallePuestos) {
 		this.detallePuestos = detallePuestos;
 	}
 

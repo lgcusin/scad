@@ -27,6 +27,7 @@ import org.primefaces.model.StreamedContent;
 import com.sun.javafx.iio.ImageStorage.ImageType;
 
 import servicios.SrvDocenteLocal;
+import servicios.SrvLogin;
 import lector.JSDCLocal;
 import model.FichaDocente;
 import model.TipoHuella;
@@ -40,6 +41,8 @@ public class Huellas {
 	private SrvDocenteLocal srvDcnt;
 	@EJB
 	private JSDCLocal jsdcBean;
+	@EJB
+	private SrvLogin srvLog;
 
 	private FichaDocente selectDcnt;
 
@@ -48,6 +51,7 @@ public class Huellas {
 
 	private List<TipoHuella> lstTphl;
 
+	private String crr;
 	private StreamedContent graphic1;
 	private StreamedContent graphic2;
 	private BufferedImage bimg1;
@@ -71,6 +75,8 @@ public class Huellas {
 			flagDvc = false;
 		}
 		selectDcnt = beanDcnt.getSelectDcnt();
+		selectDcnt.setDetallePuestos(srvLog.buscarFacultad(selectDcnt.getFcdcId()));
+		crr = selectDcnt.getDetallePuestos().get(0).getCarrera().getCrrNombre();
 		lstTphl = srvDcnt.listarDedos();
 		flagVrf = true;
 
@@ -246,4 +252,13 @@ public class Huellas {
 		this.flagVrf = flagVrf;
 	}
 
+	public String getCrr() {
+		return crr;
+	}
+
+	public void setCrr(String crr) {
+		this.crr = crr;
+	}
+
+	
 }

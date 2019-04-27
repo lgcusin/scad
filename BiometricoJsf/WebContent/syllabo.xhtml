@@ -157,8 +157,9 @@
 			<p:panel rendered="#{!syllabus.dataSyllabo}">
 				<h:outputLabel
 					value="Agregar un nuevo syllabo, la materia no tiene uno disponible" />
-				<p:commandButton value="Crear nuevo Syllabo" action="#{syllabus.modificar}" update="frmSylDetalles"/>
-				<p:commandButton value="Guardar Syllabus"/>
+				<p:commandButton value="Crear nuevo Syllabo"
+					action="#{syllabus.modificar}" update="frmSylDetalles" />
+				<p:commandButton value="Guardar Syllabus" />
 			</p:panel>
 			<!-- PANEL DE MOFICICACION -->
 			<p:panel id="MdfcSyllabus" rendered="#{syllabus.modiSyllabo}">
@@ -175,21 +176,21 @@
 								<h:outputText value="CODIGO DE LA ASIGNATURA" />
 								<h:inputText value="#{syllabus.selectMtr.mtrId}"></h:inputText>
 								<h:outputText value="CREDITOS" />
-								<h:inputText value=""></h:inputText>
+								<h:inputText value=" "></h:inputText>
 								<h:outputText value="SEMESTRE" />
-								<h:inputText value=""></h:inputText>
+								<h:inputText value=" "></h:inputText>
 								<h:outputText value="UNIDAD DE ORGANIZACIÓN CURRICULAR:" />
-								<h:inputText value=""></h:inputText>
+								<h:inputText value=" "></h:inputText>
 								<h:outputText value="TIPO ASIGNATURA" />
 								<h:inputText value="OBLIGTORIA"></h:inputText>
 								<h:outputText value="PROFESOR COORDINADOR DE ASIGNATURA:" />
-								<h:inputText value=""></h:inputText>
+								<h:inputText value=" "></h:inputText>
 								<h:outputText value="PERIODO ACADEMICO" />
-								<h:inputText value=""></h:inputText>
+								<h:inputText value=" "></h:inputText>
 								<h:outputText value="N°. HORAS DE CLASE" />
-								<h:inputText value="#{syllabus.syl.sylHorasClase}"></h:inputText>
+								<h:inputText value=" "></h:inputText>
 								<h:outputText value="N°. HORAS TUTORIAS" />
-								<h:inputText value="#{syllabus.syl.sylHorasTutorias}"></h:inputText>
+								<h:inputText value=" "></h:inputText>
 							</p:panelGrid>
 						</center>
 					</p:panel>
@@ -197,25 +198,26 @@
 				<p:panel id="pnlDescripcionM">
 					<p:panel id="pnlDescripcionM_content"
 						header="Descripion de asignatura">
-						<h:outputLabel value="#{syllabus.syl.sylDescripcion}"></h:outputLabel>
+						<p:inputTextarea value="#{syllabus.syl.sylDescripcion}"></p:inputTextarea>
 					</p:panel>
 				</p:panel>
 				<p:panel id="pnlObjetivosM" header="Objetivos de asignatura">
 					<p:panel id="pnlObjetivoGeneralM_content" header="General">
-						<h:outputLabel value="#{syllabus.syl.sylObjetivoGnrl}"></h:outputLabel>
+						<p:inputTextarea value="#{syllabus.syl.sylObjetivoGnrl}"></p:inputTextarea>
 					</p:panel>
 					<p:panel id="pnlObjetivoEspecificoM_content" header="Especifico">
-						<h:outputLabel value="#{syllabus.syl.sylObjetivoEspc}"></h:outputLabel>
+						<p:inputTextarea value="#{syllabus.syl.sylObjetivoEspc}"></p:inputTextarea>
 					</p:panel>
 				</p:panel>
 				<p:panel id="pnlContribucionM" header="Contribucion de asignatura">
 					<p:panel id="pnlContribucionM_content">
-						<h:outputLabel value="#{syllabus.syl.sylContribucionProfesional}"></h:outputLabel>
+						<p:inputTextarea
+							value="#{syllabus.syl.sylContribucionProfesional}"></p:inputTextarea>
 					</p:panel>
 				</p:panel>
 				<p:panel id="pnlResultadoM" header="Resultados de asignatura">
 					<p:panel id="pnlResultadoM_content">
-						<h:outputLabel value="#{syllabus.syl.sylResultadosAprendizaje}"></h:outputLabel>
+						<p:inputTextarea value="#{syllabus.syl.sylResultadosAprendizaje}"></p:inputTextarea>
 					</p:panel>
 				</p:panel>
 				<p:panel id="pnlProgramacionM" header="Programacion de asignatura">

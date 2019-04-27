@@ -1,18 +1,17 @@
 package servicios;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
-import model.FichaDocente;
-import model.FichaEmpleado;
+import model.DetallePuesto;
 import model.Usuario;
 
 @Local
 public interface SrvLoginLocal {
 
 	Usuario verificar(String nick, String clave);
-	
-	FichaDocente getDocente(Integer id);
 
-	FichaEmpleado getEmpleado(Integer fcemId);
+	List<DetallePuesto> buscarFacultad(Integer fcdcId);
 
 }

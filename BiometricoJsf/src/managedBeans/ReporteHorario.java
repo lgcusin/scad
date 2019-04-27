@@ -50,7 +50,7 @@ public class ReporteHorario {
 			lstCr = srvSegm.listarAllCrrByFcdc(fdId);
 		}
 		if (p.empleado) {
-			lstCr = srvEmp.listarCarreras();
+			lstCr = srvEmp.listarCarreras(p.fcId);
 		}
 		lstTH = srvRepHor.listarTipoHorario();
 		selectCrr = new Carrera();

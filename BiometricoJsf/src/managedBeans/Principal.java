@@ -3,12 +3,9 @@ package managedBeans;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import model.FichaDocente;
-import model.FichaEmpleado;
 import servicios.SrvDocenteLocal;
 
 @ManagedBean(name = "principal")
@@ -22,6 +19,7 @@ public class Principal {
 	boolean empleado = false;
 
 	public Integer fdId;
+	public Integer fcId;
 
 	@PostConstruct
 	public void init() {
@@ -29,11 +27,12 @@ public class Principal {
 		Login l = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
 		if (l.isDocente()) {
 			docente = l.isDocente();
-			fdId = l.getFd().getFcdcId();
+			fdId = l.getUsr().getFichaDocente().getFcdcId();
 		}
 		if (l.isEmpleado()) {
 			empleado = l.isEmpleado();
 		}
+		fcId = l.getUsr().getFichaDocente().getDetallePuestos().get(0).getCarrera().getFacultad().getFclId();
 	}
 
 	public String verDetalle(boolean sesionUsuarioForm, String rol) {
@@ -134,6 +133,12 @@ public class Principal {
 		this.fdId = fdId;
 	}
 
-	// setters and getters
+	public Integer getFcId() {
+		return fcId;
+	}
+
+	public void setFcId(Integer fcId) {
+		this.fcId = fcId;
+	}
 
 }

@@ -49,6 +49,9 @@ public class Registro {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return null;
 		} else {
+			FacesContext context = FacesContext.getCurrentInstance();
+			Login l = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
+			selectDcnt.setDetallePuestos(l.getUsr().getFichaDocente().getDetallePuestos());
 			return "huellas";
 		}
 	}

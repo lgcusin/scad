@@ -14,7 +14,6 @@ import javax.faces.event.ValueChangeEvent;
 import model.Asistencia;
 import model.Carrera;
 import model.FichaDocente;
-import servicios.SrvDocente;
 import servicios.SrvDocenteLocal;
 import servicios.SrvEmpleadoLocal;
 
@@ -48,7 +47,7 @@ public class DetalleAsistencia {
 		if (p.empleado) {
 			selectCrr = new Carrera();
 			selectDcn = new FichaDocente();
-			lstC = srvEmp.listarCarreras();
+			lstC = srvEmp.listarCarreras(p.fcId);
 		}
 	}
 
