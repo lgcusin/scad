@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -21,12 +19,11 @@ public class Parametro implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "PRM_ID")
 	private long prmId;
 
-	@Column(name = "FCT_ID")
-	private Integer fctId;
+	@Column(name = "FCL_ID")
+	private Integer fclId;
 
 	@Column(name = "PRM_NOMBRE")
 	private String prmNombre;
@@ -45,12 +42,12 @@ public class Parametro implements Serializable {
 		this.prmId = prmId;
 	}
 
-	public Integer getFctId() {
-		return this.fctId;
+	public Integer getFclId() {
+		return this.fclId;
 	}
 
-	public void setFctId(Integer fctId) {
-		this.fctId = fctId;
+	public void setFclId(Integer fclId) {
+		this.fclId = fclId;
 	}
 
 	public String getPrmNombre() {
