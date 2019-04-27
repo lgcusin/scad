@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="javax.management.Query"/>
-<fullyQualifiedTypeName name="javax.persistence.Query"/>
-<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
-<fullyQualifiedTypeName name="servicios.SrvReporteHorarioLocal"/>
-<fullyQualifiedTypeName name="managedBeans.DetalleParalelo"/>
 <fullyQualifiedTypeName name="servicios.SrvSeguimientoLocal"/>
 <fullyQualifiedTypeName name="managedBeans.RegistroParalelo"/>
 <fullyQualifiedTypeName name="model.Materia"/>
@@ -50,14 +45,19 @@
 <fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="model.FichaDocente"/>
 <fullyQualifiedTypeName name="model.Horario"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="org.primefaces.model.CheckboxTreeNode"/>
 <fullyQualifiedTypeName name="model.UnidadCurricular"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="model.Contenido"/>
 <fullyQualifiedTypeName name="org.primefaces.model.DefaultTreeNode"/>
 <fullyQualifiedTypeName name="org.primefaces.model.TreeNode"/>
 <fullyQualifiedTypeName name="model.Actividad"/>
 <fullyQualifiedTypeName name="javax.faces.bean.RequestScoped"/>
 <fullyQualifiedTypeName name="javax.faces.bean.SessionScoped"/>
+<fullyQualifiedTypeName name="javax.persistence.Query"/>
+<fullyQualifiedTypeName name="model.Usuario"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="model.DetallePuesto"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="model.Carrera"/>
+<fullyQualifiedTypeName name="servicios.SrvLogin"/>
 </qualifiedTypeNameHistroy>

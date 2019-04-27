@@ -1,7 +1,6 @@
 package model;
 // Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,11 +15,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "USUARIO")
-@NamedQuery(name = "Usuario.finduser", query = "select u from Usuario as u "
-		+ "where u.usrNick=:nick and u.usrPassword=:clave")
 public class Usuario implements java.io.Serializable {
 
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer ursId;
 	private FichaDocente fichaDocente;
 	private FichaEmpleado fichaEmpleado;

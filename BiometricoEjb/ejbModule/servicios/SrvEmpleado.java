@@ -30,13 +30,13 @@ public class SrvEmpleado implements SrvEmpleadoLocal {
 	}
 
 	@Override
-	public List<Carrera> listarCarreras() {
-		List<Carrera> lstC;
+	public List<Carrera> listarCarreras(Integer fcId) {
+		List<Carrera> lstC = new ArrayList<>();
 		try {
-			lstC = em.createNamedQuery("Carrera.findAll", Carrera.class).getResultList();
+			lstC = em.createNamedQuery("Carrera.findAll", Carrera.class).setParameter("fcId", fcId).getResultList();
 		} catch (Exception e) {
 			System.out.println(e);
-			return lstC = new ArrayList<>();
+			return lstC;
 		}
 
 		return lstC;
@@ -58,7 +58,7 @@ public class SrvEmpleado implements SrvEmpleadoLocal {
 	@Override
 	public void create(UnidadCurricular uc) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

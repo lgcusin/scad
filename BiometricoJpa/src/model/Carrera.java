@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -17,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CARRERA")
-@NamedQueries({ @NamedQuery(name = "Carrera.findAll", query = "select c from Carrera as c"),
+@NamedQueries({ @NamedQuery(name = "Carrera.findAll", query = "select c from Carrera as c where c.facultad.fclId=:fcId"),
 	@NamedQuery(name = "Carrera.findAllByFdId", query = "select dp.carrera from DetallePuesto as dp where dp.fichaDocente.fcdcId=:fcdcId"),
 		@NamedQuery(name = "Carrera.findByMtrId", query = "select m.carrera from Materia as m where m.mtrId=:mtrId") })
 
@@ -28,7 +30,10 @@ public class Carrera implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer crrId;
+	private Facultad facultad;
 	private String crrNombre;
+	private Integer crrCodigo;
+	private Set<Paralelo> paralelos = new HashSet<Paralelo>(0);
 	private Set<DetallePuesto> detallePuestos = new HashSet<DetallePuesto>(0);
 	private Set<Materia> materias = new HashSet<Materia>(0);
 	private Set<MallaCurricular> mallaCurriculars = new HashSet<MallaCurricular>(0);
@@ -36,14 +41,19 @@ public class Carrera implements java.io.Serializable {
 	public Carrera() {
 	}
 
-	public Carrera(Integer crrId) {
+	public Carrera(Integer crrId, Facultad facultad, Integer crrCodigo) {
 		this.crrId = crrId;
+		this.facultad = facultad;
+		this.crrCodigo = crrCodigo;
 	}
 
-	public Carrera(Integer crrId, String crrNombre, Set<DetallePuesto> detallePuestos, Set<Materia> materias,
-			Set<MallaCurricular> mallaCurriculars) {
+	public Carrera(Integer crrId, Facultad facultad, String crrNombre, Integer crrCodigo, Set<Paralelo> paralelos,
+			Set<DetallePuesto> detallePuestos, Set<Materia> materias, Set<MallaCurricular> mallaCurriculars) {
 		this.crrId = crrId;
+		this.facultad = facultad;
 		this.crrNombre = crrNombre;
+		this.crrCodigo = crrCodigo;
+		this.paralelos = paralelos;
 		this.detallePuestos = detallePuestos;
 		this.materias = materias;
 		this.mallaCurriculars = mallaCurriculars;
@@ -60,6 +70,16 @@ public class Carrera implements java.io.Serializable {
 		this.crrId = crrId;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FCL_ID", nullable = false)
+	public Facultad getFacultad() {
+		return this.facultad;
+	}
+
+	public void setFacultad(Facultad facultad) {
+		this.facultad = facultad;
+	}
+
 	@Column(name = "CRR_NOMBRE", length = 400)
 	public String getCrrNombre() {
 		return this.crrNombre;
@@ -67,6 +87,24 @@ public class Carrera implements java.io.Serializable {
 
 	public void setCrrNombre(String crrNombre) {
 		this.crrNombre = crrNombre;
+	}
+
+	@Column(name = "CRR_CODIGO", nullable = false, precision = 22, scale = 0)
+	public Integer getCrrCodigo() {
+		return this.crrCodigo;
+	}
+
+	public void setCrrCodigo(Integer crrCodigo) {
+		this.crrCodigo = crrCodigo;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "carrera")
+	public Set<Paralelo> getParalelos() {
+		return this.paralelos;
+	}
+
+	public void setParalelos(Set<Paralelo> paralelos) {
+		this.paralelos = paralelos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "carrera")

@@ -12,13 +12,18 @@
 	<ui:define name="cuerpo">
 		<h:form id="frmLogin" enctype="multipart/form-data"
 			acceptcharset="UTF-8">
-			<p:panelGrid border="0" columns="2">
-				<h:outputText value="Usuario:	"></h:outputText>
-				<p:inputText value="#{login.nick}"></p:inputText>
-				<h:outputText value="Password:	"></h:outputText>
-				<p:inputText value="#{login.clave}"></p:inputText>
-			</p:panelGrid>
-			<p:commandButton action="#{login.ingresar}" value="Ingresar"></p:commandButton>
+			<center>
+				<h:outputLabel value="Ingreso al Sistema"
+					style="color: rgb(0, 118, 189); font-size: 16px !important; font-weight: bold" />
+				
+				<p:panelGrid border="0" columns="2">
+					<h:outputText value="Usuario:	" />
+					<p:inputText value="#{login.nick}" />
+					<h:outputText value="Password:	" />
+					<p:password value="#{login.clave}" />
+				</p:panelGrid>
+				<p:commandButton action="#{login.ingresar}" value="Ingresar" />
+			</center>
 		</h:form>
 	</ui:define>
 </ui:composition>

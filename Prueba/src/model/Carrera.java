@@ -1,5 +1,5 @@
 package model;
-// Generated 20/03/2019 20:46:57 by Hibernate Tools 4.3.5.Final
+// Generated 15/04/2019 20:41:59 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,7 +21,9 @@ import javax.persistence.Table;
 public class Carrera implements java.io.Serializable {
 
 	private BigDecimal crrId;
+	private Facultad facultad;
 	private String crrNombre;
+	private BigDecimal crrCodigo;
 	private Set<Paralelo> paralelos = new HashSet<Paralelo>(0);
 	private Set<DetallePuesto> detallePuestos = new HashSet<DetallePuesto>(0);
 	private Set<Materia> materias = new HashSet<Materia>(0);
@@ -28,14 +32,18 @@ public class Carrera implements java.io.Serializable {
 	public Carrera() {
 	}
 
-	public Carrera(BigDecimal crrId) {
+	public Carrera(BigDecimal crrId, Facultad facultad, BigDecimal crrCodigo) {
 		this.crrId = crrId;
+		this.facultad = facultad;
+		this.crrCodigo = crrCodigo;
 	}
 
-	public Carrera(BigDecimal crrId, String crrNombre, Set<Paralelo> paralelos, Set<DetallePuesto> detallePuestos,
-			Set<Materia> materias, Set<MallaCurricular> mallaCurriculars) {
+	public Carrera(BigDecimal crrId, Facultad facultad, String crrNombre, BigDecimal crrCodigo, Set<Paralelo> paralelos,
+			Set<DetallePuesto> detallePuestos, Set<Materia> materias, Set<MallaCurricular> mallaCurriculars) {
 		this.crrId = crrId;
+		this.facultad = facultad;
 		this.crrNombre = crrNombre;
+		this.crrCodigo = crrCodigo;
 		this.paralelos = paralelos;
 		this.detallePuestos = detallePuestos;
 		this.materias = materias;
@@ -53,6 +61,16 @@ public class Carrera implements java.io.Serializable {
 		this.crrId = crrId;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FCL_ID", nullable = false)
+	public Facultad getFacultad() {
+		return this.facultad;
+	}
+
+	public void setFacultad(Facultad facultad) {
+		this.facultad = facultad;
+	}
+
 	@Column(name = "CRR_NOMBRE", length = 400)
 	public String getCrrNombre() {
 		return this.crrNombre;
@@ -60,6 +78,15 @@ public class Carrera implements java.io.Serializable {
 
 	public void setCrrNombre(String crrNombre) {
 		this.crrNombre = crrNombre;
+	}
+
+	@Column(name = "CRR_CODIGO", nullable = false, precision = 22, scale = 0)
+	public BigDecimal getCrrCodigo() {
+		return this.crrCodigo;
+	}
+
+	public void setCrrCodigo(BigDecimal crrCodigo) {
+		this.crrCodigo = crrCodigo;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "carrera")

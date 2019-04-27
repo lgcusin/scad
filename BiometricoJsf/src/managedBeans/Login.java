@@ -1,5 +1,7 @@
 package managedBeans;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -7,6 +9,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import model.DetallePuesto;
 import model.FichaDocente;
 import model.FichaEmpleado;
 import model.Usuario;
@@ -21,8 +24,6 @@ public class Login {
 	@EJB
 	private SrvLoginLocal srvlgn;
 	private Usuario usr;
-	private FichaDocente fd;
-	private FichaEmpleado fem;
 	boolean Docente = false;
 	boolean Empleado = false;
 
@@ -38,16 +39,15 @@ public class Login {
 
 		usr = srvlgn.verificar(nick, clave);
 
-		if (usr != null) {
-			fd = usr.getFichaDocente();
-			if (fd != null) {
+		if (usr.getUrsId() != null) {
+			if (usr.getFichaDocente().getFcdcId() != 0) {
 				Docente = true;
 			}
-			fem = usr.getFichaEmpleado();
-			if (fem != null) {
+			if (usr.getFichaEmpleado().getFcemId() != 0) {
 				Empleado = true;
 			}
-
+			List<DetallePuesto> dt = srvlgn.buscarFacultad(usr.getFichaDocente().getFcdcId());
+			usr.getFichaDocente().setDetallePuestos(dt);
 			return "principal";
 		} else {
 			System.out.println("usuario o contraseña no validos");
@@ -78,22 +78,6 @@ public class Login {
 
 	public void setUsr(Usuario usr) {
 		this.usr = usr;
-	}
-
-	public FichaDocente getFd() {
-		return fd;
-	}
-
-	public void setFd(FichaDocente fd) {
-		this.fd = fd;
-	}
-
-	public FichaEmpleado getFem() {
-		return fem;
-	}
-
-	public void setFem(FichaEmpleado fem) {
-		this.fem = fem;
 	}
 
 	public boolean isDocente() {

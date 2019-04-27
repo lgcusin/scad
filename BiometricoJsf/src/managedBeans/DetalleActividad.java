@@ -45,7 +45,7 @@ public class DetalleActividad {
 		if (p.empleado) {
 			// selectCrr = new Carrera();
 			// selectDcn = new FichaDocente();
-			lstC = srvEmp.listarCarreras();
+			lstC = srvEmp.listarCarreras(p.fcId);
 		}
 
 	}

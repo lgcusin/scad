@@ -1,5 +1,5 @@
 package model;
-// Generated 20/03/2019 20:46:57 by Hibernate Tools 4.3.5.Final
+// Generated 15/04/2019 20:41:59 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -23,22 +23,25 @@ public class Materia implements java.io.Serializable {
 	private BigDecimal mtrId;
 	private Carrera carrera;
 	private String mtrNombre;
+	private BigDecimal mtrCodigo;
 	private Set<MallaCurricularMateria> mallaCurricularMaterias = new HashSet<MallaCurricularMateria>(0);
 	private Set<Horario> horarios = new HashSet<Horario>(0);
 
 	public Materia() {
 	}
 
-	public Materia(BigDecimal mtrId, Carrera carrera) {
+	public Materia(BigDecimal mtrId, Carrera carrera, BigDecimal mtrCodigo) {
 		this.mtrId = mtrId;
 		this.carrera = carrera;
+		this.mtrCodigo = mtrCodigo;
 	}
 
-	public Materia(BigDecimal mtrId, Carrera carrera, String mtrNombre,
+	public Materia(BigDecimal mtrId, Carrera carrera, String mtrNombre, BigDecimal mtrCodigo,
 			Set<MallaCurricularMateria> mallaCurricularMaterias, Set<Horario> horarios) {
 		this.mtrId = mtrId;
 		this.carrera = carrera;
 		this.mtrNombre = mtrNombre;
+		this.mtrCodigo = mtrCodigo;
 		this.mallaCurricularMaterias = mallaCurricularMaterias;
 		this.horarios = horarios;
 	}
@@ -71,6 +74,15 @@ public class Materia implements java.io.Serializable {
 
 	public void setMtrNombre(String mtrNombre) {
 		this.mtrNombre = mtrNombre;
+	}
+
+	@Column(name = "MTR_CODIGO", nullable = false, precision = 22, scale = 0)
+	public BigDecimal getMtrCodigo() {
+		return this.mtrCodigo;
+	}
+
+	public void setMtrCodigo(BigDecimal mtrCodigo) {
+		this.mtrCodigo = mtrCodigo;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "materia")

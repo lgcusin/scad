@@ -1,14 +1,15 @@
 package servicios;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
-import model.FichaDocente;
-import model.FichaEmpleado;
+import model.DetallePuesto;
 import model.Usuario;
 
 /**
@@ -20,6 +21,7 @@ public class SrvLogin implements SrvLoginLocal {
 
 	@PersistenceContext
 	EntityManager em;
+
 	public SrvLogin() {
 	}
 
@@ -27,42 +29,40 @@ public class SrvLogin implements SrvLoginLocal {
 	public Usuario verificar(String nick, String clave) {
 		Usuario usr;
 		try {
-			usr = em.createNamedQuery("Usuario.finduser", Usuario.class).setParameter("nick", nick)
-					.setParameter("clave", clave).getSingleResult();
+			Object[] objArray;
+			Query query;
+			query = em.createQuery(
+					"select u,fe,fd from Usuario as u join u.fichaEmpleado as fe join u.fichaDocente as fd where u.usrNick=:nick and u.usrPassword=:clave");
+			query.setParameter("nick", nick).setParameter("clave", clave);
+			Object obj = query.getSingleResult();
+			objArray = (Object[]) obj;
+			usr = (Usuario) objArray[0];
 
 		} catch (Exception e) {
-			System.out.println(e);
-			return null;
+			System.out.println("Error al obtener usuario" + e);
+			return usr = new Usuario();
 		}
-		usr.setFichaDocente(getDocente(usr.getUrsId()));
-		usr.setFichaEmpleado(getEmpleado(usr.getUrsId()));
 		return usr;
 	}
 
 	@Override
-	public FichaDocente getDocente(Integer usrId) {
-		FichaDocente fd;
+	public List<DetallePuesto> buscarFacultad(Integer fcdcId) {
+		List<DetallePuesto> lstdp = new ArrayList<>();
 		try {
-			fd = em.createNamedQuery("Docente.findByUsrId", FichaDocente.class).setParameter("usrId", usrId)
-					.getSingleResult();
+			Object[] objArray;
+			Query query;
+			query = em.createQuery(
+					"select dp,cr,fc from DetallePuesto as dp join dp.carrera as cr join cr.facultad as fc where dp.fichaDocente.fcdcId=:fdId");
+			query.setParameter("fdId", fcdcId);
+			for (Object object : query.getResultList()) {
+				objArray = (Object[]) object;
+				lstdp.add((DetallePuesto) objArray[0]);
+			}
 		} catch (Exception e) {
-			System.out.println(e);
-			return fd = null;
+			System.out.println("Erroral obtener carrera/facultad del usuario");
+			return lstdp;
 		}
-		return fd;
-	}
-
-	@Override
-	public FichaEmpleado getEmpleado(Integer usrId) {
-		FichaEmpleado fe;
-		try {
-			fe = em.createNamedQuery("Empleado.findByUsrId", FichaEmpleado.class).setParameter("usrId", usrId)
-					.getSingleResult();
-		} catch (Exception e) {
-			System.out.println(e);
-			return fe = null;
-		}
-		return fe;
+		return lstdp;
 	}
 
 }

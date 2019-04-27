@@ -53,7 +53,7 @@ public class Syllabus {
 			lstM = srvSgm.listarAllMatByFcdc(p.fdId);
 		}
 		if (p.empleado) {
-			lstC = srvEmp.listarCarreras();
+			lstC = srvEmp.listarCarreras(p.fcId);
 		}
 
 	}

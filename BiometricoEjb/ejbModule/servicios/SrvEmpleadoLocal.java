@@ -11,7 +11,7 @@ import model.UnidadCurricular;
 @Local
 public interface SrvEmpleadoLocal {
 
-	List<Carrera> listarCarreras();
+	List<Carrera> listarCarreras(Integer fcId);
 
 	List<FichaDocente> listarDocentes(Integer crrId);
 
