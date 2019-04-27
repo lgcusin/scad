@@ -19,8 +19,8 @@ public class RegistroFeriado {
 
 	@PostConstruct
 	public void init() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		Principal p = context.getApplication().evaluateExpressionGet(context, "#{principal}", Principal.class);
+		//FacesContext context = FacesContext.getCurrentInstance();
+		//Principal p = context.getApplication().evaluateExpressionGet(context, "#{principal}", Principal.class);
 	}
 
 	public void limpiarFiltros() {

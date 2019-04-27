@@ -41,10 +41,11 @@ public class RegistroParalelo {
 	@PostConstruct
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
+		Principal p = context.getApplication().evaluateExpressionGet(context, "#{principal}", Principal.class);
 		selectCrr = new Carrera();
 		selectMtr = new Materia();
 		selectSem = new Semestre();
-		lstC = srvHor.listarAllCrr();
+		lstC = srvHor.listarAllCrr(p.fcId);
 		lstM = srvHor.listarAllMat();
 		lstS = srvHor.listarAllSem();
 	}
