@@ -10,7 +10,7 @@
 <ui:composition
 	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">>
 	<ui:define name="cuerpo">
-		<h:form id="frmReporteHorario" enctype="multipart/form-data"
+		<h:form id="frmAdministrarParametro" enctype="multipart/form-data"
 			acceptcharset="UTF-8">
 			<div style="margin-left: 10px; margin-right: 10px;">
 				<p:panel id="pnlBusqueda"
@@ -41,16 +41,19 @@
 									<div class="grid condensed" style="padding: 10px;">
 										<div class="row cells6">
 											<div class="cell colspan2">
-												<p:outputLabel id="lblCarrera" value="Facultad: "
-													styleClass="ui-outputlabel ui-widget" for="slcCarrera"></p:outputLabel>
+												<p:outputLabel id="lblFacultad" value="Facultad: "
+													styleClass="ui-outputlabel ui-widget" for="slcFacultad"></p:outputLabel>
 											</div>
 											<div class="cell colspan4">
-												<p:selectOneMenu id="slcCarrera"
-													value="#{reporteHorario.selectCrr.crrId}"
-													style="width: 100%">
-													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
-													<f:selectItems value="#{reporteHorario.lstCr}" var="cr"
-														itemLabel="#{cr.crrNombre}" itemValue="#{cr.crrId}" />
+												<p:selectOneMenu id="slcFacultad"
+													value="#{administrarParametro.selectFacultad.fclId}"
+													style="width: 100%"
+													valueChangeListener="#{administrarParametro.buscarParametros}"
+													onchange="this.form.submit()" immediate="true">
+													<f:selectItem itemLabel="SELECCIONE..." itemValue="null"></f:selectItem>
+													<f:selectItems value="#{administrarParametro.lstFacultad}"
+														var="fac" itemLabel="#{fac.fclNombre}"
+														itemValue="#{fac.fclId}" />
 												</p:selectOneMenu>
 											</div>
 										</div>
@@ -66,8 +69,9 @@
 												styleClass="ui-outputlabel ui-widget"></p:outputLabel>
 										</div>
 										<div class="cell colspan4">
-											<p:inputText type="time">
-											</p:inputText>
+											<p:outputLabel value="#{administrarParametro.horaEntrada}"></p:outputLabel>
+											<p:inputText type="time"
+												value="#{administrarParametro.horaEntrada}"></p:inputText>
 										</div>
 
 										<div class="cell colspan2">
@@ -75,8 +79,9 @@
 												styleClass="ui-outputlabel ui-widget"></p:outputLabel>
 										</div>
 										<div class="cell colspan4">
-											<p:inputText type="time">
-											</p:inputText>
+											<p:outputLabel value="#{administrarParametro.horaSalida}"></p:outputLabel>
+											<p:inputText type="time"
+												value="#{administrarParametro.horaSalida}"></p:inputText>
 										</div>
 									</div>
 								</div>
@@ -85,7 +90,7 @@
 								<p:commandButton id="btnRegresar" value="Regresar"
 									action="principal.xhtml"></p:commandButton>
 								<p:commandButton id="btnGuardar" value="Guardar"
-									action="#{administrarParametroimprimir}"></p:commandButton>
+									action="#{administrarParametro.guardarParametro}"></p:commandButton>
 							</div>
 						</div>
 					</p:panel>
