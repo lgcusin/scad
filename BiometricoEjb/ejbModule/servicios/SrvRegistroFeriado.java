@@ -53,9 +53,13 @@ public class SrvRegistroFeriado implements SrvRegistroFeriadoLocal {
 			if (feriado.getFrdId() > 0) {
 				em.merge(feriado);
 			} else {
-				// Feriado f = obtenerSecuenciaParametro();
-				// feriado.setFrdId(f.getFrdId() + 1);
-				em.persist(feriado);
+				Feriado f = obtenerSecuenciaFeriado();
+				if (f != null && f.getFrdId() > 0) {
+					feriado.setFrdId(f.getFrdId() + 1);
+					em.persist(feriado);
+				} else {
+					System.out.println("Error al guardar Feriado");
+				}
 			}
 		} catch (Exception e) {
 			System.out.println("Error al guardarActualizarParametro " + e);
@@ -87,4 +91,15 @@ public class SrvRegistroFeriado implements SrvRegistroFeriadoLocal {
 		return lstFacultades;
 	}
 
+	private Feriado obtenerSecuenciaFeriado() {
+		Feriado feriado = null;
+		try {
+			Query query = em.createQuery("select f from Feriado as f  order by f.frdId desc");
+			query.setMaxResults(1);
+			feriado = (Feriado) query.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al consultar la secuencia del feriado" + e);
+		}
+		return feriado;
+	}
 }

@@ -29,7 +29,7 @@ public class Parametro implements Serializable {
 	private String prmNombre;
 
 	@Column(name = "PRM_VALOR")
-	private Integer prmValor;
+	private String prmValor;
 
 	public Parametro() {
 	}
@@ -58,11 +58,11 @@ public class Parametro implements Serializable {
 		this.prmNombre = prmNombre;
 	}
 
-	public Integer getPrmValor() {
+	public String getPrmValor() {
 		return this.prmValor;
 	}
 
-	public void setPrmValor(Integer prmValor) {
+	public void setPrmValor(String prmValor) {
 		this.prmValor = prmValor;
 	}
 

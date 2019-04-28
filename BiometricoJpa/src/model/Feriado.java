@@ -5,8 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,7 +22,6 @@ public class Feriado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "FRD_ID")
 	private long frdId;
 
@@ -39,10 +36,10 @@ public class Feriado implements Serializable {
 	private Date frdFecha;
 
 	@Column(name = "FRD_FIN")
-	private Integer frdFin;
+	private String frdFin;
 
 	@Column(name = "FRD_INICIO")
-	private Integer frdInicio;
+	private String frdInicio;
 
 	public Feriado() {
 	}
@@ -79,19 +76,19 @@ public class Feriado implements Serializable {
 		this.frdFecha = frdFecha;
 	}
 
-	public Integer getFrdFin() {
+	public String getFrdFin() {
 		return this.frdFin;
 	}
 
-	public void setFrdFin(Integer frdFin) {
+	public void setFrdFin(String frdFin) {
 		this.frdFin = frdFin;
 	}
 
-	public Integer getFrdInicio() {
+	public String getFrdInicio() {
 		return this.frdInicio;
 	}
 
-	public void setFrdInicio(Integer frdInicio) {
+	public void setFrdInicio(String frdInicio) {
 		this.frdInicio = frdInicio;
 	}
 

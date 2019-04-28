@@ -37,7 +37,8 @@
 											<div class="cell colspan4">
 												<p:selectOneMenu id="slcFacultad"
 													value="#{registroFeriado.selectFacultad.fclId}"
-													style="width: 100%">
+													style="width: 100%"
+													valueChangeListener="#{registroFeriado.setFacultadID}">
 													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
 													<f:selectItems value="#{registroFeriado.lstFacultad}"
 														var="fac" itemLabel="#{fac.fclNombre}"
@@ -76,10 +77,9 @@
 								<p:commandButton id="btnAgregar" value="Agregar"
 									update="dtsFeriados" onclick="PF('dlgAgregar').show();"></p:commandButton>
 								<p:commandButton id="btnBuscar" value="Buscar"
-									action="#{registroFeriado.buscarFeriados}"
-									update="pnlResultados"></p:commandButton>
+									action="#{registroFeriado.buscarFeriados}" update="dtsFeriados"></p:commandButton>
 								<p:commandButton id="btnLimpiar" value="Limpiar"
-									action="#{registroFeriado.limpiarFiltros}" update="dtsFeriados"></p:commandButton>
+									action="#{registroFeriado.limpiarFiltros}" update="pnlBusqueda"></p:commandButton>
 							</div>
 						</div>
 					</p:panel>
@@ -101,19 +101,19 @@
 								rowsPerPageTemplate="5,10,15" style="text-align: center;"
 								styleClass="stui-datatable ui-widget">
 								<p:column headerText="#">
-									<h:outputText value="#{f[0]}" />
+									<h:outputText value="#{f.frdId}" />
 								</p:column>
 								<p:column headerText="Fecha">
-									<h:outputText value="#{f[1]}" />
+									<h:outputText value="#{f.frdFecha}" />
 								</p:column>
 								<p:column headerText="Hora inicio">
-									<h:outputText value="#{f[2]}" />
+									<h:outputText value="#{f.frdInicio}" />
 								</p:column>
 								<p:column headerText="Hora fin">
-									<h:outputText value="#{f[3]}" />
+									<h:outputText value="#{f.frdFin}" />
 								</p:column>
 								<p:column headerText="Descripci&oacute;n">
-									<h:outputText value="#{f[4]}" />
+									<h:outputText value="#{f.frdDescripcion}" />
 								</p:column>
 							</p:dataTable>
 						</p:panel>
@@ -131,8 +131,9 @@
 								<h:outputText value="Fecha:" />
 							</div>
 							<div class="cell colspan6">
-								<p:inputText type="date"
-									value="#{registroFeriado.feriadoRegistro}"></p:inputText>
+								<p:calendar id="button"
+									value="#{registroFeriado.feriadoRegistro.frdFecha}"
+									showOn="button" />
 							</div>
 						</div>
 						<div class="row cells12">
@@ -141,7 +142,7 @@
 							</div>
 							<div class="cell colspan6">
 								<p:inputText type="time"
-									value="#{registroFeriado.feriadoRegistro}"></p:inputText>
+									value="#{registroFeriado.feriadoRegistro.frdInicio}"></p:inputText>
 							</div>
 						</div>
 						<div class="row cells12">
@@ -150,7 +151,7 @@
 							</div>
 							<div class="cell colspan6">
 								<p:inputText type="time"
-									value="#{registroFeriado.feriadoRegistro}"></p:inputText>
+									value="#{registroFeriado.feriadoRegistro.frdFin}"></p:inputText>
 							</div>
 						</div>
 						<div class="row cells12">
@@ -159,16 +160,18 @@
 							</div>
 							<div class="cell colspan6">
 								<p:inputTextarea type="text" placeholder="DESCRIPCI&Oacute;N"
-									maxlength="200" value="#{registroFeriado.feriadoRegistro}">
+									maxlength="200"
+									value="#{registroFeriado.feriadoRegistro.frdDescripcion}">
 								</p:inputTextarea>
 							</div>
 						</div>
 						<div class="row cells12"
 							style="text-align: center; padding-top: 20px;">
 							<p:commandButton id="btnGuardarModal" value="Guardar"
-								action="#{registroFeriado.guardarFeriado}" update="dtsFeriados"></p:commandButton>
+								action="#{registroFeriado.guardarFeriado()}"
+								oncomplete="handleDialogRequest(args)"></p:commandButton>
 							<p:commandButton id="btnLimpiarModal" value="Limpiar"
-								action="#{registroFeriado.limpiarFiltrosModal}"
+								action="#{registroFeriado.limpiarFiltrosModal()}"
 								update="dtsFeriados"></p:commandButton>
 							<p:commandButton id="btnCerrarModal" value="Cerrar"
 								onclick="PF('dlgAgregar').hide();"></p:commandButton>

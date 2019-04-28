@@ -29,6 +29,9 @@ public class SrvAdministrarParametro implements SrvAdministrarParametroLocal {
 		/** Constructor vacio */
 	}
 
+	/**
+	 * Metodo definido para buscar los parametros por facultad.
+	 */
 	@Override
 	public List<Parametro> listarParametro(Integer fclId) {
 		List<Parametro> lstP = null;
@@ -42,31 +45,54 @@ public class SrvAdministrarParametro implements SrvAdministrarParametroLocal {
 		return lstP;
 	}
 
+	/**
+	 * Metodo definido para guardar o actualizar un parametro.
+	 */
 	@Override
 	public void guardarActualizarParametro(Parametro parametro) {
 		try {
-			if (parametro.getPrmId() > 0) {
+			if (parametro.getPrmId() != 0) {
 				em.merge(parametro);
 			} else {
-				// Parametro p = obtenerSecuenciaParametro();
-				// parametro.setPrmId(p.getPrmId() + 1);
+				Parametro p = obtenerSecuenciaParametro();
+				parametro.setPrmId(p.getPrmId() + 1);
 				em.persist(parametro);
 			}
 		} catch (Exception e) {
-			System.out.println("Error al guardarActualizarParametro " + e);
+			System.out.println("Error al guardarActualizarParametro: " + e);
 		}
 	}
 
+	/**
+	 * Metodo definido para buscar las facultades.
+	 */
 	@Override
 	public List<Facultad> listarFacultades() {
 		List<Facultad> lstFacultades = null;
 		try {
 			Query query = em.createQuery("select f from Facultad as f");
-			System.out.println("Valores de la lista");
 			lstFacultades = (List<Facultad>) query.getResultList();
 		} catch (Exception e) {
-			System.out.println("Error al consultar facultades" + e);
+			System.out.println("Error al consultar facultades: " + e);
 		}
 		return lstFacultades;
+	}
+
+	/**
+	 * Metodo definido para obtener la secuencia de base de datos para el nuevo
+	 * registro de parametro.
+	 * 
+	 * @return
+	 */
+	private Parametro obtenerSecuenciaParametro() {
+		Parametro parametro = null;
+		try {
+			Query query = em.createQuery("select p from Parametro as p  order by p.prmId desc");
+			query.setMaxResults(1);
+			parametro = (Parametro) query.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al consultar la secuencia del parametro: " + e);
+		}
+		return parametro;
 	}
 }
