@@ -45,11 +45,11 @@ public class SrvAdministrarParametro implements SrvAdministrarParametroLocal {
 	@Override
 	public void guardarActualizarParametro(Parametro parametro) {
 		try {
-			if (parametro.getPrmId() > 0) {
+			if (parametro.getPrmId() != 0) {
 				em.merge(parametro);
 			} else {
-				// Parametro p = obtenerSecuenciaParametro();
-				// parametro.setPrmId(p.getPrmId() + 1);
+				Parametro p = obtenerSecuenciaParametro();
+				parametro.setPrmId(p.getPrmId() + 1);
 				em.persist(parametro);
 			}
 		} catch (Exception e) {
@@ -68,5 +68,17 @@ public class SrvAdministrarParametro implements SrvAdministrarParametroLocal {
 			System.out.println("Error al consultar facultades" + e);
 		}
 		return lstFacultades;
+	}
+
+	private Parametro obtenerSecuenciaParametro() {
+		Parametro parametro = null;
+		try {
+			Query query = em.createQuery("select p from Parametro as p  order by p.prmId desc");
+			query.setMaxResults(1);
+			parametro = (Parametro) query.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al consultar los horarios secuencia" + e);
+		}
+		return parametro;
 	}
 }

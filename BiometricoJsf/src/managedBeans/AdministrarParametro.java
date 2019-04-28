@@ -8,7 +8,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
@@ -22,7 +22,7 @@ import servicios.SrvAdministrarParametroLocal;
  */
 
 @ManagedBean(name = "administrarParametro")
-@ViewScoped
+@SessionScoped
 public class AdministrarParametro {
 
 	@EJB
@@ -38,7 +38,8 @@ public class AdministrarParametro {
 	@PostConstruct
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		Principal p = context.getApplication().evaluateExpressionGet(context, "#{principal}", Principal.class);
+		// Principal p = context.getApplication().evaluateExpressionGet(context,
+		// "#{principal}", Principal.class);
 		selectFacultad = new Facultad();
 		lstFacultad = srvAdm.listarFacultades();
 		initRegistroParametro();
@@ -54,21 +55,17 @@ public class AdministrarParametro {
 	public void limpiarFiltros() {
 	}
 
-	public void buscarParametros(ValueChangeEvent event) {
-		if (event.getNewValue() != null) {
-			System.out.println("Metodo de buscar parametros por facultad: " + event.getNewValue());
-			lstParametro = srvAdm.listarParametro((Integer) event.getNewValue());
-			if (!lstParametro.isEmpty()) {
-				horaEntrada = transformMillisToHour(lstParametro.get(0).getPrmValor());
-				horaSalida = transformMillisToHour(lstParametro.get(1).getPrmValor());
-				System.out.println("Si hay Parametros: " + lstParametro.size());
-			} else {
-				horaEntrada = "";
-				horaSalida = "";
-				System.out.println("No hay Parametros para la facultad seleccionada.");
-			}
+	public void buscarParametros() {
+		System.out.println("Metodo de buscar parametros por facultad: " + selectFacultad.getFclId());
+		lstParametro = srvAdm.listarParametro(selectFacultad.getFclId());
+		if (!lstParametro.isEmpty()) {
+			horaEntrada = lstParametro.get(0).getPrmValor();
+			horaSalida = lstParametro.get(1).getPrmValor();
+			System.out.println("Si hay Parametros: " + lstParametro.size());
 		} else {
-			lstParametro = null;
+			horaEntrada = "";
+			horaSalida = "";
+			System.out.println("No hay Parametros para la facultad seleccionada.");
 		}
 	}
 
@@ -95,13 +92,35 @@ public class AdministrarParametro {
 		return result;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	private String guardarParametro() {
+	public void setFacultadID(ValueChangeEvent event) {
+		if (event.getNewValue() != null) {
+			System.out.println("Metodo de setear codigo facultad: " + event.getNewValue());
+			selectFacultad.setFclId((Integer) event.getNewValue());
+		} else {
+			selectFacultad.setFclId(null);
+			System.out.println("No ha seleccionada una carrera: ");
+		}
+	}
+
+	public void guardarParametro() {
 		System.out.println("Metodo guardar");
-		return "principal";
+		if (!lstParametro.isEmpty()) {
+			registroParametro.setPrmId(lstParametro.get(0).getPrmId());
+		} else {
+			registroParametro.setPrmId(0);
+		}
+		registroParametro.setFclId(selectFacultad.getFclId());
+		registroParametro.setPrmNombre("ENTRADA");
+		registroParametro.setPrmValor(horaEntrada);
+		srvAdm.guardarActualizarParametro(registroParametro);
+		if (!lstParametro.isEmpty()) {
+			registroParametro.setPrmId(lstParametro.get(1).getPrmId());
+		} else {
+			registroParametro.setPrmId(0);
+		}
+		registroParametro.setPrmNombre("SALIDA");
+		registroParametro.setPrmValor(horaSalida);
+		srvAdm.guardarActualizarParametro(registroParametro);
 	}
 
 	/**
