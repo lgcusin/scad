@@ -45,7 +45,7 @@
 					<p:menuitem value="Agregar Horario"
 						action="#{principal.regParalelo}" ajax="false"></p:menuitem>
 						<p:menuitem value="Agregar Feriado"
-						action="#{principal.regParalelo}" ajax="false"></p:menuitem>
+						action="#{principal.regFeriado}" ajax="false"></p:menuitem>
 				</p:submenu>
 				<p:menuitem value="Enrolar Docente"
 					action="#{principal.verRegistro}" ajax="false"></p:menuitem>
@@ -53,6 +53,8 @@
 					action="#{principal.verControl}" ajax="false"></p:menuitem>
 				<p:menuitem value="Justificacion"
 					action="#{principal.verJustificacion}" ajax="false"></p:menuitem>
+					<p:menuitem value="Parametros de control"
+					action="#{principal.verParametros}" ajax="false"></p:menuitem>
 			</p:submenu>
 			<f:facet name="options">
 				<i class="fa fa-user"
