@@ -29,6 +29,9 @@ public class SrvAdministrarParametro implements SrvAdministrarParametroLocal {
 		/** Constructor vacio */
 	}
 
+	/**
+	 * Metodo definido para buscar los parametros por facultad.
+	 */
 	@Override
 	public List<Parametro> listarParametro(Integer fclId) {
 		List<Parametro> lstP = null;
@@ -42,6 +45,9 @@ public class SrvAdministrarParametro implements SrvAdministrarParametroLocal {
 		return lstP;
 	}
 
+	/**
+	 * Metodo definido para guardar o actualizar un parametro.
+	 */
 	@Override
 	public void guardarActualizarParametro(Parametro parametro) {
 		try {
@@ -53,23 +59,31 @@ public class SrvAdministrarParametro implements SrvAdministrarParametroLocal {
 				em.persist(parametro);
 			}
 		} catch (Exception e) {
-			System.out.println("Error al guardarActualizarParametro " + e);
+			System.out.println("Error al guardarActualizarParametro: " + e);
 		}
 	}
 
+	/**
+	 * Metodo definido para buscar las facultades.
+	 */
 	@Override
 	public List<Facultad> listarFacultades() {
 		List<Facultad> lstFacultades = null;
 		try {
 			Query query = em.createQuery("select f from Facultad as f");
-			System.out.println("Valores de la lista");
 			lstFacultades = (List<Facultad>) query.getResultList();
 		} catch (Exception e) {
-			System.out.println("Error al consultar facultades" + e);
+			System.out.println("Error al consultar facultades: " + e);
 		}
 		return lstFacultades;
 	}
 
+	/**
+	 * Metodo definido para obtener la secuencia de base de datos para el nuevo
+	 * registro de parametro.
+	 * 
+	 * @return
+	 */
 	private Parametro obtenerSecuenciaParametro() {
 		Parametro parametro = null;
 		try {
@@ -77,7 +91,7 @@ public class SrvAdministrarParametro implements SrvAdministrarParametroLocal {
 			query.setMaxResults(1);
 			parametro = (Parametro) query.getSingleResult();
 		} catch (Exception e) {
-			System.out.println("Error al consultar los horarios secuencia" + e);
+			System.out.println("Error al consultar la secuencia del parametro: " + e);
 		}
 		return parametro;
 	}
