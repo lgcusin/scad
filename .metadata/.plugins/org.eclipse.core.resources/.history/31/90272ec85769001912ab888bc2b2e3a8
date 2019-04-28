@@ -218,7 +218,6 @@
 					<p:inputTextarea value="#{syllabus.syl.sylResultadosAprendizaje}"></p:inputTextarea>
 				</p:panel>
 				<p:panel id="pnlProgramacionM" header="Programacion de asignatura">
-				
 					<p:panel id="pnlProgramacionM_content">
 						<p:dataGrid id="dtgUnidadesM" var="Uncr" value="#{syllabus.lstUC}"
 							columns="1">
