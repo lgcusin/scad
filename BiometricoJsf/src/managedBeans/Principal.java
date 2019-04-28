@@ -73,6 +73,10 @@ public class Principal {
 	public String regParalelo() {
 		return "registroParalelo";
 	}
+	
+	public String regFeriado() {
+		return "registroFeriados";
+	}
 
 	public String verReporteHorario(boolean sesionUsuarioForm, String rol) {
 		if (sesionUsuarioForm) {

@@ -17,7 +17,7 @@ import model.TipoHorario;
 @Local
 public interface SrvHorarioLocal {
 
-	List<Carrera> listarAllCrr();
+	List<Carrera> listarAllCrr(Integer fcId);
 
 	List<Materia> listarAllMat();
 

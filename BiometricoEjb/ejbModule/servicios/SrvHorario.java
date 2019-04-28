@@ -36,8 +36,8 @@ public class SrvHorario implements SrvHorarioLocal {
 	}
 
 	@Override
-	public List<Carrera> listarAllCrr() {
-		List<Carrera> lstC = em.createNamedQuery("Carrera.findAll", Carrera.class).getResultList();
+	public List<Carrera> listarAllCrr(Integer fcId) {
+		List<Carrera> lstC = em.createNamedQuery("Carrera.findAll", Carrera.class).setParameter("fcId", fcId).getResultList();
 		return lstC;
 	}
 
