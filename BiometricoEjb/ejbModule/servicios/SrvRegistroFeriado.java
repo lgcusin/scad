@@ -1,6 +1,5 @@
 package servicios;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -31,22 +30,28 @@ public class SrvRegistroFeriado implements SrvRegistroFeriadoLocal {
 		/** Constructor vacio */
 	}
 
+	/**
+	 * Metodo definido para consultar los feriados segun los filtros ingresados.
+	 */
 	@Override
-	public Collection<Feriado> listarFeriados(Integer fclId, Date fechaInicio, Date fechaFin) {
-		Collection<Feriado> lstF = null;
+	public List<Feriado> listarFeriados(Integer fclId, Date fechaInicio, Date fechaFin) {
+		List<Feriado> lstF = null;
 		try {
 			Query query = em.createQuery(
-					"select f from Feriado as f where f.fclId=:fclId and f.frdFecha >= :fechaInicio and f.frdFecha <= :fechaFin");
+					"select f from Feriado as f where (f.fclId=:fclId or f.fclId=1) and f.frdFecha >= :fechaInicio and f.frdFecha <= :fechaFin order by f.frdFecha asc");
 			query.setParameter("fclId", fclId);
 			query.setParameter("fechaInicio", fechaInicio);
 			query.setParameter("fechaFin", fechaFin);
-			lstF = (Collection<Feriado>) query.getResultList();
+			lstF = (List<Feriado>) query.getResultList();
 		} catch (Exception e) {
 			System.out.println("Error al consultar Feriados: " + e);
 		}
 		return lstF;
 	}
 
+	/**
+	 * Metodo definido para guardar o actualizar un registro de feriado.
+	 */
 	@Override
 	public void guardarActualizarFeriado(Feriado feriado) {
 		try {
@@ -62,10 +67,13 @@ public class SrvRegistroFeriado implements SrvRegistroFeriadoLocal {
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("Error al guardarActualizarParametro " + e);
+			System.out.println("Error al guardarActualizarParametro: " + e);
 		}
 	}
 
+	/**
+	 * Metodo definido para eliminar un registro de feriado.
+	 */
 	@Override
 	public void eliminarFeriado(Feriado feriado) {
 		try {
@@ -78,12 +86,14 @@ public class SrvRegistroFeriado implements SrvRegistroFeriadoLocal {
 		}
 	}
 
+	/**
+	 * Metodo definido para listar las facultades disponibles.
+	 */
 	@Override
 	public List<Facultad> listarFacultades() {
 		List<Facultad> lstFacultades = null;
 		try {
 			Query query = em.createQuery("select f from Facultad as f");
-			System.out.println("Valores de la lista");
 			lstFacultades = query.getResultList();
 		} catch (Exception e) {
 			System.out.println("Error al consultar facultades" + e);
@@ -91,6 +101,11 @@ public class SrvRegistroFeriado implements SrvRegistroFeriadoLocal {
 		return lstFacultades;
 	}
 
+	/**
+	 * Metodo definido para obtener la secuencia de feriados.
+	 * 
+	 * @return
+	 */
 	private Feriado obtenerSecuenciaFeriado() {
 		Feriado feriado = null;
 		try {
