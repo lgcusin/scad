@@ -92,7 +92,7 @@ public class AdministrarParametro {
 			return true;
 		} else {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"La facultad es requerida, verifique por favor.", "Error!");
+					"La facultad es requerida, verifique por favor.", "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			horaEntrada = "";
 			horaSalida = "";
