@@ -43,7 +43,7 @@
 		<param-value>true</param-value>
 	</context-param>
 
-	<context-param>
+	<!-- <context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring-context.xml</param-value>
 	</context-param>
@@ -69,5 +69,5 @@
 
 	<session-config>
 		<session-timeout>15</session-timeout>
-	</session-config>
+	</session-config> -->
 </web-app>

@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">>
+	<ui:define name="cuerpo">
+		<h:form id="frmRegistroFeriado" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<p:panel header="DATOS INFORMATIVOS DE LA UNIDAD CURRICULAR ">
+
+				<p:panelGrid columns="2">
+					<h:outputLabel value="NOMBRE DE LA UNIDAD:"></h:outputLabel>
+					<h:inputText value="#{syllabus.uncrNombre}"></h:inputText>
+					<h:outputLabel value="OBJETIVO DE LA UNIDAD:"></h:outputLabel>
+					<h:inputText value="#{syllabus.uncrObjetivo}"></h:inputText>
+					<h:outputLabel value="RESULTADOS DE APRENDIZAJE DE LA UNIDAD:"></h:outputLabel>
+					<h:inputText value="#{syllabus.uncrResultado}"></h:inputText>
+				</p:panelGrid>
+				<br />
+				<p:panelGrid>
+					<p:row>
+						<p:column rowspan="4">
+							<h:outputLabel value="CÁLCULO DE HORAS DE LA UNIDAD:"></h:outputLabel>
+						</p:column>
+						<p:column rowspan="2">
+							<h:outputLabel value="ESCENARIOS DE APRENDIZAJE"></h:outputLabel>
+						</p:column>
+						<p:column>
+							<h:outputLabel value="N°. Horas aprendizaje Teóricas"></h:outputLabel>
+						</p:column>
+						<p:column>
+							<h:inputText value="6"></h:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="N°. Horas Prácticas- laboratorio"></h:outputLabel>
+						</p:column>
+						<p:column>
+							<h:inputText value="6"></h:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column rowspan="2">
+							<h:outputLabel value="TUTORIAS"></h:outputLabel>
+						</p:column>
+						<p:column>
+							<h:outputLabel value="N°. Horas Presenciales"></h:outputLabel>
+						</p:column>
+						<p:column>
+							<h:inputText value="2"></h:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="N°. Horas Aprendizaje Aula Virtual"></h:outputLabel>
+						</p:column>
+						<p:column>
+							<h:inputText value="1"></h:inputText>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+			<p:panel header="PROGRAMACIÓN CURRICULAR">
+				<p:panelGrid columns="1">
+					<p:dataTable id="dtContenido" value="#{Uncr.contenidos}" var="cn">
+						<p:column headerText="CONTENIDOS">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{cn.cntDescripcion}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText type="text" placeholder="CONTENIDOS"
+										maxlength="200" value="#{cn.cntDescripcion}">
+									</p:inputText>
+								</f:facet>
+							</p:cellEditor>
+							<h:inputText value="#{cn.cntDescripcion}"></h:inputText>
+						</p:column>
+						<p:column style="width:80px" headerText="Opciones">
+							<p:rowEditor editTitle="edit" cancelTitle="cancel"
+								saveTitle="save"></p:rowEditor>
+							<!-- <p:commandButton value="X" style="width:70px"
+								process="@this" action="#{registroFeriado.eliminarFeriado(f)}"
+								update="dtContenido" /> -->
+						</p:column>
+
+						<f:facet name="footer">
+							<p:commandButton value="+" process="@this" update="dtContenido"
+								action="#{syllabus.onAddNewCnt}" />
+						</f:facet>
+						<p:column
+							headerText="ACTIVIDADES DE TRABAJO AUTÓNOMO, ACTIVIDADES DE INVESTIGACIÓN Y DE VINCULACIÓN CON LA SOCIEDAD">
+							<p:dataGrid value="#{cn.actividads}" var="ac" columns="1">
+								<h:inputText value="#{ac.actDescripcion}"></h:inputText>
+							</p:dataGrid>
+						</p:column>
+						<p:column headerText="MECANISMOS DE EVALUACIÓN">
+							<p:dataGrid value="#{cn.herramientas}" var="hr" columns="1">
+								<h:inputText value="#{hr.hrrNombre}"></h:inputText>
+							</p:dataGrid>
+						</p:column>
+					</p:dataTable>
+				</p:panelGrid>
+			</p:panel>
+			<p:commandButton id="bntAgregar" value="Agregar"
+				action="syllabo.xhtml"></p:commandButton>
+			<p:commandButton id="bntCancelar" value="Cancelar"
+				action="syllabo.xhtml"></p:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

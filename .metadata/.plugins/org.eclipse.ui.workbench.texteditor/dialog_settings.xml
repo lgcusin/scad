@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Integer" key="selection"/>
+		<item value="principal" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="principal"/>
 			<item value="BigDecimal"/>
 			<item value="MdfSyllabus"/>
 			<item value="asistencia"/>
@@ -15,7 +16,6 @@
 			<item value="msgs"/>
 			<item value="p:growl"/>
 			<item value="onAddNew"/>
-			<item value="onRowEdit"/>
 		</list>
 		<list key="replacehistory">
 			<item value="Integer"/>
