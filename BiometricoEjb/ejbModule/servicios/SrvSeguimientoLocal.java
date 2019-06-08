@@ -37,7 +37,7 @@ public interface SrvSeguimientoLocal {
 
 	List<Herramienta> listarHerramientas(Integer cntId);
 
-	Horario verificarHorario(Date fecha, Integer fcdcId, Boolean tipo);
+	Horario verificarHorario(Date fecha, Integer fcdcId, Boolean tipo, Integer fclId);
 
 	Materia getMateria(Integer hrrId);
 

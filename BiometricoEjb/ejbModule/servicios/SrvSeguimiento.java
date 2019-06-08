@@ -7,8 +7,6 @@ import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -22,6 +20,7 @@ import model.FichaDocente;
 import model.Herramienta;
 import model.Horario;
 import model.Materia;
+import model.Parametro;
 import model.Syllabo;
 import model.UnidadCurricular;
 
@@ -34,7 +33,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 
 	@PersistenceContext
 	EntityManager em;
-
+	private static String[] camposParametros = { "ENTRADA", "SALIDA" };
 	public SrvSeguimiento() {
 		// TODO Auto-generated constructor stub
 	}
@@ -118,16 +117,46 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 		return lstHr;
 	}
 
-	@SuppressWarnings("deprecation")
+	/**
+	 * Metodo que busca los nombres de los parametros correspondientes a las
+	 * variables.
+	 * 
+	 * @param lstParametro
+	 */
+	private int buscarParametroVista(int index, List<Parametro> lstParametro) {
+		if (lstParametro.get(index).getPrmNombre().equalsIgnoreCase(camposParametros[0])) {
+			/** Obtiene los minutos del parametro */
+			return Integer.parseInt(lstParametro.get(index).getPrmValor().substring(3, 5));
+		} else {
+			/** Obtiene los minutos del parametro */
+			return Integer.parseInt(lstParametro.get(index).getPrmValor().substring(3, 5));
+		}
+	}
+	
+	@SuppressWarnings({ "deprecation", "unchecked" })
 	@Override
-	public Horario verificarHorario(Date fecha, Integer fcdcId, Boolean tipo) {
-		final int parametro = 15;
+	public Horario verificarHorario(Date fecha, Integer fcdcId, Boolean tipo, Integer fclId) {				
+		List<Parametro> lstP = new ArrayList<>();
+		int parametroEntrada = 0;
+		int parametroSalida = 0;
+		try {
+			Query query = em.createQuery("select p from Parametro as p where p.fclId=:fclId");
+			query.setParameter("fclId", fclId);
+			lstP = (List<Parametro>) query.getResultList();
+		} catch (Exception e) {
+			System.out.println("Error al consultar Parametros: " + e);
+		}
+
+		if (!lstP.isEmpty()) {
+			parametroEntrada = buscarParametroVista(0, lstP);
+			parametroSalida = buscarParametroVista(1, lstP);
+		}
 		int horas = Integer.parseInt(fecha.getHours() + "");
 		int minutos = Integer.parseInt(fecha.getMinutes() + "");
 		int horasProceso = 0;
 		int minutosProceso = 0;
-		int holguraInicio = minutos - parametro;
-		int holguraFin = minutos + parametro;
+		int holguraInicio = minutos - parametroEntrada;
+		int holguraFin = minutos + parametroSalida;
 		String horaRegistro = fecha.getHours() + ":" + fecha.getMinutes();
 		System.out.println("Hora actual: " + horaRegistro);
 		if (holguraInicio < 0) {

@@ -57,9 +57,13 @@ public class Control {
 	public boolean flagDlg;
 	public boolean flagIni;
 	public boolean flagFin;
+	public Integer fclId;
 
 	@PostConstruct
 	public void init() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Login l = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
+		fclId = l.getUsr().getFichaDocente().getDetallePuestos().get(0).getCarrera().getFacultad().getFclId();
 		srvJsdc.inicializar();
 		regDcnt = new FichaDocente();
 	}
@@ -78,8 +82,8 @@ public class Control {
 		regDcnt = srvJsdc.comparar();
 		if (regDcnt != null) {
 			// Compara si hay un horario con la hora de entrada
-			hrrI = srvSgmt.verificarHorario(ahora, regDcnt.getFcdcId(), true);
-			hrrF = srvSgmt.verificarHorario(ahora, regDcnt.getFcdcId(), false);
+			hrrI = srvSgmt.verificarHorario(ahora, regDcnt.getFcdcId(), true, fclId);
+			hrrF = srvSgmt.verificarHorario(ahora, regDcnt.getFcdcId(), false, fclId);
 
 			if (hrrI != null && hrrF != null) {
 				lstAss = srvSgmt.marcacionReg(ahora, regDcnt.getFcdcId());
@@ -354,4 +358,21 @@ public class Control {
 		this.root1 = root1;
 	}
 
+	/**
+	 * The fclId to get.
+	 * 
+	 * @return the fclId
+	 */
+	public Integer getFclId() {
+		return fclId;
+	}
+
+	/**
+	 * The fclId to set.
+	 * 
+	 * @param fclId
+	 */
+	public void setFclId(Integer fclId) {
+		this.fclId = fclId;
+	}
 }
