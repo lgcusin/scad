@@ -204,6 +204,10 @@ public class Syllabus {
 					((Contenido) event.getObject()).getCntDescripcion());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} else {
+			lstActividads = cnt.getActividads();
+			for (Actividad actividad : lstAct) {
+				System.out.println(actividad.getActId() + " : " + actividad.getActDescripcion());
+			}
 			lstContenidos.set(cnt.getCntId() - 1, cnt);
 			FacesMessage msg = new FacesMessage("Registro editado", ((Contenido) event.getObject()).getCntId() + "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -225,6 +229,14 @@ public class Syllabus {
 		// }
 		// /** lista restante de feriados */
 		// lstFeriados = lstAux;
+	}
+
+	public void eliminarActividad(Actividad act) {
+		lstActividads.remove(act.getActId() - 1);
+	}
+
+	public void eliminarHerramienta(Herramienta hrr) {
+		lstherramientas.remove(hrr.getHrrId() - 1);
 	}
 
 	private String agregarContenido(Contenido cnt) {

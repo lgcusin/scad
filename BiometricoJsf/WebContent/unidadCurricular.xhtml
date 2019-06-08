@@ -102,19 +102,25 @@
 											<h:outputText value="#{ac.actDescripcion}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText type="text" value="#{ac.actDescripcion}" />
+											<p:inputText type="text" value="#{ac.actDescripcion}"
+												required="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
+								<p:column>
+									<p:commandButton value="X" style="width:70px" process="@this"
+										action="#{syllabus.eliminarActividad(ac)}"
+										update="dtActividad" />
+								</p:column>
 								<f:facet name="footer">
 									<p:commandButton value="+" process="@this" update="dtActividad"
-										action="#{syllabus.onAddNewAct}" />
+										action="#{syllabus.onAddNewAct(cn)}" />
 								</f:facet>
 							</p:dataTable>
 						</p:column>
 						<p:column headerText="MECANISMOS DE EVALUACIÓN">
-							<p:dataTable id="dtHerramienta"
-								value="#{cn.herramientas}" var="hr" editable="true">
+							<p:dataTable id="dtHerramienta" value="#{cn.herramientas}"
+								var="hr" editable="true">
 								<p:ajax event="rowEdit" listener="#{syllabus.onRowEditHrr}"
 									update="frmRegistroFeriado:dtContenido dtHerramienta" />
 								<p:ajax event="rowEditCancel"
@@ -126,13 +132,19 @@
 											<h:outputText value="#{hr.hrrNombre}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText type="text" value="#{hr.hrrNombre}" />
+											<p:inputText type="text" value="#{hr.hrrNombre}"
+												required="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
+								<p:column>
+									<p:commandButton value="X" style="width:70px" process="@this"
+										action="#{syllabus.eliminarHerramienta(hr)}"
+										update="dtHerramienta" />
+								</p:column>
 								<f:facet name="footer">
 									<p:commandButton value="+" process="@this"
-										update="dtHerramienta" action="#{syllabus.onAddNewHrr}" />
+										update="dtHerramienta" action="#{syllabus.onAddNewHrr(cn)}" />
 								</f:facet>
 							</p:dataTable>
 						</p:column>
