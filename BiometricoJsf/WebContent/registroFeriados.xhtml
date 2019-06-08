@@ -55,8 +55,7 @@
 								<div class="grid condensed" style="padding: 10px;">
 									<div class="row cells12">
 										<div class="cell colspan2">
-											<p:outputLabel id="lblFechaInicio" value="Fecha Inicio:"
-												styleClass="ui-outputlabel ui-widget"></p:outputLabel>
+											<p:outputLabel id="lblFechaInicio" value="Fecha Inicio:"></p:outputLabel>
 										</div>
 										<div class="cell colspan4">
 											<p:inputText type="date"
@@ -64,8 +63,7 @@
 											</p:inputText>
 										</div>
 										<div class="cell colspan2">
-											<p:outputLabel id="lblFechaFin" value="Fecha Fin:"
-												styleClass="ui-outputlabel ui-widget"></p:outputLabel>
+											<p:outputLabel id="lblFechaFin" value="Fecha Fin:"></p:outputLabel>
 										</div>
 										<div class="cell colspan4">
 											<p:inputText type="date" value="#{registroFeriado.fechaFin}">
@@ -86,22 +84,19 @@
 				</p:panel>
 				<!-- ******************** PANEL RESULTADOS DE BUSQUEDA************************ -->
 				<div>
-					<p:panel id="pnlResultados"
-						styleClass="ui-panel ui-widget ui-widget-content ui-corner-all">
+					<p:panel id="pnlResultados">
 						<p:panel id="pnlResultados_header">
 							<h:outputLabel value="Resultados de la búsqueda"
 								styleClass="ui-panel-title"></h:outputLabel>
 						</p:panel>
-						<p:panel id="pnlResultados_content"
-							styleClass="ui-panel-content ui-widget-content">
+						<p:panel id="pnlResultados_content">
 							<h:form id="form">
 								<p:growl id="msgs" showDetail="true" />
 								<p:dataTable id="dtsFeriados" editable="true"
 									value="#{registroFeriado.lstFeriados}" var="f" rows="10"
 									paginator="true" paginatorPosition="top"
 									paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-									rowsPerPageTemplate="5,10,15" style="text-align: center;"
-									styleClass="stui-datatable ui-widget">
+									rowsPerPageTemplate="5,10,15" style="text-align: center;">
 
 									<p:ajax event="rowEdit" listener="#{registroFeriado.onRowEdit}"
 										update="dtsFeriados" />
@@ -156,7 +151,8 @@
 										</p:cellEditor>
 									</p:column>
 									<p:column style="width:80px" headerText="Opciones">
-										<p:rowEditor />
+										<p:rowEditor editTitle="edit" cancelTitle="cancel"
+											saveTitle="save"></p:rowEditor>
 										<p:commandButton value="Eliminar" style="width:70px"
 											process="@this"
 											action="#{registroFeriado.eliminarFeriado(f)}"

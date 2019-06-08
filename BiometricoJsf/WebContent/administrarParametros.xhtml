@@ -17,11 +17,9 @@
 					styleClass="ui-panel ui-widget ui-widget-content ui-corner-all">
 					<!-- FILA NUMERO 1 -->
 					<p:panel id="pnlBusqueda_header">
-						<h:outputLabel value="Administraci&oacute;n de asistencia"
-							styleClass="ui-panel-title"></h:outputLabel>
+						<h:outputLabel value="Administraci&oacute;n de asistencia" />
 					</p:panel>
-					<p:panel id="pnlBusqueda_content"
-						styleClass="ui-panel-content ui-widget-content">
+					<p:panel id="pnlBusqueda_content">
 						<!-- TABLA RESPONSIVA -->
 						<div class="grid condensed">
 							<!-- FILA NUMERO 2 -->
@@ -30,8 +28,7 @@
 								<div class="grid condensed" style="padding: 10px;">
 									<div class="cell colspan2">
 										<p:outputLabel id="lblTittle"
-											value="P&aacute;rametros para control de asistencia."
-											styleClass="ui-outputlabel ui-widget"></p:outputLabel>
+											value="P&aacute;rametros para control de asistencia."></p:outputLabel>
 									</div>
 								</div>
 							</div>
@@ -42,7 +39,7 @@
 										<div class="row cells6">
 											<div class="cell colspan2">
 												<p:outputLabel id="lblFacultad" value="Facultad: "
-													styleClass="ui-outputlabel ui-widget" for="slcFacultad"></p:outputLabel>
+													for="slcFacultad" />
 											</div>
 											<div class="cell colspan4">
 												<p:selectOneMenu id="slcFacultad"
@@ -70,17 +67,15 @@
 									<div class="grid condensed" style="padding: 10px;">
 										<div class="row cells12">
 											<div class="cell colspan2">
-												<p:outputLabel id="lblHoraEntrada" value="Hora entrada: "
-													styleClass="ui-outputlabel ui-widget"></p:outputLabel>
+												<p:outputLabel id="lblHoraEntrada" value="Hora entrada: " />
 											</div>
 											<div class="cell colspan4">
 												<p:inputText type="time"
-													value="#{administrarParametro.horaEntrada}"></p:inputText>
+													value="#{administrarParametro.horaEntrada}" />
 											</div>
 
 											<div class="cell colspan2">
-												<p:outputLabel id="lblHoraSalida" value="Hora salida: "
-													styleClass="ui-outputlabel ui-widget"></p:outputLabel>
+												<p:outputLabel id="lblHoraSalida" value="Hora salida: "/>
 											</div>
 											<div class="cell colspan4">
 												<p:inputText type="time"

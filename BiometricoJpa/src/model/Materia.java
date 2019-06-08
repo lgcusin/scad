@@ -1,7 +1,9 @@
 package model;
 // Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -35,7 +37,7 @@ public class Materia implements java.io.Serializable {
 	private Integer mtrId;
 	private Carrera carrera;
 	private String mtrNombre;
-	private Set<MallaCurricularMateria> mallaCurricularMaterias = new HashSet<MallaCurricularMateria>(0);
+	private List<MallaCurricularMateria> mallaCurricularMaterias = new ArrayList<>(0);
 
 	public Materia() {
 	}
@@ -46,7 +48,7 @@ public class Materia implements java.io.Serializable {
 	}
 
 	public Materia(Integer mtrId, Carrera carrera, String mtrNombre,
-			Set<MallaCurricularMateria> mallaCurricularMaterias) {
+			List<MallaCurricularMateria> mallaCurricularMaterias) {
 		this.mtrId = mtrId;
 		this.carrera = carrera;
 		this.mtrNombre = mtrNombre;
@@ -84,11 +86,11 @@ public class Materia implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "materia")
-	public Set<MallaCurricularMateria> getMallaCurricularMaterias() {
+	public List<MallaCurricularMateria> getMallaCurricularMaterias() {
 		return this.mallaCurricularMaterias;
 	}
 
-	public void setMallaCurricularMaterias(Set<MallaCurricularMateria> mallaCurricularMaterias) {
+	public void setMallaCurricularMaterias(List<MallaCurricularMateria> mallaCurricularMaterias) {
 		this.mallaCurricularMaterias = mallaCurricularMaterias;
 	}
 

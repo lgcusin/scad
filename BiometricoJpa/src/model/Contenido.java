@@ -30,6 +30,10 @@ import javax.persistence.Table;
 
 public class Contenido implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer cntId;
 	private UnidadCurricular unidadCurricular;
 	private String cntDescripcion;

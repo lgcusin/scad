@@ -38,7 +38,8 @@
 											<div class="cell colspan4">
 												<p:selectOneMenu id="slcCarrera" value="#{syllabus.crrId}"
 													style="width: 100%">
-													<f:selectItem itemLabel="Seleccione Carrera..." itemValue=""></f:selectItem>
+													<f:selectItem itemLabel="Seleccione Carrera..."
+														itemValue=""></f:selectItem>
 													<f:selectItems value="#{syllabus.lstC}" var="cr"
 														itemLabel="#{cr.crrNombre}" itemValue="#{cr.crrId}" />
 												</p:selectOneMenu>
@@ -72,8 +73,7 @@
 							<p:dataTable id="dtsSyllabus" value="#{syllabus.lstM}" var="mat"
 								rows="10" paginator="true" paginatorPosition="bottom"
 								paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-								rowsPerPageTemplate="5,10,15" style="text-align: center;"
-								styleClass="stui-datatable ui-widget">
+								rowsPerPageTemplate="5,10,15" style="text-align: center;">
 								<p:column headerText="#">
 									<h:outputText value="#{mat.mtrId}" />
 								</p:column>
@@ -92,7 +92,8 @@
 					</p:panel>
 				</div>
 				<div style="margin-left: 10px; margin-right: 10px;">
-					<p:commandButton value="Regresar" action="principal.xhtml"></p:commandButton>
+					<p:commandButton value="Regresar"
+						action="#{syllabus.regresarPrincipal}"></p:commandButton>
 				</div>
 			</div>
 		</h:form>

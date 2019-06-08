@@ -73,7 +73,7 @@ public class Principal {
 	public String regParalelo() {
 		return "registroParalelo";
 	}
-	
+
 	public String regFeriado() {
 		return "registroFeriados";
 	}
@@ -111,6 +111,10 @@ public class Principal {
 
 	public String verJustificacion() {
 		return "justificacion";
+	}
+
+	public String verParametros() {
+		return "administrarParametros";
 	}
 
 	public boolean isDocente() {

@@ -1,7 +1,6 @@
 package model;
 // Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,22 +15,26 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "HERRAMIENTA")
-@NamedQuery(name = "Herramienta.findAllByCnId",query="select hrr from Herramienta as hrr where hrr.contenido.cntId=:cntId")
+@NamedQuery(name = "Herramienta.findAllByCnId", query = "select hrr from Herramienta as hrr where hrr.contenido.cntId=:cntId")
 public class Herramienta implements java.io.Serializable {
 
-	private BigDecimal hrrId;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer hrrId;
 	private Contenido contenido;
 	private String hrrNombre;
 
 	public Herramienta() {
 	}
 
-	public Herramienta(BigDecimal hrrId, Contenido contenido) {
+	public Herramienta(Integer hrrId, Contenido contenido) {
 		this.hrrId = hrrId;
 		this.contenido = contenido;
 	}
 
-	public Herramienta(BigDecimal hrrId, Contenido contenido, String hrrNombre) {
+	public Herramienta(Integer hrrId, Contenido contenido, String hrrNombre) {
 		this.hrrId = hrrId;
 		this.contenido = contenido;
 		this.hrrNombre = hrrNombre;
@@ -40,11 +43,11 @@ public class Herramienta implements java.io.Serializable {
 	@Id
 
 	@Column(name = "HRR_ID", unique = true, nullable = false, precision = 38, scale = 0)
-	public BigDecimal getHrrId() {
+	public Integer getHrrId() {
 		return this.hrrId;
 	}
 
-	public void setHrrId(BigDecimal hrrId) {
+	public void setHrrId(Integer hrrId) {
 		this.hrrId = hrrId;
 	}
 
