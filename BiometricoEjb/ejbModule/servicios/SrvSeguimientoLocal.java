@@ -12,6 +12,7 @@ import model.Carrera;
 import model.Contenido;
 import model.Herramienta;
 import model.Horario;
+import model.MallaCurricularMateria;
 import model.Materia;
 import model.Syllabo;
 import model.UnidadCurricular;
@@ -53,5 +54,14 @@ public interface SrvSeguimientoLocal {
 
 	void guardarContenido(Contenido contenido);
 
+	void guardarActualizarContenido(Contenido cnt);
+
+	Syllabo setSyllabus(MallaCurricularMateria mllCrrMateria);
+	
+	UnidadCurricular setUnidadCurricular(Syllabo syl);
+
+	MallaCurricularMateria getMallaCurricularMateria(Integer mtrId);
+
+	
 
 }

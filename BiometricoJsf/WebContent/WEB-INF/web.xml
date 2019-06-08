@@ -24,7 +24,7 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>dtictheme</param-value>
 	</context-param>
-	
+
 	<filter>
 		<filter-name>PrimeFaces FileUpload Filter</filter-name>
 		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
@@ -54,8 +54,7 @@
 
 	<listener>
 		<listener-class>
-			org.springframework.web.context.request.RequestContextListener
-		</listener-class>
+			org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 
 	<filter>

@@ -23,6 +23,10 @@ import javax.persistence.Table;
 @NamedQuery(name = "UnidadCurricular.findAllBySylId", query = "select uc from UnidadCurricular as uc where uc.syllabo.mallaCurricularMateria.materia.mtrId=:mtrId")
 public class UnidadCurricular implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer uncrId;
 	private Syllabo syllabo;
 	private String uncrDescripcion;

@@ -228,8 +228,9 @@
 					<p:inputTextarea value="#{syllabus.resultados}" style="width: 99%"></p:inputTextarea>
 				</p:panel>
 				<p:panel id="pnlProgramacionM" header="Programacion de asignatura">
-					<p:commandButton value="Agregar Unidad Curricular" action="unidadCurricular.xhtml"></p:commandButton>
-					
+					<p:commandButton value="Agregar Unidad Curricular"
+						action="#{syllabus.verUnidadCurricular}"></p:commandButton>
+
 					<p:dataGrid id="dtgUnidadesM" var="Uncr" value="#{syllabus.lstUC}"
 						columns="1">
 						<h:inputText value="#{Uncr.uncrDescripcion}"

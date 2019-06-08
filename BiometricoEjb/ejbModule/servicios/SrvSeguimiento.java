@@ -18,9 +18,11 @@ import model.Asistencia;
 import model.Aula;
 import model.Carrera;
 import model.Contenido;
+import model.Feriado;
 import model.FichaDocente;
 import model.Herramienta;
 import model.Horario;
+import model.MallaCurricularMateria;
 import model.Materia;
 import model.Syllabo;
 import model.UnidadCurricular;
@@ -233,7 +235,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 				Object[] objArray = (Object[]) obj;
 				lstCn.add((Contenido) objArray[0]);
 			}
-			
+
 		} catch (Exception e) {
 			System.out.println("No tiene contenidos:" + e);
 			return lstCn = new ArrayList<>();
@@ -335,7 +337,6 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 				System.out.println(cnt.getCntDescripcion());
 				em.merge(cnt);
 			} else {
-
 				cnt.setCntId(obtenerCntdAsistencia() + 1);
 				em.persist(cnt);
 			}
@@ -356,6 +357,93 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			return 0;
 		}
 		return id;
+	}
+
+	@Override
+	public Syllabo setSyllabus(MallaCurricularMateria mllCrrMateria) {
+		Syllabo sy = new Syllabo();
+		try {
+			sy.setSylId(mllCrrMateria.getMlcrmtId());
+			sy.setMallaCurricularMateria(mllCrrMateria);
+			em.persist(sy);
+		} catch (Exception e) {
+			System.out.println("Error al crear Syllabo " + e);
+		}
+		return sy;
+	}
+
+	@Override
+	public void guardarActualizarContenido(Contenido cnt) {
+		try {
+			if (cnt.getCntId() > 0) {
+				em.merge(cnt);
+			} else {
+				int c = obtenerSecuenciaContenido();
+				cnt.setCntId(c + 1);
+				em.persist(cnt);
+
+			}
+		} catch (Exception e) {
+			System.out.println("Error al guardarActualizarContenido: " + e);
+		}
+
+	}
+
+	private int obtenerSecuenciaContenido() {
+		int id;
+		try {
+			Query query = em.createQuery("select c.cntId from Contenido as c order by c.cntId desc");
+			query.setMaxResults(1);
+			id = (int) query.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al consultar los contenidos secuencia" + e);
+			return 0;
+		}
+		return id;
+	}
+
+	@Override
+	public UnidadCurricular setUnidadCurricular(Syllabo syl) {
+		UnidadCurricular uc = new UnidadCurricular();
+		try {
+			uc.setSyllabo(syl);
+			uc.setUncrId(obtenerSecuenciaUnidad());
+			em.persist(uc);
+		} catch (Exception e) {
+			System.out.println("Error al crear unidad-curricular" + e);
+		}
+		return uc;
+	}
+
+	private Integer obtenerSecuenciaUnidad() {
+		int id;
+		try {
+			Query query = em.createQuery("select uc.uncrId from UnidadCurricular as uc order by uc.uncrId desc");
+			query.setMaxResults(1);
+			id = (int) query.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al consultar los unidad secuencia " + e);
+			return 1;
+		}
+		return id;
+	}
+
+	@Override
+	public MallaCurricularMateria getMallaCurricularMateria(Integer mtrId) {
+		MallaCurricularMateria mcm = null;
+		try {
+			Object[] objArray;
+			Query query = em.createQuery(
+					"select mcm, m, c, f, mc from MallaCurricularMateria as mcm join mcm.materia as m join m.carrera as c join c.facultad as f join mcm.mallaCurricular as mc where m.mtrId=:mtrId");
+			query.setParameter("mtrId", mtrId);
+			Object obj = query.getSingleResult();
+			objArray = (Object[]) obj;
+			mcm = (MallaCurricularMateria) objArray[0];
+		} catch (Exception e) {
+			System.out.println("Error al obtener malla-curricular-materia " + e);
+			return mcm = new MallaCurricularMateria();
+		}
+		return mcm;
 	}
 
 }

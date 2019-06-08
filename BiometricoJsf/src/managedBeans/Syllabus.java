@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
@@ -20,6 +21,7 @@ import model.Carrera;
 import model.Contenido;
 import model.Feriado;
 import model.Herramienta;
+import model.MallaCurricularMateria;
 import model.Materia;
 import model.Syllabo;
 import model.UnidadCurricular;
@@ -36,7 +38,9 @@ public class Syllabus {
 	private SrvEmpleadoLocal srvEmp;
 
 	public Materia selectMtr;
+	public MallaCurricularMateria mllCrrMateria;
 	public Syllabo syl;
+	public UnidadCurricular uc;
 	public Carrera selectCrr;
 	public Integer crrId;
 	public List<Carrera> lstC;
@@ -64,6 +68,9 @@ public class Syllabus {
 	public String uncrObjetivo;
 	public String uncrResultado;
 
+	public List<UnidadCurricular> lstUnidadCurriculars;
+	public List<List<Actividad>> lstLActividades;
+	public List<List<Herramienta>> lstLHerramientas;
 	public List<Contenido> lstContenidos;
 	public List<Actividad> lstActividads;
 	public List<Herramienta> lstherramientas;
@@ -99,6 +106,8 @@ public class Syllabus {
 
 	public String verDetaSyllabus() {
 		selectCrr = srvSgm.getCarrera(selectMtr.getMtrId());
+		mllCrrMateria = srvSgm.getMallaCurricularMateria(selectMtr.getMtrId());
+		// selectCrr = mllCrrMateria.getMateria().getCarrera();
 		if (selectMtr.getMtrId() != null) {
 			syl = srvSgm.getSyllabus(selectMtr.getMtrId());
 			lstUC = srvSgm.listarUnidadCurricular(selectMtr.getMtrId());
@@ -106,7 +115,6 @@ public class Syllabus {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione una materia", null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-
 		if (syl != null && !lstUC.isEmpty()) {
 			for (UnidadCurricular unidad : lstUC) {
 				lstCnt = srvSgm.listarContenidos(unidad.getUncrId());
@@ -128,6 +136,11 @@ public class Syllabus {
 	public String modificar() {
 		modiSyllabo = true;
 		dataSyllabo = false;
+		syl = new Syllabo();
+		syl.setSylId(mllCrrMateria.getMlcrmtId());
+		syl.setMallaCurricularMateria(mllCrrMateria);
+		// syl = srvSgm.setSyllabus(mllCrrMateria);
+		lstUnidadCurriculars = new ArrayList<>();
 		return null;
 	}
 
@@ -146,32 +159,106 @@ public class Syllabus {
 
 	}
 
+	public String verUnidadCurricular() {
+		uc = new UnidadCurricular();
+		uc.setSyllabo(syl);
+		if (lstUnidadCurriculars.isEmpty()) {
+			uc.setUncrId(1);
+		} else {
+			uc.setUncrId(lstUnidadCurriculars.size() + 1);
+		}
+		// lstUnidadCurriculars.add(srvSgm.setUnidadCurricular(syl));
+		lstUnidadCurriculars.add(uc);
+		lstContenidos = new ArrayList<>();
+		lstLActividades = new ArrayList<>();
+		lstLHerramientas = new ArrayList<>();
+		syl.setUnidadCurriculars(lstUnidadCurriculars);
+		return "unidadCurricular";
+	}
+
 	public void onAddNewCnt() {
-		lstContenidos = new ArrayList<>(1);
 		Contenido contenido = new Contenido();
+		lstActividads = new ArrayList<>();
+		lstherramientas = new ArrayList<>();
+		contenido.setUnidadCurricular(uc);
+		if (lstContenidos.isEmpty()) {
+			contenido.setCntId(1);
+			contenido.setActividads(lstActividads);
+			contenido.setHerramientas(lstherramientas);
+			lstLActividades.add(lstActividads);
+			lstLHerramientas.add(lstherramientas);
+		} else {
+			contenido.setCntId(lstContenidos.size() + 1);
+			contenido.setActividads(lstActividads);
+			contenido.setHerramientas(lstherramientas);
+			lstLActividades.add(lstActividads);
+			lstLHerramientas.add(lstherramientas);
+		}
 		lstContenidos.add(contenido);
 	}
 
 	public void onRowEditCnt(RowEditEvent event) {
-		actualizarContenido((Contenido) event.getObject());
-		FacesMessage msg = new FacesMessage("Registro editado", ((Contenido) event.getObject()).getCntId() + "");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		Contenido cnt = (Contenido) event.getObject();
+		if (cnt.getCntDescripcion().isEmpty() || cnt.getCntDescripcion() == null) {
+			FacesMessage msg = new FacesMessage(new FacesMessage().SEVERITY_WARN, "Descripcion contenido esta vacio",
+					((Contenido) event.getObject()).getCntDescripcion());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} else {
+			lstContenidos.set(cnt.getCntId() - 1, cnt);
+			FacesMessage msg = new FacesMessage("Registro editado", ((Contenido) event.getObject()).getCntId() + "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+
 	}
 
-	private void actualizarContenido(Contenido object) {
-		// TODO Auto-generated method stub
+	public void eliminarContenido(Contenido cnt) {
+		lstContenidos.remove(cnt.getCntId() - 1);
+		lstActividads.clear();
+		lstherramientas.clear();
+		// List<Feriado> lstAux = new ArrayList<>();
+		// for (Feriado f : lstFeriados) {
+		// if (f.getFrdId() != feriado.getFrdId()) {
+		// lstAux.add(f);
+		// } else {
+		// srvFer.eliminarFeriado(f);
+		// }
+		// }
+		// /** lista restante de feriados */
+		// lstFeriados = lstAux;
+	}
+
+	private String agregarContenido(Contenido cnt) {
+		// try {
+		// if (cnt.getCntId() != null) {
+		// /** registro editado */
+		// srvSgm.guardarActualizarContenido(cnt);
+		// cnt.setUnidadCurricular(uc);
+		// } else {
+		// /** nuevo registro */
+		// srvSgm.guardarActualizarContenido(cnt);
+		// }
+		// } catch (Exception e) {
+		// System.out.println("Error al guardarActualizar Contenido: " + e);
+		// }
+		return null;
 
 	}
 
-	public void onAddNewAct() {
-		lstActividads = new ArrayList<>(1);
+	public void onAddNewAct(Contenido cnt) {
 		Actividad actividad = new Actividad();
-		lstActividads.add(actividad);
+		lstActividads = cnt.getActividads();
+		if (lstActividads.isEmpty()) {
+			actividad.setActId(1);
+		} else {
+			actividad.setActId(lstActividads.size() + 1);
+		}
+		cnt.getActividads().add(actividad);
 	}
 
 	public void onRowEditAct(RowEditEvent event) {
-		actualizarActividad((Actividad) event.getObject());
-		FacesMessage msg = new FacesMessage("Registro editado", ((Actividad) event.getObject()).getActId() + "");
+		Actividad act = (Actividad) event.getObject();
+		lstActividads.set(act.getActId() - 1, act);
+		FacesMessage msg = new FacesMessage("Actividad editado", ((Actividad) event.getObject()).getActId() + "");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
@@ -180,9 +267,53 @@ public class Syllabus {
 
 	}
 
+	public void onAddNewHrr(Contenido cnt) {
+		Herramienta herramienta = new Herramienta();
+		lstherramientas = cnt.getHerramientas();
+		if (lstherramientas.isEmpty()) {
+			herramienta.setHrrId(1);
+		} else {
+			herramienta.setHrrId(lstherramientas.size() + 1);
+		}
+		cnt.getHerramientas().add(herramienta);
+	}
+
+	public void onRowEditHrr(RowEditEvent event) {
+		Herramienta hrr = (Herramienta) event.getObject();
+		lstherramientas.set(hrr.getHrrId() - 1, hrr);
+		FacesMessage msg = new FacesMessage("Registro editado", ((Herramienta) event.getObject()).getHrrId() + "");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	private void actualizarHerramienta(Herramienta object) {
+		// TODO Auto-generated method stub
+
+	}
+
 	public void onRowCancelCnt(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Edicion cancelada", "");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowCancelAct(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Edicion cancelada", "");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowCancelHrr(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Edicion cancelada", "");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public String AddNewUnidadCurricular() {
+		lstUnidadCurriculars.add(uc);
+		lstUC = lstUnidadCurriculars;
+		return "syllabo";
+	}
+
+	public String CancelUnidadCurricular() {
+		lstUnidadCurriculars.remove(uc.getUncrId() - 1);
+		return "syllabo";
 	}
 
 	// Setters and getters
@@ -193,6 +324,14 @@ public class Syllabus {
 
 	public Materia getSelectMtr() {
 		return selectMtr;
+	}
+
+	public MallaCurricularMateria getMllCrrMateria() {
+		return mllCrrMateria;
+	}
+
+	public void setMllCrrMateria(MallaCurricularMateria mllCrrMateria) {
+		this.mllCrrMateria = mllCrrMateria;
 	}
 
 	public void setSelectMtr(Materia selectMtr) {
@@ -389,6 +528,22 @@ public class Syllabus {
 
 	public void setLstherramientas(List<Herramienta> lstherramientas) {
 		this.lstherramientas = lstherramientas;
+	}
+
+	public List<List<Actividad>> getLstLActividades() {
+		return lstLActividades;
+	}
+
+	public void setLstLActividades(List<List<Actividad>> lstLActividades) {
+		this.lstLActividades = lstLActividades;
+	}
+
+	public List<List<Herramienta>> getLstLHerramientas() {
+		return lstLHerramientas;
+	}
+
+	public void setLstLHerramientas(List<List<Herramienta>> lstLHerramientas) {
+		this.lstLHerramientas = lstLHerramientas;
 	}
 
 }

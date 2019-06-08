@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="model.Materia"/>
-<fullyQualifiedTypeName name="model.Aula"/>
-<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
 <fullyQualifiedTypeName name="com.sun.javafx.iio.ImageStorage.ImageType"/>
 <fullyQualifiedTypeName name="org.primefaces.model.DefaultStreamedContent"/>
 <fullyQualifiedTypeName name="model.HuellaDactilar"/>
-<fullyQualifiedTypeName name="javax.faces.application.FacesMessage.Severity"/>
 <fullyQualifiedTypeName name="org.primefaces.context.RequestContext"/>
 <fullyQualifiedTypeName name="javax.sound.midi.Soundbank"/>
 <fullyQualifiedTypeName name="org.primefaces.model.UploadedFile"/>
@@ -37,27 +33,31 @@
 <fullyQualifiedTypeName name="org.apache.poi.xssf.usermodel.XSSFWorkbook"/>
 <fullyQualifiedTypeName name="javax.ws.rs.Consumes"/>
 <fullyQualifiedTypeName name="model.Asistencia"/>
-<fullyQualifiedTypeName name="javax.faces.application.FacesMessage"/>
 <fullyQualifiedTypeName name="javax.faces.context.FacesContext"/>
-<fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="model.FichaDocente"/>
 <fullyQualifiedTypeName name="model.Horario"/>
 <fullyQualifiedTypeName name="org.primefaces.model.CheckboxTreeNode"/>
-<fullyQualifiedTypeName name="model.UnidadCurricular"/>
 <fullyQualifiedTypeName name="org.primefaces.model.DefaultTreeNode"/>
 <fullyQualifiedTypeName name="org.primefaces.model.TreeNode"/>
 <fullyQualifiedTypeName name="javax.faces.bean.RequestScoped"/>
 <fullyQualifiedTypeName name="javax.faces.bean.SessionScoped"/>
 <fullyQualifiedTypeName name="javax.persistence.Query"/>
 <fullyQualifiedTypeName name="model.Usuario"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="model.DetallePuesto"/>
 <fullyQualifiedTypeName name="model.Carrera"/>
 <fullyQualifiedTypeName name="servicios.SrvLogin"/>
 <fullyQualifiedTypeName name="javax.faces.bean.ViewScoped"/>
 <fullyQualifiedTypeName name="javax.faces.event.ComponentSystemEvent"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="model.MallaCurricularMateria"/>
+<fullyQualifiedTypeName name="model.Syllabo"/>
+<fullyQualifiedTypeName name="model.UnidadCurricular"/>
+<fullyQualifiedTypeName name="javax.faces.application.FacesMessage.Severity"/>
+<fullyQualifiedTypeName name="javax.faces.application.FacesMessage"/>
 <fullyQualifiedTypeName name="model.Contenido"/>
 <fullyQualifiedTypeName name="model.Herramienta"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="model.Actividad"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>

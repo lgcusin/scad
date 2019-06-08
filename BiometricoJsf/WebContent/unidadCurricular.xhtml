@@ -86,27 +86,61 @@
 									</p:inputText>
 								</f:facet>
 							</p:cellEditor>
-							<h:inputText value="#{cn.cntDescripcion}"></h:inputText>
 						</p:column>
 						<p:column
 							headerText="ACTIVIDADES DE TRABAJO AUTÓNOMO, ACTIVIDADES DE INVESTIGACIÓN Y DE VINCULACIÓN CON LA SOCIEDAD">
-							<p:dataGrid value="#{cn.actividads}" var="ac" columns="1">
-								<h:inputText value="#{ac.actDescripcion}"></h:inputText>
-							</p:dataGrid>
+							<p:dataTable id="dtActividad" value="#{cn.actividads}" var="ac"
+								editable="true">
+								<p:ajax event="rowEdit" listener="#{syllabus.onRowEditAct}"
+									update="frmRegistroFeriado:dtContenido dtActividad" />
+								<p:ajax event="rowEditCancel"
+									listener="#{syllabus.onRowCancelAct}"
+									update="frmRegistroFeriado:dtContenido dtActividad" />
+								<p:column>
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{ac.actDescripcion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText type="text" value="#{ac.actDescripcion}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								<f:facet name="footer">
+									<p:commandButton value="+" process="@this" update="dtActividad"
+										action="#{syllabus.onAddNewAct}" />
+								</f:facet>
+							</p:dataTable>
 						</p:column>
 						<p:column headerText="MECANISMOS DE EVALUACIÓN">
-							<p:dataGrid id="dtgHerramienta" value="#{cn.herramientas}" var="hr" columns="1">
-								<h:inputText value="#{hr.hrrNombre}"></h:inputText>
-							</p:dataGrid>
-							<p:commandButton value="+" process="@this" update="dtgHerramienta"
-								action="#{syllabus.onAddNewAct}" />
+							<p:dataTable id="dtHerramienta"
+								value="#{cn.herramientas}" var="hr" editable="true">
+								<p:ajax event="rowEdit" listener="#{syllabus.onRowEditHrr}"
+									update="frmRegistroFeriado:dtContenido dtHerramienta" />
+								<p:ajax event="rowEditCancel"
+									listener="#{syllabus.onRowCancelHrr}"
+									update="frmRegistroFeriado:dtContenido dtHerramienta" />
+								<p:column>
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{hr.hrrNombre}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText type="text" value="#{hr.hrrNombre}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								<f:facet name="footer">
+									<p:commandButton value="+" process="@this"
+										update="dtHerramienta" action="#{syllabus.onAddNewHrr}" />
+								</f:facet>
+							</p:dataTable>
 						</p:column>
 						<p:column headerText="Opciones">
 							<p:rowEditor editTitle="edit" cancelTitle="cancel"
-								saveTitle="save" ></p:rowEditor>
-							<!-- <p:commandButton value="X" style="width:70px"
-								process="@this" action="#{registroFeriado.eliminarFeriado(f)}"
-								update="dtContenido" /> -->
+								saveTitle="save"></p:rowEditor>
+							<p:commandButton value="X" style="width:70px" process="@this"
+								action="#{syllabus.eliminarContenido(cn)}" update="dtContenido" />
 						</p:column>
 						<f:facet name="footer">
 							<p:commandButton value="+" process="@this" update="dtContenido"

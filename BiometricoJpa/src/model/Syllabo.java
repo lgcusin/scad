@@ -1,7 +1,9 @@
 package model;
 // Generated 29/01/2019 23:19:04 by Hibernate Tools 4.3.5.Final
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,7 +33,7 @@ public class Syllabo implements java.io.Serializable {
 	private String sylObjetivoEspc;
 	private String sylContribucionProfesional;
 	private String sylResultadosAprendizaje;
-	private Set<UnidadCurricular> unidadCurriculars = new HashSet<UnidadCurricular>(0);
+	private List<UnidadCurricular> unidadCurriculars = new ArrayList<>();
 
 	public Syllabo() {
 	}
@@ -44,7 +46,7 @@ public class Syllabo implements java.io.Serializable {
 	public Syllabo(Integer sylId, MallaCurricularMateria mallaCurricularMateria, String sylDescripcion,
 			Integer sylHorasClase, Integer sylHorasTutorias, String sylObjetivoGnrl, String sylObjetivoEspc,
 			String sylContribucionProfesional, String sylResultadosAprendizaje,
-			Set<UnidadCurricular> unidadCurriculars) {
+			List<UnidadCurricular> unidadCurriculars) {
 		this.sylId = sylId;
 		this.mallaCurricularMateria = mallaCurricularMateria;
 		this.sylDescripcion = sylDescripcion;
@@ -142,11 +144,11 @@ public class Syllabo implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "syllabo")
-	public Set<UnidadCurricular> getUnidadCurriculars() {
+	public List<UnidadCurricular> getUnidadCurriculars() {
 		return this.unidadCurriculars;
 	}
 
-	public void setUnidadCurriculars(Set<UnidadCurricular> unidadCurriculars) {
+	public void setUnidadCurriculars(List<UnidadCurricular> unidadCurriculars) {
 		this.unidadCurriculars = unidadCurriculars;
 	}
 

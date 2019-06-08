@@ -24,6 +24,10 @@ import javax.persistence.Table;
 
 public class Actividad implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer actId;
 	private Contenido contenido;
 	private String actDescripcion;
