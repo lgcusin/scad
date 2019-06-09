@@ -81,9 +81,11 @@
 									<h:outputText value="#{cn.cntDescripcion}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText type="text" placeholder="CONTENIDOS"
-										maxlength="200" value="#{cn.cntDescripcion}">
+									<p:inputText id="inpCntDescripcion" type="text"
+										placeholder="CONTENIDOS" maxlength="200"
+										value="#{cn.cntDescripcion}" required="true">
 									</p:inputText>
+									<!-- <p:message for="inpCntDescripcion"  /> -->
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
@@ -109,7 +111,7 @@
 								</p:column>
 								<p:column>
 									<p:commandButton value="X" style="width:70px" process="@this"
-										action="#{syllabus.eliminarActividad(ac)}"
+										action="#{syllabus.eliminarActividad(cn,ac)}"
 										update="dtActividad" />
 								</p:column>
 								<f:facet name="footer">
@@ -139,7 +141,7 @@
 								</p:column>
 								<p:column>
 									<p:commandButton value="X" style="width:70px" process="@this"
-										action="#{syllabus.eliminarHerramienta(hr)}"
+										action="#{syllabus.eliminarHerramienta(cn,hr)}"
 										update="dtHerramienta" />
 								</p:column>
 								<f:facet name="footer">

@@ -68,6 +68,7 @@
 				</p:panelGrid>
 			</p:panel>
 			<p:panel header="PROGRAMACIÓN CURRICULAR">
+				<p:messages id="msgTable" for="inpCntDescripcion" />
 				<p:panelGrid columns="1">
 					<p:dataTable id="dtContenido" editable="true"
 						value="#{syllabus.lstContenidos}" var="cn">
@@ -81,17 +82,18 @@
 									<h:outputText value="#{cn.cntDescripcion}" />
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText type="text" placeholder="CONTENIDOS"
-										maxlength="200" value="#{cn.cntDescripcion}">
+									<p:inputText id="inpCntDescripcion" type="text"
+										placeholder="CONTENIDOS" maxlength="200"
+										value="#{cn.cntDescripcion}" required="true">
 									</p:inputText>
+									<!-- <p:message for="inpCntDescripcion"  /> -->
 								</f:facet>
 							</p:cellEditor>
-							<!-- <h:inputText value="#{cn.cntDescripcion}"></h:inputText> -->
 						</p:column>
 						<p:column
 							headerText="ACTIVIDADES DE TRABAJO AUTÓNOMO, ACTIVIDADES DE INVESTIGACIÓN Y DE VINCULACIÓN CON LA SOCIEDAD">
-							<p:dataTable id="dtActividad" value="#{cn.actividads}"
-								var="ac" editable="true">
+							<p:dataTable id="dtActividad" value="#{cn.actividads}" var="ac"
+								editable="true">
 								<p:ajax event="rowEdit" listener="#{syllabus.onRowEditAct}"
 									update="frmRegistroFeriado:dtContenido dtActividad" />
 								<p:ajax event="rowEditCancel"
@@ -103,20 +105,25 @@
 											<h:outputText value="#{ac.actDescripcion}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText type="text" value="#{ac.actDescripcion}" />
+											<p:inputText type="text" value="#{ac.actDescripcion}"
+												required="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-								<!-- <h:inputText value="#{ac.actDescripcion}"></h:inputText> -->
+								<p:column>
+									<p:commandButton value="X" style="width:70px" process="@this"
+										action="#{syllabus.eliminarActividad(ac)}"
+										update="dtActividad" />
+								</p:column>
 								<f:facet name="footer">
 									<p:commandButton value="+" process="@this" update="dtActividad"
-										action="#{syllabus.onAddNewAct}" />
+										action="#{syllabus.onAddNewAct(cn)}" />
 								</f:facet>
 							</p:dataTable>
 						</p:column>
 						<p:column headerText="MECANISMOS DE EVALUACIÓN">
-							<p:dataTable id="dtHerramienta"
-								value="#{syllabus.lstherramientas}" var="hr" editable="true">
+							<p:dataTable id="dtHerramienta" value="#{cn.herramientas}"
+								var="hr" editable="true">
 								<p:ajax event="rowEdit" listener="#{syllabus.onRowEditHrr}"
 									update="frmRegistroFeriado:dtContenido dtHerramienta" />
 								<p:ajax event="rowEditCancel"
@@ -128,14 +135,19 @@
 											<h:outputText value="#{hr.hrrNombre}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText type="text" value="#{hr.hrrNombre}" />
+											<p:inputText type="text" value="#{hr.hrrNombre}"
+												required="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-								<!-- <h:inputText value="#{hr.hrrNombre}"></h:inputText> -->
+								<p:column>
+									<p:commandButton value="X" style="width:70px" process="@this"
+										action="#{syllabus.eliminarHerramienta(hr)}"
+										update="dtHerramienta" />
+								</p:column>
 								<f:facet name="footer">
 									<p:commandButton value="+" process="@this"
-										update="dtHerramienta" action="#{syllabus.onAddNewHrr}" />
+										update="dtHerramienta" action="#{syllabus.onAddNewHrr(cn)}" />
 								</f:facet>
 							</p:dataTable>
 						</p:column>
@@ -143,8 +155,7 @@
 							<p:rowEditor editTitle="edit" cancelTitle="cancel"
 								saveTitle="save"></p:rowEditor>
 							<p:commandButton value="X" style="width:70px" process="@this"
-								action="#{syllabus.eliminarContenido(cn)}"
-								update="dtContenido" />
+								action="#{syllabus.eliminarContenido(cn)}" update="dtContenido" />
 						</p:column>
 						<f:facet name="footer">
 							<p:commandButton value="+" process="@this" update="dtContenido"

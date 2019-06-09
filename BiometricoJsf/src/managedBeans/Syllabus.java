@@ -171,7 +171,6 @@ public class Syllabus {
 		lstUnidadCurriculars.add(uc);
 		lstContenidos = new ArrayList<>();
 		lstLActividades = new ArrayList<>();
-		lstLHerramientas = new ArrayList<>();
 		syl.setUnidadCurriculars(lstUnidadCurriculars);
 		return "unidadCurricular";
 	}
@@ -186,29 +185,44 @@ public class Syllabus {
 			contenido.setActividads(lstActividads);
 			contenido.setHerramientas(lstherramientas);
 			lstLActividades.add(lstActividads);
-			lstLHerramientas.add(lstherramientas);
 		} else {
 			contenido.setCntId(lstContenidos.size() + 1);
 			contenido.setActividads(lstActividads);
 			contenido.setHerramientas(lstherramientas);
 			lstLActividades.add(lstActividads);
-			lstLHerramientas.add(lstherramientas);
 		}
 		lstContenidos.add(contenido);
+		uc.setContenidos(lstContenidos);
 	}
 
 	public void onRowEditCnt(RowEditEvent event) {
 		Contenido cnt = (Contenido) event.getObject();
-		if (cnt.getCntDescripcion().isEmpty() || cnt.getCntDescripcion() == null) {
+		if (cnt.getCntDescripcion().isEmpty() || cnt.getCntDescripcion() == null
+				|| cnt.getCntDescripcion().trim() == "") {
 			FacesMessage msg = new FacesMessage(new FacesMessage().SEVERITY_WARN, "Descripcion contenido esta vacio",
 					((Contenido) event.getObject()).getCntDescripcion());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} else {
 			lstActividads = cnt.getActividads();
 			for (Actividad actividad : lstAct) {
-				System.out.println(actividad.getActId() + " : " + actividad.getActDescripcion());
+				if (actividad.getActDescripcion().trim() == "") {
+					lstActividads.remove(actividad);
+				}
 			}
-			lstContenidos.set(cnt.getCntId() - 1, cnt);
+			cnt.setActividads(lstActividads);
+			lstherramientas = cnt.getHerramientas();
+			for (Herramienta herramienta : lstHrr) {
+				if (herramienta.getHrrNombre().trim() == "") {
+					lstherramientas.remove(herramienta);
+				}
+			}
+			cnt.setHerramientas(lstherramientas);
+			for(Contenido contenido: lstContenidos ){
+				if(cnt.equals(contenido)){
+					lstContenidos.set(lstContenidos.indexOf(contenido), cnt);
+				}
+			}
+			uc.setContenidos(lstContenidos);
 			FacesMessage msg = new FacesMessage("Registro editado", ((Contenido) event.getObject()).getCntId() + "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
@@ -216,9 +230,10 @@ public class Syllabus {
 	}
 
 	public void eliminarContenido(Contenido cnt) {
-		lstContenidos.remove(cnt.getCntId() - 1);
-		lstActividads.clear();
-		lstherramientas.clear();
+		uc.getContenidos().remove(cnt);
+		lstContenidos = uc.getContenidos();
+		// lstActividads.clear();
+		// lstherramientas.clear();
 		// List<Feriado> lstAux = new ArrayList<>();
 		// for (Feriado f : lstFeriados) {
 		// if (f.getFrdId() != feriado.getFrdId()) {
@@ -231,12 +246,14 @@ public class Syllabus {
 		// lstFeriados = lstAux;
 	}
 
-	public void eliminarActividad(Actividad act) {
-		lstActividads.remove(act.getActId() - 1);
+	public void eliminarActividad(Contenido cnt, Actividad act) {
+		cnt.getActividads().remove(act);
+		// lstActividads.remove(act);
 	}
 
-	public void eliminarHerramienta(Herramienta hrr) {
-		lstherramientas.remove(hrr.getHrrId() - 1);
+	public void eliminarHerramienta(Contenido cnt, Herramienta hrr) {
+		cnt.getHerramientas().remove(hrr);
+		// lstherramientas.remove(hrr);
 	}
 
 	private String agregarContenido(Contenido cnt) {

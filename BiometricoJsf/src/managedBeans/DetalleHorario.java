@@ -216,7 +216,7 @@ public class DetalleHorario {
 		h.setMateria(new Materia());
 
 		// h.setParalelo(new Paralelo());
-		if (lstHorarios.size() == 0) {
+		if (lstHorarios != null && lstHorarios.size() == 0) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			RegistroParalelo rp = context.getApplication().evaluateExpressionGet(context, "#{registroPrl}",
 					RegistroParalelo.class);
