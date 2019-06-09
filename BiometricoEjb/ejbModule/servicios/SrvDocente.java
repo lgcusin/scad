@@ -1,35 +1,29 @@
 package servicios;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.sql.rowset.serial.SerialException;
 
-import model.Actividad;
 import model.Asistencia;
 import model.Contenido;
 import model.FichaDocente;
+import model.Horario;
 import model.HuellaDactilar;
 import model.TipoHuella;
-import model.Usuario;
 
 /**
  * Session Bean implementation class DocenteBean
@@ -148,10 +142,29 @@ public class SrvDocente implements SrvDocenteLocal {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Asistencia> listarAsistencia(Integer fdId) {
-		List<Asistencia> listAs = em.createNamedQuery("Asistencia.findAll", Asistencia.class)
-				.setParameter("fcdcId", fdId).getResultList();
+	public List<Asistencia> listarAsistencia(Integer fdId, Date inicio, Date fin, Integer crrId) {
+		List<Asistencia> listAs = null;
+		try {
+			Query query;
+			if (crrId != null) {
+				query = em.createQuery(
+						"select a from Asistencia as a join a.horario as h join h.materia as m join m.carrera as crr"
+								+ " where a.fichaDocente.fcdcId=:fcdcId and a.assFecha >= :fechaInicio and a.assFecha <= :fechaFin and crr.crrId=:crrId"
+								+ " order by a.assFecha asc");
+				query.setParameter("crrId", crrId);
+			} else {
+				query = em.createQuery(
+						"select a from Asistencia as a where a.fichaDocente.fcdcId=:fcdcId and a.assFecha >= :fechaInicio and a.assFecha <= :fechaFin order by a.assFecha asc");
+			}
+			query.setParameter("fcdcId", fdId);
+			query.setParameter("fechaInicio", inicio);
+			query.setParameter("fechaFin", fin);
+			listAs = (List<Asistencia>) query.getResultList();
+		} catch (Exception e) {
+			System.out.println("Error al consultar Feriados: " + e);
+		}
 		return listAs;
 	}
 
@@ -175,4 +188,34 @@ public class SrvDocente implements SrvDocenteLocal {
 		return lstAc;
 	}
 
+	/**
+	 * Permite buscar el horario asignado a la asistencia a justificar
+	 * 
+	 * @param assId
+	 * @return
+	 */
+	@Override
+	public Horario findHorarioByAsistencia(Integer assId) {
+		Horario horario = null;
+		try {
+			Query query = em.createQuery("select h from Asistencia as a join a.horario as h where a.assId=:assId");
+			query.setParameter("assId", assId);
+			horario = (Horario) query.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al consultar Feriados: " + e);
+		}
+		return horario;
+	}
+
+	/**
+	 * Actualiza la asistencia justificada
+	 * 
+	 * @param asistencia
+	 */
+	@Override
+	public void actualizarAsistencia(Asistencia asistencia) {
+		if (asistencia.getAssId() != null) {
+			em.merge(asistencia);
+		}
+	}
 }
