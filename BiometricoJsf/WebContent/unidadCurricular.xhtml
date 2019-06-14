@@ -16,11 +16,11 @@
 
 				<p:panelGrid columns="2">
 					<h:outputLabel value="NOMBRE DE LA UNIDAD:"></h:outputLabel>
-					<h:inputText value="#{syllabus.uncrNombre}"></h:inputText>
+					<h:inputText value="#{syllabus.uncrNombre}" required="true" />
 					<h:outputLabel value="OBJETIVO DE LA UNIDAD:"></h:outputLabel>
-					<h:inputText value="#{syllabus.uncrObjetivo}"></h:inputText>
+					<h:inputText value="#{syllabus.uncrObjetivo}" required="true" />
 					<h:outputLabel value="RESULTADOS DE APRENDIZAJE DE LA UNIDAD:"></h:outputLabel>
-					<h:inputText value="#{syllabus.uncrResultado}"></h:inputText>
+					<h:inputText value="#{syllabus.uncrResultado}" required="true" />
 				</p:panelGrid>
 				<br />
 				<p:panelGrid>
@@ -164,7 +164,7 @@
 				</p:panelGrid>
 			</p:panel>
 			<p:commandButton id="bntAgregar" value="Agregar"
-				action="syllabo.xhtml"></p:commandButton>
+				action="#{syllabus.AddNewUnidadCurricular}"></p:commandButton>
 			<p:commandButton id="bntCancelar" value="Cancelar"
 				action="syllabo.xhtml"></p:commandButton>
 		</h:form>

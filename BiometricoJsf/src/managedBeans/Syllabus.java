@@ -69,8 +69,6 @@ public class Syllabus {
 	public String uncrResultado;
 
 	public List<UnidadCurricular> lstUnidadCurriculars;
-	public List<List<Actividad>> lstLActividades;
-	public List<List<Herramienta>> lstLHerramientas;
 	public List<Contenido> lstContenidos;
 	public List<Actividad> lstActividads;
 	public List<Herramienta> lstherramientas;
@@ -170,7 +168,6 @@ public class Syllabus {
 		// lstUnidadCurriculars.add(srvSgm.setUnidadCurricular(syl));
 		lstUnidadCurriculars.add(uc);
 		lstContenidos = new ArrayList<>();
-		lstLActividades = new ArrayList<>();
 		syl.setUnidadCurriculars(lstUnidadCurriculars);
 		return "unidadCurricular";
 	}
@@ -184,12 +181,10 @@ public class Syllabus {
 			contenido.setCntId(1);
 			contenido.setActividads(lstActividads);
 			contenido.setHerramientas(lstherramientas);
-			lstLActividades.add(lstActividads);
 		} else {
 			contenido.setCntId(lstContenidos.size() + 1);
 			contenido.setActividads(lstActividads);
 			contenido.setHerramientas(lstherramientas);
-			lstLActividades.add(lstActividads);
 		}
 		lstContenidos.add(contenido);
 		uc.setContenidos(lstContenidos);
@@ -197,28 +192,27 @@ public class Syllabus {
 
 	public void onRowEditCnt(RowEditEvent event) {
 		Contenido cnt = (Contenido) event.getObject();
-		if (cnt.getCntDescripcion().isEmpty() || cnt.getCntDescripcion() == null
-				|| cnt.getCntDescripcion().trim() == "") {
-			FacesMessage msg = new FacesMessage(new FacesMessage().SEVERITY_WARN, "Descripcion contenido esta vacio",
-					((Contenido) event.getObject()).getCntDescripcion());
+		if (cnt.getCntDescripcion() == null || cnt.getCntDescripcion().trim().isEmpty()) {
+			FacesMessage msg = new FacesMessage(new FacesMessage().SEVERITY_WARN,
+					"La descripcion del contenido " + (lstContenidos.indexOf(cnt) + 1) + " esta vacio", null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} else {
 			lstActividads = cnt.getActividads();
-			for (Actividad actividad : lstAct) {
+			for (Actividad actividad : lstActividads) {
 				if (actividad.getActDescripcion().trim() == "") {
 					lstActividads.remove(actividad);
 				}
 			}
 			cnt.setActividads(lstActividads);
 			lstherramientas = cnt.getHerramientas();
-			for (Herramienta herramienta : lstHrr) {
+			for (Herramienta herramienta : lstherramientas) {
 				if (herramienta.getHrrNombre().trim() == "") {
 					lstherramientas.remove(herramienta);
 				}
 			}
 			cnt.setHerramientas(lstherramientas);
-			for(Contenido contenido: lstContenidos ){
-				if(cnt.equals(contenido)){
+			for (Contenido contenido : lstContenidos) {
+				if (cnt.equals(contenido)) {
 					lstContenidos.set(lstContenidos.indexOf(contenido), cnt);
 				}
 			}
@@ -335,8 +329,32 @@ public class Syllabus {
 	}
 
 	public String AddNewUnidadCurricular() {
-		lstUnidadCurriculars.add(uc);
+		if (lstContenidos.isEmpty()) {
+			FacesMessage msg = new FacesMessage(new FacesMessage().SEVERITY_WARN, "Debe contener uno o mas contenidos",
+					null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		} else {
+			for (Contenido cnt : lstContenidos) {
+				if (cnt.getCntDescripcion() == null || cnt.getCntDescripcion().trim().isEmpty()) {
+					FacesMessage msg = new FacesMessage(new FacesMessage().SEVERITY_WARN,
+							"Los contenidos no deben ser vacios", null);
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+					return null;
+				}
+			}
+		}
+
+		uc.setUncrDescripcion("UNIDAD CURRICULAR No. " + Integer.toString(lstUnidadCurriculars.indexOf(uc) + 1));
+		uc.setUncrNombre(uncrNombre);
+		uc.setUncrObjetivo(uncrObjetivo);
+		uc.setUncrResultado(uncrResultado);
+		lstUnidadCurriculars.set(lstUnidadCurriculars.indexOf(uc), uc);
 		lstUC = lstUnidadCurriculars;
+		uncrNombre = null;
+		uncrObjetivo = null;
+		uncrResultado = null;
+		uc = null;
 		return "syllabo";
 	}
 
@@ -557,22 +575,6 @@ public class Syllabus {
 
 	public void setLstherramientas(List<Herramienta> lstherramientas) {
 		this.lstherramientas = lstherramientas;
-	}
-
-	public List<List<Actividad>> getLstLActividades() {
-		return lstLActividades;
-	}
-
-	public void setLstLActividades(List<List<Actividad>> lstLActividades) {
-		this.lstLActividades = lstLActividades;
-	}
-
-	public List<List<Herramienta>> getLstLHerramientas() {
-		return lstLHerramientas;
-	}
-
-	public void setLstLHerramientas(List<List<Herramienta>> lstLHerramientas) {
-		this.lstLHerramientas = lstLHerramientas;
 	}
 
 }
