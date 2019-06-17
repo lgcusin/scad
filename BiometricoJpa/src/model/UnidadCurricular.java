@@ -2,7 +2,6 @@ package model;
 // Generated 29/01/2019 23:19:04 by Hibernate Tools 4.3.5.Final
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
@@ -34,7 +33,14 @@ public class UnidadCurricular implements java.io.Serializable {
 	private String uncrNombre;
 	private String uncrObjetivo;
 	private String uncrResultado;
-	private List<Contenido> contenidos = new ArrayList<Contenido>(0);
+	private Integer uncrHorasTeoricas;
+	private Integer uncrHorasPracticas;
+	private Integer uncrHorasPresenciales;
+	private Integer uncrHorasVirtual;
+	private List<Metodologia> metodologias = new ArrayList<>();
+	private List<RecursosDidacticos> recursosDidacticoses = new ArrayList<>();
+	private List<Contenido> contenidos = new ArrayList<>();
+	private List<Bibliografia> bibliografias = new ArrayList<>();
 
 	public UnidadCurricular() {
 	}
@@ -45,7 +51,10 @@ public class UnidadCurricular implements java.io.Serializable {
 	}
 
 	public UnidadCurricular(Integer uncrId, Syllabo syllabo, String uncrDescripcion, Integer uncrTotalHoras,
-			String uncrNombre, String uncrObjetivo, String uncrResultado, List<Contenido> contenidos) {
+			String uncrNombre, String uncrObjetivo, String uncrResultado, Integer uncrHorasTeoricas,
+			Integer uncrHorasPracticas, Integer uncrHorasPresenciales, Integer uncrHorasVirtual,
+			List<Metodologia> metodologias, List<RecursosDidacticos> recursosDidacticoses, List<Contenido> contenidos,
+			List<Bibliografia> bibliografias) {
 		this.uncrId = uncrId;
 		this.syllabo = syllabo;
 		this.uncrDescripcion = uncrDescripcion;
@@ -53,7 +62,14 @@ public class UnidadCurricular implements java.io.Serializable {
 		this.uncrNombre = uncrNombre;
 		this.uncrObjetivo = uncrObjetivo;
 		this.uncrResultado = uncrResultado;
+		this.uncrHorasTeoricas = uncrHorasTeoricas;
+		this.uncrHorasPracticas = uncrHorasPracticas;
+		this.uncrHorasPresenciales = uncrHorasPresenciales;
+		this.uncrHorasVirtual = uncrHorasVirtual;
+		this.metodologias = metodologias;
+		this.recursosDidacticoses = recursosDidacticoses;
 		this.contenidos = contenidos;
+		this.bibliografias = bibliografias;
 	}
 
 	@Id
@@ -122,6 +138,60 @@ public class UnidadCurricular implements java.io.Serializable {
 		this.uncrResultado = uncrResultado;
 	}
 
+	@Column(name = "UNCR_HORAS_TEORICAS", precision = 22, scale = 0)
+	public Integer getUncrHorasTeoricas() {
+		return this.uncrHorasTeoricas;
+	}
+
+	public void setUncrHorasTeoricas(Integer uncrHorasTeoricas) {
+		this.uncrHorasTeoricas = uncrHorasTeoricas;
+	}
+
+	@Column(name = "UNCR_HORAS_PRACTICAS", precision = 22, scale = 0)
+	public Integer getUncrHorasPracticas() {
+		return this.uncrHorasPracticas;
+	}
+
+	public void setUncrHorasPracticas(Integer uncrHorasPracticas) {
+		this.uncrHorasPracticas = uncrHorasPracticas;
+	}
+
+	@Column(name = "UNCR_HORAS_PRESENCIALES", precision = 22, scale = 0)
+	public Integer getUncrHorasPresenciales() {
+		return this.uncrHorasPresenciales;
+	}
+
+	public void setUncrHorasPresenciales(Integer uncrHorasPresenciales) {
+		this.uncrHorasPresenciales = uncrHorasPresenciales;
+	}
+
+	@Column(name = "UNCR_HORAS_VIRTUAL", precision = 22, scale = 0)
+	public Integer getUncrHorasVirtual() {
+		return this.uncrHorasVirtual;
+	}
+
+	public void setUncrHorasVirtual(Integer uncrHorasVirtual) {
+		this.uncrHorasVirtual = uncrHorasVirtual;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "unidadCurricular")
+	public List<Metodologia> getMetodologias() {
+		return this.metodologias;
+	}
+
+	public void setMetodologias(List<Metodologia> metodologias) {
+		this.metodologias = metodologias;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "unidadCurricular")
+	public List<RecursosDidacticos> getRecursosDidacticoses() {
+		return this.recursosDidacticoses;
+	}
+
+	public void setRecursosDidacticoses(List<RecursosDidacticos> recursosDidacticoses) {
+		this.recursosDidacticoses = recursosDidacticoses;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "unidadCurricular")
 	public List<Contenido> getContenidos() {
 		return this.contenidos;
@@ -129,6 +199,15 @@ public class UnidadCurricular implements java.io.Serializable {
 
 	public void setContenidos(List<Contenido> contenidos) {
 		this.contenidos = contenidos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "unidadCurricular")
+	public List<Bibliografia> getBibliografias() {
+		return this.bibliografias;
+	}
+
+	public void setBibliografias(List<Bibliografia> bibliografias) {
+		this.bibliografias = bibliografias;
 	}
 
 }

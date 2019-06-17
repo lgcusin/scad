@@ -23,6 +23,7 @@ import model.Feriado;
 import model.Herramienta;
 import model.MallaCurricularMateria;
 import model.Materia;
+import model.Metodologia;
 import model.Syllabo;
 import model.UnidadCurricular;
 import servicios.SrvEmpleadoLocal;
@@ -53,7 +54,6 @@ public class Syllabus {
 	public boolean modiSyllabo;
 
 	public String tipAsignatura;
-	public String nmbDocente;
 	public String prdAcademico;
 	public int nmrHoras;
 	public int nmrTutorias;
@@ -68,10 +68,16 @@ public class Syllabus {
 	public String uncrObjetivo;
 	public String uncrResultado;
 
+	public int numHorasTeoricas;
+	public int numHorasPracticas;
+	public int numHorasPresenciales;
+	public int numHorasVirtual;
+
 	public List<UnidadCurricular> lstUnidadCurriculars;
 	public List<Contenido> lstContenidos;
 	public List<Actividad> lstActividads;
 	public List<Herramienta> lstherramientas;
+	public List<Metodologia> lstMetodologias;
 
 	@PostConstruct
 	public void init() {
@@ -134,12 +140,57 @@ public class Syllabus {
 	public String modificar() {
 		modiSyllabo = true;
 		dataSyllabo = false;
+		return null;
+	}
+
+	public String crearSyllabus() {
+		modiSyllabo = true;
+		dataSyllabo = false;
 		syl = new Syllabo();
-		syl.setSylId(mllCrrMateria.getMlcrmtId());
-		syl.setMallaCurricularMateria(mllCrrMateria);
-		// syl = srvSgm.setSyllabus(mllCrrMateria);
 		lstUnidadCurriculars = new ArrayList<>();
 		return null;
+	}
+
+	public String guardarSyllabus() {
+		mllCrrMateria = srvSgm.getMallaCurricularMateria(selectMtr.getMtrId());
+		syl.setSylId(mllCrrMateria.getMlcrmtId());
+		syl.setMallaCurricularMateria(mllCrrMateria);
+		syl.setSylHorasClase(nmrHoras);
+		syl.setSylHorasTutorias(nmrTutorias);
+		syl.setSylDescripcion(descripcion);
+		syl.setSylObjetivoGnrl(objGeneral);
+		syl.setSylObjetivoEspc(objEspecifico);
+		syl.setSylResultadosAprendizaje(resultados);
+		syl.setSylContribucionProfesional(contribucion);
+		srvSgm.guardarActualizarSyllabus(syl);
+		if (!lstUC.isEmpty()) {
+			for (UnidadCurricular unidad : lstUC) {
+				srvSgm.guardarActualizarUnidad(unidad);
+				for (Contenido contenido : unidad.getContenidos()) {
+					srvSgm.guardarContenido(contenido);
+					for (Actividad actividad : contenido.getActividads()) {
+						srvSgm.guardarActualizarActividad(actividad);
+
+					}
+					for (Herramienta herramienta : contenido.getHerramientas()) {
+						srvSgm.guardarActualizarHerramienta(herramienta);
+					}
+				}
+			}
+		} else {
+			FacesMessage msg = new FacesMessage(new FacesMessage().SEVERITY_WARN,
+					"No existe unidad curricular para guardar", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		}
+		syl = null;
+		lstUC = null;
+		descripcion = null;
+		objGeneral = null;
+		objEspecifico = null;
+		contribucion = null;
+		resultados = null;
+		return "syllabus";
 	}
 
 	public String regresar() {
@@ -160,14 +211,9 @@ public class Syllabus {
 	public String verUnidadCurricular() {
 		uc = new UnidadCurricular();
 		uc.setSyllabo(syl);
-		if (lstUnidadCurriculars.isEmpty()) {
-			uc.setUncrId(1);
-		} else {
-			uc.setUncrId(lstUnidadCurriculars.size() + 1);
-		}
-		// lstUnidadCurriculars.add(srvSgm.setUnidadCurricular(syl));
 		lstUnidadCurriculars.add(uc);
 		lstContenidos = new ArrayList<>();
+		lstMetodologias = new ArrayList<>();
 		syl.setUnidadCurriculars(lstUnidadCurriculars);
 		return "unidadCurricular";
 	}
@@ -177,15 +223,8 @@ public class Syllabus {
 		lstActividads = new ArrayList<>();
 		lstherramientas = new ArrayList<>();
 		contenido.setUnidadCurricular(uc);
-		if (lstContenidos.isEmpty()) {
-			contenido.setCntId(1);
-			contenido.setActividads(lstActividads);
-			contenido.setHerramientas(lstherramientas);
-		} else {
-			contenido.setCntId(lstContenidos.size() + 1);
-			contenido.setActividads(lstActividads);
-			contenido.setHerramientas(lstherramientas);
-		}
+		contenido.setActividads(lstActividads);
+		contenido.setHerramientas(lstherramientas);
 		lstContenidos.add(contenido);
 		uc.setContenidos(lstContenidos);
 	}
@@ -194,19 +233,23 @@ public class Syllabus {
 		Contenido cnt = (Contenido) event.getObject();
 		if (cnt.getCntDescripcion() == null || cnt.getCntDescripcion().trim().isEmpty()) {
 			FacesMessage msg = new FacesMessage(new FacesMessage().SEVERITY_WARN,
-					"La descripcion del contenido " + (lstContenidos.indexOf(cnt) + 1) + " esta vacio", null);
+					"La descripcion del contenido esta vacio", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} else if (cnt.getActividads().isEmpty() || cnt.getHerramientas().isEmpty()) {
+			FacesMessage msg = new FacesMessage(new FacesMessage().SEVERITY_WARN,
+					"Actividades y/o Mecanismos no pueden estar vacias", null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} else {
 			lstActividads = cnt.getActividads();
 			for (Actividad actividad : lstActividads) {
-				if (actividad.getActDescripcion().trim() == "") {
+				if (actividad.getActDescripcion().trim().isEmpty()) {
 					lstActividads.remove(actividad);
 				}
 			}
 			cnt.setActividads(lstActividads);
 			lstherramientas = cnt.getHerramientas();
 			for (Herramienta herramienta : lstherramientas) {
-				if (herramienta.getHrrNombre().trim() == "") {
+				if (herramienta.getHrrNombre().trim().isEmpty()) {
 					lstherramientas.remove(herramienta);
 				}
 			}
@@ -226,55 +269,20 @@ public class Syllabus {
 	public void eliminarContenido(Contenido cnt) {
 		uc.getContenidos().remove(cnt);
 		lstContenidos = uc.getContenidos();
-		// lstActividads.clear();
-		// lstherramientas.clear();
-		// List<Feriado> lstAux = new ArrayList<>();
-		// for (Feriado f : lstFeriados) {
-		// if (f.getFrdId() != feriado.getFrdId()) {
-		// lstAux.add(f);
-		// } else {
-		// srvFer.eliminarFeriado(f);
-		// }
-		// }
-		// /** lista restante de feriados */
-		// lstFeriados = lstAux;
 	}
 
 	public void eliminarActividad(Contenido cnt, Actividad act) {
 		cnt.getActividads().remove(act);
-		// lstActividads.remove(act);
 	}
 
 	public void eliminarHerramienta(Contenido cnt, Herramienta hrr) {
 		cnt.getHerramientas().remove(hrr);
-		// lstherramientas.remove(hrr);
-	}
-
-	private String agregarContenido(Contenido cnt) {
-		// try {
-		// if (cnt.getCntId() != null) {
-		// /** registro editado */
-		// srvSgm.guardarActualizarContenido(cnt);
-		// cnt.setUnidadCurricular(uc);
-		// } else {
-		// /** nuevo registro */
-		// srvSgm.guardarActualizarContenido(cnt);
-		// }
-		// } catch (Exception e) {
-		// System.out.println("Error al guardarActualizar Contenido: " + e);
-		// }
-		return null;
-
 	}
 
 	public void onAddNewAct(Contenido cnt) {
 		Actividad actividad = new Actividad();
+		actividad.setContenido(cnt);
 		lstActividads = cnt.getActividads();
-		if (lstActividads.isEmpty()) {
-			actividad.setActId(1);
-		} else {
-			actividad.setActId(lstActividads.size() + 1);
-		}
 		cnt.getActividads().add(actividad);
 	}
 
@@ -285,19 +293,10 @@ public class Syllabus {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	private void actualizarActividad(Actividad object) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public void onAddNewHrr(Contenido cnt) {
 		Herramienta herramienta = new Herramienta();
+		herramienta.setContenido(cnt);
 		lstherramientas = cnt.getHerramientas();
-		if (lstherramientas.isEmpty()) {
-			herramienta.setHrrId(1);
-		} else {
-			herramienta.setHrrId(lstherramientas.size() + 1);
-		}
 		cnt.getHerramientas().add(herramienta);
 	}
 
@@ -306,11 +305,6 @@ public class Syllabus {
 		lstherramientas.set(hrr.getHrrId() - 1, hrr);
 		FacesMessage msg = new FacesMessage("Registro editado", ((Herramienta) event.getObject()).getHrrId() + "");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-	private void actualizarHerramienta(Herramienta object) {
-		// TODO Auto-generated method stub
-
 	}
 
 	public void onRowCancelCnt(RowEditEvent event) {
@@ -349,17 +343,30 @@ public class Syllabus {
 		uc.setUncrNombre(uncrNombre);
 		uc.setUncrObjetivo(uncrObjetivo);
 		uc.setUncrResultado(uncrResultado);
+		uc.setUncrHorasTeoricas(numHorasTeoricas);
+		uc.setUncrHorasPracticas(numHorasPracticas);
+		uc.setUncrHorasPresenciales(numHorasPresenciales);
+		uc.setUncrHorasVirtual(numHorasVirtual);
 		lstUnidadCurriculars.set(lstUnidadCurriculars.indexOf(uc), uc);
 		lstUC = lstUnidadCurriculars;
 		uncrNombre = null;
 		uncrObjetivo = null;
 		uncrResultado = null;
+		numHorasTeoricas = 0;
+		numHorasPresenciales = 0;
+		numHorasPracticas = 0;
+		numHorasVirtual = 0;
 		uc = null;
 		return "syllabo";
 	}
 
 	public String CancelUnidadCurricular() {
-		lstUnidadCurriculars.remove(uc.getUncrId() - 1);
+		lstUnidadCurriculars.remove(uc);
+		// lstUnidadCurriculars.remove(uc.getUncrId() - 1);
+		uncrNombre = null;
+		uncrObjetivo = null;
+		uncrResultado = null;
+		uc = null;
 		return "syllabo";
 	}
 
@@ -457,14 +464,6 @@ public class Syllabus {
 		this.tipAsignatura = tipAsignatura;
 	}
 
-	public String getNmbDocente() {
-		return nmbDocente;
-	}
-
-	public void setNmbDocente(String nmbDocente) {
-		this.nmbDocente = nmbDocente;
-	}
-
 	public String getPrdAcademico() {
 		return prdAcademico;
 	}
@@ -553,6 +552,38 @@ public class Syllabus {
 		this.uncrResultado = uncrResultado;
 	}
 
+	public int getNumHorasTeoricas() {
+		return numHorasTeoricas;
+	}
+
+	public void setNumHorasTeoricas(int numHorasTeoricas) {
+		this.numHorasTeoricas = numHorasTeoricas;
+	}
+
+	public int getNumHorasPracticas() {
+		return numHorasPracticas;
+	}
+
+	public void setNumHorasPracticas(int numHorasPracticas) {
+		this.numHorasPracticas = numHorasPracticas;
+	}
+
+	public int getNumHorasPresenciales() {
+		return numHorasPresenciales;
+	}
+
+	public void setNumHorasPresenciales(int numHorasPresenciales) {
+		this.numHorasPresenciales = numHorasPresenciales;
+	}
+
+	public int getNumHorasVirtual() {
+		return numHorasVirtual;
+	}
+
+	public void setNumHorasVirtual(int numHorasVirtual) {
+		this.numHorasVirtual = numHorasVirtual;
+	}
+
 	public List<Contenido> getLstContenidos() {
 		return lstContenidos;
 	}
@@ -575,6 +606,14 @@ public class Syllabus {
 
 	public void setLstherramientas(List<Herramienta> lstherramientas) {
 		this.lstherramientas = lstherramientas;
+	}
+
+	public List<Metodologia> getLstMetodologias() {
+		return lstMetodologias;
+	}
+
+	public void setLstMetodologias(List<Metodologia> lstMetodologias) {
+		this.lstMetodologias = lstMetodologias;
 	}
 
 }

@@ -58,9 +58,15 @@ public interface SrvSeguimientoLocal {
 
 	Syllabo setSyllabus(MallaCurricularMateria mllCrrMateria);
 	
-	UnidadCurricular setUnidadCurricular(Syllabo syl);
+	void guardarActualizarUnidad(UnidadCurricular uncr);
 
 	MallaCurricularMateria getMallaCurricularMateria(Integer mtrId);
+
+	void guardarActualizarSyllabus(Syllabo syl);
+
+	void guardarActualizarActividad(Actividad actividad);
+
+	void guardarActualizarHerramienta(Herramienta herramienta);
 
 	
 

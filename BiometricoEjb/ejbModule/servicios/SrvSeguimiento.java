@@ -36,6 +36,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	@PersistenceContext
 	EntityManager em;
 	private static String[] camposParametros = { "ENTRADA", "SALIDA" };
+
 	public SrvSeguimiento() {
 		// TODO Auto-generated constructor stub
 	}
@@ -134,10 +135,10 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			return Integer.parseInt(lstParametro.get(index).getPrmValor().substring(3, 5));
 		}
 	}
-	
+
 	@SuppressWarnings({ "deprecation", "unchecked" })
 	@Override
-	public Horario verificarHorario(Date fecha, Integer fcdcId, Boolean tipo, Integer fclId) {				
+	public Horario verificarHorario(Date fecha, Integer fcdcId, Boolean tipo, Integer fclId) {
 		List<Parametro> lstP = new ArrayList<>();
 		int parametroEntrada = 0;
 		int parametroSalida = 0;
@@ -363,7 +364,6 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	public void guardarContenido(Contenido cnt) {
 		try {
 			if (cnt.getCntId() != null) {
-				System.out.println(cnt.getCntDescripcion());
 				em.merge(cnt);
 			} else {
 				cnt.setCntId(obtenerCntdAsistencia() + 1);
@@ -432,16 +432,18 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	}
 
 	@Override
-	public UnidadCurricular setUnidadCurricular(Syllabo syl) {
-		UnidadCurricular uc = new UnidadCurricular();
+	public void guardarActualizarUnidad(UnidadCurricular uncr) {
 		try {
-			uc.setSyllabo(syl);
-			uc.setUncrId(obtenerSecuenciaUnidad());
-			em.persist(uc);
+			if (uncr.getUncrId() == null) {
+				int u = obtenerSecuenciaUnidad();
+				uncr.setUncrId(u + 1);
+				em.persist(uncr);
+			} else {
+				em.merge(uncr);
+			}
 		} catch (Exception e) {
-			System.out.println("Error al crear unidad-curricular" + e);
+			System.out.println("Error al guardarActualizarUnidadCurricular: " + e);
 		}
-		return uc;
 	}
 
 	private Integer obtenerSecuenciaUnidad() {
@@ -452,7 +454,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			id = (int) query.getSingleResult();
 		} catch (Exception e) {
 			System.out.println("Error al consultar los unidad secuencia " + e);
-			return 1;
+			return 0;
 		}
 		return id;
 	}
@@ -473,6 +475,92 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			return mcm = new MallaCurricularMateria();
 		}
 		return mcm;
+	}
+
+	@Override
+	public void guardarActualizarSyllabus(Syllabo syl) {
+		try {
+			if (syl.getSylId() > 0) {
+				em.merge(syl);
+			} else {
+				int s = obtenerSecuenciaSyllabo();
+				syl.setSylId(s + 1);
+				em.persist(syl);
+			}
+		} catch (Exception e) {
+			System.out.println("Error al guardarActualizarSyllabo: " + e);
+		}
+
+	}
+
+	private int obtenerSecuenciaSyllabo() {
+		int id;
+		try {
+			Query query = em.createQuery("select syl.sylId from Syllabo as syl order by syl.sylId desc");
+			query.setMaxResults(1);
+			id = (int) query.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al consultar los secuencia syllabus" + e);
+			return 1;
+		}
+		return id;
+	}
+
+	@Override
+	public void guardarActualizarActividad(Actividad act) {
+		try {
+			if (act.getActId() == null) {
+				int a = obtenerSecuenciaActividad();
+				act.setActId(a + 1);
+				em.persist(act);
+			} else {
+				em.merge(act);
+			}
+		} catch (Exception e) {
+			System.out.println("Error al guardarActualizarActividad: " + e);
+		}
+	}
+
+	private int obtenerSecuenciaActividad() {
+		int id;
+		try {
+			Query query = em.createQuery("select act.actId from Actividad as act order by act.actId desc");
+			query.setMaxResults(1);
+			id = (int) query.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al consultar los secuencia actividad" + e);
+			return 1;
+		}
+		return id;
+	}
+
+	@Override
+	public void guardarActualizarHerramienta(Herramienta her) {
+		try {
+			if (her.getHrrId() == null) {
+				int h = obtenerSecuenciaHerramienta();
+				her.setHrrId(h + 1);
+				em.persist(her);
+			} else {
+				em.merge(her);
+			}
+		} catch (Exception e) {
+			System.out.println("Error al guardarActualizarHerramienta: " + e);
+		}
+
+	}
+
+	private int obtenerSecuenciaHerramienta() {
+		int id;
+		try {
+			Query query = em.createQuery("select her.hrrId from Herramienta as her order by her.hrrId desc");
+			query.setMaxResults(1);
+			id = (int) query.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al consultar los secuencia herramienta" + e);
+			return 1;
+		}
+		return id;
 	}
 
 }

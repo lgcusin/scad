@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">>
+	<ui:define name="cuerpo">
+		<h:form id="frmRegistroFeriado" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<p:panel header="DATOS INFORMATIVOS DE LA UNIDAD CURRICULAR ">
+
+				<p:panelGrid columns="2">
+					<h:outputLabel value="NOMBRE DE LA UNIDAD:"></h:outputLabel>
+					<h:inputText value="#{syllabus.uncrNombre}" required="true" />
+					<h:outputLabel value="OBJETIVO DE LA UNIDAD:"></h:outputLabel>
+					<h:inputText value="#{syllabus.uncrObjetivo}" required="true" />
+					<h:outputLabel value="RESULTADOS DE APRENDIZAJE DE LA UNIDAD:"></h:outputLabel>
+					<h:inputText value="#{syllabus.uncrResultado}" required="true" />
+				</p:panelGrid>
+				<br />
+				<p:panelGrid>
+					<p:row>
+						<p:column rowspan="4">
+							<h:outputLabel value="CÁLCULO DE HORAS DE LA UNIDAD:"></h:outputLabel>
+						</p:column>
+						<p:column rowspan="2">
+							<h:outputLabel value="ESCENARIOS DE APRENDIZAJE"></h:outputLabel>
+						</p:column>
+						<p:column>
+							<h:outputLabel value="N°. Horas aprendizaje Teóricas"></h:outputLabel>
+						</p:column>
+						<p:column>
+							<h:inputText value="#{syllabus.numHorasTeoricas}"></h:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="N°. Horas Prácticas- laboratorio"></h:outputLabel>
+						</p:column>
+						<p:column>
+							<h:inputText value="#{syllabus.numHorasPracticas}"></h:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column rowspan="2">
+							<h:outputLabel value="TUTORIAS"></h:outputLabel>
+						</p:column>
+						<p:column>
+							<h:outputLabel value="N°. Horas Presenciales"></h:outputLabel>
+						</p:column>
+						<p:column>
+							<h:inputText value="#{syllabus.numHorasPresenciales}"></h:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="N°. Horas Aprendizaje Aula Virtual"></h:outputLabel>
+						</p:column>
+						<p:column>
+							<h:inputText value="#{syllabus.numHorasVirtual}"></h:inputText>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+			<p:panel header="PROGRAMACIÓN CURRICULAR">
+				<p:dataTable id="dtContenido" editable="true"
+					value="#{syllabus.lstContenidos}" var="cn">
+					<p:ajax event="rowEdit" listener="#{syllabus.onRowEditCnt}"
+						update="dtContenido" />
+					<p:ajax event="rowEditCancel" listener="#{syllabus.onRowCancelCnt}"
+						update="dtContenido" />
+					<p:column headerText="CONTENIDOS">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{cn.cntDescripcion}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText id="inpCntDescripcion" type="text"
+									placeholder="CONTENIDOS" maxlength="200"
+									value="#{cn.cntDescripcion}" required="true">
+								</p:inputText>
+								<!-- <p:message for="inpCntDescripcion"  /> -->
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column
+						headerText="ACTIVIDADES DE TRABAJO AUTÓNOMO, ACTIVIDADES DE INVESTIGACIÓN Y DE VINCULACIÓN CON LA SOCIEDAD">
+						<p:dataTable id="dtActividad" value="#{cn.actividads}" var="ac"
+							editable="true">
+							<p:ajax event="rowEdit" listener="#{syllabus.onRowEditAct}"
+								update="frmRegistroFeriado:dtContenido dtActividad" />
+							<p:ajax event="rowEditCancel"
+								listener="#{syllabus.onRowCancelAct}"
+								update="frmRegistroFeriado:dtContenido dtActividad" />
+							<p:column>
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{ac.actDescripcion}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText type="text" value="#{ac.actDescripcion}"
+											required="true" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column>
+								<p:commandButton value="X" style="width:70px" process="@this"
+									action="#{syllabus.eliminarActividad(cn,ac)}"
+									update="dtActividad" />
+							</p:column>
+							<f:facet name="footer">
+								<p:commandButton value="+" process="@this" update="dtActividad"
+									action="#{syllabus.onAddNewAct(cn)}" />
+							</f:facet>
+						</p:dataTable>
+					</p:column>
+					<p:column headerText="MECANISMOS DE EVALUACIÓN">
+						<p:dataTable id="dtHerramienta" value="#{cn.herramientas}"
+							var="hr" editable="true">
+							<p:ajax event="rowEdit" listener="#{syllabus.onRowEditHrr}"
+								update="frmRegistroFeriado:dtContenido dtHerramienta" />
+							<p:ajax event="rowEditCancel"
+								listener="#{syllabus.onRowCancelHrr}"
+								update="frmRegistroFeriado:dtContenido dtHerramienta" />
+							<p:column>
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{hr.hrrNombre}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText type="text" value="#{hr.hrrNombre}"
+											required="true" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column>
+								<p:commandButton value="X" style="width:70px" process="@this"
+									action="#{syllabus.eliminarHerramienta(cn,hr)}"
+									update="dtHerramienta" />
+							</p:column>
+							<f:facet name="footer">
+								<p:commandButton value="+" process="@this"
+									update="dtHerramienta" action="#{syllabus.onAddNewHrr(cn)}" />
+							</f:facet>
+						</p:dataTable>
+					</p:column>
+					<p:column headerText="Opciones">
+						<p:rowEditor editTitle="edit" cancelTitle="cancel"
+							saveTitle="save"></p:rowEditor>
+						<p:commandButton value="X" style="width:70px" process="@this"
+							action="#{syllabus.eliminarContenido(cn)}" update="dtContenido" />
+					</p:column>
+					<f:facet name="footer">
+						<p:commandButton value="Añadir Contenido" process="@this"
+							update="dtContenido" action="#{syllabus.onAddNewCnt}" />
+					</f:facet>
+				</p:dataTable>
+
+				
+			</p:panel>
+			<p:commandButton id="bntAgregar" value="Agregar"
+				action="#{syllabus.AddNewUnidadCurricular}"></p:commandButton>
+			<p:commandButton id="bntCancelar" value="Cancelar"
+				action="#{syllabus.CancelUnidadCurricular}"></p:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

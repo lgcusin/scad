@@ -2,30 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="modificar" key="selection"/>
+		<item value="Integer" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="BigDecimal"/>
+			<item value="Set"/>
 			<item value="modificar"/>
 			<item value="obtener"/>
 			<item value="registro editado"/>
-			<item value="BigDecimal"/>
 			<item value="principal"/>
 			<item value="MdfSyllabus"/>
 			<item value="asistencia"/>
-			<item value="processUpload"/>
 		</list>
 		<list key="replacehistory">
 			<item value="Integer"/>
+			<item value="List"/>
 			<item value="regAss"/>
 			<item value=""/>
 			<item value="registroPrl"/>
 			<item value="detallePrl"/>
 			<item value="paralelo"/>
 			<item value="detalleAct"/>
-			<item value="List"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

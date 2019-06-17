@@ -32,6 +32,9 @@
 		<class>model.FichaEmpleado</class>
 		<class>model.Semestre</class>
 		<class>model.Facultad</class>
+		<class>model.Metodologia</class>
+		<class>model.Bibliografia</class>
+		<class>model.RecursosDidacticos</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
 			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" />
