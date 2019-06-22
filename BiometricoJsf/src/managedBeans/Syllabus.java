@@ -17,6 +17,7 @@ import javax.faces.event.ComponentSystemEvent;
 import org.primefaces.event.RowEditEvent;
 
 import model.Actividad;
+import model.Bibliografia;
 import model.Carrera;
 import model.Contenido;
 import model.Feriado;
@@ -55,29 +56,13 @@ public class Syllabus {
 
 	public String tipAsignatura;
 	public String prdAcademico;
-	public int nmrHoras;
-	public int nmrTutorias;
-
-	public String descripcion;
-	public String objGeneral;
-	public String objEspecifico;
-	public String contribucion;
-	public String resultados;
-
-	public String uncrNombre;
-	public String uncrObjetivo;
-	public String uncrResultado;
-
-	public int numHorasTeoricas;
-	public int numHorasPracticas;
-	public int numHorasPresenciales;
-	public int numHorasVirtual;
 
 	public List<UnidadCurricular> lstUnidadCurriculars;
 	public List<Contenido> lstContenidos;
 	public List<Actividad> lstActividads;
 	public List<Herramienta> lstherramientas;
 	public List<Metodologia> lstMetodologias;
+	public List<Bibliografia> lstBibliografias;
 
 	@PostConstruct
 	public void init() {
@@ -145,7 +130,6 @@ public class Syllabus {
 
 	public String crearSyllabus() {
 		modiSyllabo = true;
-		dataSyllabo = false;
 		syl = new Syllabo();
 		lstUnidadCurriculars = new ArrayList<>();
 		return null;
@@ -155,13 +139,7 @@ public class Syllabus {
 		mllCrrMateria = srvSgm.getMallaCurricularMateria(selectMtr.getMtrId());
 		syl.setSylId(mllCrrMateria.getMlcrmtId());
 		syl.setMallaCurricularMateria(mllCrrMateria);
-		syl.setSylHorasClase(nmrHoras);
-		syl.setSylHorasTutorias(nmrTutorias);
-		syl.setSylDescripcion(descripcion);
-		syl.setSylObjetivoGnrl(objGeneral);
-		syl.setSylObjetivoEspc(objEspecifico);
-		syl.setSylResultadosAprendizaje(resultados);
-		syl.setSylContribucionProfesional(contribucion);
+
 		srvSgm.guardarActualizarSyllabus(syl);
 		if (!lstUC.isEmpty()) {
 			for (UnidadCurricular unidad : lstUC) {
@@ -183,18 +161,19 @@ public class Syllabus {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return null;
 		}
+		dataSyllabo = true;
 		syl = null;
 		lstUC = null;
-		descripcion = null;
-		objGeneral = null;
-		objEspecifico = null;
-		contribucion = null;
-		resultados = null;
 		return "syllabus";
 	}
 
 	public String regresar() {
+		dataSyllabo = false;
 		modiSyllabo = false;
+		if (syl != null) {
+			syl = null;
+			lstUC = null;
+		}
 		return "syllabus";
 	}
 
@@ -227,6 +206,34 @@ public class Syllabus {
 		contenido.setHerramientas(lstherramientas);
 		lstContenidos.add(contenido);
 		uc.setContenidos(lstContenidos);
+	}
+
+	public void onAddNewAct(Contenido cnt) {
+		Actividad actividad = new Actividad();
+		actividad.setContenido(cnt);
+		lstActividads = cnt.getActividads();
+		cnt.getActividads().add(actividad);
+	}
+
+	public void onAddNewHrr(Contenido cnt) {
+		Herramienta herramienta = new Herramienta();
+		herramienta.setContenido(cnt);
+		lstherramientas = cnt.getHerramientas();
+		cnt.getHerramientas().add(herramienta);
+	}
+
+	public void onAddNewMtd() {
+		Metodologia mtd = new Metodologia();
+		mtd.setUnidadCurricular(uc);
+		lstMetodologias = uc.getMetodologias();
+		uc.getMetodologias().add(mtd);
+	}
+
+	public void onAddNewBbl() {
+		Bibliografia bbl = new Bibliografia();
+		bbl.setUnidadCurricular(uc);
+		lstBibliografias = uc.getBibliografias();
+		uc.getBibliografias().add(bbl);
 	}
 
 	public void onRowEditCnt(RowEditEvent event) {
@@ -266,6 +273,34 @@ public class Syllabus {
 
 	}
 
+	public void onRowEditAct(RowEditEvent event) {
+		Actividad act = (Actividad) event.getObject();
+		// lstActividads.set(act.getActId() - 1, act);
+		FacesMessage msg = new FacesMessage("Actividad editado", ((Actividad) event.getObject()).getActId() + "");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowEditHrr(RowEditEvent event) {
+		Herramienta hrr = (Herramienta) event.getObject();
+		// lstherramientas.set(hrr.getHrrId() - 1, hrr);
+		FacesMessage msg = new FacesMessage("Registro editado", ((Herramienta) event.getObject()).getHrrId() + "");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowEditMtd(RowEditEvent event) {
+		Metodologia mtd = (Metodologia) event.getObject();
+		// lstherramientas.set(hrr.getHrrId() - 1, hrr);
+		FacesMessage msg = new FacesMessage("Registro editado", ((Metodologia) event.getObject()).getMtdId() + "");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowEditBbl(RowEditEvent event) {
+		Bibliografia bbl = (Bibliografia) event.getObject();
+		// lstherramientas.set(hrr.getHrrId() - 1, hrr);
+		FacesMessage msg = new FacesMessage("Registro editado", ((Bibliografia) event.getObject()).getBblId() + "");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
 	public void eliminarContenido(Contenido cnt) {
 		uc.getContenidos().remove(cnt);
 		lstContenidos = uc.getContenidos();
@@ -279,34 +314,6 @@ public class Syllabus {
 		cnt.getHerramientas().remove(hrr);
 	}
 
-	public void onAddNewAct(Contenido cnt) {
-		Actividad actividad = new Actividad();
-		actividad.setContenido(cnt);
-		lstActividads = cnt.getActividads();
-		cnt.getActividads().add(actividad);
-	}
-
-	public void onRowEditAct(RowEditEvent event) {
-		Actividad act = (Actividad) event.getObject();
-		lstActividads.set(act.getActId() - 1, act);
-		FacesMessage msg = new FacesMessage("Actividad editado", ((Actividad) event.getObject()).getActId() + "");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-	public void onAddNewHrr(Contenido cnt) {
-		Herramienta herramienta = new Herramienta();
-		herramienta.setContenido(cnt);
-		lstherramientas = cnt.getHerramientas();
-		cnt.getHerramientas().add(herramienta);
-	}
-
-	public void onRowEditHrr(RowEditEvent event) {
-		Herramienta hrr = (Herramienta) event.getObject();
-		lstherramientas.set(hrr.getHrrId() - 1, hrr);
-		FacesMessage msg = new FacesMessage("Registro editado", ((Herramienta) event.getObject()).getHrrId() + "");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
 	public void onRowCancelCnt(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Edicion cancelada", "");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -318,6 +325,16 @@ public class Syllabus {
 	}
 
 	public void onRowCancelHrr(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Edicion cancelada", "");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowCancelMtd(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Edicion cancelada", "");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowCancelBbl(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Edicion cancelada", "");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
@@ -340,32 +357,14 @@ public class Syllabus {
 		}
 
 		uc.setUncrDescripcion("UNIDAD CURRICULAR No. " + Integer.toString(lstUnidadCurriculars.indexOf(uc) + 1));
-		uc.setUncrNombre(uncrNombre);
-		uc.setUncrObjetivo(uncrObjetivo);
-		uc.setUncrResultado(uncrResultado);
-		uc.setUncrHorasTeoricas(numHorasTeoricas);
-		uc.setUncrHorasPracticas(numHorasPracticas);
-		uc.setUncrHorasPresenciales(numHorasPresenciales);
-		uc.setUncrHorasVirtual(numHorasVirtual);
 		lstUnidadCurriculars.set(lstUnidadCurriculars.indexOf(uc), uc);
 		lstUC = lstUnidadCurriculars;
-		uncrNombre = null;
-		uncrObjetivo = null;
-		uncrResultado = null;
-		numHorasTeoricas = 0;
-		numHorasPresenciales = 0;
-		numHorasPracticas = 0;
-		numHorasVirtual = 0;
 		uc = null;
 		return "syllabo";
 	}
 
 	public String CancelUnidadCurricular() {
 		lstUnidadCurriculars.remove(uc);
-		// lstUnidadCurriculars.remove(uc.getUncrId() - 1);
-		uncrNombre = null;
-		uncrObjetivo = null;
-		uncrResultado = null;
 		uc = null;
 		return "syllabo";
 	}
@@ -456,6 +455,14 @@ public class Syllabus {
 
 	/** Metodos para agregar datos del fomulario del sillabo **/
 
+	public UnidadCurricular getUc() {
+		return uc;
+	}
+
+	public void setUc(UnidadCurricular uc) {
+		this.uc = uc;
+	}
+
 	public String getTipAsignatura() {
 		return tipAsignatura;
 	}
@@ -470,118 +477,6 @@ public class Syllabus {
 
 	public void setPrdAcademico(String prdAcademico) {
 		this.prdAcademico = prdAcademico;
-	}
-
-	public int getNmrHoras() {
-		return nmrHoras;
-	}
-
-	public void setNmrHoras(int nmrHoras) {
-		this.nmrHoras = nmrHoras;
-	}
-
-	public int getNmrTutorias() {
-		return nmrTutorias;
-	}
-
-	public void setNmrTutorias(int nmrTutorias) {
-		this.nmrTutorias = nmrTutorias;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public String getObjGeneral() {
-		return objGeneral;
-	}
-
-	public void setObjGeneral(String objGeneral) {
-		this.objGeneral = objGeneral;
-	}
-
-	public String getObjEspecifico() {
-		return objEspecifico;
-	}
-
-	public void setObjEspecifico(String objEspecifico) {
-		this.objEspecifico = objEspecifico;
-	}
-
-	public String getContribucion() {
-		return contribucion;
-	}
-
-	public void setContribucion(String contribucion) {
-		this.contribucion = contribucion;
-	}
-
-	public String getResultados() {
-		return resultados;
-	}
-
-	public void setResultados(String resultados) {
-		this.resultados = resultados;
-	}
-
-	public String getUncrNombre() {
-		return uncrNombre;
-	}
-
-	public void setUncrNombre(String uncrNombre) {
-		this.uncrNombre = uncrNombre;
-	}
-
-	public String getUncrObjetivo() {
-		return uncrObjetivo;
-	}
-
-	public void setUncrObjetivo(String uncrObjetivo) {
-		this.uncrObjetivo = uncrObjetivo;
-	}
-
-	public String getUncrResultado() {
-		return uncrResultado;
-	}
-
-	public void setUncrResultado(String uncrResultado) {
-		this.uncrResultado = uncrResultado;
-	}
-
-	public int getNumHorasTeoricas() {
-		return numHorasTeoricas;
-	}
-
-	public void setNumHorasTeoricas(int numHorasTeoricas) {
-		this.numHorasTeoricas = numHorasTeoricas;
-	}
-
-	public int getNumHorasPracticas() {
-		return numHorasPracticas;
-	}
-
-	public void setNumHorasPracticas(int numHorasPracticas) {
-		this.numHorasPracticas = numHorasPracticas;
-	}
-
-	public int getNumHorasPresenciales() {
-		return numHorasPresenciales;
-	}
-
-	public void setNumHorasPresenciales(int numHorasPresenciales) {
-		this.numHorasPresenciales = numHorasPresenciales;
-	}
-
-	public int getNumHorasVirtual() {
-		return numHorasVirtual;
-	}
-
-	public void setNumHorasVirtual(int numHorasVirtual) {
-		this.numHorasVirtual = numHorasVirtual;
 	}
 
 	public List<Contenido> getLstContenidos() {
@@ -614,6 +509,14 @@ public class Syllabus {
 
 	public void setLstMetodologias(List<Metodologia> lstMetodologias) {
 		this.lstMetodologias = lstMetodologias;
+	}
+
+	public List<Bibliografia> getLstBibliografias() {
+		return lstBibliografias;
+	}
+
+	public void setLstBibliografias(List<Bibliografia> lstBibliografias) {
+		this.lstBibliografias = lstBibliografias;
 	}
 
 }
