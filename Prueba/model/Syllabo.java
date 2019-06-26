@@ -1,5 +1,5 @@
 package model;
-// Generated 16/06/2019 20:52:12 by Hibernate Tools 4.3.5.Final
+// Generated 22/06/2019 19:40:53 by Hibernate Tools 4.3.5.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -30,6 +30,7 @@ public class Syllabo implements java.io.Serializable {
 	private String sylObjetivoEspc;
 	private String sylContribucionProfesional;
 	private String sylResultadosAprendizaje;
+	private Set<Resultados> resultadoses = new HashSet<Resultados>(0);
 	private Set<UnidadCurricular> unidadCurriculars = new HashSet<UnidadCurricular>(0);
 
 	public Syllabo() {
@@ -42,7 +43,7 @@ public class Syllabo implements java.io.Serializable {
 
 	public Syllabo(BigDecimal sylId, MallaCurricularMateria mallaCurricularMateria, String sylDescripcion,
 			BigDecimal sylHorasClase, BigDecimal sylHorasTutorias, String sylObjetivoGnrl, String sylObjetivoEspc,
-			String sylContribucionProfesional, String sylResultadosAprendizaje,
+			String sylContribucionProfesional, String sylResultadosAprendizaje, Set<Resultados> resultadoses,
 			Set<UnidadCurricular> unidadCurriculars) {
 		this.sylId = sylId;
 		this.mallaCurricularMateria = mallaCurricularMateria;
@@ -53,6 +54,7 @@ public class Syllabo implements java.io.Serializable {
 		this.sylObjetivoEspc = sylObjetivoEspc;
 		this.sylContribucionProfesional = sylContribucionProfesional;
 		this.sylResultadosAprendizaje = sylResultadosAprendizaje;
+		this.resultadoses = resultadoses;
 		this.unidadCurriculars = unidadCurriculars;
 	}
 
@@ -138,6 +140,15 @@ public class Syllabo implements java.io.Serializable {
 
 	public void setSylResultadosAprendizaje(String sylResultadosAprendizaje) {
 		this.sylResultadosAprendizaje = sylResultadosAprendizaje;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "syllabo")
+	public Set<Resultados> getResultadoses() {
+		return this.resultadoses;
+	}
+
+	public void setResultadoses(Set<Resultados> resultadoses) {
+		this.resultadoses = resultadoses;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "syllabo")

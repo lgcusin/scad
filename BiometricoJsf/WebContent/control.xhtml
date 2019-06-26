@@ -31,12 +31,14 @@
 						oncomplete="handleDialogRequest(args)">
 
 					</p:commandButton>
-					<p:commandButton value="Generar registros" title="Generar "
-						rendered="#{control.generado}" action="#{control.generar}"
-						update="pnlReloj">
 
-					</p:commandButton>
 				</p:panel>
+				<p:commandButton value="Inicia sistema"
+					title="Genera registros y inicia el control "
+					rendered="#{control.generado}" action="#{control.generar()}"
+					update="pnlReloj">
+
+				</p:commandButton>
 			</center>
 			<br />
 			<br />
@@ -55,6 +57,7 @@
 					</div>
 				</h:panelGrid>
 			</p:panel>
+			<p:commandButton value="Regresar" action="principal.xhtml" />
 			<!-- DIALOGO PARA EL CONTROL DE ACTIVIDADES -->
 			<p:dialog id="dlgControl"
 				header="Registro de  asistencia y actividades curriculares"
@@ -63,7 +66,7 @@
 				position="center" resizable="false">
 				<p:outputPanel id="otpnControl">
 					<p:panel id="pnlDatosDocente">
-						<p:panelGrid columns="2">
+						<p:panelGrid columns="2" style="width:99%">
 							<h:outputLabel value="Docente:"></h:outputLabel>
 							<h:outputText
 								value="#{control.regDcnt.fcdcApellidos} #{control.regDcnt.fcdcPrimerNombre} #{control.regDcnt.fcdcSegundoNombre}"></h:outputText>
@@ -83,14 +86,13 @@
 						<h:outputLabel value="Actividades(Selecione una):"></h:outputLabel>
 						<p:selectManyMenu id="slmmContenido" value="#{control.selecCnts}"
 							var="Cnt" showCheckbox="true"
-							style="margin-left: 5px; margin-right: 5px;">
+							style=" margin-right: 5px;width: 99%; width:100%">
 							<f:selectItems value="#{control.lstCnt}" var="cn"
 								itemLabel="#{cn.cntDescripcion}"
 								itemValue="#{cn.cntDescripcion}"
 								itemDisabled="#{cn.cntEstado eq 'COMPLETADO'}"></f:selectItems>
-
-							<p:column>
-								<h:inputText value="#{Cnt}" />
+							<p:column style="width:99%">
+								<h:outputText value="#{Cnt}" />
 							</p:column>
 						</p:selectManyMenu>
 						<!-- <p:scrollPanel mode="vertical">
@@ -102,14 +104,13 @@
 									<h:outputText value="#{unc}" />
 								</p:treeNode>
 							</p:tree>
-						</p:scrollPanel>
-						 <p:panelGrid columns="2">
-
+						</p:scrollPanel>-->
+						<p:panelGrid columns="2" >
 							<h:outputLabel value="Observacion:"></h:outputLabel>
 							<p:inputTextarea counter="display" title="Ingrese la observacion"
-								maxlength="100" counterTemplate="{0} characters remaining" />
-							<h:outputText id="display" />
-						</p:panelGrid> -->
+								maxlength="300" counterTemplate="{0} characters remaining" />
+							<h:outputLabel id="display" />
+						</p:panelGrid>
 					</p:panel>
 					<p:panel id="Resutado">
 						<p:panelGrid columns="2">

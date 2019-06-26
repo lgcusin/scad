@@ -35,6 +35,7 @@
 		<class>model.Metodologia</class>
 		<class>model.Bibliografia</class>
 		<class>model.RecursosDidacticos</class>
+		<class>model.Resultados</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
 			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" />

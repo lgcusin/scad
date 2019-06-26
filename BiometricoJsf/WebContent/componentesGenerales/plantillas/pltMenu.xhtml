@@ -11,10 +11,10 @@
 			<p:submenu label="Asistencia"
 				rendered="#{login.docente or login.empleado}">
 				<p:menuitem value="Detalle de Clases" rendered="#{login.docente}"
-					action="#{principal.verDetalle(login.docente,'DOCENTE')}"
+					action="#{principal.verDetalleAsistencia(login.docente,'DOCENTE')}"
 					ajax="false"></p:menuitem>
 				<p:menuitem value="Asistencias" rendered="#{login.empleado}"
-					action="#{principal.verDetalle(login.empleado,'EMPLEADO')}"
+					action="#{principal.verDetalleAsistencia(login.empleado,'EMPLEADO')}"
 					ajax="false"></p:menuitem>
 
 			</p:submenu>
@@ -22,12 +22,13 @@
 				rendered="#{login.docente or login.empleado}">
 				<p:menuitem value="Detalle de Actividades"
 					rendered="#{login.docente}"
-					action="#{principal.verActividades(login.docente,'DOCENTE')}"
+					action="#{principal.verDetalleActividades(login.docente,'DOCENTE')}"
 					ajax="false"></p:menuitem>
 				<p:menuitem value="Actividades" rendered="#{login.empleado}"
-					action="#{principal.verActividades(login.empleado,'EMPLEADO')}"
+					action="#{principal.verDetalleActividades(login.empleado,'EMPLEADO')}"
 					ajax="false"></p:menuitem>
-				<p:menuitem value="Syllabus" action="#{principal.verSyllabus}"></p:menuitem>
+
+				<p:menuitem value="Syllabus" action="#{principal.verSyllabus()}"></p:menuitem>
 			</p:submenu>
 			<p:submenu label="Reportes"
 				rendered="#{login.docente or login.empleado}">
@@ -44,7 +45,7 @@
 				<p:submenu label="Horario">
 					<p:menuitem value="Agregar Horario"
 						action="#{principal.regParalelo}" ajax="false"></p:menuitem>
-						<p:menuitem value="Agregar Feriado"
+					<p:menuitem value="Agregar Feriado"
 						action="#{principal.regFeriado}" ajax="false"></p:menuitem>
 				</p:submenu>
 				<p:menuitem value="Enrolar Docente"
@@ -53,7 +54,7 @@
 					action="#{principal.verControl}" ajax="false"></p:menuitem>
 				<p:menuitem value="Justificacion"
 					action="#{principal.verJustificacion}" ajax="false"></p:menuitem>
-					<p:menuitem value="Parametros de control"
+				<p:menuitem value="Parametros de control"
 					action="#{principal.verParametros}" ajax="false"></p:menuitem>
 			</p:submenu>
 			<f:facet name="options">

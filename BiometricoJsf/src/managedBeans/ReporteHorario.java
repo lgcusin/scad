@@ -45,11 +45,11 @@ public class ReporteHorario {
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Principal p = context.getApplication().evaluateExpressionGet(context, "#{principal}", Principal.class);
-		if (p.docente) {
+		if (p.flagDocente) {
 			fdId = p.getFdId();
 			lstCr = srvSegm.listarAllCrrByFcdc(fdId);
 		}
-		if (p.empleado) {
+		if (p.flagEmpleado) {
 			lstCr = srvEmp.listarCarreras(p.fcId);
 		}
 		lstTH = srvRepHor.listarTipoHorario();

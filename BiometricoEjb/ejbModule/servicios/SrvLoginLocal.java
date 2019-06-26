@@ -12,6 +12,6 @@ public interface SrvLoginLocal {
 
 	Usuario verificar(String nick, String clave);
 
-	List<DetallePuesto> buscarFacultad(Integer fcdcId);
+	List<DetallePuesto> buscarDetallePuesto(Integer fcdcId);
 
 }

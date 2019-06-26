@@ -20,6 +20,7 @@ import javax.sql.rowset.serial.SerialException;
 
 import model.Asistencia;
 import model.Contenido;
+import model.DetallePuesto;
 import model.FichaDocente;
 import model.Horario;
 import model.HuellaDactilar;
@@ -40,10 +41,26 @@ public class SrvDocente implements SrvDocenteLocal {
 	}
 
 	@Override
-	public List<FichaDocente> listar(String param) {
+	public List<FichaDocente> listar(String param, Integer fcId) {
 		param = "%" + param + "%";
-		return em.createNamedQuery("Docente.listar", FichaDocente.class).setParameter("apellido", param)
-				.setParameter("primernombre", param).setParameter("segundonombre", param).getResultList();
+		List<FichaDocente> lstD = new ArrayList<>();
+		try {
+			Query query;
+			Object[] objArray;
+			query = em.createQuery(
+					"select fcd, dt, fc from DetallePuesto as dt join dt.carrera.facultad as fc join dt.fichaDocente as fcd "
+							+ "where (fcd.fcdcApellidos LIKE :param or fcd.fcdcPrimerNombre LIKE :param or fcd.fcdcSegundoNombre LIKE :param)"
+							+ " and fc.fclId=:fcId");
+			query.setParameter("param", param).setParameter("fcId", fcId);
+			for (Object obj : query.getResultList()) {
+				objArray = (Object[]) obj;
+				lstD.add((FichaDocente) objArray[0]);
+			}
+		} catch (Exception e) {
+			System.out.println("Error al consultar docentes por facultad");
+			return lstD;
+		}
+		return lstD;
 
 	}
 

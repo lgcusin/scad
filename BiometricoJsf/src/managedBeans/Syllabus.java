@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
@@ -38,6 +39,7 @@ public class Syllabus {
 	private SrvSeguimientoLocal srvSgm;
 	@EJB
 	private SrvEmpleadoLocal srvEmp;
+	private Login beanLogin;
 
 	public Materia selectMtr;
 	public MallaCurricularMateria mllCrrMateria;
@@ -53,6 +55,7 @@ public class Syllabus {
 	public List<Herramienta> lstHrr;
 	public boolean dataSyllabo;
 	public boolean modiSyllabo;
+	public boolean crearSyllabo;
 
 	public String tipAsignatura;
 	public String prdAcademico;
@@ -67,14 +70,14 @@ public class Syllabus {
 	@PostConstruct
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		Principal p = context.getApplication().evaluateExpressionGet(context, "#{principal}", Principal.class);
-		if (p.docente) {
+		beanLogin = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
+		if (beanLogin.isDocente()) {
 			selectMtr = new Materia();
-			lstC = srvSgm.listarAllCrrByFcdc(p.fdId);
-			lstM = srvSgm.listarAllMatByFcdc(p.fdId);
+			lstC = srvSgm.listarAllCrrByFcdc(beanLogin.getUsr().getFichaDocente().getFcdcId());
+			lstM = srvSgm.listarAllMatByFcdc(beanLogin.getUsr().getFichaDocente().getFcdcId());
 		}
-		if (p.empleado) {
-			lstC = srvEmp.listarCarreras(p.fcId);
+		if (beanLogin.isEmpleado()) {
+			lstC = srvEmp.listarCarreras(beanLogin.getDt().get(0).getCarrera().getFacultad().getFclId());
 		}
 
 	}
@@ -100,36 +103,44 @@ public class Syllabus {
 		if (selectMtr.getMtrId() != null) {
 			syl = srvSgm.getSyllabus(selectMtr.getMtrId());
 			lstUC = srvSgm.listarUnidadCurricular(selectMtr.getMtrId());
+			if (syl != null && !lstUC.isEmpty()) {
+				for (UnidadCurricular unidad : lstUC) {
+					lstCnt = srvSgm.listarContenidos(unidad.getUncrId());
+					for (Contenido contenido : lstCnt) {
+						lstAct = srvSgm.listarActividades(contenido.getCntId());
+						lstHrr = srvSgm.listarHerramientas(contenido.getCntId());
+						contenido.setActividads(lstAct);
+						contenido.setHerramientas(lstHrr);
+					}
+					unidad.setContenidos(lstCnt);
+					unidad.setMetodologias(srvSgm.listarMetodologias(unidad.getUncrId()));
+					unidad.setBibliografias(srvSgm.listarBibliografias(unidad.getUncrId()));
+				}
+
+				syl.setUnidadCurriculars(lstUC);
+				dataSyllabo = true;
+			} else {
+				dataSyllabo = false;
+				crearSyllabo = true;
+			}
 		} else {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione una materia", null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-		if (syl != null && !lstUC.isEmpty()) {
-			for (UnidadCurricular unidad : lstUC) {
-				lstCnt = srvSgm.listarContenidos(unidad.getUncrId());
-				for (Contenido contenido : lstCnt) {
-					lstAct = srvSgm.listarActividades(contenido.getCntId());
-					lstHrr = srvSgm.listarHerramientas(contenido.getCntId());
-					contenido.setActividads(lstAct);
-					contenido.setHerramientas(lstHrr);
-				}
-				unidad.setContenidos(lstCnt);
-			}
-			dataSyllabo = true;
-		} else {
-			dataSyllabo = false;
-		}
+
 		return "syllabo";
 	}
 
 	public String modificar() {
 		modiSyllabo = true;
 		dataSyllabo = false;
+		crearSyllabo = false;
 		return null;
 	}
 
 	public String crearSyllabus() {
 		modiSyllabo = true;
+		crearSyllabo = false;
 		syl = new Syllabo();
 		lstUnidadCurriculars = new ArrayList<>();
 		return null;
@@ -145,7 +156,7 @@ public class Syllabus {
 			for (UnidadCurricular unidad : lstUC) {
 				srvSgm.guardarActualizarUnidad(unidad);
 				for (Contenido contenido : unidad.getContenidos()) {
-					srvSgm.guardarContenido(contenido);
+					srvSgm.guardarSeguimiento(contenido);
 					for (Actividad actividad : contenido.getActividads()) {
 						srvSgm.guardarActualizarActividad(actividad);
 
@@ -153,6 +164,12 @@ public class Syllabus {
 					for (Herramienta herramienta : contenido.getHerramientas()) {
 						srvSgm.guardarActualizarHerramienta(herramienta);
 					}
+				}
+				for (Metodologia metodologia : unidad.getMetodologias()) {
+					srvSgm.guardarActualizarMetodologia(metodologia);
+				}
+				for (Bibliografia bibliografia : unidad.getBibliografias()) {
+					srvSgm.guardarActualizarBibliografia(bibliografia);
 				}
 			}
 		} else {
@@ -170,6 +187,7 @@ public class Syllabus {
 	public String regresar() {
 		dataSyllabo = false;
 		modiSyllabo = false;
+		crearSyllabo = false;
 		if (syl != null) {
 			syl = null;
 			lstUC = null;
@@ -204,8 +222,7 @@ public class Syllabus {
 		contenido.setUnidadCurricular(uc);
 		contenido.setActividads(lstActividads);
 		contenido.setHerramientas(lstherramientas);
-		lstContenidos.add(contenido);
-		uc.setContenidos(lstContenidos);
+		uc.getContenidos().add(contenido);
 	}
 
 	public void onAddNewAct(Contenido cnt) {
@@ -261,6 +278,7 @@ public class Syllabus {
 				}
 			}
 			cnt.setHerramientas(lstherramientas);
+			lstContenidos = uc.getContenidos();
 			for (Contenido contenido : lstContenidos) {
 				if (cnt.equals(contenido)) {
 					lstContenidos.set(lstContenidos.indexOf(contenido), cnt);
@@ -314,6 +332,16 @@ public class Syllabus {
 		cnt.getHerramientas().remove(hrr);
 	}
 
+	public void eliminarMetodologia(Metodologia mtd) {
+		uc.getMetodologias().remove(mtd);
+		lstMetodologias = uc.getMetodologias();
+	}
+
+	public void eliminarBibliografia(Bibliografia bbl) {
+		uc.getBibliografias().remove(bbl);
+		lstBibliografias = uc.getBibliografias();
+	}
+
 	public void onRowCancelCnt(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Edicion cancelada", "");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -340,13 +368,13 @@ public class Syllabus {
 	}
 
 	public String AddNewUnidadCurricular() {
-		if (lstContenidos.isEmpty()) {
+		if (uc.getContenidos().isEmpty()) {
 			FacesMessage msg = new FacesMessage(new FacesMessage().SEVERITY_WARN, "Debe contener uno o mas contenidos",
 					null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return null;
 		} else {
-			for (Contenido cnt : lstContenidos) {
+			for (Contenido cnt : uc.getContenidos()) {
 				if (cnt.getCntDescripcion() == null || cnt.getCntDescripcion().trim().isEmpty()) {
 					FacesMessage msg = new FacesMessage(new FacesMessage().SEVERITY_WARN,
 							"Los contenidos no deben ser vacios", null);
@@ -355,18 +383,31 @@ public class Syllabus {
 				}
 			}
 		}
-
-		uc.setUncrDescripcion("UNIDAD CURRICULAR No. " + Integer.toString(lstUnidadCurriculars.indexOf(uc) + 1));
-		lstUnidadCurriculars.set(lstUnidadCurriculars.indexOf(uc), uc);
-		lstUC = lstUnidadCurriculars;
+		if (uc.getUncrDescripcion().trim().isEmpty()) {
+			uc.setUncrDescripcion("UNIDAD CURRICULAR No. " + Integer.toString(lstUnidadCurriculars.indexOf(uc) + 1));
+		}
+		lstUC.set(lstUC.indexOf(uc), uc);
 		uc = null;
 		return "syllabo";
 	}
 
 	public String CancelUnidadCurricular() {
-		lstUnidadCurriculars.remove(uc);
 		uc = null;
 		return "syllabo";
+	}
+
+	public String modificarUnCr() {
+		return "unidadCurricular";
+
+	}
+
+	public void eliminarUnCr(Boolean confirm) {
+		if (confirm) {
+			syl.getUnidadCurriculars().remove(uc);
+			srvSgm.eliminarUnidad(uc);
+			FacesMessage msg = new FacesMessage(new FacesMessage().SEVERITY_INFO, "Unidad eliminada", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 	}
 
 	// Setters and getters
@@ -427,6 +468,14 @@ public class Syllabus {
 
 	public void setModiSyllabo(boolean modiSyllabo) {
 		this.modiSyllabo = modiSyllabo;
+	}
+
+	public boolean isCrearSyllabo() {
+		return crearSyllabo;
+	}
+
+	public void setCrearSyllabo(boolean crearSyllabo) {
+		this.crearSyllabo = crearSyllabo;
 	}
 
 	public Syllabo getSyl() {

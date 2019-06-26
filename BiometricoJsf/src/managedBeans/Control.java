@@ -35,7 +35,7 @@ import servicios.SrvSeguimientoLocal;
 public class Control {
 
 	@EJB
-	private JSDCLocal srvJsdc;
+	private JSDCLocal srvDvc;
 	@EJB
 	private SrvSeguimientoLocal srvSgmt;
 
@@ -46,9 +46,6 @@ public class Control {
 	private List<Asistencia> lstAss;
 	private List<Contenido> lstCnt;
 	private List<String> selecCnts;
-	private TreeNode root1;
-	private TreeNode root2;
-	private TreeNode root3;
 
 	public String hora;
 	public Date ahora;
@@ -64,7 +61,6 @@ public class Control {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Login l = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
 		fclId = l.getUsr().getFichaDocente().getDetallePuestos().get(0).getCarrera().getFacultad().getFclId();
-		srvJsdc.inicializar();
 		regDcnt = new FichaDocente();
 	}
 
@@ -79,7 +75,7 @@ public class Control {
 		flagDlg = false;
 		flagIni = false;
 		flagFin = false;
-		regDcnt = srvJsdc.comparar();
+		regDcnt = srvDvc.comparar();
 		if (regDcnt != null) {
 			// Compara si hay un horario con la hora de entrada
 			hrrI = srvSgmt.verificarHorario(ahora, regDcnt.getFcdcId(), true, fclId);
@@ -184,6 +180,8 @@ public class Control {
 		formateador = new SimpleDateFormat("HH:mm:ss");
 		regAss.setAssHoraEntrada(formateador.format(ahora));
 		regAss.setAssEstado("Iniciado");
+		//Cruzar contenido-syllabus con seguimiento-syllabus
+		
 		lstCnt = srvSgmt.getContenidos(hrrI.getMateria().getMtrId());
 		// root1 = createCheckboxDocuments();
 		flagIni = true;
@@ -212,13 +210,13 @@ public class Control {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Debe escoger una Actividad", null);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 				RequestContext.getCurrentInstance().addCallbackParam("flagDlg", flagDlg);
-			} else {
+			} else if (selecCnts.size() == 1) {
 				srvSgmt.guardarRegistro(regAss);
 				for (int i = 0; i < selecCnts.size(); i++) {
 					for (int j = 0; j < lstCnt.size(); j++) {
 						if (selecCnts.get(i).equals(lstCnt.get(j).getCntDescripcion())) {
 							lstCnt.get(j).setCntEstado("COMPLETADO");
-							srvSgmt.guardarContenido(lstCnt.get(j));
+							srvSgmt.guardarSeguimiento(lstCnt.get(j));
 							break;
 						}
 					}
@@ -264,8 +262,14 @@ public class Control {
 	}
 
 	public void generar() {
-		srvSgmt.generar(ahora);
-		generado = false;
+		if (srvDvc.inicializar()) {
+			srvSgmt.generar(ahora);
+			generado = false;
+		} else {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Lector no encontrado", null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+
 	}
 
 	// setters and getters
@@ -348,14 +352,6 @@ public class Control {
 
 	public void setFlagFin(boolean flagFin) {
 		this.flagFin = flagFin;
-	}
-
-	public TreeNode getRoot1() {
-		return root1;
-	}
-
-	public void setRoot1(TreeNode root1) {
-		this.root1 = root1;
 	}
 
 	/**

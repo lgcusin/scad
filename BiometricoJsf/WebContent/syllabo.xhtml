@@ -73,91 +73,89 @@
 					</p:panel>
 				</p:panel>
 				<p:panel id="pnlProgramacion" header="Programacion de asignatura">
-					<p:panel id="pnlProgramacion_content">
-						<p:dataGrid id="dtgUnidades" var="Uncr" value="#{syllabus.lstUC}"
-							columns="1">
-							<h:outputText value="#{Uncr.uncrDescripcion}"
-								style="font-weight:bold"></h:outputText>
-							<p:panelGrid columns="2">
-								<h:outputLabel value="NOMBRE DE LA UNIDAD:"></h:outputLabel>
-								<h:outputText value="#{Uncr.uncrNombre}"></h:outputText>
-								<h:outputLabel value="OBJETIVO DE LA UNIDAD:"></h:outputLabel>
-								<h:outputText value="#{Uncr.uncrObjetivo}"></h:outputText>
-								<h:outputLabel value="RESULTADOS DE APRENDIZAJE DE LA UNIDAD:"></h:outputLabel>
-								<h:outputText value="#{Uncr.uncrResultado}"></h:outputText>
-							</p:panelGrid>
+					<p:dataGrid id="dtgUnidades" var="Uncr" value="#{syllabus.lstUC}"
+						columns="1">
+						<h:outputText value="#{Uncr.uncrDescripcion}"
+							style="font-weight:bold"></h:outputText>
+						<p:panelGrid columns="2">
+							<h:outputLabel value="NOMBRE DE LA UNIDAD:"></h:outputLabel>
+							<h:outputText value="#{Uncr.uncrNombre}"></h:outputText>
+							<h:outputLabel value="OBJETIVO DE LA UNIDAD:"></h:outputLabel>
+							<h:outputText value="#{Uncr.uncrObjetivo}"></h:outputText>
+							<h:outputLabel value="RESULTADOS DE APRENDIZAJE DE LA UNIDAD:"></h:outputLabel>
+							<h:outputText value="#{Uncr.uncrResultado}"></h:outputText>
+						</p:panelGrid>
 
-							<p:panelGrid>
-								<p:row>
-									<p:column rowspan="4">
-										<h:outputLabel value="CÁLCULO DE HORAS DE LA UNIDAD:"></h:outputLabel>
-									</p:column>
-									<p:column rowspan="2">
-										<h:outputLabel value="ESCENARIOS DE APRENDIZAJE"></h:outputLabel>
-									</p:column>
-									<p:column>
-										<h:outputLabel value="N°. Horas aprendizaje Teóricas"></h:outputLabel>
-									</p:column>
-									<p:column>
-										<h:outputText value="#{Uncr.uncrHorasTeoricas}"></h:outputText>
-									</p:column>
-								</p:row>
-								<p:row>
-									<p:column>
-										<h:outputLabel value="N°. Horas Prácticas- laboratorio"></h:outputLabel>
-									</p:column>
-									<p:column>
-										<h:outputText value="#{Uncr.uncrHorasPracticas}"></h:outputText>
-									</p:column>
-								</p:row>
-								<p:row>
-									<p:column rowspan="2">
-										<h:outputLabel value="TUTORIAS"></h:outputLabel>
-									</p:column>
-									<p:column>
-										<h:outputLabel value="N°. Horas Presenciales"></h:outputLabel>
-									</p:column>
-									<p:column>
-										<h:outputText value="#{Uncr.uncrHorasPresenciales}"></h:outputText>
-									</p:column>
-								</p:row>
-								<p:row>
-									<p:column>
-										<h:outputLabel value="N°. Horas Aprendizaje Aula Virtual"></h:outputLabel>
-									</p:column>
-									<p:column>
-										<h:outputText value="#{Uncr.uncrHorasVirtual}"></h:outputText>
-									</p:column>
-								</p:row>
-							</p:panelGrid>
-							<h:outputText value="PROGRAMACIÓN CURRICULAR"></h:outputText>
-							<p:panelGrid columns="1">
-								<p:dataTable value="#{Uncr.contenidos}" var="cn">
-									<p:column headerText="CONTENIDOS">
-										<h:outputText value="#{cn.cntDescripcion}"></h:outputText>
-									</p:column>
-									<p:column
-										headerText="ACTIVIDADES DE TRABAJO AUTÓNOMO, ACTIVIDADES DE INVESTIGACIÓN Y DE VINCULACIÓN CON LA SOCIEDAD">
-										<p:dataGrid value="#{cn.actividads}" var="ac" columns="1">
-											<h:outputText value="#{ac.actDescripcion}"></h:outputText>
-										</p:dataGrid>
-									</p:column>
-									<p:column headerText="MECANISMOS DE EVALUACIÓN">
-										<p:dataGrid value="#{cn.herramientas}" var="hr" columns="1">
-											<h:outputText value="#{hr.hrrNombre}"></h:outputText>
-										</p:dataGrid>
-									</p:column>
-								</p:dataTable>
-							</p:panelGrid>
-							<br />
-						</p:dataGrid>
-					</p:panel>
+						<p:panelGrid>
+							<p:row>
+								<p:column rowspan="4">
+									<h:outputLabel value="CÁLCULO DE HORAS DE LA UNIDAD:"></h:outputLabel>
+								</p:column>
+								<p:column rowspan="2">
+									<h:outputLabel value="ESCENARIOS DE APRENDIZAJE"></h:outputLabel>
+								</p:column>
+								<p:column>
+									<h:outputLabel value="N°. Horas aprendizaje Teóricas"></h:outputLabel>
+								</p:column>
+								<p:column>
+									<h:outputText value="#{Uncr.uncrHorasTeoricas}"></h:outputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputLabel value="N°. Horas Prácticas- laboratorio"></h:outputLabel>
+								</p:column>
+								<p:column>
+									<h:outputText value="#{Uncr.uncrHorasPracticas}"></h:outputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column rowspan="2">
+									<h:outputLabel value="TUTORIAS"></h:outputLabel>
+								</p:column>
+								<p:column>
+									<h:outputLabel value="N°. Horas Presenciales"></h:outputLabel>
+								</p:column>
+								<p:column>
+									<h:outputText value="#{Uncr.uncrHorasPresenciales}"></h:outputText>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputLabel value="N°. Horas Aprendizaje Aula Virtual"></h:outputLabel>
+								</p:column>
+								<p:column>
+									<h:outputText value="#{Uncr.uncrHorasVirtual}"></h:outputText>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+						<h:outputText value="PROGRAMACIÓN CURRICULAR"></h:outputText>
+						<p:panelGrid columns="1">
+							<p:dataTable value="#{Uncr.contenidos}" var="cn">
+								<p:column headerText="CONTENIDOS">
+									<h:outputText value="#{cn.cntDescripcion}"></h:outputText>
+								</p:column>
+								<p:column
+									headerText="ACTIVIDADES DE TRABAJO AUTÓNOMO, ACTIVIDADES DE INVESTIGACIÓN Y DE VINCULACIÓN CON LA SOCIEDAD">
+									<p:dataGrid value="#{cn.actividads}" var="ac" columns="1">
+										<h:outputText value="#{ac.actDescripcion}"></h:outputText>
+									</p:dataGrid>
+								</p:column>
+								<p:column headerText="MECANISMOS DE EVALUACIÓN">
+									<p:dataGrid value="#{cn.herramientas}" var="hr" columns="1">
+										<h:outputText value="#{hr.hrrNombre}"></h:outputText>
+									</p:dataGrid>
+								</p:column>
+							</p:dataTable>
+						</p:panelGrid>
+
+					</p:dataGrid>
+
 				</p:panel>
 				<p:commandButton value="Modificar" action="#{syllabus.modificar}"
 					update="frmSylDetalles" />
 			</p:panel>
-			<p:panel id="pnlCrearSyl"
-				rendered="#{!syllabus.dataSyllabo or !syllabus.modiSyllabo}">
+			<p:panel id="pnlCrearSyl" rendered="#{syllabus.crearSyllabo}">
 				<h:outputLabel
 					value="Agregar un nuevo syllabo, la materia no tiene uno disponible" />
 				<p:commandButton value="Crear nuevo Syllabo"
@@ -231,8 +229,9 @@
 						action="#{syllabus.verUnidadCurricular}"></p:commandButton>
 
 					<p:dataTable id="dtgUnidadesM" var="Uncr" value="#{syllabus.lstUC}"
-						rows="1" paginator="true" paginatorPosition="top"
-						selectionMode="single"
+						rows="2" paginator="true" paginatorPosition="top"
+						selectionMode="single" selection="#{syllabus.uc}"
+						rowKey="#{Uncr.uncrDescripcion}"
 						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 						<f:facet name="header">
 							<h:outputLabel
@@ -310,15 +309,50 @@
 									</p:dataGrid>
 								</p:column>
 							</p:dataTable>
+							<p:dataTable value="#{Uncr.metodologias}" var="mt">
+								<p:column headerText="METODOLOGIAS">
+									<h:outputLabel value="#{mt.mtdDescripcion}" />
+								</p:column>
+							</p:dataTable>
+							<p:dataTable value="#{Uncr.bibliografias}" var="bb">
+								<p:column headerText="TIPO">
+									<h:outputLabel value="#{bb.bblTipo}" />
+								</p:column>
+								<p:column headerText="OBRAS FISICAS">
+									<h:outputLabel value="#{bb.bblObraFisica}" />
+								</p:column>
+								<p:column headerText="DISPONIBILIDAD EN BIBLIOTECA">
+									<h:outputLabel value="#{bb.bblDisponibilidad}" />
+								</p:column>
+								<p:column headerText="VIRTUAL">
+									<h:outputLabel value="#{bb.bblVirtual}" />
+								</p:column>
+								<p:column headerText="NOMBRE BIBLIOTECA VIRTUAL">
+									<h:outputLabel value="#{bb.bblNombreVirtual}" />
+								</p:column>
+							</p:dataTable>
 						</p:column>
 						<f:facet name="footer">
-							<p:commandButton value="Modificar" process="@this"
-								update="dtgUnidadesM" action="#{syllabus.modificarUnCr}" />
-							<p:commandButton value="Eliminar" process="@this"
-								update="dtgUnidadesM" action="#{syllabus.eliminarUnCr}" />
+							<p:commandButton value="Modificar"
+								action="#{syllabus.modificarUnCr()}" process="dtgUnidadesM"
+								update=":frmSylDetalles:dtgUnidadesM" />
+							<p:commandButton value="Eliminar" process="dtgUnidadesM"
+								update=":frmSylDetalles:dtgUnidadesM"
+								action="#{syllabus.eliminarUnCr(true)}">
+								<p:confirm header="Confirmacion"
+									message="Desea eliminar la unidad curricular?" />
+							</p:commandButton>
 						</f:facet>
 					</p:dataTable>
 				</p:panel>
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<div style="text-align: center;">
+						<p:commandButton value="SI" type="button" />
+						<p:commandButton value="NO" type="button" />
+					</div>
+				</p:confirmDialog>
+
 				<p:panel id="pnlRelacionM"
 					header="Relación de la asignatura con los resultados del perfil de egreso de la carrera">
 					<p:dataTable>

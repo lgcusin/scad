@@ -3,44 +3,49 @@ package managedBeans;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import model.FichaDocente;
+import model.FichaEmpleado;
 import servicios.SrvDocenteLocal;
 
 @ManagedBean(name = "principal")
-@SessionScoped
+@RequestScoped
 public class Principal {
 
 	@EJB
 	private SrvDocenteLocal srvDcnt;
-
-	boolean docente = false;
-	boolean empleado = false;
-
+	private Login beanLogin;
+	
+	public FichaDocente docente;
+	public FichaEmpleado empleado;
+	boolean flagDocente = false;
+	boolean flagEmpleado = false;
 	public Integer fdId;
 	public Integer fcId;
 
 	@PostConstruct
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		Login l = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
-		if (l.isDocente()) {
-			docente = l.isDocente();
-			fdId = l.getUsr().getFichaDocente().getFcdcId();
+		beanLogin = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
+		if (beanLogin.isDocente()) {
+			fdId = beanLogin.getUsr().getFichaDocente().getFcdcId();
+		} else if (beanLogin.isEmpleado()) {
 		}
-		if (l.isEmpleado()) {
-			empleado = l.isEmpleado();
-		}
-		fcId = l.getUsr().getFichaDocente().getDetallePuestos().get(0).getCarrera().getFacultad().getFclId();
+		fcId = beanLogin.getUsr().getFichaDocente().getDetallePuestos().get(0).getCarrera().getFacultad().getFclId();
 	}
 
-	public String verDetalle(boolean sesionUsuarioForm, String rol) {
+	public String verDetalleAsistencia(boolean sesionUsuarioForm, String rol) {
 		if (sesionUsuarioForm) {
 			switch (rol) {
 			case "DOCENTE":
+				flagDocente = beanLogin.isDocente();
 				return "detalleAsistencia";
 			case "EMPLEADO":
+				flagEmpleado = beanLogin.isEmpleado();
 				return "detalleAsistencia";
 			default:
 				return null;
@@ -51,12 +56,14 @@ public class Principal {
 
 	}
 
-	public String verActividades(boolean sesionUsuarioForm, String rol) {
+	public String verDetalleActividades(boolean sesionUsuarioForm, String rol) {
 		if (sesionUsuarioForm) {
 			switch (rol) {
 			case "DOCENTE":
+				flagDocente = beanLogin.isDocente();
 				return "detalleActividad";
 			case "EMPLEADO":
+				flagEmpleado = beanLogin.isEmpleado();
 				return "detalleActividad";
 			default:
 				return null;
@@ -68,14 +75,6 @@ public class Principal {
 
 	public String verSyllabo() {
 		return "syllabo";
-	}
-
-	public String regParalelo() {
-		return "registroParalelo";
-	}
-
-	public String regFeriado() {
-		return "registroFeriados";
 	}
 
 	public String verReporteHorario(boolean sesionUsuarioForm, String rol) {
@@ -94,6 +93,14 @@ public class Principal {
 			return null;
 		}
 
+	}
+
+	public String regParalelo() {
+		return "registroParalelo";
+	}
+
+	public String regFeriado() {
+		return "registroFeriados";
 	}
 
 	// Administrador
@@ -118,19 +125,19 @@ public class Principal {
 	}
 
 	public boolean isDocente() {
-		return docente;
+		return flagDocente;
 	}
 
 	public void setDocente(boolean docente) {
-		this.docente = docente;
+		this.flagDocente = docente;
 	}
 
 	public boolean isEmpleado() {
-		return empleado;
+		return flagEmpleado;
 	}
 
 	public void setEmpleado(boolean empleado) {
-		this.empleado = empleado;
+		this.flagEmpleado = empleado;
 	}
 
 	public Integer getFdId() {

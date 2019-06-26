@@ -23,21 +23,23 @@ import javax.persistence.Table;
 @NamedQueries({
 		@NamedQuery(name = "Docente.findByHdId", query = "select hd.fichaDocente from HuellaDactilar as hd where hd.hldcId=:hdId"),
 		@NamedQuery(name = "Docente.findByUsrId", query = "select u.fichaDocente from Usuario as u where u.ursId=:usrId"),
-		@NamedQuery(name = "Docente.findAllByCrrId", query = "select dp.fichaDocente from DetallePuesto as dp where dp.carrera.crrId=:crId"),
-		@NamedQuery(name = "Docente.listar", query = "select fd from FichaDocente as fd "
-				+ "where fd.fcdcApellidos LIKE :apellido or fd.fcdcPrimerNombre LIKE :primernombre or fd.fcdcSegundoNombre LIKE :segundonombre") })
+		@NamedQuery(name = "Docente.findAllByCrrId", query = "select dp.fichaDocente from DetallePuesto as dp where dp.carrera.crrId=:crId") })
 
 public class FichaDocente implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer fcdcId;
 	private Integer fcdcIdentificacion;
 	private String fcdcPrimerNombre;
 	private String fcdcSegundoNombre;
 	private String fcdcApellidos;
-	private Set<HuellaDactilar> huellaDactilars = new HashSet<HuellaDactilar>(0);
+	private List<HuellaDactilar> huellaDactilars = new ArrayList<HuellaDactilar>();
 	private List<DetallePuesto> detallePuestos = new ArrayList<DetallePuesto>();
-	private Set<Asistencia> asistencias = new HashSet<Asistencia>(0);
-	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
+	private List<Asistencia> asistencias = new ArrayList<Asistencia>();
+	private List<Usuario> usuarios = new ArrayList<Usuario>();
 
 	public FichaDocente() {
 	}
@@ -47,8 +49,8 @@ public class FichaDocente implements java.io.Serializable {
 	}
 
 	public FichaDocente(Integer fcdcId, Integer fcdcIdentificacion, String fcdcPrimerNombre, String fcdcSegundoNombre,
-			String fcdcApellidos, Set<HuellaDactilar> huellaDactilars, List<DetallePuesto> detallePuestos,
-			Set<Asistencia> asistencias, Set<Usuario> usuarios) {
+			String fcdcApellidos, List<HuellaDactilar> huellaDactilars, List<DetallePuesto> detallePuestos,
+			List<Asistencia> asistencias, List<Usuario> usuarios) {
 		this.fcdcId = fcdcId;
 		this.fcdcIdentificacion = fcdcIdentificacion;
 		this.fcdcPrimerNombre = fcdcPrimerNombre;
@@ -108,11 +110,11 @@ public class FichaDocente implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaDocente")
-	public Set<HuellaDactilar> getHuellaDactilars() {
+	public List<HuellaDactilar> getHuellaDactilars() {
 		return this.huellaDactilars;
 	}
 
-	public void setHuellaDactilars(Set<HuellaDactilar> huellaDactilars) {
+	public void setHuellaDactilars(List<HuellaDactilar> huellaDactilars) {
 		this.huellaDactilars = huellaDactilars;
 	}
 
@@ -126,20 +128,20 @@ public class FichaDocente implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaDocente")
-	public Set<Asistencia> getAsistencias() {
+	public List<Asistencia> getAsistencias() {
 		return this.asistencias;
 	}
 
-	public void setAsistencias(Set<Asistencia> asistencias) {
+	public void setAsistencias(List<Asistencia> asistencias) {
 		this.asistencias = asistencias;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaDocente")
-	public Set<Usuario> getUsuarios() {
+	public List<Usuario> getUsuarios() {
 		return this.usuarios;
 	}
 
-	public void setUsuarios(Set<Usuario> usuarios) {
+	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 

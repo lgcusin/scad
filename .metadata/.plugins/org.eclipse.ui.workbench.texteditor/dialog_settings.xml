@@ -2,30 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="regresar" key="selection"/>
+		<item value="selecCnts" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="regresar"/>
-			<item value="modiSyllabo"/>
-			<item value="AddNewUnidadCurricular"/>
+			<item value="selecCnts"/>
+			<item value="principal"/>
+			<item value="limpiar"/>
+			<item value="huella"/>
+			<item value="proper"/>
+			<item value="Lector no encontrado"/>
+			<item value="crearSyllabo"/>
 			<item value="CancelUnidadCurricular"/>
-			<item value="frmRegistroFeriado"/>
-			<item value="BigDecimal"/>
-			<item value="Set"/>
-			<item value="modificar"/>
 		</list>
 		<list key="replacehistory">
-			<item value="frmRegistroUnidad"/>
+			<item value="login"/>
+			<item value="registro"/>
 			<item value="Integer"/>
+			<item value="frmRegistroUnidad"/>
 			<item value="List"/>
 			<item value="regAss"/>
 			<item value=""/>
 			<item value="registroPrl"/>
-			<item value="detallePrl"/>
-			<item value="paralelo"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

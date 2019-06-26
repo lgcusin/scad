@@ -44,13 +44,13 @@ public class SrvEmpleado implements SrvEmpleadoLocal {
 
 	@Override
 	public List<FichaDocente> listarDocentes(Integer crrId) {
-		List<FichaDocente> lstD;
+		List<FichaDocente> lstD = new ArrayList<>();
 		try {
 			lstD = em.createNamedQuery("Docente.findAllByCrrId", FichaDocente.class).setParameter("crId", crrId)
 					.getResultList();
 		} catch (Exception e) {
 			System.out.println(e);
-			return lstD = new ArrayList<>();
+			return lstD;
 		}
 		return lstD;
 	}

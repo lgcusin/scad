@@ -9,6 +9,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
@@ -21,7 +23,7 @@ import servicios.SrvDocenteLocal;
 import servicios.SrvEmpleadoLocal;
 
 @ManagedBean(name = "detalleAss")
-@ViewScoped
+@RequestScoped
 public class DetalleAsistencia {
 	/**
 	 * Constante definida para el formato de fecha.
@@ -32,9 +34,11 @@ public class DetalleAsistencia {
 	private SrvDocenteLocal srvDnt;
 	@EJB
 	private SrvEmpleadoLocal srvEmp;
+	@ManagedProperty(value = "#{principal}")
+	private Principal principal;
+
 	private String fechaInicio;
 	private String fechaFin;
-	private Principal principal;
 	private boolean mostrarFiltros;
 	public List<Carrera> lstC;
 	public List<FichaDocente> lstD;
@@ -48,12 +52,13 @@ public class DetalleAsistencia {
 
 	@PostConstruct
 	public void init() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		principal = context.getApplication().evaluateExpressionGet(context, "#{principal}", Principal.class);
+		// FacesContext context = FacesContext.getCurrentInstance();
+		// principal = context.getApplication().evaluateExpressionGet(context,
+		// "#{principal}", Principal.class);
 		selectAss = new Asistencia();
 		selectCrr = new Carrera();
 		selectDcn = new FichaDocente();
-		if (principal.empleado) {
+		if (principal.flagEmpleado) {
 			mostrarFiltros = true;
 			lstC = srvEmp.listarCarreras(principal.fcId);
 		} else {
@@ -79,9 +84,9 @@ public class DetalleAsistencia {
 				if (validarFechas()) {
 					Date inicio = new SimpleDateFormat(FORMATOFECHA).parse(fechaInicio);
 					Date fin = new SimpleDateFormat(FORMATOFECHA).parse(fechaFin);
-					if (principal.docente) {
+					if (principal.flagDocente) {
 						lstA = srvDnt.listarAsistencia(principal.fdId, inicio, fin, null);
-					} else if (principal.empleado) {
+					} else if (principal.flagEmpleado) {
 						lstA = srvDnt.listarAsistencia(fcdId, inicio, fin, crrId);
 					}
 
@@ -111,7 +116,7 @@ public class DetalleAsistencia {
 	 * @return
 	 */
 	private boolean validarDocenteSelecionado() {
-		if (fcdId != null || principal.docente) {
+		if (fcdId != null || principal.flagDocente) {
 			return true;
 		} else {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,

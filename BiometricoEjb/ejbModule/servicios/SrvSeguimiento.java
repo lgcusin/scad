@@ -14,6 +14,7 @@ import javax.persistence.Query;
 import model.Actividad;
 import model.Asistencia;
 import model.Aula;
+import model.Bibliografia;
 import model.Carrera;
 import model.Contenido;
 import model.Feriado;
@@ -22,6 +23,7 @@ import model.Herramienta;
 import model.Horario;
 import model.MallaCurricularMateria;
 import model.Materia;
+import model.Metodologia;
 import model.Parametro;
 import model.Syllabo;
 import model.UnidadCurricular;
@@ -361,7 +363,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	}
 
 	@Override
-	public void guardarContenido(Contenido cnt) {
+	public void guardarSeguimiento(Contenido cnt) {
 		try {
 			if (cnt.getCntId() != null) {
 				em.merge(cnt);
@@ -370,7 +372,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 				em.persist(cnt);
 			}
 		} catch (Exception e) {
-			System.out.println("No se puede guardar contenido");
+			System.out.println("Error al guardar tema de clase");
 		}
 
 	}
@@ -529,7 +531,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			id = (int) query.getSingleResult();
 		} catch (Exception e) {
 			System.out.println("Error al consultar los secuencia actividad" + e);
-			return 1;
+			return 0;
 		}
 		return id;
 	}
@@ -558,9 +560,105 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			id = (int) query.getSingleResult();
 		} catch (Exception e) {
 			System.out.println("Error al consultar los secuencia herramienta" + e);
-			return 1;
+			return 0;
 		}
 		return id;
+	}
+
+	@Override
+	public void guardarActualizarMetodologia(Metodologia mtd) {
+		try {
+			if (mtd.getMtdId() == null) {
+				int m = obtenerSecuenciaMetodologia();
+				mtd.setMtdId(m + 1);
+				em.persist(mtd);
+			} else {
+				em.merge(mtd);
+			}
+		} catch (Exception e) {
+			System.out.println("Error al guardarActualizar Metodologia: " + e);
+		}
+	}
+
+	private int obtenerSecuenciaMetodologia() {
+		int id;
+		try {
+			Query query = em.createQuery("select mtd.mtdId from Metodologia as mtd order by mtd.mtdId desc");
+			query.setMaxResults(1);
+			id = (int) query.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al consultar los secuencia Metodologia" + e);
+			return 0;
+		}
+		return id;
+	}
+
+	@Override
+	public void guardarActualizarBibliografia(Bibliografia bbl) {
+		try {
+			if (bbl.getBblId() == null) {
+				int b = obtenerSecuenciaBibliografia();
+				bbl.setBblId(b + 1);
+				em.persist(bbl);
+			} else {
+				em.merge(bbl);
+			}
+		} catch (Exception e) {
+			System.out.println("Error al guardarActualizar Metodologia: " + e);
+		}
+	}
+
+	private int obtenerSecuenciaBibliografia() {
+		int id;
+		try {
+			Query query = em.createQuery("select bbl from Bibliografia as bbl order by bbl.bblId desc");
+			query.setMaxResults(1);
+			id = (int) query.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al consultar los secuencia Bibliografia" + e);
+			return 0;
+		}
+		return id;
+	}
+
+	@Override
+	public List<Metodologia> listarMetodologias(Integer uncrId) {
+		List<Metodologia> lstM = new ArrayList<>();
+		try {
+			Query query = em
+					.createQuery("	select mtd from Metodologia as mtd where mtd.unidadCurricular.uncrId=:uncrId");
+			query.setParameter("uncrId", uncrId);
+			lstM = (List<Metodologia>) query.getResultList();
+		} catch (Exception e) {
+			System.out.println("Error al consultar metodologias: " + e);
+			return lstM;
+		}
+		return lstM;
+	}
+
+	@Override
+	public List<Bibliografia> listarBibliografias(Integer uncrId) {
+		List<Bibliografia> lstB = new ArrayList<>();
+		try {
+			Query query = em
+					.createQuery("select bbl from Bibliografia as bbl where bbl.unidadCurricular.uncrId=:uncrId");
+			query.setParameter("uncrId", uncrId);
+			lstB = (List<Bibliografia>) query.getResultList();
+		} catch (Exception e) {
+			System.out.println("Error al consultar Parametros: " + e);
+			return lstB;
+		}
+		return lstB;
+	}
+
+	@Override
+	public void eliminarUnidad(UnidadCurricular uc) {
+		try {
+			em.remove(uc);
+		} catch (Exception e) {
+			System.out.println("Error al eliminar unidad");
+		}
+
 	}
 
 }

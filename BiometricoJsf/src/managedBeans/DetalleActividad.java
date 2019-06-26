@@ -38,11 +38,11 @@ public class DetalleActividad {
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Principal p = context.getApplication().evaluateExpressionGet(context, "#{principal}", Principal.class);
-		if (p.docente) {
+		if (p.flagDocente) {
 			selecCnt = new Contenido();
 			lstCn = srvDnt.listarContenidos(p.fdId);
 		}
-		if (p.empleado) {
+		if (p.flagEmpleado) {
 			// selectCrr = new Carrera();
 			// selectDcn = new FichaDocente();
 			lstC = srvEmp.listarCarreras(p.fcId);

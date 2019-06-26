@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="cuerpo">
+		<h:form id="frmHuellas" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<br />
+			<br />
+			<p
+				style="margin-left: 50px; color: rgb(0, 118, 189); font-size: 16px !important; font-weight: bold">Sistema
+				de Control de Asistencia Docente (S.C.A.D.)</p>
+			<h3></h3>
+			<br />
+			<br />
+			<center>
+				<p:panel id="pnlReloj">
+					<h:outputLabel id="lblReloj" value="#{control.hora}"
+						style="text-align: center; font-size: 20px !important; font-weight: bold"></h:outputLabel>
+					<p:poll interval="2" listener="#{control.temporizador}"
+						update="lblReloj" />
+					<p:commandButton id="btnDialog" value="Ver" title="Ver Dialogo"
+						rendered="#{!control.generado}" action="#{control.registrar}"
+						update=":frmHuellas:otpnControl"
+						oncomplete="handleDialogRequest(args)">
+
+					</p:commandButton>
+
+				</p:panel>
+				<p:commandButton value="Inicia sistema" title="Genera registros y inicia el control "
+					rendered="#{control.generado}" action="#{control.generar()}"
+					update="pnlReloj">
+
+				</p:commandButton>
+			</center>
+			<br />
+			<br />
+			<p:panel style="margin-left: 25px; margin-right: 25px;">
+				<h:panelGrid columns="3">
+					<h:graphicImage value="/img/uce.png" alt="U.C.E"
+						style=" width : 180px; height : 180px;" />
+					<div>
+						<p>
+							<br /> <br />La Universidad Central del Ecuador, le da una
+							cordial bienvenida al control de asistencia docente. Le
+							comunicamos que toda información será sujeta a verificación,
+							nuestra Institución de Educación Superior se reserva el derecho
+							de verificar la información proporcionada.<br /> <br /> <br />
+						</p>
+					</div>
+				</h:panelGrid>
+			</p:panel>
+			<p:commandButton value="Regresar" action="principal.xhtml" />
+			<!-- DIALOGO PARA EL CONTROL DE ACTIVIDADES -->
+			<p:dialog id="dlgControl"
+				header="Registro de  asistencia y actividades curriculares"
+				widgetVar="dlgCntrl" modal="true" showEffect="fade"
+				hideEffect="fade" style="margin-left: 100px; margin-right: 100px;"
+				position="center" resizable="false">
+				<p:outputPanel id="otpnControl">
+					<p:panel id="pnlDatosDocente">
+						<p:panelGrid columns="2">
+							<h:outputLabel value="Docente:"></h:outputLabel>
+							<h:outputText
+								value="#{control.regDcnt.fcdcApellidos} #{control.regDcnt.fcdcPrimerNombre} #{control.regDcnt.fcdcSegundoNombre}"></h:outputText>
+							<h:outputLabel value="Materia"></h:outputLabel>
+							<h:outputText rendered="#{control.flagIni}"
+								value="#{control.hrrI.materia.mtrNombre}"></h:outputText>
+							<h:outputText rendered="#{control.flagFin}"
+								value="#{control.hrrF.materia.mtrNombre}"></h:outputText>
+							<h:outputLabel value="Aula"></h:outputLabel>
+							<h:outputText rendered="#{control.flagIni}"
+								value="#{control.hrrI.aula.aulNombre}"></h:outputText>
+							<h:outputText rendered="#{control.flagFin}"
+								value="#{control.hrrF.aula.aulNombre}"></h:outputText>
+						</p:panelGrid>
+					</p:panel>
+					<p:panel id="pnlActividades">
+						<h:outputLabel value="Actividades(Selecione una):"></h:outputLabel>
+						<p:selectManyMenu id="slmmContenido" value="#{control.selecCnts}"
+							var="Cnt" showCheckbox="true"
+							style="margin-left: 5px; margin-right: 5px;">
+							<f:selectItems value="#{control.lstCnt}" var="cn"
+								itemLabel="#{cn.cntDescripcion}"
+								itemValue="#{cn.cntDescripcion}"
+								itemDisabled="#{cn.cntEstado eq 'COMPLETADO'}"></f:selectItems>
+
+							<p:column>
+								<h:inputText value="#{Cnt}" />
+							</p:column>
+						</p:selectManyMenu>
+						<!-- <p:scrollPanel mode="vertical">
+						noSelectionValue="#{cn.cntEstado eq 'COMPLETADO'}"
+							<p:tree value="#{control.root1}" var="unc"
+								selectionMode="checkbox"
+								noSelectionValue="#{unc.contenidos.cntEstado eq 'COMPLETADO'}">
+								<p:treeNode>
+									<h:outputText value="#{unc}" />
+								</p:treeNode>
+							</p:tree>
+						</p:scrollPanel>
+						 <p:panelGrid columns="2">
+
+							<h:outputLabel value="Observacion:"></h:outputLabel>
+							<p:inputTextarea counter="display" title="Ingrese la observacion"
+								maxlength="100" counterTemplate="{0} characters remaining" />
+							<h:outputText id="display" />
+						</p:panelGrid> -->
+					</p:panel>
+					<p:panel id="Resutado">
+						<p:panelGrid columns="2">
+							<h:outputLabel value="Hora de Registro:"></h:outputLabel>
+							<h:outputText value="#{control.regAss.assHoraEntrada}"
+								rendered="#{control.flagIni}"></h:outputText>
+							<h:outputText value="#{control.regAss.assHoraSalida}"
+								rendered="#{control.flagFin}" />
+							<h:outputLabel value="Estado de clase"></h:outputLabel>
+							<h:outputText value="#{control.regAss.assEstado}"></h:outputText>
+						</p:panelGrid>
+					</p:panel>
+					<p:commandButton id="btnGuardar" value="GUARDAR"
+						action="#{control.guardarAsis()}"
+						oncomplete="handleDialogRequest(args)"></p:commandButton>
+					<p:commandButton id="btnCancelar" value="CANCELAR"
+						onclick="PF('dlgControl').hide();"></p:commandButton>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+		<script type="text/javascript">
+			function handleDialogRequest(args) {
+				if (args.flagDlg) {
+					PF('dlgCntrl').show();
+				} else if (!args.flagDlg) {
+					PF('dlgCntrl').hide();
+
+				}
+			}
+		</script>
+	</ui:define>
+</ui:composition>
+</html>

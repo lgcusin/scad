@@ -146,8 +146,8 @@ public class SrvHorario implements SrvHorarioLocal {
 			if (horario.getHrrId() != null) {
 				em.merge(horario);
 			} else {
-				Horario h = obtenerSecuenciaHorario();
-				horario.setHrrId(h.getHrrId() + 1);
+				int h = obtenerSecuenciaHorario();
+				horario.setHrrId(h + 1);
 				em.persist(horario);
 			}
 		} catch (Exception e) {
@@ -155,16 +155,17 @@ public class SrvHorario implements SrvHorarioLocal {
 		}
 	}
 
-	private Horario obtenerSecuenciaHorario() {
-		Horario horario = null;
+	private int obtenerSecuenciaHorario() {
+		int h = 0;
 		try {
-			Query query = em.createQuery("select h from Horario as h  order by h.hrrId desc");
+			Query query = em.createQuery("select h.hrrId from Horario as h  order by h.hrrId desc");
 			query.setMaxResults(1);
-			horario = (Horario) query.getSingleResult();
+			h = (int) query.getSingleResult();
 		} catch (Exception e) {
 			System.out.println("Error al consultar los horarios secuencia" + e);
+			return h;
 		}
-		return horario;
+		return h;
 	}
 
 	@Override

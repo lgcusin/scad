@@ -23,43 +23,42 @@
 						<h:outputLabel
 							value="#{registro.selectDcnt.fcdcApellidos} #{registro.selectDcnt.fcdcPrimerNombre} #{registro.selectDcnt.fcdcSegundoNombre} " />
 						<h:outputLabel value="Carrera" style="font-weight: bold" />
-						<h:outputLabel value="#{huella.crr}" />
+						<h:outputLabel value="#{registro.selectDcnt.detallePuestos[0].carrera.crrNombre}" />
 					</p:panelGrid>
 					<br />
-					<p:panelGrid columns="2" style="text-align:center;"
-						rendered="#{huella.flagDvc}">
+					<p:panelGrid columns="2" style="text-align:center;">
 
-						<p:selectOneMenu id="tipoHuella" value="#{huella.tpId}">
+						<p:selectOneMenu id="tipoHuella" value="#{registro.tpId}">
 							<f:selectItem itemLabel="Selecione su huella" itemValue="" />
-							<f:selectItems value="#{huella.lstTphl}" var="th"
+							<f:selectItems value="#{registro.lstTphl}" var="th"
 								itemLabel="#{th.tphlId},#{th.tphlDescripcionDedo}"
 								itemValue="#{th.tphlId}" />
 						</p:selectOneMenu>
 						<p:panelGrid id="pnlHuellas" columns="2"
 							style="text-align:center;">
-							<p:graphicImage id="imagenR1" value="#{huella.graphic1}"
+							<p:graphicImage id="imagenR1" value="#{registro.graphic1}"
 								width="100" height="130"></p:graphicImage>
-							<p:graphicImage id="imagenR2" value="#{huella.graphic2}"
+							<p:graphicImage id="imagenR2" value="#{registro.graphic2}"
 								width="100" height="130"></p:graphicImage>
 							<p:progressBar id="calidad1" ajax="true"
-								value="#{huella.quality1}"></p:progressBar>
+								value="#{registro.quality1}"></p:progressBar>
 							<p:progressBar id="calidad2" ajax="true"
-								value="#{huella.quality2}"></p:progressBar>
+								value="#{registro.quality2}"></p:progressBar>
 							<p:commandButton id="botonR1" value="Captura H1"
-								update="imagenR1 calidad1" action="#{huella.capturar1}"></p:commandButton>
+								update="imagenR1 calidad1" action="#{registro.capturar1}"></p:commandButton>
 							<p:commandButton id="botonR2" value="Captura H2"
-								update="imagenR2 calidad2" action="#{huella.capturar2}"></p:commandButton>
+								update="imagenR2 calidad2" action="#{registro.capturar2}"></p:commandButton>
 						</p:panelGrid>
 					</p:panelGrid>
 					<br />
 					<p:commandButton id="btnRegistrar" value="Registrar"
-						rendered="#{huella.flagDvc}" action="#{huella.registrar}"
-						disabled="#{huella.flagVrf}"></p:commandButton>
+						rendered="#{registro.flagDvc}" action="#{registro.registrar}"
+						disabled="#{registro.flagVrf}"></p:commandButton>
 					<p:commandButton id="btnVerificar" value="Verificar"
-						disabled="#{!huella.flagVrf}" action="#{huella.verificar}"
-						rendered="#{huella.flagDvc}" update="btnRegistrar btnVerificar"></p:commandButton>
+						disabled="#{!registro.flagVrf}" action="#{registro.verificar}"
+						rendered="#{registro.flagDvc}" update="btnRegistrar btnVerificar"></p:commandButton>
 					<p:commandButton id="btnLimpiar" value="Limpiar"
-						rendered="#{huella.flagDvc}" action="#{huella.limpiar}"
+						rendered="#{registro.flagDvc}" action="#{registro.clean()}"
 						update="pnlRegitroHuellas_content"></p:commandButton>
 				</p:panel>
 			</center>
@@ -70,8 +69,8 @@
 			</div>
 			<br />
 			<div style="margin-left: 12px; margin-right: 10px;">
-				<p:commandButton id="btnRegresar" action="#{huella.regresar()}"
-					actionListener="#{huella.apagar}" value="Regresar" />
+				<p:commandButton id="btnRegresar" action="#{registro.volver()}"
+					actionListener="#{registro.apagar}" value="Regresar" />
 
 			</div>
 		</h:form>

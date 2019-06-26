@@ -8,12 +8,14 @@ import javax.ejb.Local;
 import model.Actividad;
 import model.Asistencia;
 import model.Aula;
+import model.Bibliografia;
 import model.Carrera;
 import model.Contenido;
 import model.Herramienta;
 import model.Horario;
 import model.MallaCurricularMateria;
 import model.Materia;
+import model.Metodologia;
 import model.Syllabo;
 import model.UnidadCurricular;
 
@@ -52,7 +54,7 @@ public interface SrvSeguimientoLocal {
 
 	void generar(Date ahora);
 
-	void guardarContenido(Contenido contenido);
+	void guardarSeguimiento(Contenido contenido);
 
 	void guardarActualizarContenido(Contenido cnt);
 
@@ -67,6 +69,16 @@ public interface SrvSeguimientoLocal {
 	void guardarActualizarActividad(Actividad actividad);
 
 	void guardarActualizarHerramienta(Herramienta herramienta);
+
+	void guardarActualizarMetodologia(Metodologia metodologia);
+
+	void guardarActualizarBibliografia(Bibliografia bibliografia);
+
+	List<Metodologia> listarMetodologias(Integer uncrId);
+
+	List<Bibliografia> listarBibliografias(Integer uncrId);
+
+	void eliminarUnidad(UnidadCurricular uc);
 
 	
 

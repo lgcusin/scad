@@ -18,7 +18,7 @@ import model.TipoHuella;
 @Local
 public interface SrvDocenteLocal {
 
-	List<FichaDocente> listar(String parametro);
+	List<FichaDocente> listar(String parametro, Integer integer);
 
 	List<TipoHuella> listarDedos();
 

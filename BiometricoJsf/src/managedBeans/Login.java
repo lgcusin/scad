@@ -24,6 +24,7 @@ public class Login {
 	@EJB
 	private SrvLoginLocal srvlgn;
 	private Usuario usr;
+	private List<DetallePuesto> dt;
 	boolean Docente = false;
 	boolean Empleado = false;
 
@@ -46,7 +47,7 @@ public class Login {
 			if (usr.getFichaEmpleado().getFcemId() != 0) {
 				Empleado = true;
 			}
-			List<DetallePuesto> dt = srvlgn.buscarFacultad(usr.getFichaDocente().getFcdcId());
+			dt = srvlgn.buscarDetallePuesto(usr.getFichaDocente().getFcdcId());
 			usr.getFichaDocente().setDetallePuestos(dt);
 			return "principal";
 		} else {
@@ -95,5 +96,15 @@ public class Login {
 	public void setEmpleado(boolean empleado) {
 		Empleado = empleado;
 	}
+
+	public List<DetallePuesto> getDt() {
+		return dt;
+	}
+
+	public void setDt(List<DetallePuesto> dt) {
+		this.dt = dt;
+	}
+	
+	
 
 }

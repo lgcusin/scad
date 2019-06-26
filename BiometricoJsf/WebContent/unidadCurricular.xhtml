@@ -69,7 +69,7 @@
 			</p:panel>
 			<p:panel header="PROGRAMACIÓN CURRICULAR">
 				<p:dataTable id="dtContenido" editable="true"
-					value="#{syllabus.lstContenidos}" var="cn">
+					value="#{syllabus.uc.contenidos}" var="cn">
 					<p:ajax event="rowEdit" listener="#{syllabus.onRowEditCnt}"
 						update="dtContenido" />
 					<p:ajax event="rowEditCancel" listener="#{syllabus.onRowCancelCnt}"
@@ -163,8 +163,8 @@
 					</f:facet>
 				</p:dataTable>
 			</p:panel>
-			<p:panel>
-				<p:dataTable id="dtMetodologia" value="#{syllabus.lstMetodologias}"
+			<p:panel header="METODOLOGIAS">
+				<p:dataTable id="dtMetodologia" value="#{syllabus.uc.metodologias}"
 					var="mtd" editable="true">
 					<p:ajax event="rowEdit" listener="#{syllabus.onRowEditMtd}"
 						update="frmRegistroUnidad:dtMetodologia" />
@@ -182,6 +182,8 @@
 						</p:cellEditor>
 					</p:column>
 					<p:column headerText="Opciones" style="width:100px">
+						<p:rowEditor editTitle="edit" cancelTitle="cancel"
+							saveTitle="save"></p:rowEditor>
 						<p:commandButton value="X" process="@this"
 							action="#{syllabus.eliminarMetodologia(mtd)}"
 							update="frmRegistroUnidad:dtMetodologia" />
@@ -193,9 +195,9 @@
 					</f:facet>
 				</p:dataTable>
 			</p:panel>
-			<p:panel>
+			<p:panel header="BIBLIOGRAFIA">
 				<p:dataTable id="dtBibliografia"
-					value="#{syllabus.lstBibliografias}" var="bbl" editable="true">
+					value="#{syllabus.uc.bibliografias}" var="bbl" editable="true">
 					<p:ajax event="rowEdit" listener="#{syllabus.onRowEditBbl}"
 						update="frmRegistroUnidad:dtBibliografia" />
 					<p:ajax event="rowEditCancel" listener="#{syllabus.onRowCancelBbl}"
@@ -203,21 +205,25 @@
 					<p:column headerText="TIPO">
 						<p:cellEditor>
 							<f:facet name="output">
-								<h:outputText value="#{bbl.bblDescripcion}" />
+								<h:outputText value="#{bbl.bblTipo}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:inputText type="text" value="#{bbl.bblDescripcion}"
-									required="true" />
+								<p:selectOneMenu value="#{bbl.bblTipo}" required="true">
+									<f:selectItem itemLabel="SELECCIONE..." itemValue="" />
+									<f:selectItem itemLabel="BASICA" itemValue="BASICA" />
+									<f:selectItem itemLabel="COMPLEMENTARIA"
+										itemValue="COMPLEMENTARIA" />
+								</p:selectOneMenu>
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
 					<p:column headerText="OBRAS FISICAS">
 						<p:cellEditor>
 							<f:facet name="output">
-								<h:outputText value="#{bbl.bblDescripcion}" />
+								<h:outputText value="#{bbl.bblObraFisica}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:inputText type="text" value="#{bbl.bblDescripcion}"
+								<p:inputText type="text" value="#{bbl.bblObraFisica}"
 									required="true" />
 							</f:facet>
 						</p:cellEditor>
@@ -225,21 +231,25 @@
 					<p:column headerText="DISPONIBILIDAD EN BIBLIOTECA">
 						<p:cellEditor>
 							<f:facet name="output">
-								<h:outputText value="#{bbl.bblDescripcion}" />
+								<h:outputText value="#{bbl.bblDisponibilidad}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:inputText type="text" value="#{bbl.bblDescripcion}"
-									required="true" />
+								<p:selectOneMenu value="#{bbl.bblDisponibilidad}"
+									required="true">
+									<f:selectItem itemLabel="SELECCIONE..." itemValue="" />
+									<f:selectItem itemLabel="SI" itemValue="SI" />
+									<f:selectItem itemLabel="NO" itemValue="NO" />
+								</p:selectOneMenu>
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
 					<p:column headerText="VIRTUAL">
 						<p:cellEditor>
 							<f:facet name="output">
-								<h:outputText value="#{bbl.bblDescripcion}" />
+								<h:outputText value="#{bbl.bblVirtual}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:inputText type="text" value="#{bbl.bblDescripcion}"
+								<p:inputText type="text" value="#{bbl.bblVirtual}"
 									required="true" />
 							</f:facet>
 						</p:cellEditor>
@@ -247,15 +257,17 @@
 					<p:column headerText="NOMBRE BIBLIOTECA VIRTUAL">
 						<p:cellEditor>
 							<f:facet name="output">
-								<h:outputText value="#{bbl.bblDescripcion}" />
+								<h:outputText value="#{bbl.bblNombreVirtual}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:inputText type="text" value="#{bbl.bblDescripcion}"
+								<p:inputText type="text" value="#{bbl.bblNombreVirtual}"
 									required="true" />
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
 					<p:column headerText="Opciones" style="width:100px">
+						<p:rowEditor editTitle="edit" cancelTitle="cancel"
+							saveTitle="save"></p:rowEditor>
 						<p:commandButton value="X" process="@this"
 							action="#{syllabus.eliminarBibliografia(bbl)}"
 							update="frmRegistroUnidad:dtBibliografia" />

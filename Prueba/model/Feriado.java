@@ -1,5 +1,5 @@
 package model;
-// Generated 16/06/2019 20:52:12 by Hibernate Tools 4.3.5.Final
+// Generated 22/06/2019 19:40:53 by Hibernate Tools 4.3.5.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;

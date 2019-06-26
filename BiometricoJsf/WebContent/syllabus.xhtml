@@ -14,7 +14,7 @@
 			acceptcharset="UTF-8">
 			<div style="margin-left: 10px; margin-right: 10px;">
 				<p:panel id="pnlBusqueda"
-					rendered="#{principal.docente or principal.empleado}">
+					rendered="#{login.docente or login.empleado}">
 					<p:panel id="pnlBusqueda_header">
 						<h:outputLabel value="Parámetros de búsqueda"
 							styleClass="ui-panel-title"></h:outputLabel>
@@ -54,16 +54,16 @@
 				</p:panel>
 				<div>
 					<p:commandButton id="btnBuscar" value="Buscar"
-						rendered="#{principal.docente or principal.empleado}"
+						rendered="#{login.docente or login.empleado}"
 						action="#{syllabus.buscar}" update="pnlResultados"></p:commandButton>
 					<p:commandButton id="btnLimpiar" value="Limpiar"
-						rendered="#{principal.docente or principal.empleado}"
+						rendered="#{login.docente or login.empleado}"
 						action="#{syllabus.limpiar}" update="pnlBusqueda pnlResultados"></p:commandButton>
 				</div>
 				<!-- ******************** PANEL RESULTADOS DE BUSQUEDA************************ -->
 				<div>
 					<p:panel id="pnlResultados"
-						rendered="#{principal.docente or principal.empleado}">
+						rendered="#{login.docente or login.empleado}">
 						<p:panel id="pnlResultados_header">
 							<h:outputLabel value="Resultados de la búsqueda"
 								styleClass="ui-panel-title"></h:outputLabel>

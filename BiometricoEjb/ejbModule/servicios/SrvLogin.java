@@ -27,7 +27,7 @@ public class SrvLogin implements SrvLoginLocal {
 
 	@Override
 	public Usuario verificar(String nick, String clave) {
-		Usuario usr;
+		Usuario usr = new Usuario();
 		try {
 			Object[] objArray;
 			Query query;
@@ -40,13 +40,13 @@ public class SrvLogin implements SrvLoginLocal {
 
 		} catch (Exception e) {
 			System.out.println("Error al obtener usuario" + e);
-			return usr = new Usuario();
+			return usr;
 		}
 		return usr;
 	}
 
 	@Override
-	public List<DetallePuesto> buscarFacultad(Integer fcdcId) {
+	public List<DetallePuesto> buscarDetallePuesto(Integer fcdcId) {
 		List<DetallePuesto> lstdp = new ArrayList<>();
 		try {
 			Object[] objArray;
