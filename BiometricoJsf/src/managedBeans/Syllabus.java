@@ -156,7 +156,7 @@ public class Syllabus {
 			for (UnidadCurricular unidad : lstUC) {
 				srvSgm.guardarActualizarUnidad(unidad);
 				for (Contenido contenido : unidad.getContenidos()) {
-					srvSgm.guardarSeguimiento(contenido);
+					srvSgm.guardarActualizarContenido(contenido);
 					for (Actividad actividad : contenido.getActividads()) {
 						srvSgm.guardarActualizarActividad(actividad);
 

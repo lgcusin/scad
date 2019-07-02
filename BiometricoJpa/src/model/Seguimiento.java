@@ -1,7 +1,6 @@
 package model;
 // Generated 15/01/2019 9:06:49 by Hibernate Tools 4.3.5.Final
 
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,28 +16,55 @@ import javax.persistence.Table;
 @Table(name = "SEGUIMIENTO")
 public class Seguimiento implements java.io.Serializable {
 
-	private BigDecimal sgmId;
-	private MallaCurricularMateria mallaCurricularMateria;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer sgmId;
 	private Asistencia asistencia;
+	private MallaCurricularMateria mallaCurricularMateria;
+	private String sgmTemaClase;
+	private Integer sgmHoraClaseRestante;
+	private String sgmObservacion;
 
 	public Seguimiento() {
 	}
 
-	public Seguimiento(BigDecimal sgmId, MallaCurricularMateria mallaCurricularMateria, Asistencia asistencia) {
+	public Seguimiento(Integer sgmId, Asistencia asistencia, MallaCurricularMateria mallaCurricularMateria) {
 		this.sgmId = sgmId;
-		this.mallaCurricularMateria = mallaCurricularMateria;
 		this.asistencia = asistencia;
+		this.mallaCurricularMateria = mallaCurricularMateria;
+	}
+
+	public Seguimiento(Integer sgmId, Asistencia asistencia, MallaCurricularMateria mallaCurricularMateria,
+			String sgmTemaClase, Integer sgmHoraClaseRestante, String sgmObservacion) {
+		this.sgmId = sgmId;
+		this.asistencia = asistencia;
+		this.mallaCurricularMateria = mallaCurricularMateria;
+		this.sgmTemaClase = sgmTemaClase;
+		this.sgmHoraClaseRestante = sgmHoraClaseRestante;
+		this.sgmObservacion = sgmObservacion;
 	}
 
 	@Id
 
-	@Column(name = "SGM_ID", unique = true, nullable = false, precision = 38, scale = 0)
-	public BigDecimal getSgmId() {
+	@Column(name = "SGM_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	public Integer getSgmId() {
 		return this.sgmId;
 	}
 
-	public void setSgmId(BigDecimal sgmId) {
+	public void setSgmId(Integer sgmId) {
 		this.sgmId = sgmId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ASS_ID", nullable = false)
+	public Asistencia getAsistencia() {
+		return this.asistencia;
+	}
+
+	public void setAsistencia(Asistencia asistencia) {
+		this.asistencia = asistencia;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -51,14 +77,31 @@ public class Seguimiento implements java.io.Serializable {
 		this.mallaCurricularMateria = mallaCurricularMateria;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ASS_ID", nullable = false)
-	public Asistencia getAsistencia() {
-		return this.asistencia;
+	@Column(name = "SGM_TEMA_CLASE", length = 4000)
+	public String getSgmTemaClase() {
+		return this.sgmTemaClase;
 	}
 
-	public void setAsistencia(Asistencia asistencia) {
-		this.asistencia = asistencia;
+	public void setSgmTemaClase(String sgmTemaClase) {
+		this.sgmTemaClase = sgmTemaClase;
+	}
+
+	@Column(name = "SGM_HORA_CLASE_RESTANTE", precision = 22, scale = 0)
+	public Integer getSgmHoraClaseRestante() {
+		return this.sgmHoraClaseRestante;
+	}
+
+	public void setSgmHoraClaseRestante(Integer sgmHoraClaseRestante) {
+		this.sgmHoraClaseRestante = sgmHoraClaseRestante;
+	}
+
+	@Column(name = "SGM_OBSERVACION", length = 400)
+	public String getSgmObservacion() {
+		return this.sgmObservacion;
+	}
+
+	public void setSgmObservacion(String sgmObservacion) {
+		this.sgmObservacion = sgmObservacion;
 	}
 
 }

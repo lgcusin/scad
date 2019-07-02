@@ -25,6 +25,7 @@ import model.MallaCurricularMateria;
 import model.Materia;
 import model.Metodologia;
 import model.Parametro;
+import model.Seguimiento;
 import model.Syllabo;
 import model.UnidadCurricular;
 
@@ -261,7 +262,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 		try {
 			Query query;
 			query = em.createQuery(
-					"select cnt,un from Contenido as cnt join cnt.unidadCurricular as un where cnt.unidadCurricular.syllabo.mallaCurricularMateria.materia.mtrId=:mtId order by un.uncrId,cnt.cntId");
+					"select cnt, un, sy from Contenido as cnt join cnt.unidadCurricular as un join un.syllabo as sy where sy.mallaCurricularMateria.materia.mtrId=:mtId order by un.uncrId,cnt.cntId desc");
 			query.setParameter("mtId", mtrId);
 			for (Object obj : query.getResultList()) {
 				Object[] objArray = (Object[]) obj;
@@ -363,13 +364,13 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	}
 
 	@Override
-	public void guardarSeguimiento(Contenido cnt) {
+	public void guardarActualizarSeguimiento(Seguimiento sgm) {
 		try {
-			if (cnt.getCntId() != null) {
-				em.merge(cnt);
+			if (sgm.getSgmId() != null) {
+				em.merge(sgm);
 			} else {
-				cnt.setCntId(obtenerCntdAsistencia() + 1);
-				em.persist(cnt);
+				sgm.setSgmId(obtenerSecuenciaSeguimiento() + 1);
+				em.persist(sgm);
 			}
 		} catch (Exception e) {
 			System.out.println("Error al guardar tema de clase");
@@ -377,15 +378,16 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 
 	}
 
-	private int obtenerCntdAsistencia() {
-		int id;
-		try {
-			Query query = em.createQuery("select cont.cntId from Contenido as cont order by cont.cntId desc");
+
+	private int obtenerSecuenciaSeguimiento() {
+		int id=0;
+		try{
+			Query query = em.createQuery("select sgm.sgmId from Seguimiento as sgm order by sgm.sgmId desc");
 			query.setMaxResults(1);
 			id = (int) query.getSingleResult();
-		} catch (Exception e) {
-			System.out.println("Error al consultar los contenidos secuencia" + e);
-			return 0;
+		}catch (Exception e) {
+			System.out.println("Error al obtener secuencia seguiento");
+			return id;
 		}
 		return id;
 	}
@@ -659,6 +661,26 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			System.out.println("Error al eliminar unidad");
 		}
 
+	}
+
+	@Override
+	public List<Seguimiento> getSeguimiento(Integer mtrId, Integer fdId) {
+		List<Seguimiento> lstS = new ArrayList<>();
+		try {
+			Query query;
+			Object[] objArray;
+			query = em.createQuery(
+					"select sg, mc, mt, ass, fd from Seguimiento as sg join sg.mallaCurricularMateria as mc join mc.materia as mt join sg.asistencia as ass join ass.fichaDocente as fd where mt.mtrId=:mtId and fd.fcdcId=:fdId");
+			query.setParameter("mtId", mtrId).setParameter("fdId", fdId);
+			for (Object obj : query.getResultList()) {
+				objArray = (Object[]) obj;
+				lstS.add((Seguimiento) objArray[0]);
+			}
+		} catch (Exception e) {
+			System.out.println("Error al consultar seguimiento-syllabus");
+			return lstS;
+		}
+		return lstS;
 	}
 
 }

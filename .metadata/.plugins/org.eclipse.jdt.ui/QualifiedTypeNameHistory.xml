@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.io.OutputStream"/>
 <fullyQualifiedTypeName name="javax.servlet.ServletContext"/>
 <fullyQualifiedTypeName name="antlr.Utils"/>
 <fullyQualifiedTypeName name="org.apache.commons.io.FilenameUtils"/>
@@ -36,7 +35,6 @@
 <fullyQualifiedTypeName name="model.Usuario"/>
 <fullyQualifiedTypeName name="model.Carrera"/>
 <fullyQualifiedTypeName name="servicios.SrvLogin"/>
-<fullyQualifiedTypeName name="javax.faces.bean.ViewScoped"/>
 <fullyQualifiedTypeName name="javax.faces.event.ComponentSystemEvent"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="java.lang.Object"/>
@@ -54,10 +52,12 @@
 <fullyQualifiedTypeName name="model.UnidadCurricular"/>
 <fullyQualifiedTypeName name="java.lang.Boolean"/>
 <fullyQualifiedTypeName name="model.FichaEmpleado"/>
-<fullyQualifiedTypeName name="javax.faces.bean.RequestScoped"/>
-<fullyQualifiedTypeName name="javax.faces.bean.ManagedProperty"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="model.FichaDocente"/>
 <fullyQualifiedTypeName name="model.DetallePuesto"/>
 <fullyQualifiedTypeName name="managedBeans.Login"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="model.Seguimiento"/>
+<fullyQualifiedTypeName name="javax.faces.bean.ManagedProperty"/>
+<fullyQualifiedTypeName name="javax.faces.bean.RequestScoped"/>
+<fullyQualifiedTypeName name="javax.faces.bean.ViewScoped"/>
 </qualifiedTypeNameHistroy>

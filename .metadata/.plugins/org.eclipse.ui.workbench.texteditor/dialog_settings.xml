@@ -2,25 +2,25 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="selecCnts" key="selection"/>
+		<item value="lstC" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="lstC"/>
+			<item value="BigDecimal"/>
 			<item value="selecCnts"/>
 			<item value="principal"/>
 			<item value="limpiar"/>
 			<item value="huella"/>
 			<item value="proper"/>
 			<item value="Lector no encontrado"/>
-			<item value="crearSyllabo"/>
-			<item value="CancelUnidadCurricular"/>
 		</list>
 		<list key="replacehistory">
+			<item value="Integer"/>
 			<item value="login"/>
 			<item value="registro"/>
-			<item value="Integer"/>
 			<item value="frmRegistroUnidad"/>
 			<item value="List"/>
 			<item value="regAss"/>

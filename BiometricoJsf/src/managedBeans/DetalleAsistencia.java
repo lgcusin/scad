@@ -23,7 +23,7 @@ import servicios.SrvDocenteLocal;
 import servicios.SrvEmpleadoLocal;
 
 @ManagedBean(name = "detalleAss")
-@RequestScoped
+@ViewScoped
 public class DetalleAsistencia {
 	/**
 	 * Constante definida para el formato de fecha.
@@ -34,13 +34,13 @@ public class DetalleAsistencia {
 	private SrvDocenteLocal srvDnt;
 	@EJB
 	private SrvEmpleadoLocal srvEmp;
-	@ManagedProperty(value = "#{principal}")
-	private Principal principal;
+	@ManagedProperty(value = "#{login}")
+	public Login beanLogin;
 
 	private String fechaInicio;
 	private String fechaFin;
 	private boolean mostrarFiltros;
-	public List<Carrera> lstC;
+	public List<Carrera> lstCarreras;
 	public List<FichaDocente> lstD;
 	public List<Asistencia> lstA;
 
@@ -52,15 +52,12 @@ public class DetalleAsistencia {
 
 	@PostConstruct
 	public void init() {
-		// FacesContext context = FacesContext.getCurrentInstance();
-		// principal = context.getApplication().evaluateExpressionGet(context,
-		// "#{principal}", Principal.class);
 		selectAss = new Asistencia();
 		selectCrr = new Carrera();
 		selectDcn = new FichaDocente();
-		if (principal.flagEmpleado) {
+		if (beanLogin.Empleado) {
 			mostrarFiltros = true;
-			lstC = srvEmp.listarCarreras(principal.fcId);
+			lstCarreras = srvEmp.listarCarreras(beanLogin.getDt().get(0).getCarrera().getFacultad().getFclId());
 		} else {
 			mostrarFiltros = false;
 		}
@@ -84,9 +81,9 @@ public class DetalleAsistencia {
 				if (validarFechas()) {
 					Date inicio = new SimpleDateFormat(FORMATOFECHA).parse(fechaInicio);
 					Date fin = new SimpleDateFormat(FORMATOFECHA).parse(fechaFin);
-					if (principal.flagDocente) {
-						lstA = srvDnt.listarAsistencia(principal.fdId, inicio, fin, null);
-					} else if (principal.flagEmpleado) {
+					if (beanLogin.Docente) {
+						lstA = srvDnt.listarAsistencia(beanLogin.getDt().get(0).getCarrera().getFacultad().getFclId(), inicio, fin, null);
+					} else if (beanLogin.Empleado) {
 						lstA = srvDnt.listarAsistencia(fcdId, inicio, fin, crrId);
 					}
 
@@ -116,7 +113,7 @@ public class DetalleAsistencia {
 	 * @return
 	 */
 	private boolean validarDocenteSelecionado() {
-		if (fcdId != null || principal.flagDocente) {
+		if (fcdId != null || beanLogin.Docente) {
 			return true;
 		} else {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -246,13 +243,12 @@ public class DetalleAsistencia {
 	}
 
 	// setters and getters Empleado
-
-	public List<Carrera> getLstC() {
-		return lstC;
+	public List<Carrera> getLstCarreras() {
+		return lstCarreras;
 	}
 
-	public void setLstC(List<Carrera> lstC) {
-		this.lstC = lstC;
+	public void setLstCarreras(List<Carrera> lstCarreras) {
+		this.lstCarreras = lstCarreras;
 	}
 
 	public Carrera getSelectCrr() {
@@ -332,21 +328,17 @@ public class DetalleAsistencia {
 	}
 
 	/**
-	 * The principal to get.
-	 * 
-	 * @return the principal
+	 * @return the beanLogin
 	 */
-	public Principal getPrincipal() {
-		return principal;
+	public Login getBeanLogin() {
+		return beanLogin;
 	}
 
 	/**
-	 * The principal to set.
-	 * 
-	 * @param principal
+	 * @param beanLogin the beanLogin to set
 	 */
-	public void setPrincipal(Principal principal) {
-		this.principal = principal;
+	public void setBeanLogin(Login beanLogin) {
+		this.beanLogin = beanLogin;
 	}
 
 	/**

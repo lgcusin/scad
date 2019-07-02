@@ -10,9 +10,6 @@
 		<p:menubar>
 			<p:submenu label="Asistencia"
 				rendered="#{login.docente or login.empleado}">
-				<p:menuitem value="Detalle de Clases" rendered="#{login.docente}"
-					action="#{principal.verDetalleAsistencia(login.docente,'DOCENTE')}"
-					ajax="false"></p:menuitem>
 				<p:menuitem value="Asistencias" rendered="#{login.empleado}"
 					action="#{principal.verDetalleAsistencia(login.empleado,'EMPLEADO')}"
 					ajax="false"></p:menuitem>

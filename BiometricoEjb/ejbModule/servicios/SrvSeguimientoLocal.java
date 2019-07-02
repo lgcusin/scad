@@ -16,6 +16,7 @@ import model.Horario;
 import model.MallaCurricularMateria;
 import model.Materia;
 import model.Metodologia;
+import model.Seguimiento;
 import model.Syllabo;
 import model.UnidadCurricular;
 
@@ -54,7 +55,7 @@ public interface SrvSeguimientoLocal {
 
 	void generar(Date ahora);
 
-	void guardarSeguimiento(Contenido contenido);
+	void guardarActualizarSeguimiento(Seguimiento seguimiento);
 
 	void guardarActualizarContenido(Contenido cnt);
 
@@ -79,6 +80,8 @@ public interface SrvSeguimientoLocal {
 	List<Bibliografia> listarBibliografias(Integer uncrId);
 
 	void eliminarUnidad(UnidadCurricular uc);
+
+	List<Seguimiento> getSeguimiento(Integer mtrId, Integer fcdcId);
 
 	
 

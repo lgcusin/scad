@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import model.FichaDocente;
@@ -13,17 +14,17 @@ import model.FichaEmpleado;
 import servicios.SrvDocenteLocal;
 
 @ManagedBean(name = "principal")
-@RequestScoped
+@ViewScoped
 public class Principal {
 
 	@EJB
 	private SrvDocenteLocal srvDcnt;
-	private Login beanLogin;
+	public Login beanLogin;
 	
 	public FichaDocente docente;
 	public FichaEmpleado empleado;
-	boolean flagDocente = false;
-	boolean flagEmpleado = false;
+	boolean flagDocente;
+	boolean flagEmpleado;
 	public Integer fdId;
 	public Integer fcId;
 

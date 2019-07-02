@@ -32,6 +32,8 @@ public class ReporteHorario {
 	private SrvSeguimientoLocal srvSegm;
 	@EJB
 	private SrvEmpleadoLocal srvEmp;
+	@EJB
+	private Login beanLogin;
 
 	private Carrera selectCrr;
 	private TipoHorario selectTipoHorario;
@@ -39,18 +41,16 @@ public class ReporteHorario {
 	private Collection<String[]> resultHorarios;
 	private Collection<TipoHorario> lstTH;
 	private List<Carrera> lstCr;
-	public Integer fdId;
 
 	@PostConstruct
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		Principal p = context.getApplication().evaluateExpressionGet(context, "#{principal}", Principal.class);
-		if (p.flagDocente) {
-			fdId = p.getFdId();
-			lstCr = srvSegm.listarAllCrrByFcdc(fdId);
+		beanLogin = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
+		if (beanLogin.Docente) {
+			lstCr = srvSegm.listarAllCrrByFcdc(beanLogin.getUsr().getFichaDocente().getFcdcId());
 		}
-		if (p.flagEmpleado) {
-			lstCr = srvEmp.listarCarreras(p.fcId);
+		if (beanLogin.Empleado) {
+			lstCr = srvEmp.listarCarreras(beanLogin.getDt().get(0).getCarrera().getFacultad().getFclId());
 		}
 		lstTH = srvRepHor.listarTipoHorario();
 		selectCrr = new Carrera();
@@ -61,8 +61,9 @@ public class ReporteHorario {
 	public void buscarHorarios() {
 		System.out.println("Metodo para ver informacion de horario");
 		if (selectCrr.getCrrId() != null && selectTipoHorario.getTphrId() != null) {
-			if (fdId != null) {
-				resultHorarios = srvRepHor.listarHorarios(fdId, selectCrr.getCrrId(), selectTipoHorario.getTphrId());
+			if (beanLogin.getUsr().getFichaDocente().getFcdcId() != null) {
+				resultHorarios = srvRepHor.listarHorarios(beanLogin.getUsr().getFichaDocente().getFcdcId(),
+						selectCrr.getCrrId(), selectTipoHorario.getTphrId());
 			} else {
 				resultHorarios = srvRepHor.listarHorarios(null, selectCrr.getCrrId(), selectTipoHorario.getTphrId());
 			}

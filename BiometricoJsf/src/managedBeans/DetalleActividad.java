@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -25,27 +26,29 @@ public class DetalleActividad {
 	private SrvDocenteLocal srvDnt;
 	@EJB
 	private SrvEmpleadoLocal srvEmp;
+	public Login beanLogin;
 
 	public List<Contenido> lstCn;
 	public List<Carrera> lstC;
 	public List<FichaDocente> lstD;
 
 	public Integer crrId;
-	public Integer fcdId;
 	public Contenido selecCnt;
+	public Carrera selectCrr;
+	public FichaDocente selectDcn;
 
 	@PostConstruct
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		Principal p = context.getApplication().evaluateExpressionGet(context, "#{principal}", Principal.class);
-		if (p.flagDocente) {
+		beanLogin = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
+		if (beanLogin.Docente) {
 			selecCnt = new Contenido();
-			lstCn = srvDnt.listarContenidos(p.fdId);
+			lstCn = srvDnt.listarContenidos(beanLogin.getUsr().getFichaDocente().getFcdcId());
 		}
-		if (p.flagEmpleado) {
-			// selectCrr = new Carrera();
-			// selectDcn = new FichaDocente();
-			lstC = srvEmp.listarCarreras(p.fcId);
+		if (beanLogin.Empleado) {
+			selectCrr = new Carrera();
+			selectDcn = new FichaDocente();
+			lstC = srvEmp.listarCarreras(beanLogin.getDt().get(0).getCarrera().getFacultad().getFclId());
 		}
 
 	}
@@ -63,7 +66,7 @@ public class DetalleActividad {
 	}
 
 	public void listarActividades() {
-		lstCn = srvDnt.listarContenidos(fcdId);
+		lstCn = srvDnt.listarContenidos(beanLogin.getUsr().getFichaDocente().getFcdcId());
 	}
 
 	public String regresar() {
@@ -110,14 +113,6 @@ public class DetalleActividad {
 
 	public void setCrrId(Integer crrId) {
 		this.crrId = crrId;
-	}
-
-	public Integer getFcdId() {
-		return fcdId;
-	}
-
-	public void setFcdId(Integer fcdId) {
-		this.fcdId = fcdId;
 	}
 
 }

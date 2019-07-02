@@ -27,6 +27,7 @@ import model.Contenido;
 import model.FichaDocente;
 import model.Horario;
 import model.Materia;
+import model.Seguimiento;
 import model.UnidadCurricular;
 import servicios.SrvSeguimientoLocal;
 
@@ -45,6 +46,7 @@ public class Control {
 	private Asistencia regAss;
 	private List<Asistencia> lstAss;
 	private List<Contenido> lstCnt;
+	private List<Seguimiento> lstSgmt;
 	private List<String> selecCnts;
 
 	public String hora;
@@ -55,6 +57,8 @@ public class Control {
 	public boolean flagIni;
 	public boolean flagFin;
 	public Integer fclId;
+	private String sgmObservacion;
+	private Integer sgmHoraClaseRestante;
 
 	@PostConstruct
 	public void init() {
@@ -77,7 +81,7 @@ public class Control {
 		flagFin = false;
 		regDcnt = srvDvc.comparar();
 		if (regDcnt != null) {
-			// Compara si hay un horario con la hora de entrada
+			// Compara si hay un horario con la hora de entrada o salida
 			hrrI = srvSgmt.verificarHorario(ahora, regDcnt.getFcdcId(), true, fclId);
 			hrrF = srvSgmt.verificarHorario(ahora, regDcnt.getFcdcId(), false, fclId);
 
@@ -175,52 +179,110 @@ public class Control {
 	}
 
 	private String inicializarClase(Asistencia asistencia) {
-		regAss = asistencia;
-		regAss.setFichaDocente(regDcnt);
-		formateador = new SimpleDateFormat("HH:mm:ss");
-		regAss.setAssHoraEntrada(formateador.format(ahora));
-		regAss.setAssEstado("Iniciado");
-		//Cruzar contenido-syllabus con seguimiento-syllabus
-		
+		// Cruzar contenido-syllabus con seguimiento-syllabus
 		lstCnt = srvSgmt.getContenidos(hrrI.getMateria().getMtrId());
-		// root1 = createCheckboxDocuments();
-		flagIni = true;
-		flagDlg = true;
-		RequestContext.getCurrentInstance().addCallbackParam("flagDlg", flagDlg);
-		return null;
+		if (lstCnt.isEmpty()) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "No se encontraron temas de clases",
+					"Verifique si existen el syllabus respectivo");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		} else {
+			lstSgmt = srvSgmt.getSeguimiento(hrrI.getMateria().getMtrId(), regDcnt.getFcdcId());
+			int tiempo = Integer.parseInt(hrrI.getHrrFin().substring(0, 2))
+					- Integer.parseInt(hrrI.getHrrInicio().substring(0, 2));
+			if (lstSgmt.isEmpty()) {
+				sgmHoraClaseRestante = lstCnt.get(0).getUnidadCurricular().getSyllabo().getSylHorasClase() - tiempo;
+				return null;
+				// for (Contenido cnt : lstCnt) {
+				// for (Seguimiento sgm : lstSgmt) {
+				// if (cnt.getCntDescripcion().equals(sgm.getSgmTemaClase())) {
+				// lstCnt.remove(cnt);
+				// }
+				// }
+				// }
+			} else {
+				// root1 = createCheckboxDocuments();
+				regAss = asistencia;
+				regAss.setFichaDocente(regDcnt);
+				formateador = new SimpleDateFormat("HH:mm:ss");
+				regAss.setAssHoraEntrada(formateador.format(ahora));
+				regAss.setAssEstado("Iniciado");
+				sgmHoraClaseRestante = lstSgmt.get(lstSgmt.size() - 1).getSgmHoraClaseRestante() - tiempo;
+				flagIni = true;
+				flagDlg = true;
+				RequestContext.getCurrentInstance().addCallbackParam("flagDlg", flagDlg);
+				return null;
+			}
+		}
 	}
 
 	private String finalizarClase(Asistencia asistencia) {
-		regAss = asistencia;
-		formateador = new SimpleDateFormat("HH:mm:ss");
-		regAss.setAssHoraSalida(formateador.format(ahora));
-		regAss.setAssEstado("Finalizado");
-		lstCnt = srvSgmt.getContenidos(hrrF.getMateria().getMtrId());
-		flagFin = true;
-		flagDlg = true;
-		RequestContext.getCurrentInstance().addCallbackParam("flagDlg", flagDlg);
-		return null;
+		lstCnt = srvSgmt.getContenidos(hrrI.getMateria().getMtrId());
+		if (lstCnt.isEmpty()) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "No se encontraron temas de clases",
+					"Verifique si existen el syllabus respectivo");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return null;
+		} else {
+			lstSgmt = srvSgmt.getSeguimiento(hrrF.getMateria().getMtrId(), regDcnt.getFcdcId());
+			if (!lstSgmt.isEmpty()) {
+				int tiempo = Integer.parseInt(hrrF.getHrrFin().substring(0, 2))
+						- Integer.parseInt(hrrF.getHrrInicio().substring(0, 2));
+				sgmHoraClaseRestante = lstSgmt.get(lstSgmt.size() - 1).getSgmHoraClaseRestante() - tiempo;
+			}
+			// root1 = createCheckboxDocuments();
+			regAss = asistencia;
+			formateador = new SimpleDateFormat("HH:mm:ss");
+			regAss.setAssHoraSalida(formateador.format(ahora));
+			regAss.setAssEstado("Finalizado");
+			flagFin = true;
+			flagDlg = true;
+			RequestContext.getCurrentInstance().addCallbackParam("flagDlg", flagDlg);
+			return null;
+		}
+
 	}
 
 	public void guardarAsis() {
 		flagDlg = false;
 		try {
-			if (selecCnts.isEmpty()) {
+			if (selecCnts.isEmpty() && flagIni) {
 				flagDlg = true;
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Debe escoger una Actividad", null);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 				RequestContext.getCurrentInstance().addCallbackParam("flagDlg", flagDlg);
-			} else if (selecCnts.size() == 1) {
+			} else if (selecCnts.isEmpty() && flagFin) {
 				srvSgmt.guardarRegistro(regAss);
-				for (int i = 0; i < selecCnts.size(); i++) {
-					for (int j = 0; j < lstCnt.size(); j++) {
-						if (selecCnts.get(i).equals(lstCnt.get(j).getCntDescripcion())) {
-							lstCnt.get(j).setCntEstado("COMPLETADO");
-							srvSgmt.guardarSeguimiento(lstCnt.get(j));
-							break;
+				sgmObservacion = null;
+				sgmHoraClaseRestante = 0;
+				lstCnt = null;
+				selecCnts = null;
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Asistencia guardada", null);
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				RequestContext.getCurrentInstance().addCallbackParam("flagDlg", flagDlg);
+			} else {
+				for (String selectcnt : selecCnts) {
+					for (Contenido con : lstCnt) {
+						if (selectcnt.equals(con.getCntDescripcion())) {
+							con.setCntEstado("COMPLETADO");
+							srvSgmt.guardarActualizarContenido(con);
+							Seguimiento seg = new Seguimiento();
+							seg.setAsistencia(regAss);
+							seg.setMallaCurricularMateria(
+									con.getUnidadCurricular().getSyllabo().getMallaCurricularMateria());
+							seg.setSgmTemaClase(selectcnt);
+							seg.setSgmObservacion(sgmObservacion);
+							seg.setSgmHoraClaseRestante(sgmHoraClaseRestante);
+							srvSgmt.guardarActualizarSeguimiento(seg);
 						}
 					}
+
 				}
+				srvSgmt.guardarRegistro(regAss);
+				sgmObservacion = null;
+				sgmHoraClaseRestante = 0;
+				lstCnt = null;
+				selecCnts = null;
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Asistencia guardada", null);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 				RequestContext.getCurrentInstance().addCallbackParam("flagDlg", flagDlg);
@@ -352,6 +414,22 @@ public class Control {
 
 	public void setFlagFin(boolean flagFin) {
 		this.flagFin = flagFin;
+	}
+
+	public String getSgmObservacion() {
+		return sgmObservacion;
+	}
+
+	public void setSgmObservacion(String sgmObservacion) {
+		this.sgmObservacion = sgmObservacion;
+	}
+
+	public Integer getSgmHoraClaseRestante() {
+		return sgmHoraClaseRestante;
+	}
+
+	public void setSgmHoraClaseRestante(Integer sgmHoraClaseRestante) {
+		this.sgmHoraClaseRestante = sgmHoraClaseRestante;
 	}
 
 	/**

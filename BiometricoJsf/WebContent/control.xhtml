@@ -83,6 +83,10 @@
 						</p:panelGrid>
 					</p:panel>
 					<p:panel id="pnlActividades">
+						<p:panelGrid columns="2">
+							<h:outputLabel value="Horas clase:" />
+							<h:outputLabel value="#{control.sgmHoraClaseRestante}" />
+						</p:panelGrid>
 						<h:outputLabel value="Actividades(Selecione una):"></h:outputLabel>
 						<p:selectManyMenu id="slmmContenido" value="#{control.selecCnts}"
 							var="Cnt" showCheckbox="true"
@@ -105,10 +109,11 @@
 								</p:treeNode>
 							</p:tree>
 						</p:scrollPanel>-->
-						<p:panelGrid columns="2" >
+						<p:panelGrid columns="2">
 							<h:outputLabel value="Observacion:"></h:outputLabel>
 							<p:inputTextarea counter="display" title="Ingrese la observacion"
-								maxlength="300" counterTemplate="{0} characters remaining" />
+								value="#{control.sgmObservacion}" maxlength="300"
+								counterTemplate="{0} caracteres restantes" style="width:99%" />
 							<h:outputLabel id="display" />
 						</p:panelGrid>
 					</p:panel>
