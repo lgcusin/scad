@@ -56,8 +56,10 @@
 		<item value="false" key="updateQualifiedNames"/>
 		<item value="*" key="patterns"/>
 		<item value="true" key="updateSimilarElements"/>
-		<item value="false" key="updateTextualMatches"/>
+		<item value="true" key="renameSetter"/>
+		<item value="true" key="updateTextualMatches"/>
 		<item value="1" key="updateSimilarElementsMatchStrategy"/>
+		<item value="true" key="renameGetter"/>
 	</section>
 	<section name="GenerateConstructorUsingFieldsSelectionDialog">
 		<item value="false" key="OmitCallToSuper"/>
@@ -112,8 +114,8 @@
 		</section>
 	</section>
 	<section name="RefactoringWizard.preview">
-		<item value="600" key="width"/>
-		<item value="400" key="height"/>
+		<item value="550" key="width"/>
+		<item value="350" key="height"/>
 	</section>
 	<section name="CallHierarchySearchScope">
 	</section>
@@ -135,6 +137,8 @@
 		<item value="false" key="FinalModifier"/>
 	</section>
 	<section name="quick_assist_proposal_size">
+		<item value="252" key="size.y"/>
+		<item value="494" key="size.x"/>
 	</section>
 	<section name="BuildPathsPropertyPage">
 		<item value="2" key="pageIndex"/>

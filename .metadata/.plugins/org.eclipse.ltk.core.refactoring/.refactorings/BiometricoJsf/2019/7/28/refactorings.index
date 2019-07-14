@@ -1,0 +1,6 @@
+1562900576940	Rename field 'usr'
+1562901349707	Rename field 'Empleado'
+1562981983349	Rename local variable 'lstD'
+1563040057682	Rename field 'horaEntrada'
+1563040069031	Rename field 'horaSalida'
+1563120673348	Rename method 'guardarAsis'

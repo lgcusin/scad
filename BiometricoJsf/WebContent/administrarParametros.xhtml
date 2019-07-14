@@ -43,13 +43,13 @@
 											</div>
 											<div class="cell colspan4">
 												<p:selectOneMenu id="slcFacultad"
-													value="#{administrarParametro.selectFacultad.fclId}"
+													value="#{administrarParametro.selectFacultad.dpnId}"
 													style="width: 100%"
-													valueChangeListener="#{registroFeriado.setFacultadID}">
+													valueChangeListener="#{administrarParametro.setFacultadID}">
 													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
 													<f:selectItems value="#{administrarParametro.lstFacultad}"
-														var="fac" itemLabel="#{fac.fclNombre}"
-														itemValue="#{fac.fclId}" />
+														var="fac" itemLabel="#{fac.dpnDescripcion}"
+														itemValue="#{fac.dpnId}" />
 												</p:selectOneMenu>
 											</div>
 										</div>
@@ -67,19 +67,45 @@
 									<div class="grid condensed" style="padding: 10px;">
 										<div class="row cells12">
 											<div class="cell colspan2">
-												<p:outputLabel id="lblHoraEntrada" value="Hora entrada: " />
+												<p:outputLabel  value="Hora entrada 1: " />
 											</div>
 											<div class="cell colspan4">
 												<p:inputText type="time"
-													value="#{administrarParametro.horaEntrada}" />
+													value="#{administrarParametro.horaEntradaAntes}" />
 											</div>
 
 											<div class="cell colspan2">
-												<p:outputLabel id="lblHoraSalida" value="Hora salida: "/>
+												<p:outputLabel  value="Hora entrada 2: "/>
 											</div>
 											<div class="cell colspan4">
 												<p:inputText type="time"
-													value="#{administrarParametro.horaSalida}"></p:inputText>
+													value="#{administrarParametro.horaEntradaDespues}"></p:inputText>
+											</div>
+										</div>
+										<div class="row cells12">
+											<div class="cell colspan2">
+												<p:outputLabel  value="Hora salida 1: " />
+											</div>
+											<div class="cell colspan4">
+												<p:inputText type="time"
+													value="#{administrarParametro.horaSalidaAntes}" />
+											</div>
+
+											<div class="cell colspan2">
+												<p:outputLabel value="Hora salida 2: "/>
+											</div>
+											<div class="cell colspan4">
+												<p:inputText type="time"
+													value="#{administrarParametro.horaSalidaDespues}"></p:inputText>
+											</div>
+										</div>
+										<div class="row cells12">
+											<div class="cell colspan2">
+												<p:outputLabel  value="Hora atraso: " />
+											</div>
+											<div class="cell colspan4">
+												<p:inputText type="time"
+													value="#{administrarParametro.horaAtraso}" />
 											</div>
 										</div>
 									</div>

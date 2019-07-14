@@ -40,7 +40,7 @@
 													valueChangeListener="#{registroPrl.setCarreraID}">
 													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
 													<f:selectItems value="#{registroPrl.lstC}" var="cr"
-														itemLabel="#{cr.crrNombre}" itemValue="#{cr.crrId}" />
+														itemLabel="#{cr.crrDescripcion}" itemValue="#{cr.crrId}" />
 													<p:ajax update="slcSemestre" />
 													<p:ajax update="slcMateria" />
 												</p:selectOneMenu>
@@ -58,11 +58,11 @@
 											</div>
 											<div class="cell colspan2">
 												<p:selectOneMenu id="slcSemestre"
-													value="#{registroPrl.selectSem.smsId}" style="width: 100%"
+													value="#{registroPrl.selectSem.nvlId}" style="width: 100%"
 													valueChangeListener="#{registroPrl.buscarMateria}">
 													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
 													<f:selectItems value="#{registroPrl.lstS}" var="sms"
-														itemLabel="#{sms.smsDescripcion}" itemValue="#{sms.smsId}" />
+														itemLabel="#{sms.nvlDescripcion}" itemValue="#{sms.nvlId}" />
 													<p:ajax update="slcMateria" />
 												</p:selectOneMenu>
 											</div>

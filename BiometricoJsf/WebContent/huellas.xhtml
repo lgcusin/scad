@@ -21,9 +21,9 @@
 					<p:panelGrid columns="2">
 						<h:outputLabel value="Docente:" style="font-weight: bold" />
 						<h:outputLabel
-							value="#{registro.selectDcnt.fcdcApellidos} #{registro.selectDcnt.fcdcPrimerNombre} #{registro.selectDcnt.fcdcSegundoNombre} " />
+							value="#{registro.selectDcnt.persona.prsPrimerApellido} #{registro.selectDcnt.persona.prsSegundoApellido} #{registro.selectDcnt.persona.prsNombres} " />
 						<h:outputLabel value="Carrera" style="font-weight: bold" />
-						<h:outputLabel value="#{registro.selectDcnt.detallePuestos[0].carrera.crrNombre}" />
+						<h:outputLabel value="#{registro.selectDcnt.detallePuestos[0].carrera.crrDescripcion}" />
 					</p:panelGrid>
 					<br />
 					<p:panelGrid columns="2" style="text-align:center;">

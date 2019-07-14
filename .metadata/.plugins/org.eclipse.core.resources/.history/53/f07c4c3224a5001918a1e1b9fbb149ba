@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="cuerpo">
+		<h:form id="frmSyllabus" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<div style="margin-left: 10px; margin-right: 10px;">
+				<p:panel id="pnlBusqueda"
+					rendered="#{login.docente or login.adminFacultad}">
+					<p:panel id="pnlBusqueda_header">
+						<h:outputLabel value="Parámetros de búsqueda"
+							styleClass="ui-panel-title"></h:outputLabel>
+					</p:panel>
+					<p:panel id="pnlBusqueda_content"
+						styleClass="ui-panel-content ui-widget-content">
+						<!-- ******************** TABLA RESPONSIVA ************************ -->
+						<div class="grid condensed">
+							<!-- ******************** FILA NUMERO 2 ************************ -->
+							<div class="row cells8">
+								<div class="cell colspan4">
+									<!-- CARRERA -->
+
+									<div class="grid condensed" style="margin: 0 !important">
+										<!-- ******************** FILA NUMERO 1 ************************ -->
+										<div class="row cells8" style="margin: 0 !important">
+											<div class="cell colspan2">
+												<p:outputLabel id="lblCarrera" value="Carrera: "
+													styleClass="ui-outputlabel ui-widget" for="slcCarrera"></p:outputLabel>
+											</div>
+											<div class="cell colspan4">
+												<p:selectOneMenu id="slcCarrera" value="#{syllabus.crrId}"
+													style="width: 100%">
+													<f:selectItem itemLabel="Seleccione Carrera..."
+														itemValue=""></f:selectItem>
+													<f:selectItems value="#{syllabus.lstC}" var="cr"
+														itemLabel="#{cr.crrDescripcion}" itemValue="#{cr.crrId}" />
+												</p:selectOneMenu>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- ******************** FIN FILA NUMERO 2 ************************ -->
+						</div>
+					</p:panel>
+				</p:panel>
+				<div>
+					<p:commandButton id="btnBuscar" value="Buscar"
+						rendered="#{login.docente or login.adminFacultad}"
+						action="#{syllabus.buscar}" update="pnlResultados"></p:commandButton>
+					<p:commandButton id="btnLimpiar" value="Limpiar"
+						rendered="#{login.docente or login.adminFacultad}"
+						action="#{syllabus.limpiar}" update="pnlBusqueda pnlResultados"></p:commandButton>
+				</div>
+				<!-- ******************** PANEL RESULTADOS DE BUSQUEDA************************ -->
+				<div>
+					<p:panel id="pnlResultados"
+						rendered="#{login.docente or login.adminFacultad}">
+						<p:panel id="pnlResultados_header">
+							<h:outputLabel value="Resultados de la búsqueda"
+								styleClass="ui-panel-title"></h:outputLabel>
+						</p:panel>
+						<p:panel id="pnlResultados_content"
+							styleClass="ui-panel-content ui-widget-content">
+							<p:dataTable id="dtsSyllabus" value="#{syllabus.lstM}" var="mat"
+								rows="10" paginator="true" paginatorPosition="bottom"
+								paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15" style="text-align: center;">
+								<p:column headerText="#">
+									<h:outputText value="#{mat.mtrId}" />
+								</p:column>
+								<p:column headerText="Materia">
+									<h:outputText value="#{mat.mtrDescripcion}" />
+								</p:column>
+								<p:column headerText="Opciones">
+									<p:commandButton value="Syllabo" title="Ver Syllabo"
+										action="#{syllabus.verDetaSyllabus}">
+										<f:setPropertyActionListener value="#{mat}"
+											target="#{syllabus.selectMtr}" />
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:panel>
+				</div>
+				<div style="margin-left: 10px; margin-right: 10px;">
+					<p:commandButton value="Regresar"
+						action="#{syllabus.regresarPrincipal}"></p:commandButton>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -91,30 +91,36 @@
 						<p:column id="clmFecha" headerText="FECHA">
 							<h:outputText value="#{As.assFecha}" />
 						</p:column>
+						<p:column id="clmMateria" headerText="MATERIA">
+							<h:outputText value="#{As.horario.materia.mtrNombre}" />
+						</p:column>
 						<p:column id="clmEntrada" headerText="HORA ENTRADA">
 							<h:outputText value="#{As.assHoraEntrada}" />
 						</p:column>
 						<p:column id="clmSalida" headerText="HORA SALIDA">
 							<h:outputText value="#{As.assHoraSalida}" />
 						</p:column>
-						<p:column style="text-align: center">
+						<p:column style="text-align: center; width:100px;">
 							<f:facet name="header">
 								<h:outputText value="OPCIONES"></h:outputText>
 							</f:facet>
-							<p:commandButton id="btnVer" update=":frmAsistencia:ActDetail"
-								oncomplete="PF('ActDialog').show()" value="Ver"
-								title="Ver Actividades">
+							<p:commandButton id="btnVer" value="Ver" title="Ver Actividades"
+								rendered="#{login.docente}"
+								action="#{detalleAss.verActividades()}"
+								oncomplete="PF('ActDialog').show()"
+								update=":frmAsistencia:ActDetail">
 								<f:setPropertyActionListener value="#{As}"
-									target="#{detalleAss.ass}" />
+									target="#{detalleAss.selectAss}" />
 							</p:commandButton>
 							<p:commandButton id="btnJustificar" value="Justificar Falta"
-								title="Justificar falta"
+								rendered="#{login.adminFacultad}" title="Justificar falta"
 								action="#{detalleAss.justificarFalta(As,false)}"
 								update="frmAsistencia:pnlAsistenciaDocente">
 							</p:commandButton>
 						</p:column>
 						<f:facet name="footer">
 							<p:commandButton value="Justificar Todos"
+								rendered="#{login.adminFacultad}"
 								action="#{detalleAss.justificarFalta(null,true)}"
 								update="frmAsistencia:pnlAsistenciaDocente">
 								<p:confirm header="Confirmaci&oacute;n"
@@ -125,13 +131,22 @@
 					</p:dataTable>
 				</p:panel>
 				<div style="margin-left: 10px; margin-right: 10px;">
-					<p:commandButton value="Regresar" action="principal.xhtml"></p:commandButton>
+					<p:commandButton value="Regresar" action="#{detalleAss.regresar()}" />
 				</div>
 
 			</div>
 			<p:dialog header="Actividades" widgetVar="ActDialog" modal="true"
 				showEffect="fade" hideEffect="fade" resizable="false">
 				<p:outputPanel id="ActDetail" style="text-align:center;">
+					<p:panelGrid columns="2"
+						value="#{detalleAss.selectAss.seguimientos}" var="sg">
+						<h:outputText value="Tema de clase: " />
+						<h:outputText value="#{sg.sgmTemaClase}" />
+						<h:outputText value="Hora de Clase: " />
+						<h:outputText value="#{sg.sgmHoraClaseRestante}" />
+						<h:outputText value="Observacion: " />
+						<h:outputText value="#{sg.sgmObservacion}" />
+					</p:panelGrid>
 				</p:outputPanel>
 			</p:dialog>
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

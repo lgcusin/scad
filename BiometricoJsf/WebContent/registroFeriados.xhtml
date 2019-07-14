@@ -36,14 +36,14 @@
 											</div>
 											<div class="cell colspan4">
 												<p:selectOneMenu id="slcFacultad"
-													value="#{registroFeriado.selectFacultad.fclId}"
+													value="#{registroFeriado.selectDependencia.dpnId}"
 													style="width: 100%"
-													valueChangeListener="#{registroFeriado.setFacultadID}">
+													valueChangeListener="#{registroFeriado.setDependenciaID}">
 													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
 													<f:selectItem itemLabel="TODAS" itemValue="1"></f:selectItem>
-													<f:selectItems value="#{registroFeriado.lstFacultad}"
-														var="fac" itemLabel="#{fac.fclNombre}"
-														itemValue="#{fac.fclId}" />
+													<f:selectItems value="#{registroFeriado.lstDependencia}"
+														var="fac" itemLabel="#{fac.dpnDescripcion}"
+														itemValue="#{fac.dpnId}" />
 												</p:selectOneMenu>
 											</div>
 										</div>

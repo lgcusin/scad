@@ -6,46 +6,51 @@
 		transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:/BiometricoDS</jta-data-source>
-		<class>model.Usuario</class>
-		<class>model.FichaDocente</class>
-		<class>model.Actividad</class>
-		<class>model.Carrera</class>
-		<class>model.DetallePuesto</class>
-		<class>model.Herramienta</class>
-		<class>model.MallaCurricular</class>
-		<class>model.MallaCurricularMateria</class>
-		<class>model.Materia</class>
-		<class>model.Syllabo</class>
-		<class>model.UnidadCurricular</class>
-		<class>model.Contenido</class>
-		<class>model.Asistencia</class>
-		<class>model.Seguimiento</class>
-		<class>model.TipoHuella</class>
-		<class>model.HuellaDactilar</class>
-		<class>model.Aula</class>
-		<class>model.Paralelo</class>
-		<class>model.MallaCurricularParalelo</class>
-		<class>model.DiaSemana</class>
-		<class>model.FichaEstudiante</class>
-		<class>model.Horario</class>
-		<class>model.TipoHorario</class>
-		<class>model.FichaEmpleado</class>
-		<class>model.Semestre</class>
-		<class>model.Facultad</class>
-		<class>model.Metodologia</class>
-		<class>model.Bibliografia</class>
-		<class>model.RecursosDidacticos</class>
-		<class>model.Resultados</class>
+		<class>ec.uce.edu.biometrico.jpa.Usuario</class>
+		<class>ec.uce.edu.biometrico.jpa.FichaDocente</class>
+		<class>ec.uce.edu.biometrico.jpa.Actividad</class>
+		<class>ec.uce.edu.biometrico.jpa.Carrera</class>
+		<class>ec.uce.edu.biometrico.jpa.DetallePuesto</class>
+		<class>ec.uce.edu.biometrico.jpa.Herramienta</class>
+		<class>ec.uce.edu.biometrico.jpa.MallaCurricular</class>
+		<class>ec.uce.edu.biometrico.jpa.MallaCurricularMateria</class>
+		<class>ec.uce.edu.biometrico.jpa.Materia</class>
+		<class>ec.uce.edu.biometrico.jpa.Syllabo</class>
+		<class>ec.uce.edu.biometrico.jpa.UnidadCurricular</class>
+		<class>ec.uce.edu.biometrico.jpa.Asistencia</class>
+		<class>ec.uce.edu.biometrico.jpa.Seguimiento</class>
+		<class>ec.uce.edu.biometrico.jpa.TipoHuella</class>
+		<class>ec.uce.edu.biometrico.jpa.HuellaDactilar</class>
+		<class>ec.uce.edu.biometrico.jpa.Aula</class>
+		<class>ec.uce.edu.biometrico.jpa.Paralelo</class>
+		<class>ec.uce.edu.biometrico.jpa.MallaCurricularParalelo</class>
+		<class>ec.uce.edu.biometrico.jpa.DiaSemana</class>
+		<class>ec.uce.edu.biometrico.jpa.FichaEstudiante</class>
+		<class>ec.uce.edu.biometrico.jpa.Horario</class>
+		<class>ec.uce.edu.biometrico.jpa.TipoHorario</class>
+		<class>ec.uce.edu.biometrico.jpa.FichaEmpleado</class>
+		<class>ec.uce.edu.biometrico.jpa.Metodologia</class>
+		<class>ec.uce.edu.biometrico.jpa.Bibliografia</class>
+		<class>ec.uce.edu.biometrico.jpa.RecursosDidacticos</class>
+		<class>ec.uce.edu.biometrico.jpa.Resultados</class>
+		<class>ec.uce.edu.biometrico.jpa.ContenidoCurricular</class>
+		<class>ec.uce.edu.biometrico.jpa.Persona</class>
+		<class>ec.uce.edu.biometrico.jpa.Nivel</class>
+		<class>ec.uce.edu.biometrico.jpa.CargaHoraria</class>
+		<class>ec.uce.edu.biometrico.jpa.Dependencia</class>
+		<class>ec.uce.edu.biometrico.jpa.UsuarioRol</class>
+		<class>ec.uce.edu.biometrico.jpa.Rol</class>
+		<class>ec.uce.edu.biometrico.jpa.TipoMateria</class>
+		<class>ec.uce.edu.biometrico.jpa.Feriado</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
 			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" />
 			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
-			<property name="hibernate.default_schema" value="SA" />
 			<property name="hibernate.connection.username" value="sa" />
-			<property name="hibernate.connection.password" value="admin" />
 			<!-- <property name="jboss.entity.manager.factory.jndi.name" value="java:/BiometricoEntityManagerFactory"/> -->
 			<property name="hibernate.transaction.jta.platform"
 				value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
+			<property name="hibernate.connection.password" value="admin"/>
 
 		</properties>
 	</persistence-unit>

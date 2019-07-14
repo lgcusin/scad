@@ -8,59 +8,61 @@
 <body>
 	<h:form>
 		<p:menubar>
-			<p:submenu label="Asistencia"
-				rendered="#{login.docente or login.empleado}">
-				<p:menuitem value="Asistencias" rendered="#{login.empleado}"
-					action="#{principal.verDetalleAsistencia(login.empleado,'EMPLEADO')}"
-					ajax="false"></p:menuitem>
-
+			<p:submenu label="Asistencia" rendered="#{login.docente}">
+				<p:menuitem value="Detalle de Asistencias"
+					rendered="#{login.docente}"
+					action="#{principal.verDetalleAsistencia(login.docente ,'DOCENTE')}"
+					ajax="false" />
+				<!-- <p:menuitem value="Asistencias" rendered="#{login.adminFacultad}"
+					action="#{principal.verDetalleAsistencia(login.adminFacultad,'EMPLEADO')}"
+					ajax="false" /> -->
 			</p:submenu>
 			<p:submenu label="Seguimiento"
-				rendered="#{login.docente or login.empleado}">
+				rendered="#{login.docente or login.adminFacultad}">
 				<p:menuitem value="Detalle de Actividades"
 					rendered="#{login.docente}"
 					action="#{principal.verDetalleActividades(login.docente,'DOCENTE')}"
-					ajax="false"></p:menuitem>
-				<p:menuitem value="Actividades" rendered="#{login.empleado}"
-					action="#{principal.verDetalleActividades(login.empleado,'EMPLEADO')}"
-					ajax="false"></p:menuitem>
-
-				<p:menuitem value="Syllabus" action="#{principal.verSyllabus()}"></p:menuitem>
+					ajax="false" />
+				<p:menuitem value="Actividades" rendered="#{login.adminFacultad}"
+					action="#{principal.verDetalleActividades(login.adminFacultad,'EMPLEADO')}"
+					ajax="false" />
+				<p:menuitem value="Syllabus" rendered="#{login.adminFacultad}"
+					action="#{principal.verSyllabus()}" />
 			</p:submenu>
 			<p:submenu label="Reportes"
-				rendered="#{login.docente or login.empleado}">
+				rendered="#{login.docente or login.adminFacultad}">
 				<p:menuitem value="Horario" rendered="#{login.docente}"
 					action="#{principal.verReporteHorario(login.docente,'DOCENTE')}"
 					ajax="false">
 				</p:menuitem>
-				<p:menuitem value="Horarios" rendered="#{login.empleado}"
-					action="#{principal.verReporteHorario(login.empleado,'EMPLEADO')}"
+				<p:menuitem value="Agregar Horario" rendered="#{login.docente}"
+					action="#{principal.regParalelo}" ajax="false" />
+				<p:menuitem value="Horarios" rendered="#{login.adminFacultad}"
+					action="#{principal.verReporteHorario(login.adminFacultad,'EMPLEADO')}"
 					ajax="false">
 				</p:menuitem>
 			</p:submenu>
-			<p:submenu label="Biometrico" rendered="#{login.empleado}">
+			<p:submenu label="Biometrico" rendered="#{login.adminFacultad}">
 				<p:submenu label="Horario">
-					<p:menuitem value="Agregar Horario"
-						action="#{principal.regParalelo}" ajax="false"></p:menuitem>
 					<p:menuitem value="Agregar Feriado"
-						action="#{principal.regFeriado}" ajax="false"></p:menuitem>
+						action="#{principal.regFeriado}" ajax="false" />
 				</p:submenu>
 				<p:menuitem value="Enrolar Docente"
-					action="#{principal.verRegistro}" ajax="false"></p:menuitem>
+					action="#{principal.verRegistro}" ajax="false" />
 				<p:menuitem value="Sistema de Control"
-					action="#{principal.verControl}" ajax="false"></p:menuitem>
+					action="#{principal.verControl}" ajax="false" />
 				<p:menuitem value="Justificacion"
-					action="#{principal.verJustificacion}" ajax="false"></p:menuitem>
+					action="#{principal.verJustificacion}" ajax="false" />
 				<p:menuitem value="Parametros de control"
-					action="#{principal.verParametros}" ajax="false"></p:menuitem>
+					action="#{principal.verParametros}" ajax="false" />
 			</p:submenu>
 			<f:facet name="options">
 				<i class="fa fa-user"
 					style="float: right; margin: 0px 8px 0 5px; font-size: 20px; border-radius: 50%; background: #4cb6f1; padding: 2px 6px 5px; color: #fff;"></i>
 				<h:outputText style="float: right;margin: 5px;"
-					value="#{login.usr.fichaDocente.fcdcApellidos} #{login.usr.fichaDocente.fcdcPrimerNombre}" />
-				<h:outputText style="float: right;margin: 5px;"
-					value="#{login.usr.fichaEmpleado.fcemApellidos} #{login.usr.fichaEmpleado.fcemPrimerNombre}" />
+					value="#{login.usuarioRol.usuario.persona.prsPrimerApellido} #{login.usuarioRol.usuario.persona.prsNombres}" />
+				<!-- <h:outputText style="float: right;margin: 5px;"
+					value="#{login.usr.fichaEmpleado.fcemApellidos} #{login.usr.fichaEmpleado.fcemPrimerNombre}" /> -->
 				<a href="#{request.contextPath}/j_spring_security_logout"
 					class="dropitem-uce"> <span style="margin-left: 0.4em;">Cerrar
 						Sesión</span>

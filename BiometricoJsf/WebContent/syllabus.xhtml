@@ -14,7 +14,7 @@
 			acceptcharset="UTF-8">
 			<div style="margin-left: 10px; margin-right: 10px;">
 				<p:panel id="pnlBusqueda"
-					rendered="#{login.docente or login.empleado}">
+					rendered="#{login.docente or login.adminFacultad}">
 					<p:panel id="pnlBusqueda_header">
 						<h:outputLabel value="Parámetros de búsqueda"
 							styleClass="ui-panel-title"></h:outputLabel>
@@ -41,7 +41,7 @@
 													<f:selectItem itemLabel="Seleccione Carrera..."
 														itemValue=""></f:selectItem>
 													<f:selectItems value="#{syllabus.lstC}" var="cr"
-														itemLabel="#{cr.crrNombre}" itemValue="#{cr.crrId}" />
+														itemLabel="#{cr.crrDescripcion}" itemValue="#{cr.crrId}" />
 												</p:selectOneMenu>
 											</div>
 										</div>
@@ -54,16 +54,16 @@
 				</p:panel>
 				<div>
 					<p:commandButton id="btnBuscar" value="Buscar"
-						rendered="#{login.docente or login.empleado}"
+						rendered="#{login.docente or login.adminFacultad}"
 						action="#{syllabus.buscar}" update="pnlResultados"></p:commandButton>
 					<p:commandButton id="btnLimpiar" value="Limpiar"
-						rendered="#{login.docente or login.empleado}"
+						rendered="#{login.docente or login.adminFacultad}"
 						action="#{syllabus.limpiar}" update="pnlBusqueda pnlResultados"></p:commandButton>
 				</div>
 				<!-- ******************** PANEL RESULTADOS DE BUSQUEDA************************ -->
 				<div>
 					<p:panel id="pnlResultados"
-						rendered="#{login.docente or login.empleado}">
+						rendered="#{login.docente or login.adminFacultad}">
 						<p:panel id="pnlResultados_header">
 							<h:outputLabel value="Resultados de la búsqueda"
 								styleClass="ui-panel-title"></h:outputLabel>
@@ -75,10 +75,10 @@
 								paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								rowsPerPageTemplate="5,10,15" style="text-align: center;">
 								<p:column headerText="#">
-									<h:outputText value="#{mat.mtrId}" />
+									<h:outputText value="#{mat.mtrCodigo}" />
 								</p:column>
 								<p:column headerText="Materia">
-									<h:outputText value="#{mat.mtrNombre}" />
+									<h:outputText value="#{mat.mtrDescripcion}" />
 								</p:column>
 								<p:column headerText="Opciones">
 									<p:commandButton value="Syllabo" title="Ver Syllabo"
