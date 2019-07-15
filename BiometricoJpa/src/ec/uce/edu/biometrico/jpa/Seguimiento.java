@@ -22,7 +22,8 @@ public class Seguimiento implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer sgmId;
 	private Asistencia asistencia;
-	private MallaCurricularMateria mallaCurricularMateria;
+	private MallaCurricularParalelo mallaCurricularParalelo;
+	private Integer mlcrmtId;
 	private String sgmTemaClase;
 	private Integer sgmHoraClaseRestante;
 	private String sgmObservacion;
@@ -30,17 +31,18 @@ public class Seguimiento implements java.io.Serializable {
 	public Seguimiento() {
 	}
 
-	public Seguimiento(Integer sgmId, Asistencia asistencia, MallaCurricularMateria mallaCurricularMateria) {
+	public Seguimiento(Integer sgmId, Asistencia asistencia, Integer mlcrmtId) {
 		this.sgmId = sgmId;
 		this.asistencia = asistencia;
-		this.mallaCurricularMateria = mallaCurricularMateria;
+		this.mlcrmtId = mlcrmtId;
 	}
 
-	public Seguimiento(Integer sgmId, Asistencia asistencia, MallaCurricularMateria mallaCurricularMateria,
-			String sgmTemaClase, Integer sgmHoraClaseRestante, String sgmObservacion) {
+	public Seguimiento(Integer sgmId, Asistencia asistencia, MallaCurricularParalelo mallaCurricularParalelo,
+			Integer mlcrmtId, String sgmTemaClase, Integer sgmHoraClaseRestante, String sgmObservacion) {
 		this.sgmId = sgmId;
 		this.asistencia = asistencia;
-		this.mallaCurricularMateria = mallaCurricularMateria;
+		this.mallaCurricularParalelo = mallaCurricularParalelo;
+		this.mlcrmtId = mlcrmtId;
 		this.sgmTemaClase = sgmTemaClase;
 		this.sgmHoraClaseRestante = sgmHoraClaseRestante;
 		this.sgmObservacion = sgmObservacion;
@@ -68,13 +70,22 @@ public class Seguimiento implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MLCRMT_ID", nullable = false)
-	public MallaCurricularMateria getMallaCurricularMateria() {
-		return this.mallaCurricularMateria;
+	@JoinColumn(name = "MLCRPR_ID")
+	public MallaCurricularParalelo getMallaCurricularParalelo() {
+		return this.mallaCurricularParalelo;
 	}
 
-	public void setMallaCurricularMateria(MallaCurricularMateria mallaCurricularMateria) {
-		this.mallaCurricularMateria = mallaCurricularMateria;
+	public void setMallaCurricularParalelo(MallaCurricularParalelo mallaCurricularParalelo) {
+		this.mallaCurricularParalelo = mallaCurricularParalelo;
+	}
+
+	@Column(name = "MLCRMT_ID", nullable = false, precision = 22, scale = 0)
+	public Integer getMlcrmtId() {
+		return this.mlcrmtId;
+	}
+
+	public void setMlcrmtId(Integer mlcrmtId) {
+		this.mlcrmtId = mlcrmtId;
 	}
 
 	@Column(name = "SGM_TEMA_CLASE", length = 4000)

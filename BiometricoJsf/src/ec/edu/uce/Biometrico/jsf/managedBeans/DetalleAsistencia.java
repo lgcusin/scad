@@ -85,9 +85,8 @@ public class DetalleAsistencia {
 					Date inicio = new SimpleDateFormat(FORMATOFECHA).parse(fechaInicio);
 					Date fin = new SimpleDateFormat(FORMATOFECHA).parse(fechaFin);
 					if (beanLogin.Docente) {
-						lstA = srvDnt.listarAsistencia(
-								beanLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId(), inicio, fin,
-								null);
+						lstA = srvDnt.listarAsistencia(beanLogin.getUsuarioRol().getUsuario().getPersona()
+								.getFichaDocentes().get(0).getFcdcId(), inicio, fin, null);
 					} else if (beanLogin.adminFacultad) {
 						lstA = srvDnt.listarAsistencia(fcdId, inicio, fin, crrId);
 					}
@@ -232,10 +231,11 @@ public class DetalleAsistencia {
 
 	public void verActividades() {
 		if (beanLogin.adminFacultad) {
-			selectAss.setSeguimientos(srvSgm.getSeguimiento(selectAss.getHorario().getMateria().getMtrId(), fcdId));
+			// selectAss.setSeguimientos(srvSgm.getSeguimiento(selectAss.getHorarioAcademico().getMateria().getMtrId(),
+			// fcdId));
 		} else {
-			selectAss.setSeguimientos(srvSgm.getSeguimiento(selectAss.getHorario().getMateria().getMtrId(),
-					beanLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId()));
+			// selectAss.setSeguimientos(srvSgm.getSeguimiento(selectAss.getHorarioAcademico().getMateria().getMtrId(),
+			// beanLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId()));
 		}
 
 	}

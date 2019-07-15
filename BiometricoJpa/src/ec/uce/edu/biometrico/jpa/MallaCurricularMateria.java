@@ -31,7 +31,6 @@ public class MallaCurricularMateria implements java.io.Serializable {
 	private Materia materia;
 	private Integer mlcrmtEstado;
 	private List<MallaCurricularParalelo> mallaCurricularParalelos = new ArrayList<MallaCurricularParalelo>(0);
-	private List<Seguimiento> seguimientos = new ArrayList<Seguimiento>(0);
 	private List<Syllabo> syllabos = new ArrayList<Syllabo>(0);
 
 	public MallaCurricularMateria() {
@@ -45,8 +44,7 @@ public class MallaCurricularMateria implements java.io.Serializable {
 
 	public MallaCurricularMateria(Integer mlcrmtId, Nivel nivelByNvlSubId, Nivel nivelByNvlId,
 			UnidadFormacion unidadFormacion, MallaCurricular mallaCurricular, Materia materia, Integer mlcrmtEstado,
-			List<MallaCurricularParalelo> mallaCurricularParalelos, List<Seguimiento> seguimientos,
-			List<Syllabo> syllabos) {
+			List<MallaCurricularParalelo> mallaCurricularParalelos, List<Syllabo> syllabos) {
 		this.mlcrmtId = mlcrmtId;
 		this.nivelByNvlSubId = nivelByNvlSubId;
 		this.nivelByNvlId = nivelByNvlId;
@@ -55,7 +53,6 @@ public class MallaCurricularMateria implements java.io.Serializable {
 		this.materia = materia;
 		this.mlcrmtEstado = mlcrmtEstado;
 		this.mallaCurricularParalelos = mallaCurricularParalelos;
-		this.seguimientos = seguimientos;
 		this.syllabos = syllabos;
 	}
 
@@ -136,15 +133,6 @@ public class MallaCurricularMateria implements java.io.Serializable {
 
 	public void setMallaCurricularParalelos(List<MallaCurricularParalelo> mallaCurricularParalelos) {
 		this.mallaCurricularParalelos = mallaCurricularParalelos;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mallaCurricularMateria")
-	public List<Seguimiento> getSeguimientos() {
-		return this.seguimientos;
-	}
-
-	public void setSeguimientos(List<Seguimiento> seguimientos) {
-		this.seguimientos = seguimientos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mallaCurricularMateria")

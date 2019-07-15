@@ -18,11 +18,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ACTIVIDAD")
 @NamedQueries({
-		@NamedQuery(name = "Actividad.findAllByCnId", query = "select act from Actividad as act where act.contenidoCurricular.cncrId=:cntId"),
-		@NamedQuery(name = "Actividad.findByFdId", query = "select act.actDescripcion from Actividad as act "
-				+ "where act.contenidoCurricular.unidadCurricular.syllabo.mallaCurricularMateria.mlcrmtId in "
-				+ "(select sgm.mallaCurricularMateria.mlcrmtId from Seguimiento as sgm where sgm.asistencia.fichaDocente.fcdcId=:fcdcId)") })
+		@NamedQuery(name = "Actividad.findAllByCnId", query = "select act from Actividad as act where act.contenidoCurricular.cncrId=:cntId") })
 
+//@NamedQuery(name = "Actividad.findByFdId", query = "select act.actDescripcion from Actividad as act "
+//		+ "where act.contenidoCurricular.unidadCurricular.syllabo.mallaCurricularMateria.mlcrmtId in "
+//		+ "(select sgm.mallaCurricularMateria.mlcrmtId from Seguimiento as sgm where sgm.asistencia.fichaDocente.fcdcId=:fcdcId)")
 public class Actividad implements java.io.Serializable {
 
 	/**

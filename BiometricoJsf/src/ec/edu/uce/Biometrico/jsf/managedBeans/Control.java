@@ -92,21 +92,21 @@ public class Control {
 			if (hrrI != null && hrrF != null) {
 				lstAss = srvSgmt.marcacionReg(ahora, regDcnt.getFcdcId());
 				for (Asistencia asistencia : lstAss) {
-					if (asistencia.getHorario().getHrrId() == hrrF.getHrrId()
+					if (asistencia.getHorarioAcademico().getHracId() == hrrF.getHrrId()
 							&& asistencia.getAssEstado().equals("Iniciado")) {
 						return finalizarClase(asistencia);
-					} else if (asistencia.getHorario().getHrrId() == hrrI.getHrrId()
+					} else if (asistencia.getHorarioAcademico().getHracId() == hrrI.getHrrId()
 							&& asistencia.getAssEstado() == null) {
 						return inicializarClase(asistencia);
-					} else if (asistencia.getHorario().getHrrId() == hrrI.getHrrId()
+					} else if (asistencia.getHorarioAcademico().getHracId() == hrrI.getHrrId()
 							&& asistencia.getAssEstado().equals("Iniciado")) {
 						FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL,
 								"Registro de entrada, ya existe", null);
 						FacesContext.getCurrentInstance().addMessage(null, msg);
 						return null;
-					} else if (asistencia.getHorario().getHrrId() == hrrF.getHrrId()
+					} else if (asistencia.getHorarioAcademico().getHracId() == hrrF.getHrrId()
 							&& asistencia.getAssEstado() == null) {
-						if (asistencia.getHorario().getHrrId() == hrrI.getHrrId()
+						if (asistencia.getHorarioAcademico().getHracId() == hrrI.getHrrId()
 								&& asistencia.getAssEstado() == null) {
 							return inicializarClase(asistencia);
 						}
@@ -123,10 +123,10 @@ public class Control {
 					return null;
 				} else {
 					for (Asistencia asistencia : lstAss) {
-						if (asistencia.getHorario().getHrrId() == hrrI.getHrrId()
+						if (asistencia.getHorarioAcademico().getHracId() == hrrI.getHrrId()
 								&& asistencia.getAssEstado() == null) {
 							return inicializarClase(asistencia);
-						} else if (asistencia.getHorario().getHrrId() == hrrI.getHrrId()
+						} else if (asistencia.getHorarioAcademico().getHracId() == hrrI.getHrrId()
 								&& asistencia.getAssEstado().equals("Iniciado")) {
 							FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL,
 									"Registro de entrada, ya existe", null);
@@ -146,10 +146,10 @@ public class Control {
 					return null;
 				} else {
 					for (Asistencia asistencia : lstAss) {
-						if (asistencia.getHorario().getHrrId() == hrrF.getHrrId()
+						if (asistencia.getHorarioAcademico().getHracId() == hrrF.getHrrId()
 								&& asistencia.getAssEstado().equals("Iniciado")) {
 							return finalizarClase(asistencia);
-						} else if (asistencia.getHorario().getHrrId() == hrrF.getHrrId()
+						} else if (asistencia.getHorarioAcademico().getHracId() == hrrF.getHrrId()
 								&& asistencia.getAssEstado().equals("Finalizado")) {
 							FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL,
 									"Registro de salida, ya existe", null);
@@ -279,8 +279,8 @@ public class Control {
 							srvSgmt.guardarActualizarContenido(con);
 							Seguimiento seg = new Seguimiento();
 							seg.setAsistencia(regAss);
-							seg.setMallaCurricularMateria(
-									con.getUnidadCurricular().getSyllabo().getMallaCurricularMateria());
+//							seg.setMallaCurricularParalelo(
+//									con.getUnidadCurricular().getSyllabo().getMallaCurricularMateria());
 							seg.setSgmTemaClase(selectcnt);
 							seg.setSgmObservacion(sgmObservacion);
 							seg.setSgmHoraClaseRestante(sgmHoraClaseRestante);

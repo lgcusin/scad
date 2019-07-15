@@ -3,13 +3,12 @@ package ec.uce.edu.biometrico.jpa;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -38,8 +37,8 @@ public class Asistencia implements java.io.Serializable {
 	 * 
 	 */
 	private Integer assId;
-	private Horario horario;
 	private FichaDocente fichaDocente;
+	private HorarioAcademico horarioAcademico;
 	private Date assFecha;
 	private String assHoraEntrada;
 	private String assHoraSalida;
@@ -49,17 +48,17 @@ public class Asistencia implements java.io.Serializable {
 	public Asistencia() {
 	}
 
-	public Asistencia(Integer assId, Horario horario, FichaDocente fichaDocente) {
+	public Asistencia(Integer assId, FichaDocente fichaDocente, HorarioAcademico horarioAcademico) {
 		this.assId = assId;
-		this.horario = horario;
 		this.fichaDocente = fichaDocente;
+		this.horarioAcademico = horarioAcademico;
 	}
 
-	public Asistencia(Integer assId, Horario horario, FichaDocente fichaDocente, Date assFecha, String assHoraEntrada,
-			String assHoraSalida, String assEstado, List<Seguimiento> seguimientos) {
+	public Asistencia(Integer assId, FichaDocente fichaDocente, HorarioAcademico horarioAcademico, Date assFecha,
+			String assHoraEntrada, String assHoraSalida, String assEstado, List<Seguimiento> seguimientos) {
 		this.assId = assId;
-		this.horario = horario;
 		this.fichaDocente = fichaDocente;
+		this.horarioAcademico = horarioAcademico;
 		this.assFecha = assFecha;
 		this.assHoraEntrada = assHoraEntrada;
 		this.assHoraSalida = assHoraSalida;
@@ -68,7 +67,6 @@ public class Asistencia implements java.io.Serializable {
 	}
 
 	@Id
-
 	@Column(name = "ASS_ID", unique = true, nullable = false, precision = 22, scale = 0)
 	public Integer getAssId() {
 		return this.assId;
@@ -78,15 +76,6 @@ public class Asistencia implements java.io.Serializable {
 		this.assId = assId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "HRR_ID", nullable = false)
-	public Horario getHorario() {
-		return this.horario;
-	}
-
-	public void setHorario(Horario horario) {
-		this.horario = horario;
-	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FCDC_ID", nullable = false)
@@ -96,6 +85,16 @@ public class Asistencia implements java.io.Serializable {
 
 	public void setFichaDocente(FichaDocente fichaDocente) {
 		this.fichaDocente = fichaDocente;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "HRAC_ID", nullable = false)
+	public HorarioAcademico getHorarioAcademico() {
+		return this.horarioAcademico;
+	}
+
+	public void setHorarioAcademico(HorarioAcademico horarioAcademico) {
+		this.horarioAcademico = horarioAcademico;
 	}
 
 	@Temporal(TemporalType.DATE)

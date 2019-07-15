@@ -149,15 +149,6 @@ public class Horario implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "horario")
-	public List<Asistencia> getAsistencias() {
-		return this.asistencias;
-	}
-
-	public void setAsistencias(List<Asistencia> asistencias) {
-		this.asistencias = asistencias;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "horario")
 	public List<HorarioFichaEstudiante> getHorarioFichaEstudiantes() {
 		return this.horarioFichaEstudiantes;
 	}

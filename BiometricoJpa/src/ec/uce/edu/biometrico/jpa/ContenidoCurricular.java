@@ -23,11 +23,12 @@ import javax.persistence.Table;
 @Table(name = "CONTENIDO_CURRICULAR")
 @NamedQueries({
 		@NamedQuery(name = "Contenido.findAllByUcId", query = "select cnt from ContenidoCurricular as cnt where cnt.unidadCurricular.uncrId=:ucId"),
-		@NamedQuery(name = "Contenido.findAllByFdId", query = "select cnt from ContenidoCurricular as cnt "
-				+ "where cnt.unidadCurricular.syllabo.mallaCurricularMateria.mlcrmtId in (select sgm.mallaCurricularMateria.mlcrmtId from Seguimiento as sgm "
-				+ "where sgm.asistencia.fichaDocente.fcdcId=:fdId)"),
 		@NamedQuery(name = "Contenido.findAllByMtrId", query = "select cnt from ContenidoCurricular as cnt where cnt.unidadCurricular.syllabo.mallaCurricularMateria.materia.mtrId=:mtId") })
 
+
+//@NamedQuery(name = "Contenido.findAllByFdId", query = "select cnt from ContenidoCurricular as cnt "
+//		+ "where cnt.unidadCurricular.syllabo.mallaCurricularMateria.mlcrmtId in (select sgm.mallaCurricularMateria.mlcrmtId from Seguimiento as sgm "
+//		+ "where sgm.asistencia.fichaDocente.fcdcId=:fdId)")
 public class ContenidoCurricular implements java.io.Serializable {
 
 	/**

@@ -51,6 +51,7 @@
 			<property name="hibernate.transaction.jta.platform"
 				value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
 			<property name="hibernate.connection.password" value="admin"/>
+			<property name="hibernate.default_schema" value="SA"/>
 
 		</properties>
 	</persistence-unit>
