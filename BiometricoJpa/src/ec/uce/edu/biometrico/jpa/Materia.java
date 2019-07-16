@@ -22,7 +22,6 @@ import javax.persistence.Table;
 @NamedQueries({ @NamedQuery(name = "Materia.findAll", query = "select m from Materia as m"),
 		@NamedQuery(name = "Materia.findByHrId", query = "select h.materia from Horario as h where h.hrrId=:hrrId") })
 
-
 // @NamedQuery(name = "Materia.findMateriaBySemestre", query = "select
 // m.mtrId,m.mtrNombre from MallaCurricularMateria as mcm"
 // + " join mcm.materia as m join mcm.semestre as s where s.smsId=:smsId")
@@ -38,7 +37,6 @@ public class Materia implements java.io.Serializable {
 	private TipoMateria tipoMateria;
 	private Carrera carrera;
 	private Materia materia;
-	private String mtrNombre;
 	private String mtrCodigo;
 	private Integer cmfrId;
 	private Integer ncprcrId;
@@ -71,18 +69,17 @@ public class Materia implements java.io.Serializable {
 	}
 
 	public Materia(Integer mtrId, Grupo grupo, TipoMateria tipoMateria, Carrera carrera, Materia materia,
-			String mtrNombre, String mtrCodigo, Integer cmfrId, Integer ncprcrId, String mtrCodigoSniese,
-			String mtrDescripcion, Integer mtrEstado, Integer mtrHoras, Integer mtrIntegradoraHoras,
-			Integer mtrPreProfesionalHoras, Integer mtrHorasCien, Integer mtrRelacionTrabajo, Integer mtrUnidadMedida,
-			Integer mtrCreditos, Integer mtrSeqSau, Integer mtrHorasPracticas, Integer mtrHorasTrabAutonomo,
-			Integer mtrHorasPracSema, Integer mtrHorasAutonoSema, List<Materia> materias,
-			List<MallaCurricularMateria> mallaCurricularMaterias, List<Horario> horarios) {
+			String mtrCodigo, Integer cmfrId, Integer ncprcrId, String mtrCodigoSniese, String mtrDescripcion,
+			Integer mtrEstado, Integer mtrHoras, Integer mtrIntegradoraHoras, Integer mtrPreProfesionalHoras,
+			Integer mtrHorasCien, Integer mtrRelacionTrabajo, Integer mtrUnidadMedida, Integer mtrCreditos,
+			Integer mtrSeqSau, Integer mtrHorasPracticas, Integer mtrHorasTrabAutonomo, Integer mtrHorasPracSema,
+			Integer mtrHorasAutonoSema, List<Materia> materias, List<MallaCurricularMateria> mallaCurricularMaterias,
+			List<Horario> horarios) {
 		this.mtrId = mtrId;
 		this.grupo = grupo;
 		this.tipoMateria = tipoMateria;
 		this.carrera = carrera;
 		this.materia = materia;
-		this.mtrNombre = mtrNombre;
 		this.mtrCodigo = mtrCodigo;
 		this.cmfrId = cmfrId;
 		this.ncprcrId = ncprcrId;
@@ -155,15 +152,6 @@ public class Materia implements java.io.Serializable {
 
 	public void setMateria(Materia materia) {
 		this.materia = materia;
-	}
-
-	@Column(name = "MTR_NOMBRE", length = 200)
-	public String getMtrNombre() {
-		return this.mtrNombre;
-	}
-
-	public void setMtrNombre(String mtrNombre) {
-		this.mtrNombre = mtrNombre;
 	}
 
 	@Column(name = "MTR_CODIGO", nullable = false, length = 256)

@@ -16,6 +16,10 @@ import javax.persistence.Table;
 @Table(name = "RECURSOS_DIDACTICOS")
 public class RecursosDidacticos implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer rcddId;
 	private UnidadCurricular unidadCurricular;
 	private String rcddDescripcion;

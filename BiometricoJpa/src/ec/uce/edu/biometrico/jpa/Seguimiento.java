@@ -79,14 +79,6 @@ public class Seguimiento implements java.io.Serializable {
 		this.mallaCurricularParalelo = mallaCurricularParalelo;
 	}
 
-	@Column(name = "MLCRMT_ID", nullable = false, precision = 22, scale = 0)
-	public Integer getMlcrmtId() {
-		return this.mlcrmtId;
-	}
-
-	public void setMlcrmtId(Integer mlcrmtId) {
-		this.mlcrmtId = mlcrmtId;
-	}
 
 	@Column(name = "SGM_TEMA_CLASE", length = 4000)
 	public String getSgmTemaClase() {

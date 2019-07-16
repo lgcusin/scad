@@ -71,7 +71,7 @@ public class Syllabo implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MCM_ID", unique = true, nullable = false)
+	@JoinColumn(name = "MLCRMT_ID", unique = true, nullable = false)
 	public MallaCurricularMateria getMallaCurricularMateria() {
 		return this.mallaCurricularMateria;
 	}

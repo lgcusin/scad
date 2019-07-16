@@ -41,6 +41,7 @@ public class UnidadCurricular implements java.io.Serializable {
 	private List<RecursosDidacticos> recursosDidacticoses = new ArrayList<>();
 	private List<ContenidoCurricular> contenidoCurriculars = new ArrayList<>();
 	private List<Bibliografia> bibliografias = new ArrayList<>();
+	
 
 	public UnidadCurricular() {
 	}

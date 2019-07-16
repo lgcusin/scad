@@ -1,12 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy>
-<typeInfo handle="=BiometricoJpa/src&lt;ec.uce.edu.biometrico.jpa{ContenidoCurricular.java[ContenidoCurricular" modifiers="1" timestamp="1563138948697"/>
-<typeInfo handle="=BiometricoJpa/src&lt;ec.uce.edu.biometrico.jpa{Persona.java[Persona" modifiers="1" timestamp="1562808096686"/>
-<typeInfo handle="=BiometricoJpa/src&lt;ec.uce.edu.biometrico.jpa{Nivel.java[Nivel" modifiers="1" timestamp="1562640975881"/>
-<typeInfo handle="=BiometricoJpa/src&lt;ec.uce.edu.biometrico.jpa{CargaHoraria.java[CargaHoraria" modifiers="1" timestamp="1562640822053"/>
-<typeInfo handle="=BiometricoJpa/src&lt;ec.uce.edu.biometrico.jpa{Dependencia.java[Dependencia" modifiers="1" timestamp="1562708184793"/>
-<typeInfo handle="=BiometricoJpa/src&lt;ec.uce.edu.biometrico.jpa{UsuarioRol.java[UsuarioRol" modifiers="1" timestamp="1562907894924"/>
-<typeInfo handle="=BiometricoJpa/src&lt;ec.uce.edu.biometrico.jpa{Rol.java[Rol" modifiers="1" timestamp="1562742131115"/>
-<typeInfo handle="=BiometricoJpa/src&lt;ec.uce.edu.biometrico.jpa{TipoMateria.java[TipoMateria" modifiers="1" timestamp="1562639407269"/>
-<typeInfo handle="=BiometricoJpa/src&lt;ec.uce.edu.biometrico.jpa{Feriado.java[Feriado" modifiers="1" timestamp="1562707564110"/>
-</typeInfoHistroy>
+<typeInfoHistroy/>

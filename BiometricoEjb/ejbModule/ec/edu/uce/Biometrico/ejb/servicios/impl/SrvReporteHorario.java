@@ -130,22 +130,22 @@ public class SrvReporteHorario implements SrvReporteHorarioLocal {
 			columnaReporte[0] = h.getHrrInicio() + " - " + h.getHrrFin();
 		}
 		if (h.getDiaSemana().getDsmId() == 1) {
-			columnaReporte[1] = h.getMateria().getMtrNombre();
+			columnaReporte[1] = h.getMateria().getMtrDescripcion();
 		}
 		if (h.getDiaSemana().getDsmId() == 2) {
-			columnaReporte[2] = h.getMateria().getMtrNombre();
+			columnaReporte[2] = h.getMateria().getMtrDescripcion();
 		}
 		if (h.getDiaSemana().getDsmId() == 3) {
-			columnaReporte[3] = h.getMateria().getMtrNombre();
+			columnaReporte[3] = h.getMateria().getMtrDescripcion();
 		}
 		if (h.getDiaSemana().getDsmId() == 4) {
-			columnaReporte[4] = h.getMateria().getMtrNombre();
+			columnaReporte[4] = h.getMateria().getMtrDescripcion();
 		}
 		if (h.getDiaSemana().getDsmId() == 5) {
-			columnaReporte[5] = h.getMateria().getMtrNombre();
+			columnaReporte[5] = h.getMateria().getMtrDescripcion();
 		}
 		if (h.getDiaSemana().getDsmId() == 6) {
-			columnaReporte[6] = h.getMateria().getMtrNombre();
+			columnaReporte[6] = h.getMateria().getMtrDescripcion();
 		}
 	}
 

@@ -39,7 +39,6 @@ public class Horario implements java.io.Serializable {
 	private String hrrInicio;
 	private String hrrFin;
 	private List<Asistencia> asistencias = new ArrayList<Asistencia>(0);
-	private List<HorarioFichaEstudiante> horarioFichaEstudiantes = new ArrayList<HorarioFichaEstudiante>(0);
 
 	public Horario() {
 	}
@@ -55,8 +54,7 @@ public class Horario implements java.io.Serializable {
 	}
 
 	public Horario(Integer hrrId, TipoHorario tipoHorario, Aula aula, DiaSemana diaSemana, FichaDocente fichaDocente,
-			Materia materia, String hrrInicio, String hrrFin, List<Asistencia> asistencias,
-			List<HorarioFichaEstudiante> horarioFichaEstudiantes) {
+			Materia materia, String hrrInicio, String hrrFin, List<Asistencia> asistencias) {
 		this.hrrId = hrrId;
 		this.tipoHorario = tipoHorario;
 		this.aula = aula;
@@ -66,7 +64,6 @@ public class Horario implements java.io.Serializable {
 		this.hrrInicio = hrrInicio;
 		this.hrrFin = hrrFin;
 		this.asistencias = asistencias;
-		this.horarioFichaEstudiantes = horarioFichaEstudiantes;
 	}
 
 	@Id
@@ -146,15 +143,6 @@ public class Horario implements java.io.Serializable {
 
 	public void setHrrFin(String hrrFin) {
 		this.hrrFin = hrrFin;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "horario")
-	public List<HorarioFichaEstudiante> getHorarioFichaEstudiantes() {
-		return this.horarioFichaEstudiantes;
-	}
-
-	public void setHorarioFichaEstudiantes(List<HorarioFichaEstudiante> horarioFichaEstudiantes) {
-		this.horarioFichaEstudiantes = horarioFichaEstudiantes;
 	}
 
 }
