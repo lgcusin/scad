@@ -1,7 +1,9 @@
 package ec.edu.uce.Biometrico.jsf.managedBeans;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +12,6 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
@@ -52,6 +53,7 @@ public class DetalleAsistencia {
 	public Carrera selectCrr;
 	public FichaDocente selectDcn;
 	private Asistencia selectAss;
+	private TemplatePDF templatePDF;
 
 	@PostConstruct
 	public void init() {
@@ -64,6 +66,7 @@ public class DetalleAsistencia {
 		} else {
 			mostrarFiltros = false;
 		}
+		templatePDF = new TemplatePDF();
 	}
 
 	public void listarDcnts(ValueChangeEvent event) {
@@ -203,7 +206,7 @@ public class DetalleAsistencia {
 	}
 
 	/**
-	 * Metodo definido para validar fechas del filtro de búsqueda.
+	 * Metodo definido para validar fechas del filtro de busqueda.
 	 * 
 	 * @return
 	 * @throws ParseException
@@ -227,6 +230,81 @@ public class DetalleAsistencia {
 			limpiarFiltros();
 			return false;
 		}
+	}
+
+	private void generarpdf() {
+		if (!lstA.isEmpty()) {
+			String docente = getInfoDocente();
+			Date fechaActual = new Date();
+			DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+			String fechaProceso = formatoFecha.format(fechaActual);
+			DateFormat formatoFechaArchivo = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
+			String fechaArchivo = formatoFechaArchivo.format(fechaActual);
+			String[] encabezado = { "Fecha", "Materia", "Hora entrada", "Hora salida", "Estado" };
+			String textoIntroduccion = "Detalle de asistencia docentes";
+			String infoDocente = "Docente: " + docente;
+			String textoFechaDesde = "Fecha desde: " + fechaInicio;
+			String textoFechaHasta = "Fecha hasta: " + fechaFin;
+			templatePDF.openDocument(docente + "_" + fechaArchivo);
+			templatePDF.addImageCabecera();
+			templatePDF.addMetaData("Sistema Biométrico UCE", "Asistencia Docente", docente);
+			templatePDF.addTitulo("Reporte Asistencia Docente", "Sistema Biométrico UCE", fechaProceso);
+			templatePDF.addParrafo(textoFechaDesde);
+			templatePDF.addParrafo(textoFechaHasta);
+			templatePDF.addParrafoDetalle(textoIntroduccion);
+			templatePDF.addParrafo(infoDocente);
+			if (!lstA.isEmpty()) {
+				templatePDF.createTable(encabezado, getAsistenciaDocentes());
+			}
+			templatePDF.addImagePie();
+			templatePDF.closeDocument();
+			System.out.println(
+					"Archivo generado en la carpeta SistemaBiometricoUCE del su disco local C, verifique por favor.");
+		} else {
+			mostrarMensaje("No existen asistencias registradas.", "");
+		}
+	}
+
+	private String getInfoDocente() {
+		String docente = "";
+		if (beanLogin.Docente) {
+			docente = beanLogin.getUsuarioRol().getUsuario().getPersona().getPrsNombres() + " "
+					+ beanLogin.getUsuarioRol().getUsuario().getPersona().getPrsPrimerApellido() + " "
+					+ beanLogin.getUsuarioRol().getUsuario().getPersona().getPrsSegundoApellido();
+		} else {
+			if (!lstD.isEmpty()) {
+				for (FichaDocente fichaDocente : lstD) {
+					if (fcdId != null && fichaDocente.getFcdcId().equals(fcdId)) {
+						docente = fichaDocente.getPersona().getPrsNombres() + " "
+								+ fichaDocente.getPersona().getPrsPrimerApellido() + " "
+								+ fichaDocente.getPersona().getPrsSegundoApellido();
+						break;
+					}
+				}
+			}
+		}
+		return docente;
+	}
+
+	private ArrayList<String[]> getAsistenciaDocentes() {
+		ArrayList<String[]> rows = new ArrayList<>();
+		for (Asistencia asistencia : lstA) {
+			rows.add(new String[] { getFormatoFecha(asistencia),
+					asistencia.getHorarioAcademico().getMallaCurricularParalelo().getMallaCurricularMateria()
+							.getMateria().getMtrDescripcion(),
+					asistencia.getAssHoraEntrada(), asistencia.getAssHoraSalida(), asistencia.getAssEstado() });
+		}
+		return rows;
+	}
+
+	/**
+	 * @param asistencia
+	 * @return
+	 */
+	private String getFormatoFecha(Asistencia asistencia) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+		String strDate = dateFormat.format(asistencia.getAssFecha());
+		return strDate;
 	}
 
 	public void verActividades() {
