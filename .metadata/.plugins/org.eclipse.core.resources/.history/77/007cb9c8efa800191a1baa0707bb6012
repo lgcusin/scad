@@ -1,0 +1,28 @@
+package ec.edu.uce.Biometrico.jsf.managedBeans;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+
+@ManagedBean(name = "generarRegistros")
+@ViewScoped
+public class generarRegistros {
+
+	private Login beanLogin;
+
+	@PostConstruct
+	public void init() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		beanLogin = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
+		if (beanLogin.isDocente()) {
+			fdId = beanLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId();
+			fcId = beanLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getDetallePuestos()
+					.get(0).getCarrera().getDependencia().getDpnId();
+		} else if (beanLogin.isAdminFacultad()) {
+			fcId = beanLogin.getUsuarioRol().getUsuario().getPersona().getFichaEmpleados().get(0).getDetallePuestos()
+					.get(0).getCarrera().getDependencia().getDpnId();
+		}
+	}
+
+}

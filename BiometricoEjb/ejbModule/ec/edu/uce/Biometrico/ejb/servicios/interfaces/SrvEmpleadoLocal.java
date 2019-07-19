@@ -6,6 +6,7 @@ import javax.ejb.Local;
 
 import ec.uce.edu.biometrico.jpa.Carrera;
 import ec.uce.edu.biometrico.jpa.FichaDocente;
+import ec.uce.edu.biometrico.jpa.HorarioAcademico;
 import ec.uce.edu.biometrico.jpa.UnidadCurricular;
 
 @Local
@@ -15,6 +16,8 @@ public interface SrvEmpleadoLocal {
 
 	List<FichaDocente> listarDocentes(Integer crrId);
 
-	void create(UnidadCurricular uc);
+	List<HorarioAcademico> listarHorariosxDocentexFechaHora(Integer integer, Integer[] arrayHora, int dia);
+
+	List<FichaDocente> listarDocentesxCarrera(Integer crrId);
 
 }

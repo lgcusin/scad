@@ -61,6 +61,14 @@ public class AdministrarParametro {
 		registroParametro = new Parametro();
 		selectFacultad = new Dependencia();
 	}
+	
+	public void setFacultadID(ValueChangeEvent event) {
+		if (event.getNewValue() != null) {
+			selectFacultad.setDpnId((Integer) event.getNewValue());
+		} else {
+			selectFacultad.setDpnId(null);
+		}
+	}
 
 	/**
 	 * Metodo que busca los parametros segun la facultad seleccionada.
@@ -131,7 +139,7 @@ public class AdministrarParametro {
 	 * 
 	 * @param event
 	 */
-	public void setFacultadID(ValueChangeEvent event) {
+	public void setCarreraID(ValueChangeEvent event) {
 		if (event.getNewValue() != null) {
 			selectFacultad.setDpnId((Integer) event.getNewValue());
 		} else {

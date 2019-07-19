@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="cuerpo">
+		<h:form id="frmHuellas" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<p:panel id="pnlRegistroHuellas_header"
+				header="Registro de Huellas dactilares" />
+			<center>
+				<p:panel id="pnlRegitroHuellas_content"
+					header="Datos y detalle del docente">
+					<br />
+					<p:panelGrid columns="2">
+						<h:outputLabel value="Docente:" style="font-weight: bold" />
+						<h:outputLabel
+							value="#{registro.selectDcnt.persona.prsPrimerApellido} #{registro.selectDcnt.persona.prsSegundoApellido} #{registro.selectDcnt.persona.prsNombres} " />
+						<!-- <h:outputLabel value="Carrera" style="font-weight: bold" />
+						<h:outputLabel value="#{registro.selectDcnt.detallePuestos[0].carrera.crrDescripcion}" /> -->
+					</p:panelGrid>
+					<br />
+					<p:panelGrid columns="3" style="text-align:center;">
+
+						<p:selectOneMenu id="tipoHuella" value="#{registro.tpId}"
+							valueChangeListener="#{registro.verificarTipoId}">
+							<f:selectItem itemLabel="Selecione su huella" itemValue="" />
+							<f:selectItems value="#{registro.lstTphl}" var="th"
+								itemLabel="#{th.tphlDescripcionDedo}" itemValue="#{th.tphlId}" />
+							<p:ajax update="pnlRegitroHuellas_content" />
+						</p:selectOneMenu>
+						<p:panelGrid id="pnlHuellas" columns="2"
+							rendered="#{registro.flagTipo}" style="text-align:center;">
+							<p:graphicImage id="imagenR1" value="#{registro.graphic1}"
+								width="100" height="130"></p:graphicImage>
+							<p:graphicImage id="imagenR2" value="#{registro.graphic2}"
+								width="100" height="130"></p:graphicImage>
+							<p:progressBar id="calidad1" ajax="true"
+								value="#{registro.quality1}"></p:progressBar>
+							<p:progressBar id="calidad2" ajax="true"
+								value="#{registro.quality2}"></p:progressBar>
+							<p:commandButton id="botonR1" value="Captura H1"
+								update="imagenR1 calidad1" action="#{registro.capturar1}"></p:commandButton>
+							<p:commandButton id="botonR2" value="Captura H2"
+								update="imagenR2 calidad2" action="#{registro.capturar2}"></p:commandButton>
+						</p:panelGrid>
+						<p:panelGrid id="pnlEstados" columns="2"
+							rendered="#{!registro.flagTipo}">
+							<h:outputLabel value="Dispositivo movil agregado:" />
+							<h:selectBooleanCheckbox  id="slcCheckMovil"
+								value="#{registro.flagMovil}" >
+								<!-- <f:selectItem itemLabel="Activado" itemValue="#{true}" /> -->
+							</h:selectBooleanCheckbox >
+							<h:outputLabel value="Sin huella:" />
+							<h:selectBooleanCheckbox id="slcCheckSinHUella"
+								value="#{registro.flagSinHuella}">
+								<f:selectItem itemLabel="" itemValue="#{true}" />
+							</h:selectBooleanCheckbox>
+						</p:panelGrid>
+					</p:panelGrid>
+					<br />
+					<p:commandButton id="btnRegistrar" value="Registrar"
+						rendered="#{registro.flagDvc}" action="#{registro.registrar}"
+						disabled="#{registro.flagVrf}"></p:commandButton>
+					<p:commandButton id="btnVerificar" value="Verificar"
+						disabled="#{!registro.flagVrf}" action="#{registro.verificar}"
+						rendered="#{registro.flagDvc}" update="btnRegistrar btnVerificar"></p:commandButton>
+					<p:commandButton id="btnLimpiar" value="Limpiar"
+						rendered="#{registro.flagDvc}" action="#{registro.clean()}"
+						update="pnlRegitroHuellas_content"></p:commandButton>
+				</p:panel>
+
+			</center>
+			<div
+				style="margin-left: 12px; margin-right: 10px; font-size: 10px; font-weight: bold;">
+				<h:outputLabel
+					value="NOTA: Para registrar una nueva huella, clic en limpiar." />
+				<h:outputLabel
+					value="Si no registra y/o verifica huellas, active las casillas" />
+			</div>
+			<br />
+			<div style="margin-left: 12px; margin-right: 10px;">
+				<p:commandButton id="btnRegresar" action="#{registro.volver()}"
+					actionListener="#{registro.apagar}" value="Regresar" />
+
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

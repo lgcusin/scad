@@ -22,20 +22,21 @@
 						<h:outputLabel value="Docente:" style="font-weight: bold" />
 						<h:outputLabel
 							value="#{registro.selectDcnt.persona.prsPrimerApellido} #{registro.selectDcnt.persona.prsSegundoApellido} #{registro.selectDcnt.persona.prsNombres} " />
-						<h:outputLabel value="Carrera" style="font-weight: bold" />
-						<h:outputLabel value="#{registro.selectDcnt.detallePuestos[0].carrera.crrDescripcion}" />
+						<!-- <h:outputLabel value="Carrera" style="font-weight: bold" />
+						<h:outputLabel value="#{registro.selectDcnt.detallePuestos[0].carrera.crrDescripcion}" /> -->
 					</p:panelGrid>
 					<br />
-					<p:panelGrid columns="2" style="text-align:center;">
+					<p:panelGrid columns="3" style="text-align:center;">
 
-						<p:selectOneMenu id="tipoHuella" value="#{registro.tpId}">
+						<p:selectOneMenu id="tipoHuella" value="#{registro.tpId}"
+							valueChangeListener="#{registro.verificarTipoId}">
 							<f:selectItem itemLabel="Selecione su huella" itemValue="" />
 							<f:selectItems value="#{registro.lstTphl}" var="th"
-								itemLabel="#{th.tphlId},#{th.tphlDescripcionDedo}"
-								itemValue="#{th.tphlId}" />
+								itemLabel="#{th.tphlDescripcionDedo}" itemValue="#{th.tphlId}" />
+							<p:ajax update="pnlRegitroHuellas_content" />
 						</p:selectOneMenu>
 						<p:panelGrid id="pnlHuellas" columns="2"
-							style="text-align:center;">
+							rendered="#{registro.flagTipo}" style="text-align:center;">
 							<p:graphicImage id="imagenR1" value="#{registro.graphic1}"
 								width="100" height="130"></p:graphicImage>
 							<p:graphicImage id="imagenR2" value="#{registro.graphic2}"
@@ -49,6 +50,19 @@
 							<p:commandButton id="botonR2" value="Captura H2"
 								update="imagenR2 calidad2" action="#{registro.capturar2}"></p:commandButton>
 						</p:panelGrid>
+						<p:panelGrid id="pnlEstados" columns="2"
+							rendered="#{!registro.flagTipo}">
+							<h:outputLabel value="Dispositivo movil agregado:" />
+							<h:selectBooleanCheckbox id="slcCheckMovil"
+								value="#{registro.flagMovil}">
+								<f:selectItem itemLabel="" itemValue="#{true}" />
+							</h:selectBooleanCheckbox>
+							<h:outputLabel value="Sin huella:" />
+							<h:selectBooleanCheckbox id="slcCheckSinHUella"
+								value="#{registro.flagSinHuella}">
+								<f:selectItem itemLabel="" itemValue="#{true}" />
+							</h:selectBooleanCheckbox>
+						</p:panelGrid>
 					</p:panelGrid>
 					<br />
 					<p:commandButton id="btnRegistrar" value="Registrar"
@@ -61,11 +75,14 @@
 						rendered="#{registro.flagDvc}" action="#{registro.clean()}"
 						update="pnlRegitroHuellas_content"></p:commandButton>
 				</p:panel>
+
 			</center>
-			<div style="margin-left: 12px; margin-right: 10px;">
+			<div
+				style="margin-left: 12px; margin-right: 10px; font-size: 10px; font-weight: bold;">
 				<h:outputLabel
-					value="NOTA: Para registrar una nueva huella, clic en limpiar."
-					style="font-size:10px ;font-weight: bold" />
+					value="NOTA: Para registrar una nueva huella, clic en limpiar." />
+				<h:outputLabel
+					value="Si no registra y/o verifica huellas, active las casillas" />
 			</div>
 			<br />
 			<div style="margin-left: 12px; margin-right: 10px;">

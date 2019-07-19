@@ -21,9 +21,10 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "HUELLA_DACTILAR", uniqueConstraints = @UniqueConstraint(columnNames = { "FCDC_ID", "TPHL_ID" }))
-@NamedQueries({ @NamedQuery(name = "HuellaDactilar.findAll", query = "select hd from HuellaDactilar as hd"),
+@NamedQueries({
+		@NamedQuery(name = "HuellaDactilar.findAll", query = "select hd from HuellaDactilar as hd where hd.hldcCodigoAuxiliar<>1 or hd.tipoHuella.tphlId in (1, 2,3)"),
 		@NamedQuery(name = "HuellaDactilar.findAllById", query = "select hd from HuellaDactilar as hd where hd.fichaDocente.fcdcId=:idDcnt"),
-		@NamedQuery(name = "HuellaDactilar.findByFdicThid", query = "select hd from HuellaDactilar as hd where hd.fichaDocente.fcdcId=:fdId and hd.tipoHuella.tphlId=:thid")})
+		@NamedQuery(name = "HuellaDactilar.findByFdicThid", query = "select hd from HuellaDactilar as hd where hd.fichaDocente.fcdcId=:fdId and hd.tipoHuella.tphlId=:thid") })
 
 public class HuellaDactilar implements java.io.Serializable {
 
@@ -31,24 +32,24 @@ public class HuellaDactilar implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int hldcId;
+	private Integer hldcId;
 	private TipoHuella tipoHuella;
 	private FichaDocente fichaDocente;
 	private Blob hldPrimerHuella;
 	private Blob hldSegundaHuella;
-	private int hldcCodigoAuxiliar;
+	private Integer hldcCodigoAuxiliar;
 
 	public HuellaDactilar() {
 	}
 
-	public HuellaDactilar(int hldcId, TipoHuella tipoHuella, FichaDocente fichaDocente) {
+	public HuellaDactilar(Integer hldcId, TipoHuella tipoHuella, FichaDocente fichaDocente) {
 		this.hldcId = hldcId;
 		this.tipoHuella = tipoHuella;
 		this.fichaDocente = fichaDocente;
 	}
 
-	public HuellaDactilar(int hldcId, TipoHuella tipoHuella, FichaDocente fichaDocente, Blob hldPrimerHuella,
-			Blob hldSegundaHuella, int hldcCodigoAuxiliar) {
+	public HuellaDactilar(Integer hldcId, TipoHuella tipoHuella, FichaDocente fichaDocente, Blob hldPrimerHuella,
+			Blob hldSegundaHuella, Integer hldcCodigoAuxiliar) {
 		this.hldcId = hldcId;
 		this.tipoHuella = tipoHuella;
 		this.fichaDocente = fichaDocente;
@@ -59,11 +60,11 @@ public class HuellaDactilar implements java.io.Serializable {
 
 	@Id
 	@Column(name = "HLDC_ID", unique = true, nullable = false, precision = 22, scale = 0)
-	public int getHldcId() {
+	public Integer getHldcId() {
 		return this.hldcId;
 	}
 
-	public void setHldcId(int hldcId) {
+	public void setHldcId(Integer hldcId) {
 		this.hldcId = hldcId;
 	}
 
@@ -106,11 +107,11 @@ public class HuellaDactilar implements java.io.Serializable {
 	}
 
 	@Column(name = "HLDC_CODIGO_AUXILIAR", precision = 22, scale = 0)
-	public int getHldcCodigoAuxiliar() {
+	public Integer getHldcCodigoAuxiliar() {
 		return this.hldcCodigoAuxiliar;
 	}
 
-	public void setHldcCodigoAuxiliar(int hldcCodigoAuxiliar) {
+	public void setHldcCodigoAuxiliar(Integer hldcCodigoAuxiliar) {
 		this.hldcCodigoAuxiliar = hldcCodigoAuxiliar;
 	}
 

@@ -42,7 +42,8 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 
 	@PersistenceContext
 	EntityManager em;
-	private static String[] camposParametros = { "ENTRADA", "SALIDA" };
+	private static String[] camposParametros = { "ENTRADA ANTES", "ENTRADA DESPUES", "SALIDA ANTES", "SALIDA DESPUES",
+			"ATRASO" };
 
 	public SrvSeguimiento() {
 		// TODO Auto-generated constructor stub
@@ -141,8 +142,20 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	 * 
 	 * @param lstParametro
 	 */
-	private int buscarParametroVista(int index, List<Parametro> lstParametro) {
-		if (lstParametro.get(index).getPrmDescripcion().equalsIgnoreCase(camposParametros[0])) {
+	public int buscarParametroVista(int index, List<Parametro> lstParametro) {
+		if (lstParametro.get(index).getPrmDescripcion().equals(camposParametros[0])) {
+			/** Obtiene los minutos del parametro */
+			return Integer.parseInt(lstParametro.get(index).getPrmValor().substring(3, 5));
+		}
+		if (lstParametro.get(index).getPrmDescripcion().equals(camposParametros[1])) {
+			/** Obtiene los minutos del parametro */
+			return Integer.parseInt(lstParametro.get(index).getPrmValor().substring(3, 5));
+		}
+		if (lstParametro.get(index).getPrmDescripcion().equals(camposParametros[2])) {
+			/** Obtiene los minutos del parametro */
+			return Integer.parseInt(lstParametro.get(index).getPrmValor().substring(3, 5));
+		}
+		if (lstParametro.get(index).getPrmDescripcion().equals(camposParametros[3])) {
 			/** Obtiene los minutos del parametro */
 			return Integer.parseInt(lstParametro.get(index).getPrmValor().substring(3, 5));
 		} else {
@@ -153,12 +166,16 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 
 	@SuppressWarnings({ "deprecation", "unchecked" })
 	@Override
-	public Horario verificarHorario(Date fecha, Integer fcdcId, Boolean tipo, Integer fclId) {
+	public HorarioAcademico verificarHorario(Date fecha, Integer fcdcId, Boolean tipo, Integer fclId) {
 		List<Parametro> lstP = new ArrayList<>();
 		int parametroEntrada = 0;
 		int parametroSalida = 0;
+		int parametroEntradaD = 0;
+		int parametroSalidaD = 0;
+		int atraso = 0;
 		try {
-			Query query = em.createQuery("select p from Parametro as p where p.fclId=:fclId");
+			Query query = em
+					.createQuery("select p from Parametro as p where p.dependencia.dpnId=:fclId order by p.prmId");
 			query.setParameter("fclId", fclId);
 			lstP = (List<Parametro>) query.getResultList();
 		} catch (Exception e) {
@@ -167,62 +184,69 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 
 		if (!lstP.isEmpty()) {
 			parametroEntrada = buscarParametroVista(0, lstP);
-			parametroSalida = buscarParametroVista(1, lstP);
+			parametroEntradaD = buscarParametroVista(1, lstP);
+			parametroSalida = buscarParametroVista(2, lstP);
+			parametroSalidaD = buscarParametroVista(3, lstP);
+			atraso = buscarParametroVista(4, lstP);
 		}
 		int horas = Integer.parseInt(fecha.getHours() + "");
 		int minutos = Integer.parseInt(fecha.getMinutes() + "");
 		int horasProceso = 0;
-		int minutosProceso = 0;
+		Double minutosProceso = 0.0;
 		int holguraInicio = minutos - parametroEntrada;
-		int holguraFin = minutos + parametroSalida;
+		int holguraFin = minutos + parametroEntradaD;
 		String horaRegistro = fecha.getHours() + ":" + fecha.getMinutes();
 		System.out.println("Hora actual: " + horaRegistro);
 		if (holguraInicio < 0) {
 			horasProceso = horas - 1;
 			if (holguraInicio == 0) {
-				minutosProceso = 0;
+				minutosProceso = 0.0;
 			} else {
-				minutosProceso = 60 + holguraInicio;
+				minutosProceso = (double) (60 + holguraInicio);
 			}
 		} else {
 			horasProceso = horas;
-			minutosProceso = holguraInicio;
+			minutosProceso = (double) holguraInicio;
 		}
-		String horIni = validarTamMinutos(horasProceso) + ":" + validarTamMinutos(minutosProceso);
+		Double horIni = (double) (horasProceso + (minutosProceso / 100));
+		// String horIni = validarTamMinutos(horasProceso) + ":" +
+		// validarTamMinutos(minutosProceso);
 
 		if (holguraFin >= 60) {
 			horasProceso = horas + 1;
-			minutosProceso = holguraFin - 60;
+			minutosProceso = (double) (holguraFin - 60);
 		} else {
 			horasProceso = horas;
-			minutosProceso = holguraFin;
+			minutosProceso = (double) holguraFin;
 		}
-
-		String horFin = validarTamMinutos(horasProceso) + ":" + validarTamMinutos(minutosProceso);
-		Horario hr;
+		Double horFin = (double) (horasProceso + (minutosProceso / 100));
+		// String horFin = validarTamMinutos(horasProceso) + ":" +
+		// validarTamMinutos(minutosProceso);
+		HorarioAcademico hr= new HorarioAcademico();
 		System.out.println("Hora Holgura Inicio:" + horIni + "\nHora holgura Fin:" + horFin);
 		try {
 			Query query;
 			Object[] objArray;
 			Object obj;
 			if (tipo) {
+				
 				query = em.createQuery(
-						"select h,m,a from Horario as h join h.materia as m join h.aula as a where h.diaSemana.dsmId=:diaId and h.fichaDocente.fcdcId=:fdId  and (h.hrrInicio between :iniH and :finH)");
-				obj = query.setParameter("diaId", fecha.getDay()).setParameter("fdId", fcdcId)
-						.setParameter("iniH", horIni).setParameter("finH", horFin).getSingleResult();
+						"select  ass,ha,fd,mcp,mcm,m,hca,al,hc from Asistencia as ass join ass.horarioAcademico as ha join ass.fichaDocente as fd join ha.horaClaseAula as hca join hca.aula as al join hca.horaClase as hc join ha.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m where fd.fcdcId=:fdId and ha.hracDia =:diaId and ha.hracHoraInicio between :iniH and :finH");
+				obj = query.setParameter("diaId", fecha.getDay() - 1).setParameter("fdId", fcdcId)
+						.setParameter("iniH", horIni.toString()).setParameter("finH", horFin.toString()).getSingleResult();
 				objArray = (Object[]) obj;
-				hr = (Horario) objArray[0];
+				hr = (HorarioAcademico) objArray[1];
 			} else {
 				query = em.createQuery(
-						"select h,m,a from Horario as h join h.materia as m join h.aula as a where h.diaSemana.dsmId=:diaId and h.fichaDocente.fcdcId=:fdId  and (h.hrrFin between :iniH and :finH)");
+						"select  ass,ha,fd,mcp,mcm,m,hca,al,hc from Asistencia as ass join ass.horarioAcademico as ha join ass.fichaDocente as fd join ha.horaClaseAula as hca join hca.aula as al join hca.horaClase as hc join ha.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m where fd.fcdcId=:fdId and ha.hracDia =:diaId and ha.hracHoraFin between :iniH and :finH");
 				obj = query.setParameter("diaId", fecha.getDay()).setParameter("fdId", fcdcId)
-						.setParameter("iniH", horIni).setParameter("finH", horFin).getSingleResult();
+						.setParameter("iniH", horIni.toString()).setParameter("finH", horFin.toString()).getSingleResult();
 				objArray = (Object[]) obj;
-				hr = (Horario) objArray[0];
+				hr = (HorarioAcademico) objArray[1];
 			}
 		} catch (Exception e) {
 			System.out.println("Error al obtener horarios: " + e);
-			return hr = null;
+			return hr;
 		}
 		return hr;
 	}
@@ -320,12 +344,11 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	public void guardarRegistro(Asistencia regAss) {
 		try {
 			if (regAss.getAssId() != null) {
-				System.out.println(regAss.getAssHoraSalida());
+				System.out.println(regAss.getAssFecha());
 				em.merge(regAss);
 			} else {
-				System.out.println(regAss.getFichaDocente().getFcdcId());
-				System.out.println(regAss.getAssHoraEntrada());
-				// regAss.setAssId(obtenerSecAsistencia() + 1);
+				System.out.println(regAss.getAssFecha());
+				regAss.setAssId(obtenerSecAsistencia() + 1);
 				em.persist(regAss);
 			}
 		} catch (Exception e) {
@@ -359,17 +382,18 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 					"select fr, fc from Feriado as fr join fr.dependencia as fc where fc.dpnId=:fclId and to_char(fr.frdFecha,'dd/MM/yyyy') =:fecha");
 			query.setParameter("fclId", fclId).setParameter("fecha", hora);
 			List<Object> lstObjF = query.getResultList();
-			if (!lstObjF.isEmpty()) {
-				query = em.createQuery(
-						"select ha.hracId,mcpr.mlcrprId,cr.crrId,nv.nvlId, p.prlId, ma.mtrId,ha.hracDia,hc.hoclId, al.alaId from HorarioAcademico as ha join ha.mallaCurricularParalelo as mcpr join mcpr.paralelo as p	join mcpr.mallaCurricularMateria as mcm join mcm.materia as ma join ma.carrera as cr join mcm.nivelByNvlId as nv join ha.horaClaseAula as hca join hca.horaClase as hc join hca.aula as al where mcpr.mlcrprId in (select ch.mallaCurricularParalelo.mlcrprId from CargaHoraria as ch inner join ch.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria.materia.carrera.dependencia as fc join ch.periodoAcademico as pa where pa.pracEstado=0 and fc.dpnId=:fclId group by ch.mallaCurricularParalelo.mlcrprId) and hca.hoclalEstado=0 and ha.hracDia=:diaId group by ha.hracId,mcpr.mlcrprId,cr.crrId,nv.nvlId, p.prlId, ma.mtrId,ha.hracDia,hc.hoclId, al.alaId order by mcpr.mlcrprId,cr.crrId,nv.nvlId, p.prlId");
-				query.setParameter("fclId", fclId).setParameter("diaId", ahora.getDay());
-				List<Object> lstObjH = query.getResultList();
-				for (Object obj : lstObjF) {
-					objArrayF = (Object[]) obj;
-					Feriado fr = (Feriado) objArrayF[0];
-					for (Object obj1 : lstObjH) {
-						objArrayH = (Object[]) obj1;
-						HorarioAcademico ha = em.find(HorarioAcademico.class, objArrayH[0]);
+
+			query = em.createQuery(
+					"select ha.hracId,mcpr.mlcrprId,cr.crrId,nv.nvlId, p.prlId, ma.mtrId,ha.hracDia,hc.hoclId, al.alaId from HorarioAcademico as ha join ha.mallaCurricularParalelo as mcpr join mcpr.paralelo as p	join mcpr.mallaCurricularMateria as mcm join mcm.materia as ma join ma.carrera as cr join mcm.nivelByNvlId as nv join ha.horaClaseAula as hca join hca.horaClase as hc join hca.aula as al where mcpr.mlcrprId in (select ch.mallaCurricularParalelo.mlcrprId from CargaHoraria as ch inner join ch.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria.materia.carrera.dependencia as fc join ch.periodoAcademico as pa where pa.pracEstado=0 and fc.dpnId=:fclId group by ch.mallaCurricularParalelo.mlcrprId) and hca.hoclalEstado=0 and ha.hracDia=:diaId group by ha.hracId,mcpr.mlcrprId,cr.crrId,nv.nvlId, p.prlId, ma.mtrId,ha.hracDia,hc.hoclId, al.alaId order by mcpr.mlcrprId,cr.crrId,nv.nvlId, p.prlId");
+			query.setParameter("fclId", fclId).setParameter("diaId", ahora.getDay() - 1);
+			List<Object> lstObjH = query.getResultList();
+			for (Object obj1 : lstObjH) {
+				objArrayH = (Object[]) obj1;
+				HorarioAcademico ha = em.find(HorarioAcademico.class, objArrayH[0]);
+				if (!lstObjF.isEmpty()) {
+					for (Object obj : lstObjF) {
+						objArrayF = (Object[]) obj;
+						Feriado fr = (Feriado) objArrayF[0];
 						if (ha.getHracHoraInicio() >= Integer.parseInt(fr.getFrdInicio().substring(0, 2))
 								&& ha.getHracHoraFin() <= Integer.parseInt(fr.getFrdFin().substring(0, 2))) {
 						} else {
@@ -379,13 +403,24 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 									.setParameter("mcpId", objArrayH[1]).getSingleResult();
 							Asistencia ass = new Asistencia();
 							ass.setHorarioAcademico(ha);
-							ass.setAssFecha(ahora);
+							ass.setAssFecha(formateador.parse(hora));
 							ass.setFichaDocente(fd);
 							guardarRegistro(ass);
 						}
 					}
+				} else {
+					FichaDocente fd = (FichaDocente) em
+							.createQuery(
+									"select fd from CargaHoraria as ch inner join ch.mallaCurricularParalelo as mcp join ch.detallePuesto.fichaDocente as fd where mcp.mlcrprId=:mcpId")
+							.setParameter("mcpId", objArrayH[1]).getSingleResult();
+					Asistencia ass = new Asistencia();
+					ass.setHorarioAcademico(ha);
+					ass.setAssFecha(formateador.parse(hora));
+					ass.setFichaDocente(fd);
+					guardarRegistro(ass);
 				}
 			}
+
 		} catch (Exception e) {
 			System.out.println("Error al crear registro laboral docente");
 		}
@@ -709,6 +744,22 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			return lstS;
 		}
 		return lstS;
+	}
+
+	@Override
+	public void generarAsistencias(HorarioAcademico hrac, FichaDocente docente, Date date) {
+		Asistencia Asis = new Asistencia();
+		Asis.setHorarioAcademico(hrac);
+		Asis.setFichaDocente(docente);
+		Asis.setAssFecha(date);
+		Asis.setAssId(obtenerSecAsistencia() + 1);
+		if (em.find(Asistencia.class, obtenerSecAsistencia()).getHorarioAcademico().getMallaCurricularParalelo()
+				.getMlcrprId().equals(hrac.getMallaCurricularParalelo().getMlcrprId())) {
+
+		} else {
+			em.persist(Asis);
+		}
+
 	}
 
 }

@@ -37,7 +37,7 @@
 														valueChangeListener="#{detalleAss.listarDcnts}">
 														<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
 														<f:selectItems value="#{detalleAss.lstCarreras}" var="cr"
-															itemLabel="#{cr.crrNombre}" itemValue="#{cr.crrId}" />
+															itemLabel="#{cr.crrDescripcion}" itemValue="#{cr.crrId}" />
 														<p:ajax update="slcDocente" />
 													</p:selectOneMenu>
 												</div>
@@ -50,7 +50,7 @@
 														value="#{detalleAss.fcdId}" style="width: 100%">
 														<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
 														<f:selectItems value="#{detalleAss.lstD}" var="dcn"
-															itemLabel="#{dcn.fcdcApellidos} #{dcn.fcdcPrimerNombre} #{dcn.fcdcSegundoNombre}"
+															itemLabel="#{dcn.persona.prsPrimerApellido} #{dcn.persona.prsSegundoApellido} #{dcn.persona.prsNombres}"
 															itemValue="#{dcn.fcdcId}" />
 													</p:selectOneMenu>
 												</div>
@@ -104,8 +104,8 @@
 							<p:commandButton id="btnVer" update=":frmJustificacion:ActDetail"
 								oncomplete="PF('ActDialog').show()" value="Ver"
 								title="Ver Actividades">
-								<f:setPropertyActionListener value="#{As}"
-									target="#{detalleAss.ass}" />
+								<!-- <f:setPropertyActionListener value="#{As}"
+									target="#{detalleAss.ass}" /> -->
 							</p:commandButton>
 							<p:commandButton id="btnJustificar" value="Justificar Falta"
 								title="Justificar falta"

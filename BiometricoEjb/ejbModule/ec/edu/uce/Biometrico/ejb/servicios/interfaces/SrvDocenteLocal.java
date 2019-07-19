@@ -13,6 +13,7 @@ import ec.uce.edu.biometrico.jpa.Asistencia;
 import ec.uce.edu.biometrico.jpa.ContenidoCurricular;
 import ec.uce.edu.biometrico.jpa.FichaDocente;
 import ec.uce.edu.biometrico.jpa.Horario;
+import ec.uce.edu.biometrico.jpa.HorarioAcademico;
 import ec.uce.edu.biometrico.jpa.Materia;
 import ec.uce.edu.biometrico.jpa.Seguimiento;
 import ec.uce.edu.biometrico.jpa.TipoHuella;
@@ -22,7 +23,7 @@ public interface SrvDocenteLocal {
 
 	List<FichaDocente> listarDocentesxParametroxFacultad(String parametro, Integer integer);
 
-	List<TipoHuella> listarDedos();
+	List<TipoHuella> listarTipoHuellas();
 
 	List<BufferedImage> listarHuellas(Integer fcdc_id) throws SQLException, IOException;
 
@@ -38,10 +39,10 @@ public interface SrvDocenteLocal {
 	/**
 	 * Permite buscar el horario asignado a la asistencia a justificar
 	 * 
-	 * @param assId
+	 * @param asistencia
 	 * @return
 	 */
-	Horario findHorarioByAsistencia(Integer assId);
+	HorarioAcademico findHorarioByAsistencia(Asistencia asistencia);
 
 	/**
 	 * Actualiza la asistencia justificada
@@ -53,4 +54,8 @@ public interface SrvDocenteLocal {
 	List<Materia> listarMaterias(Integer crrId);
 
 	List<Seguimiento> listarSeguimientos(Integer fcdcId, Integer mtrId);
+
+	void guardarActualizarEstados(FichaDocente selectDcnt, TipoHuella selectTp, boolean flagMovil, boolean flagSinHuella);
+
+	List<Boolean> listarestados(Integer fcdcId);
 }

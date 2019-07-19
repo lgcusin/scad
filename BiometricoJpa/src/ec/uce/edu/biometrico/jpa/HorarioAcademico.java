@@ -1,12 +1,16 @@
 package ec.uce.edu.biometrico.jpa;
 // Generated 08/07/2019 20:53:07 by Hibernate Tools 4.3.5.Final
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -30,6 +34,7 @@ public class HorarioAcademico implements java.io.Serializable {
 	private Integer hracEstado;
 	private Integer mlcrprIdComp;
 	private Integer hracHoraTipo;
+	private List<Asistencia > actividads = new ArrayList<Asistencia>();
 
 	public HorarioAcademico() {
 	}
@@ -40,7 +45,7 @@ public class HorarioAcademico implements java.io.Serializable {
 
 	public HorarioAcademico(Integer hracId, MallaCurricularParalelo mallaCurricularParalelo,
 			HoraClaseAula horaClaseAula, String hracDescripcion, Integer hracDia, Integer hracHoraInicio,
-			Integer hracHoraFin, Integer hracEstado, Integer mlcrprIdComp, Integer hracHoraTipo) {
+			Integer hracHoraFin, Integer hracEstado, Integer mlcrprIdComp, Integer hracHoraTipo,List<Asistencia > actividads) {
 		this.hracId = hracId;
 		this.mallaCurricularParalelo = mallaCurricularParalelo;
 		this.horaClaseAula = horaClaseAula;
@@ -51,6 +56,7 @@ public class HorarioAcademico implements java.io.Serializable {
 		this.hracEstado = hracEstado;
 		this.mlcrprIdComp = mlcrprIdComp;
 		this.hracHoraTipo = hracHoraTipo;
+		this.actividads=actividads;
 	}
 
 	@Id
@@ -146,5 +152,22 @@ public class HorarioAcademico implements java.io.Serializable {
 	public void setHracHoraTipo(Integer hracHoraTipo) {
 		this.hracHoraTipo = hracHoraTipo;
 	}
+
+	/**
+	 * @return the actividads
+	 */
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "horarioAcademico")
+	public List<Asistencia> getActividads() {
+		return actividads;
+	}
+
+	/**
+	 * @param actividads the actividads to set
+	 */
+	public void setActividads(List<Asistencia> actividads) {
+		this.actividads = actividads;
+	}
+	
+	
 
 }

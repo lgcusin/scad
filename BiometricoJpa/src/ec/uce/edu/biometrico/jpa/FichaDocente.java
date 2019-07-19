@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "FICHA_DOCENTE")
 @NamedQueries({
-		@NamedQuery(name = "Docente.findByHdId", query = "select hd.fichaDocente from HuellaDactilar as hd where hd.hldcId=:hdId") })
+		@NamedQuery(name = "FichaDocente.findByHdId", query = "select hd.fichaDocente from HuellaDactilar as hd where hd.hldcId=:hdId") })
 
 // ,@NamedQuery(name = "Docente.findByUsrId", query = "select u.fichaDocente
 // from Usuario as u where u.ursId=:usrId")

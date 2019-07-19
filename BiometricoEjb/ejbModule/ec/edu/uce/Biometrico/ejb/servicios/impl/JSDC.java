@@ -262,8 +262,7 @@ public class JSDC implements JSDCLocal {
 	public FichaDocente comparar() throws SQLException, IOException {
 		long nfiqvalue;
 		int[] numOfMinutiae = new int[1];
-		BufferedImage imgn = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight,
-				BufferedImage.TYPE_BYTE_GRAY);
+		BufferedImage imgn = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight,BufferedImage.TYPE_BYTE_GRAY);
 		byte[] imageBuffer1 = ((java.awt.image.DataBufferByte) imgn.getRaster().getDataBuffer()).getData();
 		long iError = SGFDxErrorCode.SGFDX_ERROR_NONE;
 		if (fplib != null) {
@@ -303,7 +302,7 @@ public class JSDC implements JSDCLocal {
 										.getDataBuffer()).getData();
 								iError = fplib.CreateTemplate(fingerInfo, imageBuffer2, regMin2);
 								if (verificar()) {
-									FichaDocente fd = em.createNamedQuery("Docente.findByHdId", FichaDocente.class)
+									FichaDocente fd = em.createNamedQuery("FichaDocente.findByHdId", FichaDocente.class)
 											.setParameter("hdId", hd.getHldcId()).getSingleResult();
 									return fd;
 								} else {
@@ -314,7 +313,7 @@ public class JSDC implements JSDCLocal {
 											.getData();
 									iError = fplib.CreateTemplate(fingerInfo, imageBuffer2, regMin2);
 									if (verificar()) {
-										FichaDocente fd = em.createNamedQuery("Docente.findByHdId", FichaDocente.class)
+										FichaDocente fd = em.createNamedQuery("FichaDocente.findByHdId", FichaDocente.class)
 												.setParameter("hdId", hd.getHldcId()).getSingleResult();
 										return fd;
 									}

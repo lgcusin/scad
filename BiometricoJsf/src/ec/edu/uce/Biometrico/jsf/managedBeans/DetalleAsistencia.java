@@ -22,6 +22,7 @@ import ec.uce.edu.biometrico.jpa.Asistencia;
 import ec.uce.edu.biometrico.jpa.Carrera;
 import ec.uce.edu.biometrico.jpa.FichaDocente;
 import ec.uce.edu.biometrico.jpa.Horario;
+import ec.uce.edu.biometrico.jpa.HorarioAcademico;
 
 @ManagedBean(name = "detalleAss")
 @ViewScoped
@@ -167,7 +168,7 @@ public class DetalleAsistencia {
 	private void actualizarAsistencia(Asistencia asistencia) {
 		if (asistencia != null && asistencia.getAssId() != null
 				&& (asistencia.getAssHoraEntrada() == null || asistencia.getAssHoraSalida() == null)) {
-			Horario horario = srvDnt.findHorarioByAsistencia(asistencia.getAssId());
+			HorarioAcademico horario = srvDnt.findHorarioByAsistencia(asistencia);
 			if (horario != null) {
 				validarDataAsistencia(asistencia, horario);
 				srvDnt.actualizarAsistencia(asistencia);
@@ -185,18 +186,18 @@ public class DetalleAsistencia {
 	 * @param asistencia
 	 * @param horario
 	 */
-	private void validarDataAsistencia(Asistencia asistencia, Horario horario) {
+	private void validarDataAsistencia(Asistencia asistencia, HorarioAcademico horario) {
 		if (asistencia.getAssHoraEntrada() == null && asistencia.getAssHoraSalida() == null) {
 			asistencia.setAssEstado("JUSTIFICACION COMPLETA");
-			asistencia.setAssHoraEntrada(horario.getHrrInicio());
-			asistencia.setAssHoraSalida(horario.getHrrFin());
+			asistencia.setAssHoraEntrada(horario.getHracHoraInicio().toString());
+			asistencia.setAssHoraSalida(horario.getHracHoraFin().toString());
 		} else {
 			if (asistencia.getAssHoraEntrada() == null) {
-				asistencia.setAssHoraEntrada(horario.getHrrInicio());
+				asistencia.setAssHoraEntrada(horario.getHracHoraInicio().toString());
 				asistencia.setAssEstado("JUSTIFICACION HORA ENTRADA");
 			}
 			if (asistencia.getAssHoraSalida() == null) {
-				asistencia.setAssHoraSalida(horario.getHrrFin());
+				asistencia.setAssHoraSalida(horario.getHracHoraFin().toString());
 				asistencia.setAssEstado("JUSTIFICACION HORA SALIDA");
 			}
 		}

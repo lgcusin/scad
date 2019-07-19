@@ -5,7 +5,7 @@
 	<persistence-unit name="UnidadPersistencia"
 		transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>java:/BiometricoUceDS</jta-data-source>
+		<jta-data-source>java:/BiometricoDS</jta-data-source>
 		<class>ec.uce.edu.biometrico.jpa.Usuario</class>
 		<class>ec.uce.edu.biometrico.jpa.FichaDocente</class>
 		<class>ec.uce.edu.biometrico.jpa.Actividad</class>
@@ -44,14 +44,14 @@
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
 			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" />
-			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@biometricotest.csbcrf2felig.us-east-1.rds.amazonaws.com:1521:testB" />
-			<property name="hibernate.connection.username" value="biometricoTest" />
-			<!-- <property name="jboss.entity.manager.factory.jndi.name" value="java:/BiometricoEntityManagerFactory"/> -->
+			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
+			<property name="hibernate.connection.username" value="sa" />
+			<property name="jboss.entity.manager.factory.jndi.name" value="java:/BiometricoEntityManagerFactory"/>
 			<property name="hibernate.transaction.jta.platform"
 				value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
-			<property name="hibernate.connection.password" value="biometricoTest"/>
-			<property name="hibernate.default_schema" value="BIOMETRICOTEST"/>
 			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.default_schema" value="sa"/>
+			<property name="hibernate.connection.password" value="admin"/>
 		</properties>
 	</persistence-unit>
 </persistence>

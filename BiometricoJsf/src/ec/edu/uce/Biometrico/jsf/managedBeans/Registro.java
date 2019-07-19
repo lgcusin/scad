@@ -16,6 +16,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.imageio.ImageIO;
 import javax.sql.rowset.serial.SerialException;
 
@@ -59,6 +60,9 @@ public class Registro {
 	private int quality2;
 	private boolean flagDvc;
 	private boolean flagVrf;
+	private boolean flagTipo;
+	private boolean flagMovil;
+	private boolean flagSinHuella;
 
 	@PostConstruct
 	public void init() {
@@ -69,7 +73,8 @@ public class Registro {
 
 	// ####### Pagina busqueda #######
 	public void listar() {
-		lstDcnt = srvDcnt.listarDocentesxParametroxFacultad(parametro, beanLogin.getDt().get(0).getCarrera().getDependencia().getDpnId());
+		lstDcnt = srvDcnt.listarDocentesxParametroxFacultad(parametro,
+				beanLogin.getDt().get(0).getCarrera().getDependencia().getDpnId());
 	}
 
 	public String verHuellas() {
@@ -81,9 +86,10 @@ public class Registro {
 			if (srvDvc.inicializar()) {
 				srvDvc.onLED();
 				selectDcnt.setDetallePuestos(srvLog.listarDetallePuestoDocente(selectDcnt.getFcdcId()));
-				lstTphl = srvDcnt.listarDedos();
+				lstTphl = srvDcnt.listarTipoHuellas();
 				flagDvc = true;
 				flagVrf = true;
+				flagTipo = true;
 				return "huellas";
 			} else {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Lector no encontrado", null);
@@ -118,6 +124,17 @@ public class Registro {
 		quality1 = 0;
 		quality2 = 0;
 		lstTphl = null;
+	}
+
+	public void verificarTipoId(ValueChangeEvent event) {
+		if ((Integer) event.getNewValue() == 5 || (Integer) event.getNewValue() == 4) {
+			flagTipo = false;
+			flagVrf = false;
+			 getEstados();
+		} else {
+			flagTipo = true;
+			flagVrf = true;
+		}
 	}
 
 	public void capturar1() throws IOException {
@@ -185,13 +202,22 @@ public class Registro {
 		if (tpId != null && selectDcnt != null) {
 			selectTp = new TipoHuella();
 			selectTp.setTphlId(tpId);
-			srvDcnt.guardarImagen(bimg1, bimg2, selectDcnt, selectTp);
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Huellas guardadas", null);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			srvDvc.cerrar();
+			if (selectTp.getTphlId() == 1 || selectTp.getTphlId() == 2 || selectTp.getTphlId() == 3) {
+				srvDcnt.guardarImagen(bimg1, bimg2, selectDcnt, selectTp);
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Huellas guardadas", null);
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				clean();
+				srvDvc.cerrar();
+			} else {
+				srvDcnt.guardarActualizarEstados(selectDcnt, selectTp, flagMovil, flagSinHuella);
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Estados guardados", null);
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				 getEstados();
+			}
+
 		} else {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Escoja el dedo al que pertece las huellas",
-					null);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Escoja el dedo al que pertece las huellas o tipo de activacion", null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
@@ -200,6 +226,14 @@ public class Registro {
 		selectDcnt = null;
 		apagar();
 		return "registro";
+	}
+	
+	public void getEstados(){
+		List<Boolean> lstE= srvDcnt.listarestados(selectDcnt.getFcdcId());
+		if(!lstE.isEmpty()){
+			flagSinHuella= lstE.get(0);
+			flagMovil= lstE.get(1);
+		}
 	}
 
 	public String clean() {
@@ -250,7 +284,52 @@ public class Registro {
 		this.lstTphl = lstTphl;
 	}
 
+	/**
+	 * @return the selectTp
+	 */
+	public TipoHuella getSelectTp() {
+		return selectTp;
+	}
+
+	/**
+	 * @param selectTp
+	 *            the selectTp to set
+	 */
+	public void setSelectTp(TipoHuella selectTp) {
+		this.selectTp = selectTp;
+	}
+
 	// Setters y Getters Panel Huella
+
+	/**
+	 * @return the flagMovil
+	 */
+	public boolean isFlagMovil() {
+		return flagMovil;
+	}
+
+	/**
+	 * @param flagMovil
+	 *            the flagMovil to set
+	 */
+	public void setFlagMovil(boolean flagMovil) {
+		this.flagMovil = flagMovil;
+	}
+
+	/**
+	 * @return the flagSinHuella
+	 */
+	public boolean isFlagSinHuella() {
+		return flagSinHuella;
+	}
+
+	/**
+	 * @param flagSinHuella
+	 *            the flagSinHuella to set
+	 */
+	public void setFlagSinHuella(boolean flagSinHuella) {
+		this.flagSinHuella = flagSinHuella;
+	}
 
 	public Integer getTpId() {
 		return tpId;
@@ -266,6 +345,21 @@ public class Registro {
 
 	public void setFlagDvc(boolean flagDvc) {
 		this.flagDvc = flagDvc;
+	}
+
+	/**
+	 * @return the flagTipo
+	 */
+	public boolean isFlagTipo() {
+		return flagTipo;
+	}
+
+	/**
+	 * @param flagTipo
+	 *            the flagTipo to set
+	 */
+	public void setFlagTipo(boolean flagTipo) {
+		this.flagTipo = flagTipo;
 	}
 
 	public StreamedContent getGraphic1() {

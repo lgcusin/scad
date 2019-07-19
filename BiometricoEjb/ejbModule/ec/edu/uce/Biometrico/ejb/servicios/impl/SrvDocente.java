@@ -24,6 +24,7 @@ import ec.uce.edu.biometrico.jpa.ContenidoCurricular;
 import ec.uce.edu.biometrico.jpa.DetallePuesto;
 import ec.uce.edu.biometrico.jpa.FichaDocente;
 import ec.uce.edu.biometrico.jpa.Horario;
+import ec.uce.edu.biometrico.jpa.HorarioAcademico;
 import ec.uce.edu.biometrico.jpa.HuellaDactilar;
 import ec.uce.edu.biometrico.jpa.Materia;
 import ec.uce.edu.biometrico.jpa.Persona;
@@ -70,7 +71,7 @@ public class SrvDocente implements SrvDocenteLocal {
 	}
 
 	@Override
-	public List<TipoHuella> listarDedos() {
+	public List<TipoHuella> listarTipoHuellas() {
 		return em.createNamedQuery("TipoHuella.listar", TipoHuella.class).getResultList();
 	}
 
@@ -169,15 +170,15 @@ public class SrvDocente implements SrvDocenteLocal {
 		try {
 			Object[] objArray;
 			Query query;
-			if (crrId != null) {
+			if (crrId == null) {
 				query = em.createQuery(
-						"select a, h, m from Asistencia as a join a.horario as h join h.materia as m join m.carrera as crr"
+						"select a, h, m from Asistencia as a join a.horarioAcademico as h join h.mallaCurricularParalelo.mallaCurricularMateria.materia as m join m.carrera as crr"
 								+ " where a.fichaDocente.fcdcId=:fcdcId and a.assFecha >= :fechaInicio and a.assFecha <= :fechaFin and crr.crrId=:crrId"
 								+ " order by a.assFecha asc");
 				query.setParameter("crrId", crrId);
 			} else {
 				query = em.createQuery(
-						"select a, h, m from Asistencia as a join a.horario as h join h.materia as m where a.fichaDocente.fcdcId=:fcdcId and a.assFecha >= :fechaInicio and a.assFecha <= :fechaFin order by a.assFecha asc");
+						"select a, h, m from Asistencia as a join a.horarioAcademico as h join h.mallaCurricularParalelo.mallaCurricularMateria.materia as m where a.fichaDocente.fcdcId=:fcdcId and a.assFecha >= :fechaInicio and a.assFecha <= :fechaFin order by a.assFecha asc");
 			}
 			query.setParameter("fcdcId", fdId);
 			query.setParameter("fechaInicio", inicio);
@@ -219,14 +220,25 @@ public class SrvDocente implements SrvDocenteLocal {
 	 * @return
 	 */
 	@Override
-	public Horario findHorarioByAsistencia(Integer assId) {
-		Horario horario = null;
+	public HorarioAcademico findHorarioByAsistencia(Asistencia asis) {
+		HorarioAcademico horario = new HorarioAcademico();
 		try {
-			Query query = em.createQuery("select h from Asistencia as a join a.horario as h where a.assId=:assId");
-			query.setParameter("assId", assId);
-			horario = (Horario) query.getSingleResult();
+			Object[] arrayObj;
+			List<HorarioAcademico> lstH = new ArrayList<>();
+			Query query = em.createQuery(
+					"select h, h.horaClaseAula.horaClase from HorarioAcademico as h where h.mallaCurricularParalelo.mlcrprId=:mlcrpr and h.hracDia=:dia");
+			query.setParameter("mlcrpr", asis.getHorarioAcademico().getMallaCurricularParalelo().getMlcrprId())
+					.setParameter("dia", asis.getAssFecha().getDay() - 1);
+			for (Object obj : query.getResultList()) {
+				arrayObj = (Object[]) obj;
+				lstH.add((HorarioAcademico) arrayObj[0]);
+			}
+			horario = lstH.get(0);
+			// horario.setHracHoraInicio(lstH.get(0).getHracHoraInicio());
+			horario.setHracHoraFin(lstH.get(lstH.size() - 1).getHracHoraFin());
 		} catch (Exception e) {
 			System.out.println("Error al consultar Feriados: " + e);
+			return horario;
 		}
 		return horario;
 	}
@@ -274,5 +286,66 @@ public class SrvDocente implements SrvDocenteLocal {
 			return lstS;
 		}
 		return lstS;
+	}
+
+	@Override
+	public void guardarActualizarEstados(FichaDocente selectDcnt, TipoHuella selectTp, boolean flagMovil,
+			boolean flagSinHuella) {
+		HuellaDactilar hd = new HuellaDactilar();
+		hd = findHuella(selectDcnt.getFcdcId(), selectTp.getTphlId());
+		if (hd.getHldcId() == null) {
+			hd.setFichaDocente(selectDcnt);
+			hd.setTipoHuella(selectTp);
+			if (selectTp.getTphlId() == 5 && flagSinHuella) {
+				hd.setHldcCodigoAuxiliar(1);
+			} else if (selectTp.getTphlId() == 5 && !flagSinHuella) {
+				hd.setHldcCodigoAuxiliar(0);
+			}
+			em.persist(hd);
+		} else {
+			if (selectTp.getTphlId() == 5 && flagSinHuella) {
+				hd.setHldcCodigoAuxiliar(1);
+			} else if (selectTp.getTphlId() == 5 && !flagSinHuella) {
+				hd.setHldcCodigoAuxiliar(0);
+			} else if (selectTp.getTphlId() == 4 && !flagMovil) {
+				hd.setTipoHuella(em.find(TipoHuella.class, 0));
+			}
+			em.merge(hd);
+		}
+	}
+
+	@Override
+	public List<Boolean> listarestados(Integer fcdcId) {
+		List<Boolean> lstE = new ArrayList<>(2);
+		lstE.add(0, false);
+		lstE.add(1, false);
+		List<HuellaDactilar> lstHD = new ArrayList<>();
+		try {
+			Object[] arrayObj;
+			Query query = em
+					.createQuery(
+							"select hd, th from HuellaDactilar as hd join hd.tipoHuella as th where hd.fichaDocente.fcdcId=:fcdcId and hd.tipoHuella.tphlId not in (1,2,3)")
+					.setParameter("fcdcId", fcdcId);
+			for (Object obj : query.getResultList()) {
+				arrayObj = (Object[]) obj;
+				lstHD.add((HuellaDactilar) arrayObj[0]);
+			}
+			for (HuellaDactilar hd : lstHD) {
+				if (hd.getHldcCodigoAuxiliar() == 1) {
+					lstE.add(0, true);
+				} else if (hd.getTipoHuella().getTphlId() == 4) {
+					lstE.add(1, true);
+				} else if (hd.getHldcCodigoAuxiliar() != 1) {
+					lstE.add(0, false);
+				} else if (hd.getTipoHuella().getTphlId() == 0) {
+					lstE.add(1, false);
+				}
+			}
+
+		} catch (Exception e) {
+			System.out.println("Erros obtener estados docente");
+			return lstE;
+		}
+		return lstE;
 	}
 }

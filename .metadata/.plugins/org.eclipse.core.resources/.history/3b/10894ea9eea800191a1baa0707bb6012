@@ -1,0 +1,10 @@
+package ec.edu.uce.Biometrico.jsf.managedBeans;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+@ManagedBean(name = "generarRegistros")
+@ViewScoped
+public class generarRegistros {
+
+}

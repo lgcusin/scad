@@ -2,22 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="&quot;" key="selection"/>
+		<item value="Comparacion Error :" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
+			<item value="Comparacion Error :"/>
+			<item value="justificar"/>
+			<item value="pnlAsistenciaDocente"/>
+			<item value="frmAdministrarParametro"/>
 			<item value="&quot;"/>
 			<item value="&quot;);"/>
 			<item value="ch"/>
 			<item value="mcp"/>
-			<item value="guardar"/>
-			<item value="BigDecimal"/>
-			<item value="No existen feriados definidos."/>
-			<item value="horaEntradaDespues"/>
 		</list>
 		<list key="replacehistory">
+			<item value="frmGenerarRegistros"/>
 			<item value="mcpr"/>
 			<item value="Integer"/>
 			<item value="login.adminFacultad"/>
@@ -25,7 +26,6 @@
 			<item value="ArrayList"/>
 			<item value="List"/>
 			<item value="Date"/>
-			<item value="Nivel"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

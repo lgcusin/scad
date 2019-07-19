@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="UnidadPersistencia"
+		transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:/BiometricoUceDS</jta-data-source>
+		<class>ec.uce.edu.biometrico.jpa.Usuario</class>
+		<class>ec.uce.edu.biometrico.jpa.FichaDocente</class>
+		<class>ec.uce.edu.biometrico.jpa.Actividad</class>
+		<class>ec.uce.edu.biometrico.jpa.Carrera</class>
+		<class>ec.uce.edu.biometrico.jpa.DetallePuesto</class>
+		<class>ec.uce.edu.biometrico.jpa.Herramienta</class>
+		<class>ec.uce.edu.biometrico.jpa.MallaCurricular</class>
+		<class>ec.uce.edu.biometrico.jpa.MallaCurricularMateria</class>
+		<class>ec.uce.edu.biometrico.jpa.Materia</class>
+		<class>ec.uce.edu.biometrico.jpa.Syllabo</class>
+		<class>ec.uce.edu.biometrico.jpa.UnidadCurricular</class>
+		<class>ec.uce.edu.biometrico.jpa.Asistencia</class>
+		<class>ec.uce.edu.biometrico.jpa.Seguimiento</class>
+		<class>ec.uce.edu.biometrico.jpa.TipoHuella</class>
+		<class>ec.uce.edu.biometrico.jpa.HuellaDactilar</class>
+		<class>ec.uce.edu.biometrico.jpa.Aula</class>
+		<class>ec.uce.edu.biometrico.jpa.Paralelo</class>
+		<class>ec.uce.edu.biometrico.jpa.MallaCurricularParalelo</class>
+		<class>ec.uce.edu.biometrico.jpa.DiaSemana</class>
+		<class>ec.uce.edu.biometrico.jpa.Horario</class>
+		<class>ec.uce.edu.biometrico.jpa.TipoHorario</class>
+		<class>ec.uce.edu.biometrico.jpa.FichaEmpleado</class>
+		<class>ec.uce.edu.biometrico.jpa.Metodologia</class>
+		<class>ec.uce.edu.biometrico.jpa.Bibliografia</class>
+		<class>ec.uce.edu.biometrico.jpa.RecursosDidacticos</class>
+		<class>ec.uce.edu.biometrico.jpa.Resultados</class>
+		<class>ec.uce.edu.biometrico.jpa.ContenidoCurricular</class>
+		<class>ec.uce.edu.biometrico.jpa.Persona</class>
+		<class>ec.uce.edu.biometrico.jpa.Nivel</class>
+		<class>ec.uce.edu.biometrico.jpa.CargaHoraria</class>
+		<class>ec.uce.edu.biometrico.jpa.Dependencia</class>
+		<class>ec.uce.edu.biometrico.jpa.UsuarioRol</class>
+		<class>ec.uce.edu.biometrico.jpa.Rol</class>
+		<class>ec.uce.edu.biometrico.jpa.TipoMateria</class>
+		<class>ec.uce.edu.biometrico.jpa.Feriado</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" />
+			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@biometricotest.csbcrf2felig.us-east-1.rds.amazonaws.com:1521:testB" />
+			<property name="hibernate.connection.username" value="biometricoTest" />
+			<!-- <property name="jboss.entity.manager.factory.jndi.name" value="java:/BiometricoEntityManagerFactory"/> -->
+			<property name="hibernate.transaction.jta.platform"
+				value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
+			<property name="hibernate.connection.password" value="biometricoTest"/>
+			<property name="hibernate.default_schema" value="BIOMETRICOTEST"/>
+			<property name="hibernate.show_sql" value="true" />
+		</properties>
+	</persistence-unit>
+</persistence>

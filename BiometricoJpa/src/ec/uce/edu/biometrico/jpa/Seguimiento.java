@@ -23,28 +23,28 @@ public class Seguimiento implements java.io.Serializable {
 	private Integer sgmId;
 	private Asistencia asistencia;
 	private MallaCurricularParalelo mallaCurricularParalelo;
-	private Integer mlcrmtId;
-	private String sgmTemaClase;
+	private ContenidoCurricular contenidoCurricular;
 	private Integer sgmHoraClaseRestante;
+	private String sgmEstado;
 	private String sgmObservacion;
 
 	public Seguimiento() {
 	}
 
-	public Seguimiento(Integer sgmId, Asistencia asistencia, Integer mlcrmtId) {
+	public Seguimiento(Integer sgmId, Asistencia asistencia) {
 		this.sgmId = sgmId;
 		this.asistencia = asistencia;
-		this.mlcrmtId = mlcrmtId;
 	}
 
 	public Seguimiento(Integer sgmId, Asistencia asistencia, MallaCurricularParalelo mallaCurricularParalelo,
-			Integer mlcrmtId, String sgmTemaClase, Integer sgmHoraClaseRestante, String sgmObservacion) {
+			ContenidoCurricular contenidoCurricular, Integer sgmHoraClaseRestante, String sgmEstado,
+			String sgmObservacion) {
 		this.sgmId = sgmId;
 		this.asistencia = asistencia;
 		this.mallaCurricularParalelo = mallaCurricularParalelo;
-		this.mlcrmtId = mlcrmtId;
-		this.sgmTemaClase = sgmTemaClase;
+		this.contenidoCurricular = contenidoCurricular;
 		this.sgmHoraClaseRestante = sgmHoraClaseRestante;
+		this.sgmEstado = sgmEstado;
 		this.sgmObservacion = sgmObservacion;
 	}
 
@@ -70,7 +70,7 @@ public class Seguimiento implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MLCRPR_ID")
+	@JoinColumn(name = "MLCRPR_ID", nullable = false)
 	public MallaCurricularParalelo getMallaCurricularParalelo() {
 		return this.mallaCurricularParalelo;
 	}
@@ -79,14 +79,21 @@ public class Seguimiento implements java.io.Serializable {
 		this.mallaCurricularParalelo = mallaCurricularParalelo;
 	}
 
-
-	@Column(name = "SGM_TEMA_CLASE", length = 4000)
-	public String getSgmTemaClase() {
-		return this.sgmTemaClase;
+	/**
+	 * @return the contenidoCurricular
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CNT_ID", nullable = false)
+	public ContenidoCurricular getContenidoCurricular() {
+		return contenidoCurricular;
 	}
 
-	public void setSgmTemaClase(String sgmTemaClase) {
-		this.sgmTemaClase = sgmTemaClase;
+	/**
+	 * @param contenidoCurricular
+	 *            the contenidoCurricular to set
+	 */
+	public void setContenidoCurricular(ContenidoCurricular contenidoCurricular) {
+		this.contenidoCurricular = contenidoCurricular;
 	}
 
 	@Column(name = "SGM_HORA_CLASE_RESTANTE", precision = 22, scale = 0)
@@ -96,6 +103,23 @@ public class Seguimiento implements java.io.Serializable {
 
 	public void setSgmHoraClaseRestante(Integer sgmHoraClaseRestante) {
 		this.sgmHoraClaseRestante = sgmHoraClaseRestante;
+	}
+	
+	
+
+	/**
+	 * @return the sgmEstado
+	 */
+	@Column(name = "SGM_ESTADO", length = 15)
+	public String getSgmEstado() {
+		return sgmEstado;
+	}
+
+	/**
+	 * @param sgmEstado the sgmEstado to set
+	 */
+	public void setSgmEstado(String sgmEstado) {
+		this.sgmEstado = sgmEstado;
 	}
 
 	@Column(name = "SGM_OBSERVACION", length = 400)

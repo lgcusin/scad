@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "TIPO_HUELLA")
-@NamedQuery(name = "TipoHuella.listar", query = "select tp from TipoHuella as tp")
+@NamedQuery(name = "TipoHuella.listar", query = "select tp from TipoHuella as tp where tp.tphlId <> 0 order by tp.tphlId")
 public class TipoHuella implements java.io.Serializable {
 
 	private Integer tphlId;
