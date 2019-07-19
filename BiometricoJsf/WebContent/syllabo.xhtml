@@ -23,10 +23,10 @@
 								<h:outputText value="FACULTAD:"></h:outputText>
 								<h:outputText value="INGENIERÍA, CIENCIAS FÍSICAS Y MATEMÁTICA"></h:outputText>
 								<h:outputText value="CARRERA:"></h:outputText>
-								<h:outputText value="#{syllabus.selectCrr.crrNombre}"
+								<h:outputText value="#{syllabus.selectCrr.crrDescripcion}"
 									disabled="true"></h:outputText>
 								<h:outputText value="ASIGNATURA"></h:outputText>
-								<h:outputText value="#{syllabus.selectMtr.mtrNombre}"></h:outputText>
+								<h:outputText value="#{syllabus.selectMtr.mtrDescripcion}"></h:outputText>
 								<h:outputText value="CODIGO DE LA ASIGNATURA"></h:outputText>
 								<h:outputText value="#{syllabus.selectMtr.mtrId}"></h:outputText>
 								<h:outputText value="CREDITOS"></h:outputText>
@@ -133,7 +133,7 @@
 						<p:panelGrid columns="1">
 							<p:dataTable value="#{Uncr.contenidos}" var="cn">
 								<p:column headerText="CONTENIDOS">
-									<h:outputText value="#{cn.cntDescripcion}"></h:outputText>
+									<h:outputText value="#{cn.cncrDescripcion}"></h:outputText>
 								</p:column>
 								<p:column
 									headerText="ACTIVIDADES DE TRABAJO AUTÓNOMO, ACTIVIDADES DE INVESTIGACIÓN Y DE VINCULACIÓN CON LA SOCIEDAD">
@@ -171,9 +171,9 @@
 							<h:outputText value="FACULTAD:" />
 							<h:outputLabel value="" />
 							<h:outputText value="CARRERA:" />
-							<h:outputLabel value="#{syllabus.selectCrr.crrNombre}" />
+							<h:outputLabel value="#{syllabus.selectCrr.crrDescripcion}" />
 							<h:outputText value="ASIGNATURA" />
-							<h:outputLabel value="#{syllabus.selectMtr.mtrNombre}" />
+							<h:outputLabel value="#{syllabus.selectMtr.mtrDescripcion}" />
 							<h:outputText value="CODIGO DE LA ASIGNATURA" />
 							<h:outputLabel value="#{syllabus.selectMtr.mtrId}" />
 							<h:outputText value="CREDITOS" />
@@ -295,7 +295,7 @@
 								style="font-weight:bold" />
 							<p:dataTable value="#{Uncr.contenidos}" var="cn">
 								<p:column headerText="CONTENIDOS">
-									<h:outputLabel value="#{cn.cntDescripcion}" />
+									<h:outputLabel value="#{cn.cncrDescripcion}" />
 								</p:column>
 								<p:column
 									headerText="ACTIVIDADES DE TRABAJO AUTÓNOMO, ACTIVIDADES DE INVESTIGACIÓN Y DE VINCULACIÓN CON LA SOCIEDAD">

@@ -9,8 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,11 +17,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "FICHA_DOCENTE")
-@NamedQueries({
-		@NamedQuery(name = "FichaDocente.findByHdId", query = "select hd.fichaDocente from HuellaDactilar as hd where hd.hldcId=:hdId") })
-
-// ,@NamedQuery(name = "Docente.findByUsrId", query = "select u.fichaDocente
-// from Usuario as u where u.ursId=:usrId")
 public class FichaDocente implements java.io.Serializable {
 
 	/**
@@ -35,7 +28,6 @@ public class FichaDocente implements java.io.Serializable {
 	private List<HuellaDactilar> huellaDactilars = new ArrayList<HuellaDactilar>(0);
 	private List<DetallePuesto> detallePuestos = new ArrayList<DetallePuesto>(0);
 	private List<Asistencia> asistencias = new ArrayList<Asistencia>(0);
-	private List<Horario> horarios = new ArrayList<Horario>(0);
 
 	public FichaDocente() {
 	}
@@ -45,13 +37,12 @@ public class FichaDocente implements java.io.Serializable {
 	}
 
 	public FichaDocente(Integer fcdcId, Persona persona, List<HuellaDactilar> huellaDactilars,
-			List<DetallePuesto> detallePuestos, List<Asistencia> asistencias, List<Horario> horarios) {
+			List<DetallePuesto> detallePuestos, List<Asistencia> asistencias) {
 		this.fcdcId = fcdcId;
 		this.persona = persona;
 		this.huellaDactilars = huellaDactilars;
 		this.detallePuestos = detallePuestos;
 		this.asistencias = asistencias;
-		this.horarios = horarios;
 	}
 
 	@Id
@@ -100,15 +91,6 @@ public class FichaDocente implements java.io.Serializable {
 
 	public void setAsistencias(List<Asistencia> asistencias) {
 		this.asistencias = asistencias;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fichaDocente")
-	public List<Horario> getHorarios() {
-		return this.horarios;
-	}
-
-	public void setHorarios(List<Horario> horarios) {
-		this.horarios = horarios;
 	}
 
 }

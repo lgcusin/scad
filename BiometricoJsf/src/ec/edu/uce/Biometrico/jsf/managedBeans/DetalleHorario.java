@@ -1,26 +1,18 @@
 package ec.edu.uce.Biometrico.jsf.managedBeans;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
-
-import org.primefaces.event.RowEditEvent;
 
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvHorarioLocal;
 import ec.uce.edu.biometrico.jpa.Aula;
 import ec.uce.edu.biometrico.jpa.DiaSemana;
 import ec.uce.edu.biometrico.jpa.FichaDocente;
-import ec.uce.edu.biometrico.jpa.Horario;
-import ec.uce.edu.biometrico.jpa.Materia;
-import ec.uce.edu.biometrico.jpa.Paralelo;
 import ec.uce.edu.biometrico.jpa.TipoHorario;
 
 @ManagedBean(name = "detalleHorario")
@@ -41,16 +33,16 @@ public class DetalleHorario {
 	private TipoHorario selectTipoHorario;
 	private FichaDocente selectDocente;
 	private Aula selectAula;
-	private Horario selectHorario;
-	private Horario registroHorario;
-	private List<Horario> lstHorarios;
+	// private Horario selectHorario;
+	// private Horario registroHorario;
+	// private List<Horario> lstHorarios;
 
 	private String horaEntrada;
 	private String horaSalida;
 
 	@PostConstruct
 	public void init() {
-		lstHorarios = paralelo.getLstHorarios();
+		// lstHorarios = paralelo.getLstHorarios();
 		lstDia = srvHor.listarAllDias();
 		lstTipoHorario = srvHor.listarTipoHorario();
 		lstFichaDocente = srvHor.listarDocentes();
@@ -58,101 +50,109 @@ public class DetalleHorario {
 		selectDia = new DiaSemana();
 		selectTipoHorario = new TipoHorario();
 		selectDocente = new FichaDocente();
-		selectHorario = new Horario();
+		// selectHorario = new Horario();
 		selectAula = new Aula();
-		initRegistroHorario();
+		// initRegistroHorario();
 	}
 
 	/**
 	 * Metodo que inicializa el objeto a guardar
 	 */
-	private void initRegistroHorario() {
-		registroHorario = new Horario();
-		registroHorario.setAula(new Aula());
-		registroHorario.setDiaSemana(new DiaSemana());
-		registroHorario.setFichaDocente(new FichaDocente());
-		registroHorario.setMateria(new Materia());
-		// registroHorario.setParalelo(new Paralelo());
-		registroHorario.setTipoHorario(new TipoHorario());
-	}
+	// private void initRegistroHorario() {
+	// registroHorario = new Horario();
+	// registroHorario.setAula(new Aula());
+	// registroHorario.setDiaSemana(new DiaSemana());
+	// registroHorario.setFichaDocente(new FichaDocente());
+	// registroHorario.setMateria(new Materia());
+	// // registroHorario.setParalelo(new Paralelo());
+	// registroHorario.setTipoHorario(new TipoHorario());
+	// }
 
-	public String actualizar(ec.uce.edu.biometrico.jpa.Horario hor) {
-		System.out.println("Guardar cambios de horario");
-		try {
-			if (hor.getHrrId() != null) {
-				System.out.println("Horario editado nuevo");
-				validarHorario(hor);
-			} else {
-				System.out.println("Es registro nuevo");
-				validarHorario(hor);
-			}
-		} catch (Exception e) {
-			System.out.println("Error al guardar horario" + e);
-		}
-		return "horario";
-	}
+	// public String actualizar(ec.uce.edu.biometrico.jpa.Horario hor) {
+	// System.out.println("Guardar cambios de horario");
+	// try {
+	// if (hor.getHrrId() != null) {
+	// System.out.println("Horario editado nuevo");
+	// validarHorario(hor);
+	// } else {
+	// System.out.println("Es registro nuevo");
+	// validarHorario(hor);
+	// }
+	// } catch (Exception e) {
+	// System.out.println("Error al guardar horario" + e);
+	// }
+	// return "horario";
+	// }
 
 	/**
 	 * Metodo que valida campos para el registro o actualizacion del horario
 	 * 
 	 * @param paralelo
 	 */
-	private void validarHorario(Horario hor) {
-		boolean cambios = false;
-		for (DiaSemana dia : lstDia) {
-			if (hor.getDiaSemana().getDsmNombreDia().equals(dia.getDsmNombreDia())) {
-				if (hor.getDiaSemana().getDsmId() == null
-						|| hor.getDiaSemana().getDsmId().compareTo(dia.getDsmId()) != 0) {
-					cambios = true;
-					hor.getDiaSemana().setDsmId(dia.getDsmId());
-				}
-				break;
-			}
-		}
-		for (TipoHorario tipoHorario : lstTipoHorario) {
-			if (hor.getTipoHorario().getTphrDescripcion().equals(tipoHorario.getTphrDescripcion())) {
-				if (hor.getTipoHorario().getTphrId() == null
-						|| hor.getTipoHorario().getTphrId().compareTo(tipoHorario.getTphrId()) != 0) {
-					cambios = true;
-					hor.getTipoHorario().setTphrId(tipoHorario.getTphrId());
-				}
-				break;
-			}
-		}
-		for (FichaDocente fichaDocente : lstFichaDocente) {
-			if (hor.getFichaDocente().getPersona().getPrsNombres().equals(fichaDocente.getPersona().getPrsNombres())) {
-				if (hor.getFichaDocente().getFcdcId() == null
-						|| hor.getFichaDocente().getFcdcId().compareTo(fichaDocente.getFcdcId()) != 0) {
-					cambios = true;
-					hor.getFichaDocente().setFcdcId(fichaDocente.getFcdcId());
-				}
-				break;
-			}
-		}
-		for (Aula aula : lstAula) {
-			if (hor.getAula().getAlaDescripcion().equals(aula.getAlaDescripcion())) {
-				if (hor.getAula().getAlaId() == null || hor.getAula().getAlaId().compareTo(aula.getAlaId()) != 0) {
-					cambios = true;
-					hor.getAula().setAlaId(aula.getAlaId());
-				}
-				break;
-			}
-		}
-		if (cambios) {
-			srvHor.guardarHorario(hor);
-		} else {
-			System.out.println("Registro sin cambios: " + hor.getHrrId());
-		}
-	}
-
-	public String guardar() {
-		System.out.println("Guardar cambios de horario");
-		registroHorario.getMateria().setMtrId(paralelo.getSelectMtr().getMtrId());
-		// registroHorario.getParalelo().setPrlId(horario.getSelectPar().getPrlId());
-		srvHor.guardarHorario(registroHorario);
-		initRegistroHorario();
-		return "horario";
-	}
+	// private void validarHorario(Horario hor) {
+	// boolean cambios = false;
+	// for (DiaSemana dia : lstDia) {
+	// if (hor.getDiaSemana().getDsmNombreDia().equals(dia.getDsmNombreDia())) {
+	// if (hor.getDiaSemana().getDsmId() == null
+	// || hor.getDiaSemana().getDsmId().compareTo(dia.getDsmId()) != 0) {
+	// cambios = true;
+	// hor.getDiaSemana().setDsmId(dia.getDsmId());
+	// }
+	// break;
+	// }
+	// }
+	// for (TipoHorario tipoHorario : lstTipoHorario) {
+	// if
+	// (hor.getTipoHorario().getTphrDescripcion().equals(tipoHorario.getTphrDescripcion()))
+	// {
+	// if (hor.getTipoHorario().getTphrId() == null
+	// || hor.getTipoHorario().getTphrId().compareTo(tipoHorario.getTphrId()) !=
+	// 0) {
+	// cambios = true;
+	// hor.getTipoHorario().setTphrId(tipoHorario.getTphrId());
+	// }
+	// break;
+	// }
+	// }
+	// for (FichaDocente fichaDocente : lstFichaDocente) {
+	// if
+	// (hor.getFichaDocente().getPersona().getPrsNombres().equals(fichaDocente.getPersona().getPrsNombres()))
+	// {
+	// if (hor.getFichaDocente().getFcdcId() == null
+	// || hor.getFichaDocente().getFcdcId().compareTo(fichaDocente.getFcdcId())
+	// != 0) {
+	// cambios = true;
+	// hor.getFichaDocente().setFcdcId(fichaDocente.getFcdcId());
+	// }
+	// break;
+	// }
+	// }
+	// for (Aula aula : lstAula) {
+	// if (hor.getAula().getAlaDescripcion().equals(aula.getAlaDescripcion())) {
+	// if (hor.getAula().getAlaId() == null ||
+	// hor.getAula().getAlaId().compareTo(aula.getAlaId()) != 0) {
+	// cambios = true;
+	// hor.getAula().setAlaId(aula.getAlaId());
+	// }
+	// break;
+	// }
+	// }
+	// if (cambios) {
+	// srvHor.guardarHorario(hor);
+	// } else {
+	// System.out.println("Registro sin cambios: " + hor.getHrrId());
+	// }
+	// }
+	//
+	// public String guardar() {
+	// System.out.println("Guardar cambios de horario");
+	// registroHorario.getMateria().setMtrId(paralelo.getSelectMtr().getMtrId());
+	// //
+	// registroHorario.getParalelo().setPrlId(horario.getSelectPar().getPrlId());
+	// srvHor.guardarHorario(registroHorario);
+	// initRegistroHorario();
+	// return "horario";
+	// }
 
 	public String regresar() {
 		System.out.println("Regresar al menu de horarios");
@@ -175,78 +175,80 @@ public class DetalleHorario {
 		System.out.println("Aula " + event);
 	}
 
-	public String editarHorario() {
-		System.out.println("Metodo para ver informacion de horario" + selectHorario.toString());
-		return "horario";
-	}
-
-	public void setDataHorario() {
-		System.out.println("Boton de abrir modal" + selectHorario);
-	}
-
-	public boolean validarRow() {
-		if (selectHorario.getDiaSemana() != null) {
-			System.out.println("Si hay datos");
-			return true;
-		} else {
-			System.out.println("No hay datos");
-			return false;
-		}
-
-	}
-
-	public void onRowEdit(RowEditEvent event) {
-		actualizar((Horario) event.getObject());
-		FacesMessage msg = new FacesMessage("Registro editado",
-				((Horario) event.getObject()).getDiaSemana().getDsmNombreDia());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Edicion cancelada",
-				((Horario) event.getObject()).getDiaSemana().getDsmNombreDia());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-	public void onAddNew() {
-		Horario h = new Horario();
-		h.setAula(new Aula());
-		h.setDiaSemana(new DiaSemana());
-		h.setFichaDocente(new FichaDocente());
-		h.setMateria(new Materia());
-
-		// h.setParalelo(new Paralelo());
-		if (lstHorarios != null && lstHorarios.size() == 0) {
-			FacesContext context = FacesContext.getCurrentInstance();
-			RegistroParalelo rp = context.getApplication().evaluateExpressionGet(context, "#{registroPrl}",
-					RegistroParalelo.class);
-			h.getMateria().setMtrId(rp.getMtrId());
-		} else {
-			h.getMateria().setMtrId(lstHorarios.get(0).getMateria().getMtrId());
-		}
-		// h.setParalelo(new Paralelo());
-		// h.getParalelo().setPrlId(lstHorarios.get(0).getParalelo().getPrlId());
-
-		h.setTipoHorario(new TipoHorario());
-		lstHorarios.add(h);
-
-		FacesMessage msg = new FacesMessage("Nuevo registro añadido");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-	public void eliminarHorario(ec.uce.edu.biometrico.jpa.Horario hor) {
-		System.out.println("Metodo que elimina el horario");
-		List<Horario> lstAux = new ArrayList<>();
-		for (Horario horario : lstHorarios) {
-			if (horario.getHrrId() != hor.getHrrId()) {
-				lstAux.add(horario);
-			} else {
-				srvHor.eliminarHorario(horario);
-			}
-		}
-		System.out.println("Nueva lista de horarios" + lstAux.size());
-		lstHorarios = lstAux;
-	}
+	// public String editarHorario() {
+	// System.out.println("Metodo para ver informacion de horario" +
+	// selectHorario.toString());
+	// return "horario";
+	// }
+	//
+	// public void setDataHorario() {
+	// System.out.println("Boton de abrir modal" + selectHorario);
+	// }
+	//
+	// public boolean validarRow() {
+	// if (selectHorario.getDiaSemana() != null) {
+	// System.out.println("Si hay datos");
+	// return true;
+	// } else {
+	// System.out.println("No hay datos");
+	// return false;
+	// }
+	//
+	// }
+	//
+	// public void onRowEdit(RowEditEvent event) {
+	// actualizar((Horario) event.getObject());
+	// FacesMessage msg = new FacesMessage("Registro editado",
+	// ((Horario) event.getObject()).getDiaSemana().getDsmNombreDia());
+	// FacesContext.getCurrentInstance().addMessage(null, msg);
+	// }
+	//
+	// public void onRowCancel(RowEditEvent event) {
+	// FacesMessage msg = new FacesMessage("Edicion cancelada",
+	// ((Horario) event.getObject()).getDiaSemana().getDsmNombreDia());
+	// FacesContext.getCurrentInstance().addMessage(null, msg);
+	// }
+	//
+	// public void onAddNew() {
+	// Horario h = new Horario();
+	// h.setAula(new Aula());
+	// h.setDiaSemana(new DiaSemana());
+	// h.setFichaDocente(new FichaDocente());
+	// h.setMateria(new Materia());
+	//
+	// // h.setParalelo(new Paralelo());
+	// if (lstHorarios != null && lstHorarios.size() == 0) {
+	// FacesContext context = FacesContext.getCurrentInstance();
+	// RegistroParalelo rp =
+	// context.getApplication().evaluateExpressionGet(context, "#{registroPrl}",
+	// RegistroParalelo.class);
+	// h.getMateria().setMtrId(rp.getMtrId());
+	// } else {
+	// h.getMateria().setMtrId(lstHorarios.get(0).getMateria().getMtrId());
+	// }
+	// // h.setParalelo(new Paralelo());
+	// // h.getParalelo().setPrlId(lstHorarios.get(0).getParalelo().getPrlId());
+	//
+	// h.setTipoHorario(new TipoHorario());
+	// lstHorarios.add(h);
+	//
+	// FacesMessage msg = new FacesMessage("Nuevo registro añadido");
+	// FacesContext.getCurrentInstance().addMessage(null, msg);
+	// }
+	//
+	// public void eliminarHorario(ec.uce.edu.biometrico.jpa.Horario hor) {
+	// System.out.println("Metodo que elimina el horario");
+	// List<Horario> lstAux = new ArrayList<>();
+	// for (Horario horario : lstHorarios) {
+	// if (horario.getHrrId() != hor.getHrrId()) {
+	// lstAux.add(horario);
+	// } else {
+	// srvHor.eliminarHorario(horario);
+	// }
+	// }
+	// System.out.println("Nueva lista de horarios" + lstAux.size());
+	// lstHorarios = lstAux;
+	// }
 
 	/**
 	 * The srvHor to get.
@@ -459,52 +461,55 @@ public class DetalleHorario {
 	 * 
 	 * @return the selectHorario
 	 */
-	public ec.uce.edu.biometrico.jpa.Horario getSelectHorario() {
-		return selectHorario;
-	}
-
-	/**
-	 * The selectHorario to set.
-	 * 
-	 * @param selectHorario
-	 */
-	public void setSelectHorario(ec.uce.edu.biometrico.jpa.Horario selectHorario) {
-		this.selectHorario = selectHorario;
-	}
-
-	/**
-	 * The registroHorario to get.
-	 * 
-	 * @return the registroHorario
-	 */
-	public ec.uce.edu.biometrico.jpa.Horario getRegistroHorario() {
-		return registroHorario;
-	}
-
-	/**
-	 * The registroHorario to set.
-	 * 
-	 * @param registroHorario
-	 */
-	public void setRegistroHorario(ec.uce.edu.biometrico.jpa.Horario registroHorario) {
-		this.registroHorario = registroHorario;
-	}
-
-	/**
-	 * The lstHorarios to get.
-	 * 
-	 * @return the lstHorarios
-	 */
-	public List<ec.uce.edu.biometrico.jpa.Horario> getLstHorarios() {
-		return lstHorarios;
-	}
-
-	/**
-	 * The lstHorarios to set.
-	 * 
-	 * @param lstHorarios
-	 */
-	public void setLstHorarios(List<ec.uce.edu.biometrico.jpa.Horario> lstHorarios) {
-		this.lstHorarios = lstHorarios;
-	}
+	// public ec.uce.edu.biometrico.jpa.Horario getSelectHorario() {
+	// return selectHorario;
+	// }
+	//
+	// /**
+	// * The selectHorario to set.
+	// *
+	// * @param selectHorario
+	// */
+	// public void setSelectHorario(ec.uce.edu.biometrico.jpa.Horario
+	// selectHorario) {
+	// this.selectHorario = selectHorario;
+	// }
+	//
+	// /**
+	// * The registroHorario to get.
+	// *
+	// * @return the registroHorario
+	// */
+	// public ec.uce.edu.biometrico.jpa.Horario getRegistroHorario() {
+	// return registroHorario;
+	// }
+	//
+	// /**
+	// * The registroHorario to set.
+	// *
+	// * @param registroHorario
+	// */
+	// public void setRegistroHorario(ec.uce.edu.biometrico.jpa.Horario
+	// registroHorario) {
+	// this.registroHorario = registroHorario;
+	// }
+	//
+	// /**
+	// * The lstHorarios to get.
+	// *
+	// * @return the lstHorarios
+	// */
+	// public List<ec.uce.edu.biometrico.jpa.Horario> getLstHorarios() {
+	// return lstHorarios;
+	// }
+	//
+	// /**
+	// * The lstHorarios to set.
+	// *
+	// * @param lstHorarios
+	// */
+	// public void setLstHorarios(List<ec.uce.edu.biometrico.jpa.Horario>
+	// lstHorarios) {
+	// this.lstHorarios = lstHorarios;
+	// }
 }

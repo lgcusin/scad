@@ -2,37 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Comparacion Error :" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
-			<item value="Comparacion Error :"/>
-			<item value="justificar"/>
-			<item value="pnlAsistenciaDocente"/>
-			<item value="frmAdministrarParametro"/>
-			<item value="&quot;"/>
-			<item value="&quot;);"/>
-			<item value="ch"/>
-			<item value="mcp"/>
+			<item value="lstUnidadCurriculars"/>
+			<item value="cerrarDiag"/>
+			<item value="guardarAsis"/>
+			<item value="inicializar"/>
+			<item value="dataSyllabo"/>
+			<item value="Error al guardarActualizarContenido:"/>
+			<item value="cntDescripcion"/>
+			<item value="lstUC"/>
 		</list>
 		<list key="replacehistory">
+			<item value="cncrDescripcion"/>
+			<item value="mtrDescripcion"/>
+			<item value="crrDescripcion"/>
+			<item value="Integer"/>
 			<item value="frmGenerarRegistros"/>
 			<item value="mcpr"/>
-			<item value="Integer"/>
 			<item value="login.adminFacultad"/>
-			<item value="crrDescripcion"/>
 			<item value="ArrayList"/>
-			<item value="List"/>
-			<item value="Date"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="284" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="391" key="DIALOG_HEIGHT"/>
-		<item value="948" key="DIALOG_X_ORIGIN"/>
+		<item value="996" key="DIALOG_X_ORIGIN"/>
 		<item value="355" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

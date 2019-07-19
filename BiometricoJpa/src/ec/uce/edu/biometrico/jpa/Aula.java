@@ -32,7 +32,6 @@ public class Aula implements java.io.Serializable {
 	private Integer alaPiso;
 	private Integer alaEstado;
 	private List<HoraClaseAula> horaClaseAulas = new ArrayList<HoraClaseAula>(0);
-	private List<Horario> horarios = new ArrayList<Horario>(0);
 
 	public Aula() {
 	}
@@ -42,8 +41,7 @@ public class Aula implements java.io.Serializable {
 	}
 
 	public Aula(Integer alaId, Edificio edificio, String alaDescripcion, String alaCodigo, Integer alaTipo,
-			Integer alaCapacidad, Integer alaPiso, Integer alaEstado, List<HoraClaseAula> horaClaseAulas,
-			List<Horario> horarios) {
+			Integer alaCapacidad, Integer alaPiso, Integer alaEstado, List<HoraClaseAula> horaClaseAulas) {
 		this.alaId = alaId;
 		this.edificio = edificio;
 		this.alaDescripcion = alaDescripcion;
@@ -53,7 +51,7 @@ public class Aula implements java.io.Serializable {
 		this.alaPiso = alaPiso;
 		this.alaEstado = alaEstado;
 		this.horaClaseAulas = horaClaseAulas;
-		this.horarios = horarios;
+
 	}
 
 	@Id
@@ -138,15 +136,6 @@ public class Aula implements java.io.Serializable {
 
 	public void setHoraClaseAulas(List<HoraClaseAula> horaClaseAulas) {
 		this.horaClaseAulas = horaClaseAulas;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "aula")
-	public List<Horario> getHorarios() {
-		return this.horarios;
-	}
-
-	public void setHorarios(List<Horario> horarios) {
-		this.horarios = horarios;
 	}
 
 }

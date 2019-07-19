@@ -14,7 +14,6 @@ import ec.uce.edu.biometrico.jpa.Aula;
 import ec.uce.edu.biometrico.jpa.Carrera;
 import ec.uce.edu.biometrico.jpa.DiaSemana;
 import ec.uce.edu.biometrico.jpa.FichaDocente;
-import ec.uce.edu.biometrico.jpa.Horario;
 import ec.uce.edu.biometrico.jpa.Materia;
 import ec.uce.edu.biometrico.jpa.Paralelo;
 import ec.uce.edu.biometrico.jpa.Nivel;
@@ -161,20 +160,13 @@ public class SrvHorario implements SrvHorarioLocal {
 		return lstAula;
 	}
 
-	@Override
-	public void guardarHorario(Horario horario) {
-		try {
-			if (horario.getHrrId() != null) {
-				em.merge(horario);
-			} else {
-				int h = obtenerSecuenciaHorario();
-				horario.setHrrId(h + 1);
-				em.persist(horario);
-			}
-		} catch (Exception e) {
-			System.out.println("Error al guardar horario" + e);
-		}
-	}
+	/*
+	 * @Override public void guardarHorario(Horario horario) { try { if
+	 * (horario.getHrrId() != null) { em.merge(horario); } else { int h =
+	 * obtenerSecuenciaHorario(); horario.setHrrId(h + 1); em.persist(horario);
+	 * } } catch (Exception e) { System.out.println("Error al guardar horario" +
+	 * e); } }
+	 */
 
 	private int obtenerSecuenciaHorario() {
 		int h = 0;
@@ -189,71 +181,55 @@ public class SrvHorario implements SrvHorarioLocal {
 		return h;
 	}
 
-	@Override
-	public List<Horario> listarHorarios(Integer idParalelo, Integer idMateria) {
-		List<Horario> lstHorario = new ArrayList<>();
-		try {
-			Query query = em.createQuery("select h,th,m,fd,a,ds,p from Horario as h join h.tipoHorario as th"
-					+ " join h.materia as m join h.fichaDocente as fd join h.aula as a join h.diaSemana as ds"
-					+ " join h.paralelo as p where h.materia.mtrId=:mtrId and h.paralelo.prlId=:prlId order by h.hrrId asc");
-			query.setParameter("prlId", idParalelo);
-			query.setParameter("mtrId", idMateria);
-			System.out.println("Valores de la lista");
-			for (Object obj : query.getResultList()) {
-				Object[] objArray = (Object[]) obj;
-				lstHorario.add((Horario) objArray[0]);
-			}
-		} catch (Exception e) {
-			System.out.println("Error al consultar los horarios" + e);
-		}
-		return lstHorario;
-	}
+	/*
+	 * @Override public List<Horario> listarHorarios(Integer idParalelo, Integer
+	 * idMateria) { List<Horario> lstHorario = new ArrayList<>(); try { Query
+	 * query = em.
+	 * createQuery("select h,th,m,fd,a,ds,p from Horario as h join h.tipoHorario as th"
+	 * +
+	 * " join h.materia as m join h.fichaDocente as fd join h.aula as a join h.diaSemana as ds"
+	 * +
+	 * " join h.paralelo as p where h.materia.mtrId=:mtrId and h.paralelo.prlId=:prlId order by h.hrrId asc"
+	 * ); query.setParameter("prlId", idParalelo); query.setParameter("mtrId",
+	 * idMateria); System.out.println("Valores de la lista"); for (Object obj :
+	 * query.getResultList()) { Object[] objArray = (Object[]) obj;
+	 * lstHorario.add((Horario) objArray[0]); } } catch (Exception e) {
+	 * System.out.println("Error al consultar los horarios" + e); } return
+	 * lstHorario; }
+	 */
 
-	@Override
-	public List<Paralelo> listarParalelosHorario(Integer mtrId) {
-		List<Paralelo> lstP;
-		try {
-			lstP = em.createNamedQuery("Paralelo.findAllByMtrId", Paralelo.class).setParameter("mtId", mtrId)
-					.getResultList();
-		} catch (Exception e) {
-			System.out.println("No se encontraron paralelos" + e);
-			return lstP = new ArrayList<>();
-		}
-		return lstP;
-	}
+	/*
+	 * @Override public List<Paralelo> listarParalelosHorario(Integer mtrId) {
+	 * List<Paralelo> lstP; try { lstP =
+	 * em.createNamedQuery("Paralelo.findAllByMtrId",
+	 * Paralelo.class).setParameter("mtId", mtrId) .getResultList(); } catch
+	 * (Exception e) { System.out.println("No se encontraron paralelos" + e);
+	 * return lstP = new ArrayList<>(); } return lstP; }
+	 */
 
-	@Override
-	public List<Horario> listarHorarios(String prcdId) {
-		List<Horario> lstH = new ArrayList<>();
-		try {
-			// lstH = em.createNamedQuery("Horario.findAllByPrlId",
-			// Horario.class).setParameter("prlId", prcdId).getResultList();
-			Query query = em.createQuery("select  h,th,m,fd,a,ds from Horario as h join h.tipoHorario as th "
-					+ " join h.materia as m join h.fichaDocente as fd join h.aula as a join h.diaSemana as ds "
-					+ "where m.mtrId in(select mcp.mallaCurricularMateria.materia.mtrId from MallaCurricularParalelo as mcp where mcp.paralelo.prlCodigo=:prlCd) "
-					+ "order by ds,h asc");
-			query.setParameter("prlCd", prcdId);
-			System.out.println("Valores de la lista");
-			for (Object obj : query.getResultList()) {
-				Object[] objArray = (Object[]) obj;
-				lstH.add((Horario) objArray[0]);
-			}
-		} catch (Exception e) {
-			System.out.println("No se enontranos horarios " + e);
-			return lstH;
-		}
-		return lstH;
-	}
+	/*
+	 * @Override public List<Horario> listarHorarios(String prcdId) {
+	 * List<Horario> lstH = new ArrayList<>(); try { // lstH =
+	 * em.createNamedQuery("Horario.findAllByPrlId", //
+	 * Horario.class).setParameter("prlId", prcdId).getResultList(); Query query
+	 * = em.
+	 * createQuery("select  h,th,m,fd,a,ds from Horario as h join h.tipoHorario as th "
+	 * +
+	 * " join h.materia as m join h.fichaDocente as fd join h.aula as a join h.diaSemana as ds "
+	 * +
+	 * "where m.mtrId in(select mcp.mallaCurricularMateria.materia.mtrId from MallaCurricularParalelo as mcp where mcp.paralelo.prlCodigo=:prlCd) "
+	 * + "order by ds,h asc"); query.setParameter("prlCd", prcdId);
+	 * System.out.println("Valores de la lista"); for (Object obj :
+	 * query.getResultList()) { Object[] objArray = (Object[]) obj;
+	 * lstH.add((Horario) objArray[0]); } } catch (Exception e) {
+	 * System.out.println("No se enontranos horarios " + e); return lstH; }
+	 * return lstH; }
+	 */
 
-	@Override
-	public void eliminarHorario(Horario horario) {
-		try {
-			Horario h = em.find(Horario.class, horario.getHrrId());
-			if (h != null) {
-				em.remove(h);
-			}
-		} catch (Exception e) {
-			System.out.println("Error al eliminar horario" + e);
-		}
-	}
+	/*
+	 * @Override public void eliminarHorario(Horario horario) { try { Horario h
+	 * = em.find(Horario.class, horario.getHrrId()); if (h != null) {
+	 * em.remove(h); } } catch (Exception e) {
+	 * System.out.println("Error al eliminar horario" + e); } }
+	 */
 }

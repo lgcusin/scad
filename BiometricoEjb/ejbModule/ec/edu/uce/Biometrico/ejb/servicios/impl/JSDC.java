@@ -14,6 +14,7 @@ import javax.ejb.Stateless;
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import SecuGen.FDxSDKPro.jni.JSGFPLib;
 import SecuGen.FDxSDKPro.jni.SGDeviceInfoParam;
@@ -26,7 +27,6 @@ import SecuGen.FDxSDKPro.jni.SGImpressionType;
 import SecuGen.FDxSDKPro.jni.SGPPPortAddr;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.JSDCLocal;
 import ec.uce.edu.biometrico.jpa.FichaDocente;
-import ec.uce.edu.biometrico.jpa.Horario;
 import ec.uce.edu.biometrico.jpa.HuellaDactilar;
 
 /**
@@ -262,7 +262,8 @@ public class JSDC implements JSDCLocal {
 	public FichaDocente comparar() throws SQLException, IOException {
 		long nfiqvalue;
 		int[] numOfMinutiae = new int[1];
-		BufferedImage imgn = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight,BufferedImage.TYPE_BYTE_GRAY);
+		BufferedImage imgn = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight,
+				BufferedImage.TYPE_BYTE_GRAY);
 		byte[] imageBuffer1 = ((java.awt.image.DataBufferByte) imgn.getRaster().getDataBuffer()).getData();
 		long iError = SGFDxErrorCode.SGFDX_ERROR_NONE;
 		if (fplib != null) {
@@ -302,8 +303,7 @@ public class JSDC implements JSDCLocal {
 										.getDataBuffer()).getData();
 								iError = fplib.CreateTemplate(fingerInfo, imageBuffer2, regMin2);
 								if (verificar()) {
-									FichaDocente fd = em.createNamedQuery("FichaDocente.findByHdId", FichaDocente.class)
-											.setParameter("hdId", hd.getHldcId()).getSingleResult();
+									FichaDocente fd = buscarDocentexHuella(hd.getHldcId());
 									return fd;
 								} else {
 									blob = hd.getHldSegundaHuella();
@@ -313,8 +313,7 @@ public class JSDC implements JSDCLocal {
 											.getData();
 									iError = fplib.CreateTemplate(fingerInfo, imageBuffer2, regMin2);
 									if (verificar()) {
-										FichaDocente fd = em.createNamedQuery("FichaDocente.findByHdId", FichaDocente.class)
-												.setParameter("hdId", hd.getHldcId()).getSingleResult();
+										FichaDocente fd = buscarDocentexHuella(hd.getHldcId());
 										return fd;
 									}
 								}
@@ -339,6 +338,24 @@ public class JSDC implements JSDCLocal {
 			return null;
 		}
 		return null;
+	}
+
+	private FichaDocente buscarDocentexHuella(Integer hldcId) {
+		FichaDocente fd = new FichaDocente();
+		try {
+			Object[] arrayObj;
+			Query query = em
+					.createQuery(
+							"select fd, p, hd from HuellaDactilar as hd join hd.fichaDocente as fd join fd.persona as p where hd.hldcId=:hdId")
+					.setParameter("hdId", hldcId);
+			Object obj = query.getSingleResult();
+			arrayObj = (Object[]) obj;
+			fd = (FichaDocente) arrayObj[0];
+		} catch (Exception e) {
+			System.out.println("Error al consultar docentes x huella");
+			return fd;
+		}
+		return fd;
 	}
 
 }

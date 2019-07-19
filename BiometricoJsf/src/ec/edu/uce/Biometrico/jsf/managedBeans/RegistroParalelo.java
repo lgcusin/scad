@@ -12,7 +12,6 @@ import javax.faces.event.ValueChangeEvent;
 import ec.edu.uce.Biometrico.ejb.servicios.impl.SrvEmpleado;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvHorarioLocal;
 import ec.uce.edu.biometrico.jpa.Carrera;
-import ec.uce.edu.biometrico.jpa.Horario;
 import ec.uce.edu.biometrico.jpa.Materia;
 import ec.uce.edu.biometrico.jpa.Paralelo;
 import ec.uce.edu.biometrico.jpa.Nivel;
@@ -38,7 +37,7 @@ public class RegistroParalelo {
 	private List<Materia> lstMbySemestre;
 	private List<Nivel> lstS;
 	private List<Paralelo> lstParalelos;
-	private List<Horario> lstHorarios;
+	//private List<Horario> lstHorarios;
 	private Boolean flagEditar;
 
 	@PostConstruct
@@ -60,7 +59,7 @@ public class RegistroParalelo {
 	public void buscarParalelos() {
 		System.out.println("Metodo que busca paralelos existentes por materia y semestre");
 		if (crrId != null && mtrId != null && smsId != null) {
-			lstParalelos = srvHor.listarParalelosHorario(mtrId);
+			//lstParalelos = srvHor.listarParalelosHorario(mtrId);
 			if (lstParalelos != null) {
 				System.out.println("Paralelos encontrados: " + lstParalelos.size());
 			} else {
@@ -122,7 +121,7 @@ public class RegistroParalelo {
 
 		// lstHorarios = srvHor.listarHorarios(selectPar.getPrlId(),
 		// selectMtr.getMtrId());
-		lstHorarios = srvHor.listarHorarios(selectPar.getPrlCodigo());
+		//lstHorarios = srvHor.listarHorarios(selectPar.getPrlCodigo());
 
 		return "detalleHorario";
 	}
@@ -364,16 +363,16 @@ public class RegistroParalelo {
 	 * 
 	 * @return the lstHorarios
 	 */
-	public List<Horario> getLstHorarios() {
+	/*public List<Horario> getLstHorarios() {
 		return lstHorarios;
-	}
+	}*/
 
 	/**
 	 * The lstHorarios to set.
 	 * 
 	 * @param lstHorarios
 	 */
-	public void setLstHorarios(List<Horario> lstHorarios) {
+	/*public void setLstHorarios(List<Horario> lstHorarios) {
 		this.lstHorarios = lstHorarios;
-	}
+	}*/
 }

@@ -122,6 +122,7 @@ public class Syllabus {
 				syl.setUnidadCurriculars(lstUC);
 				dataSyllabo = true;
 			} else {
+				lstUC = new ArrayList<>();
 				dataSyllabo = false;
 				crearSyllabo = true;
 			}
@@ -150,11 +151,10 @@ public class Syllabus {
 
 	public String guardarSyllabus() {
 		mllCrrMateria = srvSgm.getMallaCurricularMateria(selectMtr.getMtrId());
-		syl.setSylId(mllCrrMateria.getMlcrmtId());
-		syl.setMallaCurricularMateria(mllCrrMateria);
-
-		srvSgm.guardarActualizarSyllabus(syl);
 		if (!lstUC.isEmpty()) {
+			syl.setSylId(mllCrrMateria.getMlcrmtId());
+			syl.setMallaCurricularMateria(mllCrrMateria);
+			srvSgm.guardarActualizarSyllabus(syl);
 			for (UnidadCurricular unidad : lstUC) {
 				srvSgm.guardarActualizarUnidad(unidad);
 				for (ContenidoCurricular contenidoCurricular : unidad.getContenidos()) {
@@ -210,10 +210,13 @@ public class Syllabus {
 	public String verUnidadCurricular() {
 		uc = new UnidadCurricular();
 		uc.setSyllabo(syl);
-		lstUnidadCurriculars.add(uc);
+		if (!lstUC.isEmpty()) {
+		} else {
+			lstUnidadCurriculars.add(uc);
+			syl.setUnidadCurriculars(lstUnidadCurriculars);
+		}
 		lstContenidos = new ArrayList<>();
 		lstMetodologias = new ArrayList<>();
-		syl.setUnidadCurriculars(lstUnidadCurriculars);
 		return "unidadCurricular";
 	}
 
@@ -386,10 +389,13 @@ public class Syllabus {
 				}
 			}
 		}
-		if (uc.getUncrDescripcion().trim().isEmpty()) {
-			uc.setUncrDescripcion("UNIDAD CURRICULAR No. " + Integer.toString(lstUnidadCurriculars.indexOf(uc) + 1));
+		if (uc.getUncrDescripcion() == null) {
+			uc.setUncrDescripcion("UNIDAD CURRICULAR No. " + lstUC.indexOf(uc) + 1);
+			lstUC.add(uc);
+		} else if (uc.getUncrDescripcion().trim().isEmpty()) {
+			//uc.setUncrDescripcion("UNIDAD CURRICULAR No. " + lstUC.indexOf(uc)  + 1);
+			lstUC.set(lstUC.indexOf(uc), uc);
 		}
-		lstUC.set(lstUC.indexOf(uc), uc);
 		uc = null;
 		return "syllabo";
 	}

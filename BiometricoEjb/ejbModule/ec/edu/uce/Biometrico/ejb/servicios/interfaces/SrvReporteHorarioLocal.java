@@ -1,11 +1,7 @@
 package ec.edu.uce.Biometrico.ejb.servicios.interfaces;
 
 import java.util.Collection;
-import java.util.List;
-
 import javax.ejb.Local;
-
-import ec.uce.edu.biometrico.jpa.Horario;
 import ec.uce.edu.biometrico.jpa.TipoHorario;
 
 @Local

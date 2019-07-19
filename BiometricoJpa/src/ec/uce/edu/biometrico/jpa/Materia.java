@@ -19,12 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "MATERIA")
-@NamedQueries({ @NamedQuery(name = "Materia.findAll", query = "select m from Materia as m"),
-		@NamedQuery(name = "Materia.findByHrId", query = "select h.materia from Horario as h where h.hrrId=:hrrId") })
-
-// @NamedQuery(name = "Materia.findMateriaBySemestre", query = "select
-// m.mtrId,m.mtrNombre from MallaCurricularMateria as mcm"
-// + " join mcm.materia as m join mcm.semestre as s where s.smsId=:smsId")
+@NamedQueries({ @NamedQuery(name = "Materia.findAll", query = "select m from Materia as m") })
 
 public class Materia implements java.io.Serializable {
 
@@ -57,7 +52,6 @@ public class Materia implements java.io.Serializable {
 	private Integer mtrHorasAutonoSema;
 	private List<Materia> materias = new ArrayList<Materia>(0);
 	private List<MallaCurricularMateria> mallaCurricularMaterias = new ArrayList<MallaCurricularMateria>(0);
-	private List<Horario> horarios = new ArrayList<Horario>(0);
 
 	public Materia() {
 	}
@@ -73,8 +67,7 @@ public class Materia implements java.io.Serializable {
 			Integer mtrEstado, Integer mtrHoras, Integer mtrIntegradoraHoras, Integer mtrPreProfesionalHoras,
 			Integer mtrHorasCien, Integer mtrRelacionTrabajo, Integer mtrUnidadMedida, Integer mtrCreditos,
 			Integer mtrSeqSau, Integer mtrHorasPracticas, Integer mtrHorasTrabAutonomo, Integer mtrHorasPracSema,
-			Integer mtrHorasAutonoSema, List<Materia> materias, List<MallaCurricularMateria> mallaCurricularMaterias,
-			List<Horario> horarios) {
+			Integer mtrHorasAutonoSema, List<Materia> materias, List<MallaCurricularMateria> mallaCurricularMaterias) {
 		this.mtrId = mtrId;
 		this.grupo = grupo;
 		this.tipoMateria = tipoMateria;
@@ -100,7 +93,6 @@ public class Materia implements java.io.Serializable {
 		this.mtrHorasAutonoSema = mtrHorasAutonoSema;
 		this.materias = materias;
 		this.mallaCurricularMaterias = mallaCurricularMaterias;
-		this.horarios = horarios;
 	}
 
 	@Id
@@ -332,15 +324,6 @@ public class Materia implements java.io.Serializable {
 
 	public void setMallaCurricularMaterias(List<MallaCurricularMateria> mallaCurricularMaterias) {
 		this.mallaCurricularMaterias = mallaCurricularMaterias;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "materia")
-	public List<Horario> getHorarios() {
-		return this.horarios;
-	}
-
-	public void setHorarios(List<Horario> horarios) {
-		this.horarios = horarios;
 	}
 
 }

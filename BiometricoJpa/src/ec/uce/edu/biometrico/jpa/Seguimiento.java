@@ -104,8 +104,6 @@ public class Seguimiento implements java.io.Serializable {
 	public void setSgmHoraClaseRestante(Integer sgmHoraClaseRestante) {
 		this.sgmHoraClaseRestante = sgmHoraClaseRestante;
 	}
-	
-	
 
 	/**
 	 * @return the sgmEstado
@@ -116,7 +114,8 @@ public class Seguimiento implements java.io.Serializable {
 	}
 
 	/**
-	 * @param sgmEstado the sgmEstado to set
+	 * @param sgmEstado
+	 *            the sgmEstado to set
 	 */
 	public void setSgmEstado(String sgmEstado) {
 		this.sgmEstado = sgmEstado;

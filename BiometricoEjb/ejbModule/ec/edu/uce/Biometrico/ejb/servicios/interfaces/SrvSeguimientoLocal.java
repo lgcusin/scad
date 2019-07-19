@@ -13,7 +13,6 @@ import ec.uce.edu.biometrico.jpa.Carrera;
 import ec.uce.edu.biometrico.jpa.ContenidoCurricular;
 import ec.uce.edu.biometrico.jpa.FichaDocente;
 import ec.uce.edu.biometrico.jpa.Herramienta;
-import ec.uce.edu.biometrico.jpa.Horario;
 import ec.uce.edu.biometrico.jpa.HorarioAcademico;
 import ec.uce.edu.biometrico.jpa.MallaCurricularMateria;
 import ec.uce.edu.biometrico.jpa.Materia;
@@ -43,13 +42,13 @@ public interface SrvSeguimientoLocal {
 
 	List<Herramienta> listarHerramientas(Integer cntId);
 
-	HorarioAcademico verificarHorario(Date fecha, Integer fcdcId, Boolean tipo, Integer fclId);
+	HorarioAcademico verificarHorario(Date fecha, Integer fcdcId, boolean b, Integer fclId, Integer tipo);
 
 	Materia getMateria(Integer hrrId);
 
 	Aula getAula(Integer hrrId);
 
-	List<ContenidoCurricular> getContenidos(Integer mtrId);
+	List<ContenidoCurricular> buscarContenidos(Integer mtrId);
 
 	List<Asistencia> marcacionReg(Date fecha, Integer fcdcId);
 
@@ -86,6 +85,8 @@ public interface SrvSeguimientoLocal {
 	List<Seguimiento> getSeguimiento(Integer mtrId, Integer fcdcId);
 
 	void generarAsistencias(HorarioAcademico hrac, FichaDocente docente, Date date);
+
+	String obtenerHoraClasexHorario(HorarioAcademico hrrI);
 
 	
 

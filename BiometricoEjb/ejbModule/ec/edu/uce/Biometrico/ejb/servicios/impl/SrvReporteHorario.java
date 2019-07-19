@@ -1,8 +1,6 @@
 package ec.edu.uce.Biometrico.ejb.servicios.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -11,7 +9,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvReporteHorarioLocal;
-import ec.uce.edu.biometrico.jpa.Horario;
 import ec.uce.edu.biometrico.jpa.TipoHorario;
 
 /**
@@ -31,64 +28,50 @@ public class SrvReporteHorario implements SrvReporteHorarioLocal {
 		// TODO Auto-generated constructor stub
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Collection<String[]> listarHorarios(Integer fcdcId, Integer crrId, Integer tphrId) {
-		List<Horario> lstHorario = new ArrayList<>();
-		Collection<String[]> resultHorarios = new ArrayList<>();
-		try {
-			Collection<String[]> auxResult = new ArrayList<>();
-			Query query;
-			if (fcdcId != null) {
-				query = em.createQuery("select h,m,ds from Horario as h join h.materia as m join h.diaSemana as ds"
-						+ " where h.fichaDocente.fcdcId=:fcdcId and m.carrera.crrId=:crrId and h.tipoHorario.tphrId=:tphrId order by h.hrrInicio asc");
-				query.setParameter("fcdcId", fcdcId);
-			} else {
-				query = em.createQuery("select h,m,ds from Horario as h join h.materia as m join h.diaSemana as ds "
-						+ "where m.carrera.crrId=:crrId and h.tipoHorario.tphrId=:tphrId order by h.hrrInicio asc");
-			}
-			query.setParameter("crrId", crrId);
-			query.setParameter("tphrId", tphrId);
-			for (Object obj : query.getResultList()) {
-				Object[] objArray = (Object[]) obj;
-				lstHorario.add((Horario) objArray[0]);
-			}
-			System.out.println("Valores de la lista");
-
-			getHorariosMaterias(lstHorario, resultHorarios);
-
-			eliminarDuplicados(resultHorarios, auxResult);
-			resultHorarios = auxResult;
-			System.out.println("datos del result: " + resultHorarios.size());
-		} catch (Exception e) {
-			System.out.println("Error al consultar los horarios" + e);
-		}
-		return resultHorarios;
-	}
+	/*
+	 * @SuppressWarnings("unchecked")
+	 * 
+	 * @Override public Collection<String[]> listarHorarios(Integer fcdcId,
+	 * Integer crrId, Integer tphrId) { List<Horario> lstHorario = new
+	 * ArrayList<>(); Collection<String[]> resultHorarios = new ArrayList<>();
+	 * try { Collection<String[]> auxResult = new ArrayList<>(); Query query; if
+	 * (fcdcId != null) { query = em.
+	 * createQuery("select h,m,ds from Horario as h join h.materia as m join h.diaSemana as ds"
+	 * +
+	 * " where h.fichaDocente.fcdcId=:fcdcId and m.carrera.crrId=:crrId and h.tipoHorario.tphrId=:tphrId order by h.hrrInicio asc"
+	 * ); query.setParameter("fcdcId", fcdcId); } else { query = em.
+	 * createQuery("select h,m,ds from Horario as h join h.materia as m join h.diaSemana as ds "
+	 * +
+	 * "where m.carrera.crrId=:crrId and h.tipoHorario.tphrId=:tphrId order by h.hrrInicio asc"
+	 * ); } query.setParameter("crrId", crrId); query.setParameter("tphrId",
+	 * tphrId); for (Object obj : query.getResultList()) { Object[] objArray =
+	 * (Object[]) obj; lstHorario.add((Horario) objArray[0]); }
+	 * System.out.println("Valores de la lista");
+	 * 
+	 * getHorariosMaterias(lstHorario, resultHorarios);
+	 * 
+	 * eliminarDuplicados(resultHorarios, auxResult); resultHorarios =
+	 * auxResult; System.out.println("datos del result: " +
+	 * resultHorarios.size()); } catch (Exception e) {
+	 * System.out.println("Error al consultar los horarios" + e); } return
+	 * resultHorarios; }
+	 */
 
 	/**
 	 * @param lstHorario
 	 * @param resultHorarios
 	 */
-	private void getHorariosMaterias(List<Horario> lstHorario, Collection<String[]> resultHorarios) {
-		for (Horario h : lstHorario) {
-			List<Horario> auxMatDia = new ArrayList<>();
-			for (Horario h2 : lstHorario) {
-				if (h.getHrrInicio().equals(h2.getHrrInicio()) && h.getHrrFin().equals(h2.getHrrFin())) {
-					auxMatDia.add(h2);
-				}
-			}
-			String[] columnaReporte = new String[7];
-			if (auxMatDia.size() > 1) {
-				for (Horario hAux : auxMatDia) {
-					validarMateriasPorDia(hAux, columnaReporte);
-				}
-			} else {
-				validarMateriasPorDia(h, columnaReporte);
-			}
-			resultHorarios.add(columnaReporte);
-		}
-	}
+	/*
+	 * private void getHorariosMaterias(List<Horario> lstHorario,
+	 * Collection<String[]> resultHorarios) { for (Horario h : lstHorario) {
+	 * List<Horario> auxMatDia = new ArrayList<>(); for (Horario h2 :
+	 * lstHorario) { if (h.getHrrInicio().equals(h2.getHrrInicio()) &&
+	 * h.getHrrFin().equals(h2.getHrrFin())) { auxMatDia.add(h2); } } String[]
+	 * columnaReporte = new String[7]; if (auxMatDia.size() > 1) { for (Horario
+	 * hAux : auxMatDia) { validarMateriasPorDia(hAux, columnaReporte); } } else
+	 * { validarMateriasPorDia(h, columnaReporte); }
+	 * resultHorarios.add(columnaReporte); } }
+	 */
 
 	/**
 	 * Metodo que elimina los registros duplicados del horario
@@ -125,29 +108,20 @@ public class SrvReporteHorario implements SrvReporteHorarioLocal {
 	 * @param h
 	 * @param columnaReporte
 	 */
-	private void validarMateriasPorDia(Horario h, String[] columnaReporte) {
-		if (h.getHrrInicio() != null && h.getHrrFin() != null) {
-			columnaReporte[0] = h.getHrrInicio() + " - " + h.getHrrFin();
-		}
-		if (h.getDiaSemana().getDsmId() == 1) {
-			columnaReporte[1] = h.getMateria().getMtrDescripcion();
-		}
-		if (h.getDiaSemana().getDsmId() == 2) {
-			columnaReporte[2] = h.getMateria().getMtrDescripcion();
-		}
-		if (h.getDiaSemana().getDsmId() == 3) {
-			columnaReporte[3] = h.getMateria().getMtrDescripcion();
-		}
-		if (h.getDiaSemana().getDsmId() == 4) {
-			columnaReporte[4] = h.getMateria().getMtrDescripcion();
-		}
-		if (h.getDiaSemana().getDsmId() == 5) {
-			columnaReporte[5] = h.getMateria().getMtrDescripcion();
-		}
-		if (h.getDiaSemana().getDsmId() == 6) {
-			columnaReporte[6] = h.getMateria().getMtrDescripcion();
-		}
-	}
+	/*
+	 * private void validarMateriasPorDia(Horario h, String[] columnaReporte) {
+	 * if (h.getHrrInicio() != null && h.getHrrFin() != null) {
+	 * columnaReporte[0] = h.getHrrInicio() + " - " + h.getHrrFin(); } if
+	 * (h.getDiaSemana().getDsmId() == 1) { columnaReporte[1] =
+	 * h.getMateria().getMtrDescripcion(); } if (h.getDiaSemana().getDsmId() ==
+	 * 2) { columnaReporte[2] = h.getMateria().getMtrDescripcion(); } if
+	 * (h.getDiaSemana().getDsmId() == 3) { columnaReporte[3] =
+	 * h.getMateria().getMtrDescripcion(); } if (h.getDiaSemana().getDsmId() ==
+	 * 4) { columnaReporte[4] = h.getMateria().getMtrDescripcion(); } if
+	 * (h.getDiaSemana().getDsmId() == 5) { columnaReporte[5] =
+	 * h.getMateria().getMtrDescripcion(); } if (h.getDiaSemana().getDsmId() ==
+	 * 6) { columnaReporte[6] = h.getMateria().getMtrDescripcion(); } }
+	 */
 
 	@Override
 	public Collection<TipoHorario> listarTipoHorario() {
@@ -160,5 +134,11 @@ public class SrvReporteHorario implements SrvReporteHorarioLocal {
 			System.out.println("Error al consultar los tipos horarios" + e);
 		}
 		return lstTipoHorario;
+	}
+
+	@Override
+	public Collection<String[]> listarHorarios(Integer fcdcId, Integer crrId, Integer tphrId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

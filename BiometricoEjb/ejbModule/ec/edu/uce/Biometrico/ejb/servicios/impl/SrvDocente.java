@@ -21,9 +21,7 @@ import javax.sql.rowset.serial.SerialException;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvDocenteLocal;
 import ec.uce.edu.biometrico.jpa.Asistencia;
 import ec.uce.edu.biometrico.jpa.ContenidoCurricular;
-import ec.uce.edu.biometrico.jpa.DetallePuesto;
 import ec.uce.edu.biometrico.jpa.FichaDocente;
-import ec.uce.edu.biometrico.jpa.Horario;
 import ec.uce.edu.biometrico.jpa.HorarioAcademico;
 import ec.uce.edu.biometrico.jpa.HuellaDactilar;
 import ec.uce.edu.biometrico.jpa.Materia;
@@ -170,15 +168,15 @@ public class SrvDocente implements SrvDocenteLocal {
 		try {
 			Object[] objArray;
 			Query query;
-			if (crrId == null) {
+			if (crrId != null) {
 				query = em.createQuery(
-						"select a, h, m from Asistencia as a join a.horarioAcademico as h join h.mallaCurricularParalelo.mallaCurricularMateria.materia as m join m.carrera as crr"
+						"select a,h,mcp,mcm,m,crr from Asistencia as a join a.horarioAcademico as h join h.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m join m.carrera as crr"
 								+ " where a.fichaDocente.fcdcId=:fcdcId and a.assFecha >= :fechaInicio and a.assFecha <= :fechaFin and crr.crrId=:crrId"
 								+ " order by a.assFecha asc");
 				query.setParameter("crrId", crrId);
 			} else {
 				query = em.createQuery(
-						"select a, h, m from Asistencia as a join a.horarioAcademico as h join h.mallaCurricularParalelo.mallaCurricularMateria.materia as m where a.fichaDocente.fcdcId=:fcdcId and a.assFecha >= :fechaInicio and a.assFecha <= :fechaFin order by a.assFecha asc");
+						"select a, h,mcp, mcm, m from Asistencia as a join a.horarioAcademico as h join h.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m where a.fichaDocente.fcdcId=:fcdcId and a.assFecha >= :fechaInicio and a.assFecha <= :fechaFin order by a.assFecha asc");
 			}
 			query.setParameter("fcdcId", fdId);
 			query.setParameter("fechaInicio", inicio);

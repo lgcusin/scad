@@ -25,7 +25,6 @@
 		<class>ec.uce.edu.biometrico.jpa.Paralelo</class>
 		<class>ec.uce.edu.biometrico.jpa.MallaCurricularParalelo</class>
 		<class>ec.uce.edu.biometrico.jpa.DiaSemana</class>
-		<class>ec.uce.edu.biometrico.jpa.Horario</class>
 		<class>ec.uce.edu.biometrico.jpa.TipoHorario</class>
 		<class>ec.uce.edu.biometrico.jpa.FichaEmpleado</class>
 		<class>ec.uce.edu.biometrico.jpa.Metodologia</class>
@@ -46,10 +45,10 @@
 			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" />
 			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
 			<property name="hibernate.connection.username" value="sa" />
-			<property name="jboss.entity.manager.factory.jndi.name" value="java:/BiometricoEntityManagerFactory"/>
+			<!-- <property name="jboss.entity.manager.factory.jndi.name" value="java:/BiometricoEntityManagerFactory"/> -->
 			<property name="hibernate.transaction.jta.platform"
 				value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
-			<property name="hibernate.show_sql" value="true" />
+			<!-- <property name="hibernate.show_sql" value="true" /> -->
 			<property name="hibernate.default_schema" value="sa"/>
 			<property name="hibernate.connection.password" value="admin"/>
 		</properties>

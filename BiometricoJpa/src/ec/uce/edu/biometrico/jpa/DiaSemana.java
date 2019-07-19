@@ -19,7 +19,7 @@ public class DiaSemana implements java.io.Serializable {
 
 	private Integer dsmId;
 	private String dsmNombreDia;
-	private Set<Horario> horarios = new HashSet<Horario>(0);
+	
 
 	public DiaSemana() {
 	}
@@ -28,10 +28,10 @@ public class DiaSemana implements java.io.Serializable {
 		this.dsmId = dsmId;
 	}
 
-	public DiaSemana(Integer dsmId, String dsmNombreDia, Set<Horario> horarios) {
+	public DiaSemana(Integer dsmId, String dsmNombreDia) {
 		this.dsmId = dsmId;
 		this.dsmNombreDia = dsmNombreDia;
-		this.horarios = horarios;
+		
 	}
 
 	@Id
@@ -54,13 +54,5 @@ public class DiaSemana implements java.io.Serializable {
 		this.dsmNombreDia = dsmNombreDia;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "diaSemana")
-	public Set<Horario> getHorarios() {
-		return this.horarios;
-	}
-
-	public void setHorarios(Set<Horario> horarios) {
-		this.horarios = horarios;
-	}
 
 }

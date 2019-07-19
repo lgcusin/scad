@@ -20,7 +20,6 @@ public class TipoHorario implements java.io.Serializable {
 
 	private Integer tphrId;
 	private String tphrDescripcion;
-	private Set<Horario> horarios = new HashSet<Horario>(0);
 
 	public TipoHorario() {
 	}
@@ -29,10 +28,10 @@ public class TipoHorario implements java.io.Serializable {
 		this.tphrId = tphrId;
 	}
 
-	public TipoHorario(Integer tphrId, String tphrDescripcion, Set<Horario> horarios) {
+	public TipoHorario(Integer tphrId, String tphrDescripcion) {
 		this.tphrId = tphrId;
 		this.tphrDescripcion = tphrDescripcion;
-		this.horarios = horarios;
+
 	}
 
 	@Id
@@ -53,15 +52,6 @@ public class TipoHorario implements java.io.Serializable {
 
 	public void setTphrDescripcion(String tphrDescripcion) {
 		this.tphrDescripcion = tphrDescripcion;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoHorario")
-	public Set<Horario> getHorarios() {
-		return this.horarios;
-	}
-
-	public void setHorarios(Set<Horario> horarios) {
-		this.horarios = horarios;
 	}
 
 }

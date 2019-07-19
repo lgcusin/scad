@@ -1,7 +1,9 @@
 package ec.uce.edu.biometrico.jpa;
 // Generated 29/01/2019 23:19:04 by Hibernate Tools 4.3.5.Final
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,10 +21,15 @@ import javax.persistence.Table;
 @Table(name = "MALLA_CURRICULAR_PARALELO")
 public class MallaCurricularParalelo implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer mlcrprId;
 	private Paralelo paralelo;
 	private MallaCurricularMateria mallaCurricularMateria;
 	private Integer mlcrprInscritos;
+	private List<Seguimiento> seguimientos = new ArrayList<Seguimiento>();
 
 	public MallaCurricularParalelo() {
 	}
@@ -34,11 +41,12 @@ public class MallaCurricularParalelo implements java.io.Serializable {
 	}
 
 	public MallaCurricularParalelo(Integer mlcrprId, Paralelo paralelo, MallaCurricularMateria mallaCurricularMateria,
-			Integer mlcrprInscritos) {
+			Integer mlcrprInscritos, List<Seguimiento> seguimientos) {
 		this.mlcrprId = mlcrprId;
 		this.paralelo = paralelo;
 		this.mallaCurricularMateria = mallaCurricularMateria;
 		this.mlcrprInscritos = mlcrprInscritos;
+		this.seguimientos = seguimientos;
 	}
 
 	@Id
@@ -79,6 +87,22 @@ public class MallaCurricularParalelo implements java.io.Serializable {
 
 	public void setMlcrprInscritos(Integer mlcrprInscritos) {
 		this.mlcrprInscritos = mlcrprInscritos;
+	}
+
+	/**
+	 * @return the seguimientos
+	 */
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mallaCurricularParalelo")
+	public List<Seguimiento> getSeguimientos() {
+		return seguimientos;
+	}
+
+	/**
+	 * @param seguimientos
+	 *            the seguimientos to set
+	 */
+	public void setSeguimientos(List<Seguimiento> seguimientos) {
+		this.seguimientos = seguimientos;
 	}
 
 }

@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -17,13 +16,11 @@ import ec.uce.edu.biometrico.jpa.Actividad;
 import ec.uce.edu.biometrico.jpa.Asistencia;
 import ec.uce.edu.biometrico.jpa.Aula;
 import ec.uce.edu.biometrico.jpa.Bibliografia;
-import ec.uce.edu.biometrico.jpa.CargaHoraria;
 import ec.uce.edu.biometrico.jpa.Carrera;
 import ec.uce.edu.biometrico.jpa.ContenidoCurricular;
 import ec.uce.edu.biometrico.jpa.Feriado;
 import ec.uce.edu.biometrico.jpa.FichaDocente;
 import ec.uce.edu.biometrico.jpa.Herramienta;
-import ec.uce.edu.biometrico.jpa.Horario;
 import ec.uce.edu.biometrico.jpa.HorarioAcademico;
 import ec.uce.edu.biometrico.jpa.MallaCurricularMateria;
 import ec.uce.edu.biometrico.jpa.Materia;
@@ -166,8 +163,9 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 
 	@SuppressWarnings({ "deprecation", "unchecked" })
 	@Override
-	public HorarioAcademico verificarHorario(Date fecha, Integer fcdcId, Boolean tipo, Integer fclId) {
+	public HorarioAcademico verificarHorario(Date fecha, Integer fcdcId, boolean tipo, Integer fclId, Integer estado) {
 		List<Parametro> lstP = new ArrayList<>();
+		HorarioAcademico hr = new HorarioAcademico();
 		int parametroEntrada = 0;
 		int parametroSalida = 0;
 		int parametroEntradaD = 0;
@@ -193,8 +191,30 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 		int minutos = Integer.parseInt(fecha.getMinutes() + "");
 		int horasProceso = 0;
 		Double minutosProceso = 0.0;
-		int holguraInicio = minutos - parametroEntrada;
-		int holguraFin = minutos + parametroEntradaD;
+		Double horIni;
+		Double horFin;
+		int holguraInicio = 0;
+		int holguraFin = 0;
+		switch (estado) {
+		case 1:
+			holguraInicio = minutos - parametroEntrada;
+			holguraFin = minutos + parametroEntradaD;
+			System.out.println("Iniciado");
+			break;
+		case 2:
+			holguraInicio = minutos - parametroSalida;
+			holguraFin = minutos + parametroSalidaD;
+			System.out.println("finalizado");
+			break;
+		case 0:
+			holguraInicio = minutos - (parametroEntrada + atraso);
+			holguraFin = minutos + (parametroEntradaD - atraso);
+			break;
+		default:
+			holguraInicio = minutos - (parametroEntradaD + atraso);
+			holguraFin = minutos + (parametroEntradaD - atraso);
+			break;
+		}
 		String horaRegistro = fecha.getHours() + ":" + fecha.getMinutes();
 		System.out.println("Hora actual: " + horaRegistro);
 		if (holguraInicio < 0) {
@@ -208,7 +228,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			horasProceso = horas;
 			minutosProceso = (double) holguraInicio;
 		}
-		Double horIni = (double) (horasProceso + (minutosProceso / 100));
+		horIni = (double) (horasProceso + (minutosProceso / 100));
 		// String horIni = validarTamMinutos(horasProceso) + ":" +
 		// validarTamMinutos(minutosProceso);
 
@@ -219,36 +239,46 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			horasProceso = horas;
 			minutosProceso = (double) holguraFin;
 		}
-		Double horFin = (double) (horasProceso + (minutosProceso / 100));
+		horFin = (double) (horasProceso + (minutosProceso / 100));
 		// String horFin = validarTamMinutos(horasProceso) + ":" +
 		// validarTamMinutos(minutosProceso);
-		HorarioAcademico hr= new HorarioAcademico();
 		System.out.println("Hora Holgura Inicio:" + horIni + "\nHora holgura Fin:" + horFin);
 		try {
 			Query query;
 			Object[] objArray;
-			Object obj;
 			if (tipo) {
-				
 				query = em.createQuery(
-						"select  ass,ha,fd,mcp,mcm,m,hca,al,hc from Asistencia as ass join ass.horarioAcademico as ha join ass.fichaDocente as fd join ha.horaClaseAula as hca join hca.aula as al join hca.horaClase as hc join ha.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m where fd.fcdcId=:fdId and ha.hracDia =:diaId and ha.hracHoraInicio between :iniH and :finH");
-				obj = query.setParameter("diaId", fecha.getDay() - 1).setParameter("fdId", fcdcId)
-						.setParameter("iniH", horIni.toString()).setParameter("finH", horFin.toString()).getSingleResult();
-				objArray = (Object[]) obj;
-				hr = (HorarioAcademico) objArray[1];
+						"select  ass,ha,fd,mcp,mcm,m,hca,al,hc from Asistencia as ass join ass.horarioAcademico as ha join ass.fichaDocente as fd join ha.horaClaseAula as hca join hca.aula as al join hca.horaClase as hc join ha.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m where fd.fcdcId=:fdId and ha.hracDia =:diaId");
+				query.setParameter("diaId", fecha.getDay() - 1).setParameter("fdId", fcdcId);
+				for (Object object : query.getResultList()) {
+					objArray = (Object[]) object;
+					hr = (HorarioAcademico) objArray[1];
+					if (hr.getHoraClaseAula().getHoraClase().getHoclHoraInicio() >= horIni
+							&& hr.getHoraClaseAula().getHoraClase().getHoclHoraInicio() <= horFin) {
+						break;
+					}
+					hr = new HorarioAcademico();
+				}
 			} else {
 				query = em.createQuery(
-						"select  ass,ha,fd,mcp,mcm,m,hca,al,hc from Asistencia as ass join ass.horarioAcademico as ha join ass.fichaDocente as fd join ha.horaClaseAula as hca join hca.aula as al join hca.horaClase as hc join ha.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m where fd.fcdcId=:fdId and ha.hracDia =:diaId and ha.hracHoraFin between :iniH and :finH");
-				obj = query.setParameter("diaId", fecha.getDay()).setParameter("fdId", fcdcId)
-						.setParameter("iniH", horIni.toString()).setParameter("finH", horFin.toString()).getSingleResult();
-				objArray = (Object[]) obj;
-				hr = (HorarioAcademico) objArray[1];
+						"select  ass,ha,fd,mcp,mcm,m,hca,al,hc from Asistencia as ass join ass.horarioAcademico as ha join ass.fichaDocente as fd join ha.horaClaseAula as hca join hca.aula as al join hca.horaClase as hc join ha.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m where fd.fcdcId=:fdId and ha.hracDia =:diaId ");
+				query.setParameter("diaId", fecha.getDay()).setParameter("fdId", fcdcId);
+				for (Object object : query.getResultList()) {
+					objArray = (Object[]) object;
+					hr = (HorarioAcademico) objArray[1];
+					if (hr.getHoraClaseAula().getHoraClase().getHoclHoraFin() >= horIni
+							&& hr.getHoraClaseAula().getHoraClase().getHoclHoraFin() <= horFin) {
+						break;
+					}
+					hr = new HorarioAcademico();
+				}
 			}
 		} catch (Exception e) {
 			System.out.println("Error al obtener horarios: " + e);
 			return hr;
 		}
 		return hr;
+
 	}
 
 	/**
@@ -293,12 +323,12 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	}
 
 	@Override
-	public List<ContenidoCurricular> getContenidos(Integer mtrId) {
+	public List<ContenidoCurricular> buscarContenidos(Integer mtrId) {
 		List<ContenidoCurricular> lstCn = new ArrayList<>();
 		try {
 			Query query;
 			query = em.createQuery(
-					"select cnt, un, sy from Contenido as cnt join cnt.unidadCurricular as un join un.syllabo as sy where sy.mallaCurricularMateria.materia.mtrId=:mtId order by un.uncrId,cnt.cntId desc");
+					"select cnt, un, sy from ContenidoCurricular as cnt join cnt.unidadCurricular as un join un.syllabo as sy where sy.mallaCurricularMateria.materia.mtrId=:mtId order by cnt.cncrId");
 			query.setParameter("mtId", mtrId);
 			for (Object obj : query.getResultList()) {
 				Object[] objArray = (Object[]) obj;
@@ -307,7 +337,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 
 		} catch (Exception e) {
 			System.out.println("No tiene contenidos:" + e);
-			return lstCn = new ArrayList<>();
+			return lstCn;
 		}
 		return lstCn;
 	}
@@ -323,7 +353,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 		try {
 			Object[] objArray;
 			Query q = em.createQuery(
-					"select ass, hr from Asistencia as ass join ass.horario as hr where ass.fichaDocente.fcdcId=:fdId and to_char( ass.assFecha,:format) =:hora order by ass.assId");
+					"select ass, hr from Asistencia as ass join ass.horarioAcademico as hr where ass.fichaDocente.fcdcId=:fdId and to_char( ass.assFecha,:format) =:hora order by ass.assId");
 			// and ass.assEstado <> :estado
 			q.setParameter("fdId", fcdcId);
 			q.setParameter("hora", hora);
@@ -471,7 +501,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	@Override
 	public void guardarActualizarContenido(ContenidoCurricular cnt) {
 		try {
-			if (cnt.getCncrId() > 0) {
+			if (cnt.getCncrId() != null) {
 				em.merge(cnt);
 			} else {
 				int c = obtenerSecuenciaContenido();
@@ -488,7 +518,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	private int obtenerSecuenciaContenido() {
 		int id;
 		try {
-			Query query = em.createQuery("select c.cntId from Contenido as c order by c.cntId desc");
+			Query query = em.createQuery("select c.cncrId from ContenidoCurricular as c order by c.cncrId desc");
 			query.setMaxResults(1);
 			id = (int) query.getSingleResult();
 		} catch (Exception e) {
@@ -532,7 +562,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 		try {
 			Object[] objArray;
 			Query query = em.createQuery(
-					"select mcm, m, c, f, mc from MallaCurricularMateria as mcm join mcm.materia as m join m.carrera as c join c.facultad as f join mcm.mallaCurricular as mc where m.mtrId=:mtrId");
+					"select mcm, m, c, f, mc from MallaCurricularMateria as mcm join mcm.materia as m join m.carrera as c join c.dependencia as f join mcm.mallaCurricular as mc where m.mtrId=:mtrId");
 			query.setParameter("mtrId", mtrId);
 			Object obj = query.getSingleResult();
 			objArray = (Object[]) obj;
@@ -547,7 +577,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 	@Override
 	public void guardarActualizarSyllabus(Syllabo syl) {
 		try {
-			if (syl.getSylId() > 0) {
+			if (syl.getSylId() != null) {
 				em.merge(syl);
 			} else {
 				int s = obtenerSecuenciaSyllabo();
@@ -568,7 +598,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			id = (int) query.getSingleResult();
 		} catch (Exception e) {
 			System.out.println("Error al consultar los secuencia syllabus" + e);
-			return 1;
+			return 0;
 		}
 		return id;
 	}
@@ -733,7 +763,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			Query query;
 			Object[] objArray;
 			query = em.createQuery(
-					"select sg, mc, mt, ass, fd from Seguimiento as sg join sg.mallaCurricularMateria as mc join mc.materia as mt join sg.asistencia as ass join ass.fichaDocente as fd where mt.mtrId=:mtId and fd.fcdcId=:fdId order by sg.sgmId");
+					"select sg, mcp,mcm, mt, ass, cr from Seguimiento as sg join sg.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as mt join sg.asistencia as ass join ass.fichaDocente as fd join sg.contenidoCurricular as cr where mt.mtrId=:mtId and fd.fcdcId=:fdId order by sg.sgmId");
 			query.setParameter("mtId", mtrId).setParameter("fdId", fdId);
 			for (Object obj : query.getResultList()) {
 				objArray = (Object[]) obj;
@@ -760,6 +790,29 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			em.persist(Asis);
 		}
 
+	}
+
+	@Override
+	public String obtenerHoraClasexHorario(HorarioAcademico hrr) {
+		String hora = "";
+		List<HorarioAcademico> lstH = new ArrayList<>();
+		try {
+			Object[] arrayObj;
+			Query query = em.createQuery(
+					"select ha, hca, hc from HorarioAcademico as ha join ha.horaClaseAula as hca join hca.horaClase as hc where ha.mallaCurricularParalelo.mlcrprId=:mcpId and ha.hracDia=:dia order by ha.hracDescripcion");
+			query.setParameter("mcpId", hrr.getMallaCurricularParalelo().getMlcrprId()).setParameter("dia",
+					hrr.getHracDia());
+			for (Object obj : query.getResultList()) {
+				arrayObj = (Object[]) obj;
+				lstH.add((HorarioAcademico) arrayObj[0]);
+			}
+			hora = lstH.get(0).getHoraClaseAula().getHoraClase().getHoclHoraInicio() + ":00 - "
+					+ lstH.get(lstH.size() - 1).getHoraClaseAula().getHoraClase().getHoclHoraFin() + ":00";
+		} catch (Exception e) {
+			System.out.println("Error al obtener hora clase");
+			return hora;
+		}
+		return hora;
 	}
 
 }

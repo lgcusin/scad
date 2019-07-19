@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.primefaces.model.CheckboxTreeNode"/>
-<fullyQualifiedTypeName name="org.primefaces.model.DefaultTreeNode"/>
-<fullyQualifiedTypeName name="org.primefaces.model.TreeNode"/>
-<fullyQualifiedTypeName name="javax.faces.bean.SessionScoped"/>
-<fullyQualifiedTypeName name="model.Usuario"/>
 <fullyQualifiedTypeName name="model.Carrera"/>
 <fullyQualifiedTypeName name="servicios.SrvLogin"/>
 <fullyQualifiedTypeName name="javax.faces.event.ComponentSystemEvent"/>
@@ -35,29 +30,34 @@
 <fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.UsuarioRol"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.FichaEmpleado"/>
-<fullyQualifiedTypeName name="javax.persistence.Query"/>
 <fullyQualifiedTypeName name="ec.edu.uce.Biometrico.ejb.servicios.impl.SrvEmpleado"/>
 <fullyQualifiedTypeName name="ec.edu.uce.Biometrico.ejb.servicios.impl.SrvDocente"/>
-<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Persona"/>
 <fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.CargaHoraria"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
 <fullyQualifiedTypeName name="javax.persistence.GenerationType"/>
-<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.ContenidoCurricular"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Carrera"/>
 <fullyQualifiedTypeName name="ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvEmpleadoLocal"/>
 <fullyQualifiedTypeName name="javax.ejb.EJB"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvSeguimientoLocal"/>
-<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.FichaDocente"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Materia"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.MallaCurricularParalelo"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.MallaCurricularMateria"/>
-<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.HorarioAcademico"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Asistencia"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.HuellaDactilar"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.TipoHuella"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="org.hibernate.jpa.criteria.predicate.BetweenPredicate"/>
+<fullyQualifiedTypeName name="com.sun.org.omg.CORBA.InitializerHelper"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.FichaDocente"/>
+<fullyQualifiedTypeName name="javax.persistence.Query"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Persona"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.HorarioAcademico"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Seguimiento"/>
 <fullyQualifiedTypeName name="java.lang.Boolean"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.ContenidoCurricular"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>

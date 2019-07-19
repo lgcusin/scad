@@ -21,7 +21,6 @@ import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvSeguimientoLocal;
 import ec.uce.edu.biometrico.jpa.Asistencia;
 import ec.uce.edu.biometrico.jpa.Carrera;
 import ec.uce.edu.biometrico.jpa.FichaDocente;
-import ec.uce.edu.biometrico.jpa.Horario;
 import ec.uce.edu.biometrico.jpa.HorarioAcademico;
 
 @ManagedBean(name = "detalleAss")

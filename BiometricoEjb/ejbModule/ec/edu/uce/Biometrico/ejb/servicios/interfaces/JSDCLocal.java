@@ -3,13 +3,8 @@ package ec.edu.uce.Biometrico.ejb.servicios.interfaces;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Date;
-
 import javax.ejb.Local;
-import javax.sql.rowset.serial.SerialException;
-
 import ec.uce.edu.biometrico.jpa.FichaDocente;
-import ec.uce.edu.biometrico.jpa.Horario;
 
 @Local
 public interface JSDCLocal {

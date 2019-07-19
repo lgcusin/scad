@@ -8,7 +8,6 @@ import ec.uce.edu.biometrico.jpa.Aula;
 import ec.uce.edu.biometrico.jpa.Carrera;
 import ec.uce.edu.biometrico.jpa.DiaSemana;
 import ec.uce.edu.biometrico.jpa.FichaDocente;
-import ec.uce.edu.biometrico.jpa.Horario;
 import ec.uce.edu.biometrico.jpa.Materia;
 import ec.uce.edu.biometrico.jpa.Nivel;
 import ec.uce.edu.biometrico.jpa.Paralelo;
@@ -37,14 +36,14 @@ public interface SrvHorarioLocal {
 
 	List<Aula> listarAula();
 
-	void guardarHorario(Horario horario);
-
-	List<Horario> listarHorarios(Integer idParalelo, Integer idMateria);
-
-	List<Paralelo> listarParalelosHorario(Integer mtrId);
-
-	List<ec.uce.edu.biometrico.jpa.Horario> listarHorarios(String prcdId);
-
-	void eliminarHorario(Horario horario);
+//	void guardarHorario(Horario horario);
+//
+//	List<Horario> listarHorarios(Integer idParalelo, Integer idMateria);
+//
+//	List<Paralelo> listarParalelosHorario(Integer mtrId);
+//
+//	List<ec.uce.edu.biometrico.jpa.Horario> listarHorarios(String prcdId);
+//
+//	void eliminarHorario(Horario horario);
 
 }
