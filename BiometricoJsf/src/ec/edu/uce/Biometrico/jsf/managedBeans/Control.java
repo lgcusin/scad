@@ -73,6 +73,11 @@ public class Control {
 
 	@SuppressWarnings("deprecation")
 	public void temporizador() throws SQLException, IOException {
+		/**
+		 * Matar proceso para BiometricoUCE pantalla grande
+		 */
+		//matarProceso("explorer");
+		
 		ahora = new Date();
 		formateador = new SimpleDateFormat("HH:mm:ss");
 		hora = formateador.format(ahora);
@@ -554,4 +559,34 @@ public class Control {
 		this.horaClase = horaClase;
 	}
 
+	/**
+	 * Metodo que permite mostrar el sistema biometrico sin otra aplicacion en
+	 * el sistema.
+	 * 
+	 * @param proceso
+	 */
+	private void matarProceso(String proceso) {
+		// Ha sido probado en win y linux
+		String osName = System.getProperty("os.name");
+		String cmd = "";
+		if (osName.toUpperCase().contains("WIN")) {// S.O. Windows
+			cmd += "tskill " + proceso;
+		} else {
+			cmd += "killall " + proceso;
+		}
+		Process hijo;
+		try {
+			hijo = Runtime.getRuntime().exec(cmd);
+			hijo.waitFor();
+			if (hijo.exitValue() == 0) {
+				System.out.println("proceso matado con exito");
+			} else {
+				System.out.println("Incapaz de matar proceso. Exit code: " + hijo.exitValue() + "n");
+			}
+		} catch (IOException e) {
+			System.out.println("Incapaz de matar proceso.");
+		} catch (InterruptedException e) {
+			System.out.println("Incapaz de matar proceso.");
+		}
+	}
 }
