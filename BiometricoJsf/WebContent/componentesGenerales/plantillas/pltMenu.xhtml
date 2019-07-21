@@ -49,8 +49,18 @@
 				</p:submenu>
 				<p:menuitem value="Enrolar Docente"
 					action="#{principal.verRegistro}" ajax="false" />
-				<p:menuitem value="Sistema de Control"
-					action="#{principal.verControl}" ajax="false" />
+				<p:menuitem value="Sistema de Control" onclick="abrirBiometrico()"
+					ajax="false" />
+				<!-- action="#{principal.verControl}" -->
+				<script type="text/javascript">
+					function abrirBiometrico() {
+						window
+								.open(
+										"control",
+										"SistemaBiometricoUCE",
+										"top=0,left=-10,height=900,width=1600,fullscreen=yes,status=no,menubar=no,location=no,toolbar=no,scrollbars=yes,resizable=no,minimizable=no,dialog=yes")
+					}
+				</script>
 				<p:menuitem value="Justificacion"
 					action="#{principal.verJustificacion}" ajax="false" />
 				<p:menuitem value="Parametros de control"

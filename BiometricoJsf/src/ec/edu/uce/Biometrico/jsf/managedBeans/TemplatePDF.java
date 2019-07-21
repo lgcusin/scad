@@ -115,7 +115,7 @@ public class TemplatePDF {
 			paragraph.setSpacingAfter(15);
 			document.add(paragraph);
 		} catch (Exception e) {
-			System.out.println("Error al crear PDF" + e.toString());
+			System.out.println("Error al agregar titulos PDF" + e.toString());
 		}
 	}
 
