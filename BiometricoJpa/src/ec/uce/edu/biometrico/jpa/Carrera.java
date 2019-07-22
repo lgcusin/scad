@@ -47,6 +47,7 @@ public class Carrera implements java.io.Serializable {
 	private List<Materia> materias = new ArrayList<Materia>(0);
 	private List<MallaCurricular> mallaCurriculars = new ArrayList<MallaCurricular>(0);
 	private List<RolFlujoCarrera> rolFlujoCarreras = new ArrayList<RolFlujoCarrera>(0);
+	private List<Feriado> feriados = new ArrayList<Feriado>(0);
 
 	public Carrera() {
 	}
@@ -58,7 +59,7 @@ public class Carrera implements java.io.Serializable {
 	public Carrera(Integer crrId, Dependencia dependencia, String crrDescripcion, String crrCodSniese,
 			String crrDetalle, Date crrFechaCreacion, Integer crrTipo, Integer crrCupo, Integer crrEspeCodigo,
 			Integer crrProceso, Integer crrNumMaxCreditos, List<Paralelo> paralelos, List<DetallePuesto> detallePuestos,
-			List<Materia> materias, List<MallaCurricular> mallaCurriculars, List<RolFlujoCarrera> rolFlujoCarreras) {
+			List<Materia> materias, List<MallaCurricular> mallaCurriculars, List<RolFlujoCarrera> rolFlujoCarreras, List<Feriado> feriados) {
 		this.crrId = crrId;
 		this.dependencia = dependencia;
 		this.crrDescripcion = crrDescripcion;
@@ -75,6 +76,7 @@ public class Carrera implements java.io.Serializable {
 		this.materias = materias;
 		this.mallaCurriculars = mallaCurriculars;
 		this.rolFlujoCarreras = rolFlujoCarreras;
+		this.feriados = feriados;
 	}
 
 	@Id
@@ -223,6 +225,14 @@ public class Carrera implements java.io.Serializable {
 
 	public void setRolFlujoCarreras(List<RolFlujoCarrera> rolFlujoCarreras) {
 		this.rolFlujoCarreras = rolFlujoCarreras;
+	}
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "carrera")
+	public List<Feriado> getFeriados() {
+		return this.feriados;
+	}
+
+	public void setFeriados(List<Feriado> feriados) {
+		this.feriados = feriados;
 	}
 
 }

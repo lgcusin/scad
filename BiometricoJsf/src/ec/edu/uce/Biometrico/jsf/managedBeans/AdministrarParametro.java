@@ -134,21 +134,6 @@ public class AdministrarParametro {
 		}
 	}
 
-	/**
-	 * Metodo definido para setear el id de la facultad seleccionada.
-	 * 
-	 * @param event
-	 */
-	public void setCarreraID(ValueChangeEvent event) {
-		if (event.getNewValue() != null) {
-			selectFacultad.setDpnId((Integer) event.getNewValue());
-		} else {
-			selectFacultad.setDpnId(null);
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "No se ha seleccionado una facultad.",
-					"Warning!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-	}
 
 	/**
 	 * Metodo para guardar o actualizar los parametros.

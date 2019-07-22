@@ -24,7 +24,7 @@ public class Feriado implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer frdId;
-	private Dependencia dependencia;
+	private Carrera carrera;
 	private String frdDescripcion;
 	private Date frdFecha;
 	private String frdFin;
@@ -33,15 +33,15 @@ public class Feriado implements java.io.Serializable {
 	public Feriado() {
 	}
 
-	public Feriado(Integer frdId, Dependencia dependencia) {
+	public Feriado(Integer frdId, Carrera carrera) {
 		this.frdId = frdId;
-		this.dependencia = dependencia;
+		this.carrera = carrera;
 	}
 
-	public Feriado(Integer frdId, Dependencia dependencia, String frdDescripcion, Date frdFecha, String frdFin,
+	public Feriado(Integer frdId, Carrera carrera, String frdDescripcion, Date frdFecha, String frdFin,
 			String frdInicio) {
 		this.frdId = frdId;
-		this.dependencia = dependencia;
+		this.carrera = carrera;
 		this.frdDescripcion = frdDescripcion;
 		this.frdFecha = frdFecha;
 		this.frdFin = frdFin;
@@ -59,14 +59,22 @@ public class Feriado implements java.io.Serializable {
 		this.frdId = frdId;
 	}
 
+	
+	/**
+	 * @return the carrera
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "DPN_ID", nullable = false)
-	public Dependencia getDependencia() {
-		return this.dependencia;
+	@JoinColumn(name = "CRR_ID", nullable = false)
+	public Carrera getCarrera() {
+		return carrera;
 	}
 
-	public void setDependencia(Dependencia dependencia) {
-		this.dependencia = dependencia;
+	/**
+	 * @param carrera
+	 *            the carrera to set
+	 */
+	public void setCarrera(Carrera carrera) {
+		this.carrera = carrera;
 	}
 
 	@Column(name = "FRD_DESCRIPCION", length = 30)

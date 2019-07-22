@@ -2,30 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="OpenDevice() Error" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
-			<item value="lstUnidadCurriculars"/>
-			<item value="cerrarDiag"/>
-			<item value="guardarAsis"/>
-			<item value="inicializar"/>
-			<item value="dataSyllabo"/>
-			<item value="Error al guardarActualizarContenido:"/>
-			<item value="cntDescripcion"/>
-			<item value="lstUC"/>
+			<item value="OpenDevice() Error"/>
+			<item value="OpenDevice"/>
+			<item value="otpnAsistencia"/>
+			<item value="otpnControl"/>
+			<item value="dlgCntrl"/>
+			<item value="listarAssts"/>
+			<item value="validarDependencia()"/>
+			<item value="validarDependencia"/>
 		</list>
 		<list key="replacehistory">
+			<item value="carrera"/>
+			<item value="Carrera"/>
 			<item value="cncrDescripcion"/>
 			<item value="mtrDescripcion"/>
 			<item value="crrDescripcion"/>
 			<item value="Integer"/>
 			<item value="frmGenerarRegistros"/>
 			<item value="mcpr"/>
-			<item value="login.adminFacultad"/>
-			<item value="ArrayList"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

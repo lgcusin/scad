@@ -33,7 +33,7 @@ public class Dependencia implements java.io.Serializable {
 	private String dpnCodSori;
 	private String dpnUej;
 	private Integer dpnFacCodigo;
-	private List<Feriado> feriados = new ArrayList<Feriado>(0);
+
 	private List<Dependencia> dependencias = new ArrayList<Dependencia>(0);
 	private List<Carrera> carreras = new ArrayList<Carrera>(0);
 	private List<Edificio> edificios = new ArrayList<Edificio>(0);
@@ -48,8 +48,8 @@ public class Dependencia implements java.io.Serializable {
 
 	public Dependencia(Integer dpnId, Dependencia dependencia, Ubicacion ubicacion, String dpnDescripcion,
 			Integer dpnJerarquia, Integer dpnEstado, Integer dpnCampus, String dpnCodSori, String dpnUej,
-			Integer dpnFacCodigo, List<Feriado> feriados, List<Dependencia> dependencias, List<Carrera> carreras,
-			List<Edificio> edificios, List<Parametro> parametros) {
+			Integer dpnFacCodigo, List<Dependencia> dependencias, List<Carrera> carreras, List<Edificio> edificios,
+			List<Parametro> parametros) {
 		this.dpnId = dpnId;
 		this.dependencia = dependencia;
 		this.ubicacion = ubicacion;
@@ -60,7 +60,6 @@ public class Dependencia implements java.io.Serializable {
 		this.dpnCodSori = dpnCodSori;
 		this.dpnUej = dpnUej;
 		this.dpnFacCodigo = dpnFacCodigo;
-		this.feriados = feriados;
 		this.dependencias = dependencias;
 		this.carreras = carreras;
 		this.edificios = edificios;
@@ -159,15 +158,6 @@ public class Dependencia implements java.io.Serializable {
 
 	public void setDpnFacCodigo(Integer dpnFacCodigo) {
 		this.dpnFacCodigo = dpnFacCodigo;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "dependencia")
-	public List<Feriado> getFeriados() {
-		return this.feriados;
-	}
-
-	public void setFeriados(List<Feriado> feriados) {
-		this.feriados = feriados;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "dependencia")

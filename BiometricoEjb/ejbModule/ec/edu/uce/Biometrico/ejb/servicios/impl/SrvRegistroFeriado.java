@@ -36,15 +36,24 @@ public class SrvRegistroFeriado implements SrvRegistroFeriadoLocal {
 	 * Metodo definido para consultar los feriados segun los filtros ingresados.
 	 */
 	@Override
-	public List<Feriado> listarFeriados(Integer fclId, Date fechaInicio, Date fechaFin) {
+	public List<Feriado> listarFeriados(boolean tipo, Integer id, Date fechaInicio, Date fechaFin) {
 		List<Feriado> lstF = new ArrayList<>();
 		try {
-			Query query = em.createQuery(
-					"select f from Feriado as f where (f.dependencia.dpnId=:fclId or f.dependencia.dpnId=1) and f.frdFecha >= :fechaInicio and f.frdFecha <= :fechaFin order by f.frdFecha asc");
-			query.setParameter("fclId", fclId);
-			query.setParameter("fechaInicio", fechaInicio);
-			query.setParameter("fechaFin", fechaFin);
-			lstF = (List<Feriado>) query.getResultList();
+			if (tipo) {
+				Query query = em.createQuery(
+						"select f from Feriado as f join f.carrera as c where c.dependencia.dpnId=:id and f.frdFecha >= :fechaInicio and f.frdFecha <= :fechaFin order by f.frdFecha asc");
+				query.setParameter("id", id);
+				query.setParameter("fechaInicio", fechaInicio);
+				query.setParameter("fechaFin", fechaFin);
+				lstF = (List<Feriado>) query.getResultList();
+			} else {
+				Query query = em.createQuery(
+						"select f from Feriado as f join f.carrera as c where c.crrId=:id and f.frdFecha >= :fechaInicio and f.frdFecha <= :fechaFin order by f.frdFecha asc");
+				query.setParameter("id", id);
+				query.setParameter("fechaInicio", fechaInicio);
+				query.setParameter("fechaFin", fechaFin);
+				lstF = (List<Feriado>) query.getResultList();
+			}
 		} catch (Exception e) {
 			System.out.println("Error al consultar Feriados: " + e);
 			return lstF;
@@ -61,14 +70,8 @@ public class SrvRegistroFeriado implements SrvRegistroFeriadoLocal {
 			if (feriado.getFrdId() != null) {
 				em.merge(feriado);
 			} else {
+				feriado.setFrdId(obtenerSecuenciaFeriado() + 1);
 				em.persist(feriado);
-				// Feriado f = obtenerSecuenciaFeriado();
-				// if (f != null && f.getFrdId() > 0) {
-				// feriado.setFrdId(f.getFrdId() + 1);
-				// em.persist(feriado);
-				// } else {
-				// System.out.println("Error al guardar Feriado");
-				// }
 			}
 		} catch (Exception e) {
 			System.out.println("Error al guardarActualizarParametro: " + e);
@@ -97,7 +100,7 @@ public class SrvRegistroFeriado implements SrvRegistroFeriadoLocal {
 	public List<Dependencia> listarFacultades() {
 		List<Dependencia> lstFacultades = null;
 		try {
-			Query query = em.createQuery("select f from Facultad as f");
+			Query query = em.createQuery("select d from Dependencia as d");
 			lstFacultades = query.getResultList();
 		} catch (Exception e) {
 			System.out.println("Error al consultar facultades" + e);
@@ -110,15 +113,16 @@ public class SrvRegistroFeriado implements SrvRegistroFeriadoLocal {
 	 * 
 	 * @return
 	 */
-	private Feriado obtenerSecuenciaFeriado() {
-		Feriado feriado = null;
+	private int obtenerSecuenciaFeriado() {
+		int i = 0;
 		try {
-			Query query = em.createQuery("select f from Feriado as f  order by f.frdId desc");
+			Query query = em.createQuery("select f.frdId from Feriado as f  order by f.frdId desc");
 			query.setMaxResults(1);
-			feriado = (Feriado) query.getSingleResult();
+			i = (int) query.getSingleResult();
 		} catch (Exception e) {
 			System.out.println("Error al consultar la secuencia del feriado" + e);
+			return i;
 		}
-		return feriado;
+		return i;
 	}
 }

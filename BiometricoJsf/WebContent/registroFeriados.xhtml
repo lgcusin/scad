@@ -24,7 +24,6 @@
 						styleClass="ui-panel-content ui-widget-content">
 						<!-- TABLA RESPONSIVA -->
 						<div class="grid condensed">
-							<!-- FILA NUMERO 2 -->
 							<div class="row cells12">
 								<div class="cell colspan6">
 									<!-- FACULTAD -->
@@ -40,44 +39,64 @@
 													style="width: 100%"
 													valueChangeListener="#{registroFeriado.setDependenciaID}">
 													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
-													<f:selectItem itemLabel="TODAS" itemValue="1"></f:selectItem>
 													<f:selectItems value="#{registroFeriado.lstDependencia}"
 														var="fac" itemLabel="#{fac.dpnDescripcion}"
 														itemValue="#{fac.dpnId}" />
+													<p:ajax update="slcCarrera" />
 												</p:selectOneMenu>
 											</div>
 										</div>
+										<div class="row cells6">
+											<div class="cell colspan2">
+												<p:outputLabel id="lblCarrera" value="Carrera: "
+													styleClass="ui-outputlabel ui-widget" for="slcCarrera"></p:outputLabel>
+											</div>
+											<div class="cell colspan4">
+												<p:selectOneMenu id="slcCarrera"
+													value="#{registroFeriado.selectCarrera.crrId}"
+													style="width: 100%"
+													valueChangeListener="#{registroFeriado.setCarreraID}">
+													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+													<f:selectItem itemLabel="TODAS" itemValue="0"></f:selectItem>
+													<f:selectItems value="#{registroFeriado.lstCarrera}"
+														var="cr" itemLabel="#{cr.crrDescripcion}"
+														itemValue="#{cr.crrId}" />
+												</p:selectOneMenu>
+											</div>
+										</div>
+										<div class="row cells12">
+											<!-- PARAMETRO -->
+											<div class="grid condensed" style="padding: 10px;">
+												<div class="row cells12">
+													<div class="cell colspan2">
+														<p:outputLabel id="lblFechaInicio" value="Fecha Inicio:"></p:outputLabel>
+													</div>
+													<div class="cell colspan4">
+														<p:inputText type="date"
+															value="#{registroFeriado.fechaInicio}">
+														</p:inputText>
+													</div>
+													<div class="cell colspan2">
+														<p:outputLabel id="lblFechaFin" value="Fecha Fin:"></p:outputLabel>
+													</div>
+													<div class="cell colspan4">
+														<p:inputText type="date"
+															value="#{registroFeriado.fechaFin}">
+														</p:inputText>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div>
+											<p:commandButton id="btnBuscar" value="Buscar"
+												action="#{registroFeriado.buscarFeriados}"
+												update="pnlResultados"></p:commandButton>
+											<p:commandButton id="btnLimpiar" value="Limpiar"
+												action="#{registroFeriado.limpiarFiltros}"
+												update="pnlBusqueda"></p:commandButton>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="row cells12">
-								<!-- PARAMETRO -->
-								<div class="grid condensed" style="padding: 10px;">
-									<div class="row cells12">
-										<div class="cell colspan2">
-											<p:outputLabel id="lblFechaInicio" value="Fecha Inicio:"></p:outputLabel>
-										</div>
-										<div class="cell colspan4">
-											<p:inputText type="date"
-												value="#{registroFeriado.fechaInicio}">
-											</p:inputText>
-										</div>
-										<div class="cell colspan2">
-											<p:outputLabel id="lblFechaFin" value="Fecha Fin:"></p:outputLabel>
-										</div>
-										<div class="cell colspan4">
-											<p:inputText type="date" value="#{registroFeriado.fechaFin}">
-											</p:inputText>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<p:commandButton id="btnBuscar" value="Buscar"
-									action="#{registroFeriado.buscarFeriados}"
-									update="pnlResultados"></p:commandButton>
-								<p:commandButton id="btnLimpiar" value="Limpiar"
-									action="#{registroFeriado.limpiarFiltros}" update="pnlBusqueda"></p:commandButton>
 							</div>
 						</div>
 					</p:panel>
@@ -102,10 +121,6 @@
 										update="dtsFeriados" />
 									<p:ajax event="rowEditCancel"
 										listener="#{registroFeriado.onRowCancel}" update="dtsFeriados" />
-
-									<p:column headerText="#">
-										<h:outputText value="#{f.frdId}" />
-									</p:column>
 									<p:column headerText="Fecha">
 										<p:cellEditor>
 											<f:facet name="output">
@@ -150,11 +165,10 @@
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
-									<p:column style="width:80px" headerText="Opciones">
+									<p:column style="width:100px" headerText="Opciones">
 										<p:rowEditor editTitle="edit" cancelTitle="cancel"
 											saveTitle="save"></p:rowEditor>
-										<p:commandButton value="Eliminar" style="width:70px"
-											process="@this"
+										<p:commandButton value="Eliminar" process="@this"
 											action="#{registroFeriado.eliminarFeriado(f)}"
 											update="dtsFeriados" />
 									</p:column>

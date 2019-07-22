@@ -20,7 +20,9 @@ import javax.faces.event.ValueChangeEvent;
 
 import org.primefaces.event.RowEditEvent;
 
+import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvEmpleadoLocal;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvRegistroFeriadoLocal;
+import ec.uce.edu.biometrico.jpa.Carrera;
 import ec.uce.edu.biometrico.jpa.Dependencia;
 import ec.uce.edu.biometrico.jpa.Feriado;
 
@@ -43,10 +45,14 @@ public class RegistroFeriado {
 	 */
 	@EJB
 	private SrvRegistroFeriadoLocal srvFer;
+	@EJB
+	private SrvEmpleadoLocal srvEmp;
 	private Login beanLogin;
 
 	private Dependencia selectDependencia;
-	private List<Dependencia> lstDependencia = new ArrayList<>();
+	private Carrera selectCarrera;
+	private List<Dependencia> lstDependencia;
+	private List<Carrera> lstCarrera;
 	private String fechaInicio;
 	private String fechaFin;
 	private List<Feriado> lstFeriados;
@@ -57,18 +63,22 @@ public class RegistroFeriado {
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		beanLogin = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
-		lstDependencia.add(beanLogin.getUsuarioRol().getUsuario().getPersona().getFichaEmpleados().get(0)
-				.getDetallePuestos().get(0).getCarrera().getDependencia());
-		// lstDependencia = srvFer.listarFacultades();
 		initRegistroFeriado();
+		lstDependencia = srvFer.listarFacultades();
+		// lstDependencia.add(beanLogin.getUsuarioRol().getUsuario().getPersona().getFichaEmpleados().get(0)
+		// .getDetallePuestos().get(0).getCarrera().getDependencia());
 	}
 
 	/**
 	 * Metodo que inicializa el objeto a guardar.
 	 */
 	private void initRegistroFeriado() {
-		feriadoRegistro = new Feriado();
+		lstDependencia = new ArrayList<>();
+		lstCarrera = new ArrayList<>();
+		lstFeriados = new ArrayList<>();
 		selectDependencia = new Dependencia();
+		selectCarrera = new Carrera();
+		feriadoRegistro = new Feriado();
 	}
 
 	/**
@@ -84,7 +94,7 @@ public class RegistroFeriado {
 	 * Metodo que permite guardar un nuevo registro de feriado.
 	 */
 	public void guardarFeriado() {
-		feriadoRegistro.setDependencia(selectDependencia);
+		feriadoRegistro.setCarrera(selectCarrera);
 		srvFer.guardarActualizarFeriado(feriadoRegistro);
 	}
 
@@ -92,12 +102,16 @@ public class RegistroFeriado {
 	 * Metodo definido para la busqueda de feriados por facultad seleccionada.
 	 */
 	public void buscarFeriados() {
-		if (validarDependencia()) {
+		if (validarDependencia() && validarCarrera()) {
 			try {
 				if (validarFechas()) {
 					Date inicio = new SimpleDateFormat(FORMATOFECHA).parse(fechaInicio);
 					Date fin = new SimpleDateFormat(FORMATOFECHA).parse(fechaFin);
-					lstFeriados = srvFer.listarFeriados(selectDependencia.getDpnId(), inicio, fin);
+					if (selectCarrera.getCrrId() == 0) {
+						lstFeriados = srvFer.listarFeriados(true, selectDependencia.getDpnId(), inicio, fin);
+					} else {
+						lstFeriados = srvFer.listarFeriados(false, selectCarrera.getCrrId(), inicio, fin);
+					}
 					if (!lstFeriados.isEmpty()) {
 						mostrarMensaje("Feriados encontrados.", "");
 					} else {
@@ -110,6 +124,18 @@ public class RegistroFeriado {
 		}
 	}
 
+	private boolean validarCarrera() {
+		if (selectCarrera.getCrrId() != null) {
+			return true;
+		} else {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"La carrera es requerida, verifique por favor.", "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			limpiarFiltros();
+			return false;
+		}
+	}
+
 	/**
 	 * Metodo que permite setear el id de la facultad seleccionada.
 	 * 
@@ -118,8 +144,25 @@ public class RegistroFeriado {
 	public void setDependenciaID(ValueChangeEvent event) {
 		if (event.getNewValue() != null) {
 			selectDependencia.setDpnId((Integer) event.getNewValue());
+			lstCarrera = srvEmp.listarCarreras((Integer) event.getNewValue());
 		} else {
 			selectDependencia.setDpnId(null);
+		}
+	}
+
+	/**
+	 * Metodo definido para setear el id de la facultad seleccionada.
+	 * 
+	 * @param event
+	 */
+	public void setCarreraID(ValueChangeEvent event) {
+		if (event.getNewValue() != null) {
+			selectCarrera.setCrrId((Integer) event.getNewValue());
+		} else {
+			selectCarrera.setCrrId(null);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "No se ha seleccionado una facultad.",
+					"Warning!");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
@@ -127,7 +170,7 @@ public class RegistroFeriado {
 	 * Metodo definido para agregar una nueva fila de registro feriado.
 	 */
 	public void onAddNew() {
-		if (validarDependencia()) {
+		if (validarDependencia() && validarCarrera()) {
 			Feriado feriadoNuevo = new Feriado();
 			// if (lstFeriados.isEmpty()) {
 			// feriadoNuevo.setDependencia(selectDependencia);
@@ -164,8 +207,16 @@ public class RegistroFeriado {
 				srvFer.guardarActualizarFeriado(feriado);
 			} else {
 				/** nuevo registro */
-				feriado.setDependencia(selectDependencia);
-				srvFer.guardarActualizarFeriado(feriado);
+				if (selectCarrera.getCrrId() == 0) {
+					for (Carrera cr : lstCarrera) {
+						feriado.setFrdId(null);
+						feriado.setCarrera(cr);
+						srvFer.guardarActualizarFeriado(feriado);
+					}
+				} else {
+					feriado.setCarrera(selectCarrera);
+					srvFer.guardarActualizarFeriado(feriado);
+				}
 			}
 		} catch (Exception e) {
 			System.out.println("Error al guardarActualizar feriado: " + e);
@@ -264,6 +315,21 @@ public class RegistroFeriado {
 	}
 
 	/**
+	 * @return the selectCarrera
+	 */
+	public Carrera getSelectCarrera() {
+		return selectCarrera;
+	}
+
+	/**
+	 * @param selectCarrera
+	 *            the selectCarrera to set
+	 */
+	public void setSelectCarrera(Carrera selectCarrera) {
+		this.selectCarrera = selectCarrera;
+	}
+
+	/**
 	 * The selectDependencia to set.
 	 * 
 	 * @param selectDependencia
@@ -288,6 +354,21 @@ public class RegistroFeriado {
 	 */
 	public void setLstDependencia(List<Dependencia> lstDependencia) {
 		this.lstDependencia = lstDependencia;
+	}
+
+	/**
+	 * @return the lstCarrera
+	 */
+	public List<Carrera> getLstCarrera() {
+		return lstCarrera;
+	}
+
+	/**
+	 * @param lstCarrera
+	 *            the lstCarrera to set
+	 */
+	public void setLstCarrera(List<Carrera> lstCarrera) {
+		this.lstCarrera = lstCarrera;
 	}
 
 	/**

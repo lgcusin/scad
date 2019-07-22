@@ -15,12 +15,12 @@ public interface SrvRegistroFeriadoLocal {
 	 * Metodo definido para consultar los feriados segun los filtros ingresados.
 	 * 
 	 * @param fclId
+	 * @param integer 
 	 * @param fechaInicio
 	 * @param fechaFin
 	 * @return
 	 */
-	List<Feriado> listarFeriados(Integer fclId, Date fechaInicio, Date fechaFin);
-
+	List<Feriado> listarFeriados(boolean b, Integer crrId, Date inicio, Date fin);
 	/**
 	 * Metodo definido para guardar o actualizar un registro de feriado.
 	 * 
@@ -41,4 +41,8 @@ public interface SrvRegistroFeriadoLocal {
 	 * @return
 	 */
 	List<Dependencia> listarFacultades();
+
+	
+
+	
 }

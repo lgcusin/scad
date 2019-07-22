@@ -23,20 +23,17 @@
 				<p:panel id="pnlReloj">
 					<h:outputLabel id="lblReloj" value="#{control.hora}"
 						style="text-align: center; font-size: 20px !important; font-weight: bold"></h:outputLabel>
-					<p:poll interval="2" listener="#{control.temporizador}"
-						update="lblReloj" />
+					<p:poll interval="1" listener="#{control.temporizador}"
+						update="lblReloj "></p:poll>
 					<p:commandButton id="btnDialog" value="Ver" title="Ver Dialogo"
-						action="#{control.registrar}"
-						oncomplete="handleDialogRequest(args)"
-						update=":frmHuellas:otpnControl">
+						action="#{control.detectar()}"
+						update=":frmHuellas:otpnControl :frmHuellas:otpnAsistencia"
+						oncomplete="handleDialogRequest(args)">
 					</p:commandButton>
 				</p:panel>
-				<!-- <p:commandButton value="Inicia sistema"
-					title="Genera registros y inicia el control "
-					rendered="#{control.generado}" action="#{control.generar()}"
-					update="pnlReloj">
-
-				</p:commandButton> -->
+				<p:commandButton id="btnInicio" value="Inicia sistema" 
+					action="#{control.probar()}"  oncomplete="darClick()">
+				</p:commandButton>
 			</center>
 			<br />
 			<br />
@@ -83,7 +80,6 @@
 						</p:panelGrid>
 					</p:panel>
 					<p:panel id="pnlActividades">
-
 						<h:outputLabel value="Actividades(Selecione una):"></h:outputLabel>
 						<p:selectManyMenu id="slmmContenido" value="#{control.selecCnts}"
 							var="Cnt" showCheckbox="true"
@@ -99,18 +95,6 @@
 								</h:selectBooleanCheckbox>
 							</p:column>
 						</p:selectManyMenu>
-						<!--itemDisabled="#{cn.cntEstado eq 'COMPLETADO'}" 
-						<p:scrollPanel mode="vertical">
-						noSelectionValue="#{cn.cntEstado eq 'COMPLETADO'}"
-							<p:tree value="#{control.root1}" var="unc"
-								selectionMode="checkbox"
-								noSelectionValue="#{unc.contenidos.cntEstado eq 'COMPLETADO'}">
-								<p:treeNode>
-									<h:outputText value="#{unc}" />
-								</p:treeNode>
-							</p:tree>
-						</p:scrollPanel>-->
-
 						<h:outputLabel value="Observacion:"></h:outputLabel>
 						<p:inputTextarea counter="display" title="Ingrese la observacion"
 							value="#{control.sgmObservacion}" maxlength="300"
@@ -141,16 +125,54 @@
 						onclick="PF('dlgControl').hide();"></p:commandButton>
 				</p:outputPanel>
 			</p:dialog>
+			<!-- DIALOG DE ASISTENCIAS FUERA DE RANGO -->
+			<p:dialog id="dlgAsistencia"
+				header="Registro de  asistencia y actividades curriculares"
+				widgetVar="dlgHrr" modal="true" showEffect="fade" hideEffect="fade"
+				style="margin-left: 100px; margin-right: 100px;" position="center"
+				resizable="false">
+				<p:outputPanel id="otpnAsistencia">
+					<p:panel>
+						<p:dataTable id="tblAsistencia" value="#{control.lstAss}" var="As">
+							<p:column id="clmFecha" headerText="FECHA">
+								<h:outputText value="#{As.assFecha}" />
+							</p:column>
+							<p:column id="clmMateria" headerText="MATERIA">
+								<h:outputText
+									value="#{As.horarioAcademico.mallaCurricularParalelo.mallaCurricularMateria.materia.mtrDescripcion}" />
+							</p:column>
+							<p:column id="clmEntrada" headerText="HORA ENTRADA">
+								<h:outputText value="#{As.assHoraEntrada}" />
+							</p:column>
+							<p:column id="clmSalida" headerText="HORA SALIDA">
+								<h:outputText value="#{As.assHoraSalida}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+					<p:commandButton id="btnAceptar" value="ACEPTAR"
+						action="#{control.cleanClose()}" onclick="PF('dlgHrr').hide();"></p:commandButton>
+				</p:outputPanel>
+			</p:dialog>
 		</h:form>
 		<script type="text/javascript">
 			function handleDialogRequest(args) {
+				if (args.flagHrr) {
+					PF('dlgHrr').show();
+				} else if (!args.flagHrr) {
+					PF('dlgHrr').hide();
+				}
 				if (args.flagDlg) {
 					PF('dlgCntrl').show();
 				} else if (!args.flagDlg) {
 					PF('dlgCntrl').hide();
-
 				}
+
 			}
+			function darClick() {
+				var objO = document.getElementByid('btnInicio');
+				objO.click();
+			}
+			
 		</script>
 	</ui:define>
 </ui:composition>

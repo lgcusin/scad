@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.swing.ImageIcon;
 
 import SecuGen.FDxSDKPro.jni.JSGFPLib;
 import SecuGen.FDxSDKPro.jni.SGDeviceInfoParam;
@@ -83,18 +84,24 @@ public class JSDC implements JSDCLocal {
 			this.devicePort = SGPPPortAddr.AUTO_DETECT;
 			ret = fplib.OpenDevice(this.devicePort);
 			if (ret == SGFDxErrorCode.SGFDX_ERROR_NONE) {
-
 				System.out.println("OpenDevice() Success [" + ret + "]");
 				ret = fplib.GetDeviceInfo(deviceInfo);
 				if (ret == SGFDxErrorCode.SGFDX_ERROR_NONE) {
-					System.out.println(new String(deviceInfo.deviceSN()));
-					System.out.println(new String(Integer.toString(deviceInfo.brightness)));
-					System.out.println(new String(Integer.toString((int) deviceInfo.contrast)));
-					System.out.println(new String(Integer.toString(deviceInfo.deviceID)));
-					System.out.println(new String(Integer.toHexString(deviceInfo.FWVersion)));
-					System.out.println(new String(Integer.toString(deviceInfo.imageDPI)));
-					System.out.println(new String(Integer.toString(deviceInfo.imageHeight)));
-					System.out.println(new String(Integer.toString(deviceInfo.imageWidth)));
+					// System.out.println(new String(deviceInfo.deviceSN()));
+					// System.out.println(new
+					// String(Integer.toString(deviceInfo.brightness)));
+					// System.out.println(new String(Integer.toString((int)
+					// deviceInfo.contrast)));
+					// System.out.println(new
+					// String(Integer.toString(deviceInfo.deviceID)));
+					// System.out.println(new
+					// String(Integer.toHexString(deviceInfo.FWVersion)));
+					// System.out.println(new
+					// String(Integer.toString(deviceInfo.imageDPI)));
+					// System.out.println(new
+					// String(Integer.toString(deviceInfo.imageHeight)));
+					// System.out.println(new
+					// String(Integer.toString(deviceInfo.imageWidth)));
 					return true;
 				} else {
 					System.out.println("GetDeviceInfo() Error [" + ret + "]");
@@ -262,81 +269,93 @@ public class JSDC implements JSDCLocal {
 	public FichaDocente comparar() throws SQLException, IOException {
 		long nfiqvalue;
 		int[] numOfMinutiae = new int[1];
-		BufferedImage imgn = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight,
-				BufferedImage.TYPE_BYTE_GRAY);
-		byte[] imageBuffer1 = ((java.awt.image.DataBufferByte) imgn.getRaster().getDataBuffer()).getData();
-		long iError = SGFDxErrorCode.SGFDX_ERROR_NONE;
-		if (fplib != null) {
-			iError = fplib.GetImageEx(imageBuffer1, 5 * 1000, 0, 50);
-			fplib.GetImageQuality(deviceInfo.imageWidth, deviceInfo.imageHeight, imageBuffer1, quality);
-			SGFingerInfo fingerInfo = new SGFingerInfo();
-			fingerInfo.FingerNumber = SGFingerPosition.SG_FINGPOS_LI;
-			fingerInfo.ImageQuality = quality[0];
-			fingerInfo.ImpressionType = SGImpressionType.SG_IMPTYPE_LP;
-			fingerInfo.ViewNumber = 1;
-			if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
-				if (quality[0] < MINIMUM_QUALITY) {
-					System.out.println("GetImageEx() Success [" + ret + "] but image quality is [" + quality[0]
-							+ "]. Please try again");
-				} else {
-					System.out.println("GetImageEx() Success [" + ret + "]");
-					iError = fplib.CreateTemplate(fingerInfo, imageBuffer1, regMin1);
-					if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
-						long ret2 = fplib.GetImageQuality(deviceInfo.imageWidth, deviceInfo.imageHeight, imageBuffer1,
-								quality);
-						nfiqvalue = fplib.ComputeNFIQ(imageBuffer1, deviceInfo.imageWidth, deviceInfo.imageHeight);
+		if (deviceInfo.imageWidth > 0 && deviceInfo.imageHeight > 0) {
+			BufferedImage imgn = new BufferedImage(deviceInfo.imageWidth, deviceInfo.imageHeight,
+					BufferedImage.TYPE_BYTE_GRAY);
+			byte[] imageBuffer1 = ((java.awt.image.DataBufferByte) imgn.getRaster().getDataBuffer()).getData();
+			long iError = SGFDxErrorCode.SGFDX_ERROR_NONE;
+			boolean data = false;
+			for (byte bi : imageBuffer1) {
+				if (bi != 0) {
+					data = true;
+					break;
+				}
+			}
+			if (fplib != null && data) {
+				iError = fplib.GetImageEx(imageBuffer1, 5 * 1000, 0, 50);
+				fplib.GetImageQuality(deviceInfo.imageWidth, deviceInfo.imageHeight, imageBuffer1, quality);
+				SGFingerInfo fingerInfo = new SGFingerInfo();
+				fingerInfo.FingerNumber = SGFingerPosition.SG_FINGPOS_LI;
+				fingerInfo.ImageQuality = quality[0];
+				fingerInfo.ImpressionType = SGImpressionType.SG_IMPTYPE_LP;
+				fingerInfo.ViewNumber = 1;
+				if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
+					if (quality[0] < MINIMUM_QUALITY) {
+						System.out.println("GetImageEx() Success [" + ret + "] but image quality is [" + quality[0]
+								+ "]. Please try again");
+					} else {
+						System.out.println("GetImageEx() Success [" + ret + "]");
+						iError = fplib.CreateTemplate(fingerInfo, imageBuffer1, regMin1);
+						if (iError == SGFDxErrorCode.SGFDX_ERROR_NONE) {
+							long ret2 = fplib.GetImageQuality(deviceInfo.imageWidth, deviceInfo.imageHeight,
+									imageBuffer1, quality);
+							nfiqvalue = fplib.ComputeNFIQ(imageBuffer1, deviceInfo.imageWidth, deviceInfo.imageHeight);
 
-						ret2 = fplib.GetNumOfMinutiae(SGFDxTemplateFormat.TEMPLATE_FORMAT_SG400, regMin1,
-								numOfMinutiae);
-						if ((quality[0] >= MINIMUM_QUALITY) && (nfiqvalue <= MAXIMUM_NFIQ)
-								&& (numOfMinutiae[0] >= MINIMUM_NUM_MINUTIAE)) {
-							System.out.println("Reg. Capture PASS QC. Qual[" + quality[0] + "] NFIQ[" + nfiqvalue
-									+ "] Minutiae[" + numOfMinutiae[0] + "]");
-							// Obtenemos una lista de huellas primeras de base
-							List<HuellaDactilar> lstHd = em
-									.createNamedQuery("HuellaDactilar.findAll", HuellaDactilar.class).getResultList();
-							for (HuellaDactilar hd : lstHd) {
-								Blob blob = hd.getHldPrimerHuella();
-								InputStream in = blob.getBinaryStream();
-								BufferedImage image = ImageIO.read(in);
-								byte[] imageBuffer2 = ((java.awt.image.DataBufferByte) image.getRaster()
-										.getDataBuffer()).getData();
-								iError = fplib.CreateTemplate(fingerInfo, imageBuffer2, regMin2);
-								if (verificar()) {
-									FichaDocente fd = buscarDocentexHuella(hd.getHldcId());
-									return fd;
-								} else {
-									blob = hd.getHldSegundaHuella();
-									in = blob.getBinaryStream();
-									image = ImageIO.read(in);
-									imageBuffer2 = ((java.awt.image.DataBufferByte) image.getRaster().getDataBuffer())
-											.getData();
+							ret2 = fplib.GetNumOfMinutiae(SGFDxTemplateFormat.TEMPLATE_FORMAT_SG400, regMin1,
+									numOfMinutiae);
+							if ((quality[0] >= MINIMUM_QUALITY) && (nfiqvalue <= MAXIMUM_NFIQ)
+									&& (numOfMinutiae[0] >= MINIMUM_NUM_MINUTIAE)) {
+								System.out.println("Reg. Capture PASS QC. Qual[" + quality[0] + "] NFIQ[" + nfiqvalue
+										+ "] Minutiae[" + numOfMinutiae[0] + "]");
+								// Obtenemos una lista de huellas primeras de
+								// base
+								List<HuellaDactilar> lstHd = em
+										.createNamedQuery("HuellaDactilar.findAll", HuellaDactilar.class)
+										.getResultList();
+								for (HuellaDactilar hd : lstHd) {
+									Blob blob = hd.getHldPrimerHuella();
+									InputStream in = blob.getBinaryStream();
+									BufferedImage image = ImageIO.read(in);
+									byte[] imageBuffer2 = ((java.awt.image.DataBufferByte) image.getRaster()
+											.getDataBuffer()).getData();
 									iError = fplib.CreateTemplate(fingerInfo, imageBuffer2, regMin2);
 									if (verificar()) {
 										FichaDocente fd = buscarDocentexHuella(hd.getHldcId());
 										return fd;
+									} else {
+										blob = hd.getHldSegundaHuella();
+										in = blob.getBinaryStream();
+										image = ImageIO.read(in);
+										imageBuffer2 = ((java.awt.image.DataBufferByte) image.getRaster()
+												.getDataBuffer()).getData();
+										iError = fplib.CreateTemplate(fingerInfo, imageBuffer2, regMin2);
+										if (verificar()) {
+											FichaDocente fd = buscarDocentexHuella(hd.getHldcId());
+											return fd;
+										}
 									}
 								}
-							}
 
+							} else {
+								System.out.println("Reg. Capture FAIL QC. Quality[" + quality[0] + "] NFIQ[" + nfiqvalue
+										+ "] Minutiae[" + numOfMinutiae[0] + "]");
+								new FichaDocente(999999);
+							}
 						} else {
-							System.out.println("Reg. Capture FAIL QC. Quality[" + quality[0] + "] NFIQ[" + nfiqvalue
-									+ "] Minutiae[" + numOfMinutiae[0] + "]");
-							return null;
+							System.out.println("CreateTemplate() Error : " + iError);
+							new FichaDocente(999999);
 						}
-					} else {
-						System.out.println("CreateTemplate() Error : " + iError);
-						return null;
 					}
+				} else {
+					System.out.println("GetImageEx() Error : " + iError);
+					return new FichaDocente(0);
 				}
 			} else {
-				System.out.println("GetImageEx() Error : " + iError);
+				System.out.println("JSGFPLib is not Initialized");
 				return null;
 			}
-		} else {
-			System.out.println("JSGFPLib is not Initialized");
-			return null;
 		}
+
 		return null;
 	}
 

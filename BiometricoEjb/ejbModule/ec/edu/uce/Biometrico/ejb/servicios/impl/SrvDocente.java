@@ -176,7 +176,7 @@ public class SrvDocente implements SrvDocenteLocal {
 				query.setParameter("crrId", crrId);
 			} else {
 				query = em.createQuery(
-						"select a, h,mcp, mcm, m from Asistencia as a join a.horarioAcademico as h join h.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m where a.fichaDocente.fcdcId=:fcdcId and a.assFecha >= :fechaInicio and a.assFecha <= :fechaFin order by a.assFecha asc");
+						"select a, h,mcp, mcm, m, hca, hc from Asistencia as a join a.horarioAcademico as h join h.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m join h.horaClaseAula as hca join hca.horaClase as hc where a.fichaDocente.fcdcId=:fcdcId and a.assFecha >= :fechaInicio and a.assFecha <= :fechaFin order by a.assFecha asc");
 			}
 			query.setParameter("fcdcId", fdId);
 			query.setParameter("fechaInicio", inicio);

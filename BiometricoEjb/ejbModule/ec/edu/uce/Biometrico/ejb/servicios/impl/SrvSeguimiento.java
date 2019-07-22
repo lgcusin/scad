@@ -353,7 +353,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 		try {
 			Object[] objArray;
 			Query q = em.createQuery(
-					"select ass, hr from Asistencia as ass join ass.horarioAcademico as hr where ass.fichaDocente.fcdcId=:fdId and to_char( ass.assFecha,:format) =:hora order by ass.assId");
+					"select a, h,mcp, mcm, m, hca, hc from Asistencia as a join a.horarioAcademico as h join h.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m join h.horaClaseAula as hca join hca.horaClase as hc where a.fichaDocente.fcdcId=:fdId and to_char( a.assFecha,:format) =:hora order by a.assId asc");
 			// and ass.assEstado <> :estado
 			q.setParameter("fdId", fcdcId);
 			q.setParameter("hora", hora);
