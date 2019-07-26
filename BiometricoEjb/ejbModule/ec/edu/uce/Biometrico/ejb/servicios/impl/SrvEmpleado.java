@@ -72,14 +72,14 @@ public class SrvEmpleado implements SrvEmpleadoLocal {
 	}
 
 	@Override
-	public List<HorarioAcademico> listarHorariosxDocentexFechaHora(Integer integer, Integer[] arrayHora, int dia) {
+	public List<HorarioAcademico> listarHorariosxDocentexFechaHora(Integer integer, Integer[] arrayHora, int dia,Integer crrId) {
 		List<HorarioAcademico> lstH = new ArrayList<>();
 		try {
 			Object[] arrayObj;
 			Query query = em.createQuery(
-					"select ha.hracId,cr.crrId,nv.nvlId, p.prlId, ma.mtrId,ha.hracDia,hc.hoclId, al.alaId, mcp.mlcrprId, mcm.mlcrmtId from HorarioAcademico as ha join ha.mallaCurricularParalelo as mcp join mcp.paralelo as p join mcp.mallaCurricularMateria as mcm join mcm.materia as ma join ma.carrera as cr join mcm.nivelByNvlId as nv  join ha.horaClaseAula as hca join hca.horaClase as hc join hca.aula as al where mcp.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch inner join ch.mallaCurricularParalelo as mcp join ch.periodoAcademico as pa  where pa.pracEstado=0 and ch.detallePuesto.fichaDocente.fcdcId=:fdId group by mcp.mlcrprId) and hca.hoclalEstado=0 and ha.hracDia=:dia and hc.hoclHoraFin between :Hinicio and :Hfin order by cr.crrId,nv.nvlId, p.prlId, ha.hracDia");
+					"select ha.hracId,cr.crrId,nv.nvlId, p.prlId, ma.mtrId,ha.hracDia,hc.hoclId, al.alaId, mcp.mlcrprId, mcm.mlcrmtId from HorarioAcademico as ha join ha.mallaCurricularParalelo as mcp join mcp.paralelo as p join mcp.mallaCurricularMateria as mcm join mcm.materia as ma join ma.carrera as cr join mcm.nivelByNvlId as nv  join ha.horaClaseAula as hca join hca.horaClase as hc join hca.aula as al where mcp.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch inner join ch.mallaCurricularParalelo as mcp join ch.periodoAcademico as pa  where pa.pracEstado=0 and ch.detallePuesto.fichaDocente.fcdcId=:fdId group by mcp.mlcrprId) and hca.hoclalEstado=0 and ha.hracDia=:dia and cr.crrId=:crrId and hc.hoclHoraFin between :Hinicio and :Hfin order by cr.crrId,nv.nvlId, p.prlId, ha.hracDia, ha.hracDescripcion asc");
 			query.setParameter("fdId", integer).setParameter("dia", dia).setParameter("Hinicio", arrayHora[0])
-					.setParameter("Hfin", arrayHora[2]);
+					.setParameter("Hfin", arrayHora[2]).setParameter("crrId", crrId);
 			for (Object obj : query.getResultList()) {
 				arrayObj = (Object[]) obj;
 				HorarioAcademico ha = em.find(HorarioAcademico.class, arrayObj[0]);

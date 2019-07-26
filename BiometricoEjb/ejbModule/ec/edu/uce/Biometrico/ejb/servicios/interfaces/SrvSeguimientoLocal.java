@@ -54,7 +54,7 @@ public interface SrvSeguimientoLocal {
 
 	void guardarRegistro(Asistencia regAss);
 
-	void generar(Date ahora, Integer fclId);
+	boolean generar(Date ahora, Integer fclId);
 
 	void guardarActualizarSeguimiento(Seguimiento seguimiento);
 

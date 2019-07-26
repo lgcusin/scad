@@ -29,6 +29,7 @@ import SecuGen.FDxSDKPro.jni.SGPPPortAddr;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.JSDCLocal;
 import ec.uce.edu.biometrico.jpa.FichaDocente;
 import ec.uce.edu.biometrico.jpa.HuellaDactilar;
+import ec.uce.edu.biometrico.jpa.Persona;
 
 /**
  * Session Bean implementation class JSDC
@@ -274,14 +275,7 @@ public class JSDC implements JSDCLocal {
 					BufferedImage.TYPE_BYTE_GRAY);
 			byte[] imageBuffer1 = ((java.awt.image.DataBufferByte) imgn.getRaster().getDataBuffer()).getData();
 			long iError = SGFDxErrorCode.SGFDX_ERROR_NONE;
-			boolean data = false;
-			for (byte bi : imageBuffer1) {
-				if (bi != 0) {
-					data = true;
-					break;
-				}
-			}
-			if (fplib != null && data) {
+			if (fplib != null) {
 				iError = fplib.GetImageEx(imageBuffer1, 5 * 1000, 0, 50);
 				fplib.GetImageQuality(deviceInfo.imageWidth, deviceInfo.imageHeight, imageBuffer1, quality);
 				SGFingerInfo fingerInfo = new SGFingerInfo();
@@ -339,16 +333,16 @@ public class JSDC implements JSDCLocal {
 							} else {
 								System.out.println("Reg. Capture FAIL QC. Quality[" + quality[0] + "] NFIQ[" + nfiqvalue
 										+ "] Minutiae[" + numOfMinutiae[0] + "]");
-								new FichaDocente(999999);
+								return null;
 							}
 						} else {
 							System.out.println("CreateTemplate() Error : " + iError);
-							new FichaDocente(999999);
+							return null;
 						}
 					}
 				} else {
 					System.out.println("GetImageEx() Error : " + iError);
-					return new FichaDocente(0);
+					return null;
 				}
 			} else {
 				System.out.println("JSGFPLib is not Initialized");
@@ -370,6 +364,7 @@ public class JSDC implements JSDCLocal {
 			Object obj = query.getSingleResult();
 			arrayObj = (Object[]) obj;
 			fd = (FichaDocente) arrayObj[0];
+			fd.setPersona((Persona) arrayObj[1]);
 		} catch (Exception e) {
 			System.out.println("Error al consultar docentes x huella");
 			return fd;

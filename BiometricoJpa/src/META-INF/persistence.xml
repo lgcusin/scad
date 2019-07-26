@@ -48,7 +48,7 @@
 			<!-- <property name="jboss.entity.manager.factory.jndi.name" value="java:/BiometricoEntityManagerFactory"/> -->
 			<property name="hibernate.transaction.jta.platform"
 				value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
-			<!-- <property name="hibernate.show_sql" value="true" /> -->
+			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.default_schema" value="sa"/>
 			<property name="hibernate.connection.password" value="admin"/>
 		</properties>

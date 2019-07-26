@@ -83,7 +83,7 @@ public class Seguimiento implements java.io.Serializable {
 	 * @return the contenidoCurricular
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CNT_ID", nullable = false)
+	@JoinColumn(name = "CNCR_ID", nullable = false)
 	public ContenidoCurricular getContenidoCurricular() {
 		return contenidoCurricular;
 	}

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="model.Syllabo"/>
 <fullyQualifiedTypeName name="javax.faces.application.FacesMessage.Severity"/>
 <fullyQualifiedTypeName name="javax.faces.application.FacesMessage"/>
 <fullyQualifiedTypeName name="model.Contenido"/>
@@ -44,7 +43,6 @@
 <fullyQualifiedTypeName name="com.sun.org.omg.CORBA.InitializerHelper"/>
 <fullyQualifiedTypeName name="javax.persistence.Query"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Persona"/>
-<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.HorarioAcademico"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Seguimiento"/>
 <fullyQualifiedTypeName name="java.lang.Boolean"/>
@@ -54,10 +52,12 @@
 <fullyQualifiedTypeName name="ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvEmpleadoLocal"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Feriado"/>
 <fullyQualifiedTypeName name="ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvDocenteLocal"/>
-<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Asistencia"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.FichaDocente"/>
 <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.HorarioAcademico"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Asistencia"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
 </qualifiedTypeNameHistroy>

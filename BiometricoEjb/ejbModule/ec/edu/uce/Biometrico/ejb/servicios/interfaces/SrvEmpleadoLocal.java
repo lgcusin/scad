@@ -16,7 +16,7 @@ public interface SrvEmpleadoLocal {
 
 	List<FichaDocente> listarDocentes(Integer crrId);
 
-	List<HorarioAcademico> listarHorariosxDocentexFechaHora(Integer integer, Integer[] arrayHora, int dia);
+	List<HorarioAcademico> listarHorariosxDocentexFechaHora(Integer integer, Integer[] arrayHora, int dia, Integer crrId);
 
 	List<FichaDocente> listarDocentesxCarrera(Integer crrId);
 

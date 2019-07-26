@@ -31,9 +31,13 @@
 						oncomplete="handleDialogRequest(args)">
 					</p:commandButton>
 				</p:panel>
-				<p:commandButton id="btnInicio" value="Inicia sistema" 
-					action="#{control.probar()}"  oncomplete="darClick()">
+				<p:commandButton id="btnInicio" value="Inicia sistema"
+					action="#{control.generar()}">
 				</p:commandButton>
+
+				<!-- <p:commandButton id="btnInicio" value="Inicia sistema" 
+					action="#{control.probar()}"  oncomplete="darClick()">
+				</p:commandButton> -->
 			</center>
 			<br />
 			<br />
@@ -89,12 +93,12 @@
 								itemValue="#{cn.cncrDescripcion}"></f:selectItems>
 							<p:column style="width:99%" headerText="TEMA DE CLASE">
 								<h:outputText value="#{Cnt}" />
-								<h:selectBooleanCheckbox value="#{control.sgmObservacion}">
-									<f:selectItem itemValue="PENDIENTE" itemLabel="P" />
-									<!-- <f:selectItem itemValue="COMPLETADO" itemLabel="C" /> -->
-								</h:selectBooleanCheckbox>
 							</p:column>
 						</p:selectManyMenu>
+						<h:selectBooleanCheckbox value="#{control.sgmEstado}" rendered="#{control.flagFin}">
+							<f:selectItem itemValue="PENDIENTE" itemLabel="PENDIENTE" />
+							<f:selectItem itemValue="COMPLETADO" itemLabel="COMPLETADO" />
+						</h:selectBooleanCheckbox>
 						<h:outputLabel value="Observacion:"></h:outputLabel>
 						<p:inputTextarea counter="display" title="Ingrese la observacion"
 							value="#{control.sgmObservacion}" maxlength="300"
@@ -133,6 +137,7 @@
 				resizable="false">
 				<p:outputPanel id="otpnAsistencia">
 					<p:panel>
+						<h:outputLabel value="#{control.regDcnt.persona.prsPrimerApellido} #{control.regDcnt.persona.prsSegundoApellido} #{control.regDcnt.persona.prsNombres}"/>
 						<p:dataTable id="tblAsistencia" value="#{control.lstAss}" var="As">
 							<p:column id="clmFecha" headerText="FECHA">
 								<h:outputText value="#{As.assFecha}" />
@@ -141,11 +146,11 @@
 								<h:outputText
 									value="#{As.horarioAcademico.mallaCurricularParalelo.mallaCurricularMateria.materia.mtrDescripcion}" />
 							</p:column>
-							<p:column id="clmEntrada" headerText="HORA ENTRADA">
+							<p:column id="clmEntrada" headerText="HORARIO">
 								<h:outputText value="#{As.assHoraEntrada}" />
 							</p:column>
-							<p:column id="clmSalida" headerText="HORA SALIDA">
-								<h:outputText value="#{As.assHoraSalida}" />
+							<p:column id="clmSalida" headerText="ESTADO">
+								<h:outputText value="#{As.assEstado}" />
 							</p:column>
 						</p:dataTable>
 					</p:panel>
@@ -172,7 +177,6 @@
 				var objO = document.getElementByid('btnInicio');
 				objO.click();
 			}
-			
 		</script>
 	</ui:define>
 </ui:composition>

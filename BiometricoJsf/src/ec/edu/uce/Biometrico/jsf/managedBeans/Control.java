@@ -52,7 +52,7 @@ public class Control {
 	public String hora;
 	public Date ahora;
 	public SimpleDateFormat formateador;
-	public boolean generado = true;
+	public boolean generado = false;
 	public boolean flagDlg;
 	public boolean flagIni;
 	public boolean flagFin;
@@ -60,6 +60,7 @@ public class Control {
 	private String horaClase;
 	private String sgmObservacion;
 	private Integer sgmHoraClaseRestante;
+	private String sgmEstado;
 	private boolean flagHrr;
 	private boolean dispositivo = true;
 
@@ -74,7 +75,8 @@ public class Control {
 
 	public void iniciar() {
 		regDcnt = new FichaDocente();
-		srvDvc.inicializar();
+		dispositivo = srvDvc.inicializar();
+		srvDvc.onLED();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -83,11 +85,10 @@ public class Control {
 		ahora = new Date();
 		formateador = new SimpleDateFormat("HH:mm:ss");
 		hora = formateador.format(ahora);
-		if (generado && ahora.getHours() == 5) {
+		if (!generado && ahora.getHours() == 5) {
 			generar();
-			generado = false;
 		} else if (ahora.getHours() == 6) {
-			generado = true;
+			generado = false;
 		}
 	}
 
@@ -97,24 +98,29 @@ public class Control {
 
 	public void detectar() throws SQLException, IOException, InterruptedException {
 		// TimeUnit.MILLISECONDS.sleep(1000);
-		regDcnt = srvDvc.comparar();
-		if (regDcnt != null) {
-			if (regDcnt.getFcdcId() != null) {
-				registrar();
-			} else if (regDcnt.getFcdcId() == 0 || regDcnt.getFcdcId() == 999999) {
-				System.out.println("No hay docente");
+		if (dispositivo) {
+			regDcnt = srvDvc.comparar();
+			if (regDcnt != null) {
+				if (regDcnt.getFcdcId() != null) {
+					registrar();
+				} else if (regDcnt.getFcdcId() == 0 || regDcnt.getFcdcId() == 999999) {
+					System.out.println("No hay docente");
 
-			} else if (regDcnt.getFcdcId() == null) {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Docente no registrado", "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Problema con SecuGen USB",
-						"Verificar el funcionamiento");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-				srvDvc.cerrar();
+				} else if (regDcnt.getFcdcId() == null) {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Docente no registrado", "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				} else {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Problema con SecuGen USB",
+							"Verificar el funcionamiento");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+					srvDvc.cerrar();
 
+				}
 			}
+		} else {
+			dispositivo = srvDvc.inicializar();
 		}
+
 	}
 
 	public String registrar() throws SQLException, IOException {
@@ -126,7 +132,7 @@ public class Control {
 		hrrI = srvSgmt.verificarHorario(ahora, regDcnt.getFcdcId(), true, fclId, 1);
 		hrrF = srvSgmt.verificarHorario(ahora, regDcnt.getFcdcId(), false, fclId, 2);
 
-		if (hrrI != null && hrrF.getHracId() != null) {
+		if (hrrI.getHracId() != null && hrrF.getHracId() != null) {
 			lstAss = srvSgmt.marcacionReg(ahora, regDcnt.getFcdcId());
 			for (Asistencia asistencia : lstAss) {
 				if (asistencia.getHorarioAcademico().getHracId().equals(hrrF.getHracId())
@@ -245,16 +251,12 @@ public class Control {
 		lstAss = new ArrayList<>();
 		for (Asistencia ass : lstAuxA) {
 			if (ass.getHorarioAcademico().getHoraClaseAula().getHoraClase().getHoclHoraInicio() <= ahora.getHours()) {
+				ass.setAssHoraEntrada(srvSgmt.obtenerHoraClasexHorario(ass.getHorarioAcademico()));
 				lstAss.add(ass);
 			}
 		}
-		horaClase = srvSgmt.obtenerHoraClasexHorario(hrrI);
 		flagHrr = true;
 		flagDlg = false;
-		// FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "No
-		// existen horarios para iniciar una clase",
-		// null);
-		// FacesContext.getCurrentInstance().addMessage(null, msg);
 		RequestContext.getCurrentInstance().addCallbackParam("flagHrr", flagHrr);
 		RequestContext.getCurrentInstance().addCallbackParam("flagDlg", flagDlg);
 		return null;
@@ -305,7 +307,6 @@ public class Control {
 				}
 				lstCnt = lstAux;
 			}
-			// root1 = createCheckboxDocuments();
 			regAss = asistencia;
 			regAss.setFichaDocente(regDcnt);
 			formateador = new SimpleDateFormat("HH:mm");
@@ -333,8 +334,8 @@ public class Control {
 					hrrF.getMallaCurricularParalelo().getMallaCurricularMateria().getMateria().getMtrId(),
 					regDcnt.getFcdcId());
 			horaClase = srvSgmt.obtenerHoraClasexHorario(hrrI);
-			int tiempo = hrrI.getHoraClaseAula().getHoraClase().getHoclHoraFin()
-					- hrrI.getHoraClaseAula().getHoraClase().getHoclHoraInicio();
+			int tiempo = hrrF.getHoraClaseAula().getHoraClase().getHoclHoraFin()
+					- hrrF.getHoraClaseAula().getHoraClase().getHoclHoraInicio();
 			if (!lstSgmt.isEmpty()) {
 				sgmHoraClaseRestante = lstSgmt.get(lstSgmt.size() - 1).getSgmHoraClaseRestante() - tiempo;
 				sgmObservacion = lstSgmt.get(lstSgmt.size() - 1).getSgmObservacion();
@@ -343,7 +344,7 @@ public class Control {
 			regAss = asistencia;
 			formateador = new SimpleDateFormat("HH:mm");
 			regAss.setAssHoraSalida(formateador.format(ahora));
-			regAss.setAssEstado("Finalizado");
+			regAss.setAssEstado("FINALIZADO");
 			flagFin = true;
 			flagDlg = true;
 			RequestContext.getCurrentInstance().addCallbackParam("flagDlg", flagDlg);
@@ -357,15 +358,15 @@ public class Control {
 		try {
 			if (selecCnts.isEmpty() && flagIni) {
 				flagDlg = true;
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Debe escoger una Actividad", null);
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Debe escoger un tema", null);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 				RequestContext.getCurrentInstance().addCallbackParam("flagDlg", flagDlg);
 			} else if (selecCnts.isEmpty() && flagFin) {
-				srvSgmt.guardarRegistro(regAss);
 				if (!sgmObservacion.equals(lstSgmt.get(lstSgmt.size() - 1).getSgmObservacion())) {
 					lstSgmt.get(lstSgmt.size() - 1).setSgmObservacion(sgmObservacion);
 					srvSgmt.guardarActualizarSeguimiento(lstSgmt.get(lstSgmt.size() - 1));
 				}
+				actualizarRegistros(regAss);
 				cleanClose();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Asistencia guardada", null);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -375,7 +376,7 @@ public class Control {
 					for (ContenidoCurricular con : lstCnt) {
 						if (selectcnt.equals(con.getCncrDescripcion())) {
 							// con.setCncrEstado("COMPLETADO");
-							srvSgmt.guardarActualizarContenido(con);
+							//srvSgmt.guardarActualizarContenido(con);
 							Seguimiento seg = new Seguimiento();
 							seg.setAsistencia(regAss);
 							if (flagIni) {
@@ -386,13 +387,13 @@ public class Control {
 							seg.setContenidoCurricular(con);
 							seg.setSgmObservacion(sgmObservacion);
 							seg.setSgmHoraClaseRestante(sgmHoraClaseRestante);
-							seg.setSgmEstado("PENDIENTE");
+							seg.setSgmEstado(sgmEstado);
 							srvSgmt.guardarActualizarSeguimiento(seg);
 						}
 					}
 
 				}
-				srvSgmt.guardarRegistro(regAss);
+				actualizarRegistros(regAss);
 				cleanClose();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Asistencia guardada", null);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -408,6 +409,20 @@ public class Control {
 
 	}
 
+	public void actualizarRegistros(Asistencia regAss){
+		for (Asistencia as : lstAss) {
+			if (regAss.getHorarioAcademico().getMallaCurricularParalelo().getMlcrprId()
+					.equals(as.getHorarioAcademico().getMallaCurricularParalelo().getMlcrprId())) {
+				as.setAssEstado(regAss.getAssEstado());
+				if (flagIni) {
+					as.setAssHoraEntrada(regAss.getAssHoraEntrada());
+				} else {
+					as.setAssHoraSalida(regAss.getAssHoraSalida());;
+				}
+				srvSgmt.guardarRegistro(as);
+			}
+		}	
+	}
 	public TreeNode createCheckboxDocuments() {
 		TreeNode root = new DefaultTreeNode("Root", null);
 		List<UnidadCurricular> lstUn = srvSgmt.listarUnidadCurricular(
@@ -440,14 +455,7 @@ public class Control {
 	}
 
 	public void generar() {
-		if (srvDvc.inicializar()) {
-			srvSgmt.generar(ahora, fclId);
-			generado = false;
-		} else {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Lector no encontrado", null);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-
+		generado = srvSgmt.generar(ahora, fclId);
 	}
 
 	// setters and getters
@@ -596,7 +604,7 @@ public class Control {
 	}
 
 	/**
-
+	 * 
 	 * @return the lstAss
 	 */
 	public List<Asistencia> getLstAss() {
@@ -610,7 +618,24 @@ public class Control {
 	public void setLstAss(List<Asistencia> lstAss) {
 		this.lstAss = lstAss;
 	}
+	
+	
 
+	/**
+	 * @return the sgmEstado
+	 */
+	public String getSgmEstado() {
+		return sgmEstado;
+	}
+
+	/**
+	 * @param sgmEstado the sgmEstado to set
+	 */
+	public void setSgmEstado(String sgmEstado) {
+		this.sgmEstado = sgmEstado;
+	}
+
+	/*
 	 * Metodo que permite mostrar el sistema biometrico sin otra aplicacion en
 	 * el sistema.
 	 * 
