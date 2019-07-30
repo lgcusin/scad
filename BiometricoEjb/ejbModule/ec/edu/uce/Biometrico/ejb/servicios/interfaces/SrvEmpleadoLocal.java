@@ -12,7 +12,7 @@ import ec.uce.edu.biometrico.jpa.UnidadCurricular;
 @Local
 public interface SrvEmpleadoLocal {
 
-	List<Carrera> listarCarreras(Integer fcId);
+	List<Carrera> listarCarreras(Integer fdId);
 
 	List<FichaDocente> listarDocentes(Integer crrId);
 

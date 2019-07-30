@@ -2,37 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="OpenDevice() Error" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
-			<item value="OpenDevice() Error"/>
-			<item value="OpenDevice"/>
-			<item value="otpnAsistencia"/>
-			<item value="otpnControl"/>
-			<item value="dlgCntrl"/>
-			<item value="listarAssts"/>
-			<item value="validarDependencia()"/>
-			<item value="validarDependencia"/>
+			<item value="require"/>
+			<item value="registroPrl"/>
+			<item value="pnlhorario"/>
+			<item value="id=&quot;dtsParalelos"/>
+			<item value="dtsParalelos"/>
+			<item value="pnlResultados"/>
+			<item value="verDataHorario"/>
+			<item value="mtrDescripcion"/>
 		</list>
 		<list key="replacehistory">
+			<item value="registroExamen"/>
+			<item value="pnlAsistencia"/>
 			<item value="carrera"/>
 			<item value="Carrera"/>
 			<item value="cncrDescripcion"/>
 			<item value="mtrDescripcion"/>
 			<item value="crrDescripcion"/>
 			<item value="Integer"/>
-			<item value="frmGenerarRegistros"/>
-			<item value="mcpr"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="284" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="391" key="DIALOG_HEIGHT"/>
-		<item value="996" key="DIALOG_X_ORIGIN"/>
-		<item value="355" key="DIALOG_Y_ORIGIN"/>
+		<item value="954" key="DIALOG_X_ORIGIN"/>
+		<item value="244" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

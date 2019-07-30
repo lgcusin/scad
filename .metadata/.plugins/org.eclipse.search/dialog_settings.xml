@@ -20,7 +20,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="obtenerSecuencia" key="textPattern"/>
+			<item value="Error al crear registro laboral docente" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*.*"/>
@@ -32,7 +32,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="List&lt;Dependencia&gt;" key="textPattern"/>
+			<item value="validarfe" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*.*"/>
@@ -44,7 +44,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="JSGFPLib is not Initialized" key="textPattern"/>
+			<item value="listarM" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*.*"/>
@@ -56,7 +56,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="guardarAsis" key="textPattern"/>
+			<item value="OpenDevice() Error" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*.*"/>
@@ -68,7 +68,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="OpenDevice() Error" key="textPattern"/>
+			<item value="Error al consultar seguimiento-syllabus" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*.*"/>
@@ -84,7 +84,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="(Horario" key="textPattern"/>
+			<item value="obtenerSecuencia" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*.*"/>
@@ -96,7 +96,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="setCarreraID" key="textPattern"/>
+			<item value="char" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*.*"/>
@@ -108,7 +108,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value=" new SimpleDateFormat(" key="textPattern"/>
+			<item value="JSGFPLib is not Initialized" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*.*"/>
@@ -120,7 +120,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="validarfe" key="textPattern"/>
+			<item value="buscarC" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*.*"/>
@@ -132,7 +132,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="char" key="textPattern"/>
+			<item value="listarC" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*.*"/>
@@ -144,7 +144,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="Error al consultar seguimiento-syllabus" key="textPattern"/>
+			<item value="validarFecha" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*.*"/>
@@ -156,7 +156,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="Error al crear registro laboral docente" key="textPattern"/>
+			<item value="type=&quot;date&quot;" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*.*"/>

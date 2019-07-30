@@ -99,8 +99,8 @@ public class Principal {
 
 	}
 
-	public String regParalelo() {
-		return "registroParalelo";
+	public String regExamen() {
+		return "registroExamen";
 	}
 
 	public String regFeriado() {

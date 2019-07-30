@@ -31,9 +31,6 @@ public class Paralelo implements java.io.Serializable {
 	private String prlDescripcion;
 	private Integer prlEstado;
 	private Integer prlCupo;
-	private Serializable prlFecha;
-	private Serializable prlInicioClase;
-	private Serializable prlFinClase;
 	private List<MallaCurricularParalelo> mallaCurricularParalelos = new ArrayList<MallaCurricularParalelo>(0);
 
 	public Paralelo() {
@@ -45,8 +42,7 @@ public class Paralelo implements java.io.Serializable {
 	}
 
 	public Paralelo(Integer prlId, PeriodoAcademico periodoAcademico, Carrera carrera, String prlCodigo,
-			String prlDescripcion, Integer prlEstado, Integer prlCupo, Serializable prlFecha,
-			Serializable prlInicioClase, Serializable prlFinClase,
+			String prlDescripcion, Integer prlEstado, Integer prlCupo,
 			List<MallaCurricularParalelo> mallaCurricularParalelos) {
 		this.prlId = prlId;
 		this.periodoAcademico = periodoAcademico;
@@ -55,9 +51,6 @@ public class Paralelo implements java.io.Serializable {
 		this.prlDescripcion = prlDescripcion;
 		this.prlEstado = prlEstado;
 		this.prlCupo = prlCupo;
-		this.prlFecha = prlFecha;
-		this.prlInicioClase = prlInicioClase;
-		this.prlFinClase = prlFinClase;
 		this.mallaCurricularParalelos = mallaCurricularParalelos;
 	}
 
@@ -126,33 +119,6 @@ public class Paralelo implements java.io.Serializable {
 
 	public void setPrlCupo(Integer prlCupo) {
 		this.prlCupo = prlCupo;
-	}
-
-	@Column(name = "PRL_FECHA")
-	public Serializable getPrlFecha() {
-		return this.prlFecha;
-	}
-
-	public void setPrlFecha(Serializable prlFecha) {
-		this.prlFecha = prlFecha;
-	}
-
-	@Column(name = "PRL_INICIO_CLASE")
-	public Serializable getPrlInicioClase() {
-		return this.prlInicioClase;
-	}
-
-	public void setPrlInicioClase(Serializable prlInicioClase) {
-		this.prlInicioClase = prlInicioClase;
-	}
-
-	@Column(name = "PRL_FIN_CLASE")
-	public Serializable getPrlFinClase() {
-		return this.prlFinClase;
-	}
-
-	public void setPrlFinClase(Serializable prlFinClase) {
-		this.prlFinClase = prlFinClase;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "paralelo")

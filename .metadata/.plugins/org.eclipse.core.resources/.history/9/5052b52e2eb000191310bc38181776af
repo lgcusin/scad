@@ -1,0 +1,442 @@
+package ec.edu.uce.Biometrico.jsf.managedBeans;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
+
+import org.primefaces.event.RowEditEvent;
+
+import ec.edu.uce.Biometrico.ejb.servicios.impl.SrvEmpleado;
+import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvEmpleadoLocal;
+import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvHorarioLocal;
+import ec.uce.edu.biometrico.jpa.Asistencia;
+import ec.uce.edu.biometrico.jpa.Carrera;
+import ec.uce.edu.biometrico.jpa.HorarioAcademico;
+import ec.uce.edu.biometrico.jpa.HorarioAcademicoExamen;
+import ec.uce.edu.biometrico.jpa.Materia;
+import ec.uce.edu.biometrico.jpa.Paralelo;
+import ec.uce.edu.biometrico.jpa.Nivel;
+
+@ManagedBean(name = "registroExamen")
+@ViewScoped
+public class RegistroHorarioExamen {
+
+	@EJB
+	private SrvHorarioLocal srvHor;
+	@EJB
+	private SrvEmpleadoLocal srvEmp;
+	private Login l;
+
+	private Materia selectMtr;
+	private Carrera selectCrr;
+	private Nivel selectSem;
+	private Paralelo selectPar;
+	private Integer crrId;
+	private Integer mtrId;
+	private Integer smsId;
+	private List<Carrera> lstC;
+	private List<Materia> lstM;
+	private List<Asistencia> lstAsistencias;
+	private List<Nivel> lstS;
+	private List<Paralelo> lstParalelos;
+	private List<HorarioAcademico> lstHorarios;
+	private Boolean flagEditar;
+	private Date assFecha;
+	private Integer hracexHoraInicio;
+
+	@PostConstruct
+	public void init() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		l = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
+		lstC = srvEmp.listarCarreras(l.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId());
+		iniciar();
+	}
+
+	public void iniciar() {
+		selectCrr = new Carrera();
+		selectSem = new Nivel();
+		selectMtr = new Materia();
+		flagEditar = false;
+
+	}
+
+	public void setCarreraID(ValueChangeEvent event) {
+		if (event.getNewValue() != null) {
+			System.out.println("Metodo de setear codigo carrera: " + event.getNewValue());
+			crrId = (Integer) event.getNewValue();
+			lstS = srvHor.listarSemestrexCarrera(
+					l.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId(), crrId);
+		} else {
+			selectSem.setNvlId(null);
+			selectMtr.setMtrId(null);
+			System.out.println("No ha seleccionada una carrera: ");
+		}
+	}
+
+	public void setNivelID(ValueChangeEvent event) {
+		if (event.getNewValue() != null && crrId != null) {
+			smsId = (Integer) event.getNewValue();
+			lstM = srvHor.listarMatBySem(
+					l.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId(), smsId, crrId);
+			if (lstM != null) {
+				System.out.println("Si hay de materias por semestre seleccionado: " + lstM.size());
+			} else {
+				System.out.println("No hay de materias por semestre seleccionado");
+			}
+		} else {
+			lstAsistencias = null;
+		}
+	}
+
+	public void setMateriaID(ValueChangeEvent event) {
+		if (event.getNewValue() != null) {
+			System.out.println("Metodo de buscar horarios por id materia: " + event.getNewValue());
+			mtrId = (Integer) event.getNewValue();
+		}
+	}
+
+	public void buscarParalelos() {
+		System.out.println("Metodo que busca paralelos existentes por materia y semestre");
+		if (crrId != null && mtrId != null && smsId != null) {
+			lstParalelos = srvHor.listarParalelosHorario(
+					l.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId(), smsId, mtrId,
+					crrId);
+			if (lstParalelos != null) {
+				System.out.println("Paralelos encontrados: " + lstParalelos.size());
+			} else {
+				System.out.println("Paralelos NO encontrados");
+			}
+		} else {
+			System.out.println("Seleccione la carrera y materia a listar paralelos");
+		}
+	}
+
+	public void limpiarFiltros() {
+		selectSem.setNvlId(null);
+		selectMtr.setMtrId(null);
+		lstParalelos = null;
+		lstHorarios = null;
+		flagEditar = false;
+	}
+
+	public void editarDataHorario() {
+		System.out.println("Metodo para ver informacion de horario");
+		lstHorarios = srvHor.listarHorarios(
+				l.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId(), selectPar.getPrlId(),
+				selectMtr.getMtrId());
+
+		flagEditar = true;
+	}
+
+	public void onAddNew() {
+		HorarioAcademico h = new HorarioAcademico();
+		if (lstHorarios != null && lstHorarios.size() == 0) {
+			FacesContext context = FacesContext.getCurrentInstance();
+			RegistroHorarioExamen rp = context.getApplication().evaluateExpressionGet(context, "#{registroPrl}",
+					RegistroHorarioExamen.class);
+		} else {
+
+		}
+		lstHorarios.add(h);
+		FacesMessage msg = new FacesMessage("Nuevo registro añadido");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowEdit(RowEditEvent event) {
+		actualizar((HorarioAcademico) event.getObject());
+	}
+
+	public void actualizar(HorarioAcademico hor) {
+		System.out.println("Guardar cambios de horario");
+		try {
+			if (hor.getHracId() != null) {
+				HorarioAcademicoExamen horEx = new HorarioAcademicoExamen();
+				horEx.setHracexHoraInicio(hracexHoraInicio);
+				
+				Asistencia asis = new Asistencia();
+				asis.setAssFecha(assFecha);
+				asis.setAssEstado("EXAMEN");
+				asis.setHorarioAcademico(hor);
+				asis.setFichaDocente(l.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0));
+				
+				
+				
+				validarHorario(hor);
+			} else {
+				System.out.println("Es registro nuevo");
+				validarHorario(hor);
+			}
+		} catch (Exception e) {
+			System.out.println("Error al guardar horario" + e);
+		}
+	}
+
+	private void validarHorario(HorarioAcademico hor) {
+		boolean cambios = false;
+		if (cambios) {
+			srvHor.guardarHorario(hor);
+		} else {
+			System.out.println("Registro sin cambios: " + hor.getHracId());
+		}
+	}
+
+	public String guardar() {
+		System.out.println("Guardar cambios de horario");
+		// registroHorario.getMateria().setMtrId(paralelo.getSelectMtr().getMtrId());
+		// //
+		// registroHorario.getParalelo().setPrlId(horario.getSelectPar().getPrlId());
+		// srvHor.guardarHorario(registroHorario);
+		// initRegistroHorario();
+		return null;
+	}
+
+	public void onRowCancel(RowEditEvent event) {
+	}
+
+	public void eliminarHorario(HorarioAcademico hor) {
+		System.out.println("Metodo que elimina el horario");
+		List<HorarioAcademico> lstAux = new ArrayList<>();
+		for (HorarioAcademico horario : lstHorarios) {
+			if (horario.getHracId() != hor.getHracId()) {
+				lstAux.add(horario);
+			} else {
+				srvHor.eliminarHorario(horario);
+			}
+		}
+		System.out.println("Nueva lista de horarios" + lstAux.size());
+		lstHorarios = lstAux;
+	}
+
+	// Setters and getters
+
+	public List<Materia> getLstM() {
+		return lstM;
+	}
+
+	public Materia getSelectMtr() {
+		return selectMtr;
+	}
+
+	public void setSelectMtr(Materia selectMtr) {
+		this.selectMtr = selectMtr;
+	}
+
+	public void setLstM(List<Materia> lstM) {
+		this.lstM = lstM;
+	}
+
+	public List<Carrera> getLstC() {
+		return lstC;
+	}
+
+	public void setLstC(List<Carrera> lstC) {
+		this.lstC = lstC;
+	}
+
+	/**
+	 * @return the selectCrr
+	 */
+	public Carrera getSelectCrr() {
+		return selectCrr;
+	}
+
+	/**
+	 * @param selectCrr
+	 *            the selectCrr to set
+	 */
+	public void setSelectCrr(Carrera selectCrr) {
+		this.selectCrr = selectCrr;
+	}
+
+	public Integer getCrrId() {
+		return crrId;
+	}
+
+	public void setCrrId(Integer crrId) {
+		this.crrId = crrId;
+	}
+
+	/**
+	 * The srvHor to get.
+	 * 
+	 * @return the srvHor
+	 */
+	public SrvHorarioLocal getSrvHor() {
+		return srvHor;
+	}
+
+	/**
+	 * The srvHor to set.
+	 * 
+	 * @param srvHor
+	 */
+	public void setSrvHor(SrvHorarioLocal srvHor) {
+		this.srvHor = srvHor;
+	}
+
+	/**
+	 * The selectSem to get.
+	 * 
+	 * @return the selectSem
+	 */
+	public Nivel getSelectSem() {
+		return selectSem;
+	}
+
+	/**
+	 * The selectSem to set.
+	 * 
+	 * @param selectSem
+	 */
+	public void setSelectSem(Nivel selectSem) {
+		this.selectSem = selectSem;
+	}
+
+	/**
+	 * The lstS to get.
+	 * 
+	 * @return the lstS
+	 */
+	public List<Nivel> getLstS() {
+		return lstS;
+	}
+
+	/**
+	 * The lstS to set.
+	 * 
+	 * @param lstS
+	 */
+	public void setLstS(List<Nivel> lstS) {
+		this.lstS = lstS;
+	}
+
+	/**
+	 * @return the lstAsistencias
+	 */
+	public List<Asistencia> getLstAsistencias() {
+		return lstAsistencias;
+	}
+
+	/**
+	 * @param lstAsistencias
+	 *            the lstAsistencias to set
+	 */
+	public void setLstAsistencias(List<Asistencia> lstAsistencias) {
+		this.lstAsistencias = lstAsistencias;
+	}
+
+	/**
+	 * The mtrId to get.
+	 * 
+	 * @return the mtrId
+	 */
+	public Integer getMtrId() {
+		return mtrId;
+	}
+
+	/**
+	 * The mtrId to set.
+	 * 
+	 * @param mtrId
+	 */
+	public void setMtrId(Integer mtrId) {
+		this.mtrId = mtrId;
+	}
+
+	/**
+	 * The smsId to get.
+	 * 
+	 * @return the smsId
+	 */
+	public Integer getSmsId() {
+		return smsId;
+	}
+
+	/**
+	 * The smsId to set.
+	 * 
+	 * @param smsId
+	 */
+	public void setSmsId(Integer smsId) {
+		this.smsId = smsId;
+	}
+
+	/**
+	 * The lstParalelos to get.
+	 * 
+	 * @return the lstParalelos
+	 */
+	public List<Paralelo> getLstParalelos() {
+		return lstParalelos;
+	}
+
+	/**
+	 * The lstParalelos to set.
+	 * 
+	 * @param lstParalelos
+	 */
+	public void setLstParalelos(List<Paralelo> lstParalelos) {
+		this.lstParalelos = lstParalelos;
+	}
+
+	/**
+	 * The selectPar to get.
+	 * 
+	 * @return the selectPar
+	 */
+	public Paralelo getSelectPar() {
+		return selectPar;
+	}
+
+	/**
+	 * The selectPar to set.
+	 * 
+	 * @param selectPar
+	 */
+	public void setSelectPar(Paralelo selectPar) {
+		this.selectPar = selectPar;
+	}
+
+	/**
+	 * The flagEditar to get.
+	 * 
+	 * @return the flagEditar
+	 */
+	public Boolean getFlagEditar() {
+		return flagEditar;
+	}
+
+	/**
+	 * The flagEditar to set.
+	 * 
+	 * @param flagEditar
+	 */
+	public void setFlagEditar(Boolean flagEditar) {
+		this.flagEditar = flagEditar;
+	}
+
+	/**
+	 * @return the lstHorarios
+	 */
+	public List<HorarioAcademico> getLstHorarios() {
+		return lstHorarios;
+	}
+
+	/**
+	 * @param lstHorarios
+	 *            the lstHorarios to set
+	 */
+	public void setLstHorarios(List<HorarioAcademico> lstHorarios) {
+		this.lstHorarios = lstHorarios;
+	}
+
+}

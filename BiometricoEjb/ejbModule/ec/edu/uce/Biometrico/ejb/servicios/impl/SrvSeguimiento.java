@@ -187,67 +187,17 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			parametroSalidaD = buscarParametroVista(3, lstP);
 			atraso = buscarParametroVista(4, lstP);
 		}
-		double horas = Integer.parseInt(fecha.getHours() + "");
-		double minutos = Integer.parseInt(fecha.getMinutes() + "");
+		double horas = fecha.getHours();
+		double minutos = fecha.getMinutes();
 		double horasProceso = 0;
-//		Double minutosProceso = 0.0;
-		Double horIni = 0.0;
-		Double horFin = 0.0;
-		// int holguraInicio = 0;
-		// int holguraFin = 0;
-		// switch (estado) {
-		// case 1:
-		// holguraInicio = minutos - parametroEntrada;
-		// holguraFin = minutos + parametroEntradaD;
-		// System.out.println("Iniciado");
-		// break;
-		// case 2:
-		// holguraInicio = minutos - parametroSalida;
-		// holguraFin = minutos + parametroSalidaD;
-		// System.out.println("finalizado");
-		// break;
-		// case 0:
-		// holguraInicio = minutos - (parametroEntrada + atraso);
-		// holguraFin = minutos + (parametroEntradaD - atraso);
-		// break;
-		// default:
-		// holguraInicio = minutos - (parametroEntradaD + atraso);
-		// holguraFin = minutos + (parametroEntradaD - atraso);
-		// break;
-		// }
+		double horIni = 0;
+		double horFin = 0;
 		String horaRegistro = fecha.getHours() + ":" + fecha.getMinutes();
 		System.out.println("Hora actual: " + horaRegistro);
-		// if (holguraInicio < 0) {
-		// horasProceso = horas - 1;
-		// if (holguraInicio == 0) {
-		// minutosProceso = 0.0;
-		// } else {
-		// minutosProceso = (double) (60 + holguraInicio);
-		// }
-		// } else {
-		// horasProceso = horas;
-		// minutosProceso = (double) holguraInicio;
-		// }
-		// horIni = (double) (horasProceso + (minutosProceso / 100));
-		// // String horIni = validarTamMinutos(horasProceso) + ":" +
-		// // validarTamMinutos(minutosProceso);
-		//
-		// if (holguraFin >= 60) {
-		// horasProceso = horas + 1;
-		// minutosProceso = (double) (holguraFin - 60);
-		// } else {
-		// horasProceso = horas;
-		// minutosProceso = (double) holguraFin;
-		// }
-		// horFin = (double) (horasProceso + (minutosProceso / 100));
-		// // String horFin = validarTamMinutos(horasProceso) + ":" +
-		// // validarTamMinutos(minutosProceso);
-		// System.out.println("Hora Holgura Inicio:" + horIni + "\nHora holgura
-		// Fin:" + horFin);
 		try {
 			Query query;
 			Object[] objArray;
-			Double horActual = (double) (horas + (minutos / 100));
+			double horActual = (double) (horas + (minutos / 100));
 			query = em.createQuery(
 					"select  ass,ha,fd,mcp,mcm,m,hca,al,hc from Asistencia as ass join ass.horarioAcademico as ha join ass.fichaDocente as fd join ha.horaClaseAula as hca join hca.aula as al join hca.horaClase as hc join ha.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m where fd.fcdcId=:fdId and ha.hracDia =:diaId order by ha.hracDescripcion asc");
 			query.setParameter("diaId", fecha.getDay() - 1).setParameter("fdId", fcdcId);
@@ -259,7 +209,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 					switch (estado) {
 					case 1:
 						System.out.println("Iniciado");
-						horIni = (double) (horasProceso - (parametroEntrada / 100));
+						horIni = (double) (horasProceso - ((parametroEntrada + 40) / 100));
 						horFin = (double) (horasProceso + (parametroEntradaD / 100));
 						break;
 					case 0:
@@ -273,36 +223,17 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 						break;
 					}
 					hr = new HorarioAcademico();
-					// if
-					// (hr.getHoraClaseAula().getHoraClase().getHoclHoraInicio()
-					// >= horIni
-					// &&
-					// hr.getHoraClaseAula().getHoraClase().getHoclHoraInicio()
-					// <= horFin) {
-					// break;
-					// }
-					// hr = new HorarioAcademico();
 				}
 			} else {
-				// query = em.createQuery(
-				// "select ass,ha,fd,mcp,mcm,m,hca,al,hc from Asistencia as ass
-				// join ass.horarioAcademico as ha join ass.fichaDocente as fd
-				// join ha.horaClaseAula as hca join hca.aula as al join
-				// hca.horaClase as hc join ha.mallaCurricularParalelo as mcp
-				// join mcp.mallaCurricularMateria as mcm join mcm.materia as m
-				// where fd.fcdcId=:fdId and ha.hracDia =:diaId order by
-				// ha.hracDescripcion asc");
-				// query.setParameter("diaId", fecha.getDay() -
-				// 1).setParameter("fdId", fcdcId);
 				for (Object object : query.getResultList()) {
 					objArray = (Object[]) object;
 					hr = (HorarioAcademico) objArray[1];
-					horasProceso = hr.getHoraClaseAula().getHoraClase().getHoclHoraInicio();
+					horasProceso = hr.getHoraClaseAula().getHoraClase().getHoclHoraFin();
 					switch (estado) {
 					case 2:
 						System.out.println("Finalizado");
-						horIni = (double) (horasProceso	- (parametroSalida / 100));
-						horFin = (double) (horasProceso	+ (parametroSalidaD / 100));
+						horIni = (double) (horasProceso - ((parametroSalida + 40) / 100));
+						horFin = (double) (horasProceso + (parametroSalidaD / 100));
 						break;
 					}
 					System.out.println("Hora Holgura Inicio:" + horIni + "\nHora holgura Fin:" + horFin);
@@ -802,7 +733,7 @@ public class SrvSeguimiento implements SrvSeguimientoLocal {
 			Query query;
 			Object[] objArray;
 			query = em.createQuery(
-					"select sg, mcp,mcm, mt, ass, cr from Seguimiento as sg join sg.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as mt join sg.asistencia as ass join ass.fichaDocente as fd join sg.contenidoCurricular as cr where mt.mtrId=:mtId and fd.fcdcId=:fdId order by sg.sgmId");
+					"select sg, mcp,mcm, mt, ass, cr from Seguimiento as sg join sg.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as mt join sg.asistencia as ass join ass.fichaDocente as fd join sg.contenidoCurricular as cr where mt.mtrId=:mtId and fd.fcdcId=:fdId and sg.sgmEstado = 'PENDIENTE'  order by sg.sgmId");
 			query.setParameter("mtId", mtrId).setParameter("fdId", fdId);
 			for (Object obj : query.getResultList()) {
 				objArray = (Object[]) obj;

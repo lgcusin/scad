@@ -95,10 +95,12 @@
 								<h:outputText value="#{Cnt}" />
 							</p:column>
 						</p:selectManyMenu>
-						<h:selectBooleanCheckbox value="#{control.sgmEstado}" rendered="#{control.flagFin}">
+						<p:outputLabel  value="Estado:" rendered="#{control.flagFin}"/>
+						<h:selectOneRadio id="slcEstado" value="#{control.sgmEstado}"
+							unselectable="true" rendered="#{control.flagFin}">
 							<f:selectItem itemValue="PENDIENTE" itemLabel="PENDIENTE" />
 							<f:selectItem itemValue="COMPLETADO" itemLabel="COMPLETADO" />
-						</h:selectBooleanCheckbox>
+						</h:selectOneRadio>
 						<h:outputLabel value="Observacion:"></h:outputLabel>
 						<p:inputTextarea counter="display" title="Ingrese la observacion"
 							value="#{control.sgmObservacion}" maxlength="300"
@@ -137,7 +139,8 @@
 				resizable="false">
 				<p:outputPanel id="otpnAsistencia">
 					<p:panel>
-						<h:outputLabel value="#{control.regDcnt.persona.prsPrimerApellido} #{control.regDcnt.persona.prsSegundoApellido} #{control.regDcnt.persona.prsNombres}"/>
+						<h:outputLabel
+							value="#{control.regDcnt.persona.prsPrimerApellido} #{control.regDcnt.persona.prsSegundoApellido} #{control.regDcnt.persona.prsNombres}" />
 						<p:dataTable id="tblAsistencia" value="#{control.lstAss}" var="As">
 							<p:column id="clmFecha" headerText="FECHA">
 								<h:outputText value="#{As.assFecha}" />

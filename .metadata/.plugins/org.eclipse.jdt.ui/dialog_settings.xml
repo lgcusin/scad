@@ -60,7 +60,7 @@
 		<item value="*" key="patterns"/>
 		<item value="true" key="updateSimilarElements"/>
 		<item value="true" key="renameSetter"/>
-		<item value="true" key="updateTextualMatches"/>
+		<item value="false" key="updateTextualMatches"/>
 		<item value="1" key="updateSimilarElementsMatchStrategy"/>
 		<item value="true" key="renameGetter"/>
 	</section>

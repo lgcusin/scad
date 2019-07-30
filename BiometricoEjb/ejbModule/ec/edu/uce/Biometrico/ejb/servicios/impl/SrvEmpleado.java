@@ -37,12 +37,15 @@ public class SrvEmpleado implements SrvEmpleadoLocal {
 	}
 
 	@Override
-	public List<Carrera> listarCarreras(Integer fcId) {
+	public List<Carrera> listarCarreras(Integer fdId) {
 		List<Carrera> lstC = new ArrayList<>();
 		try {
-			Query query = em.createQuery("select c from Carrera as c where c.dependencia.dpnId=:fcId")
-					.setParameter("fcId", fcId);
-			lstC = query.getResultList();
+			
+			Query query = em.createQuery("select cr.crrId from HorarioAcademico as ha join ha.mallaCurricularParalelo as mcpr join mcpr.paralelo as p join mcpr.mallaCurricularMateria as mcm join mcm.materia as ma join ma.carrera as cr join mcm.nivelByNvlId as nv  join ha.horaClaseAula as hca join hca.horaClase as hc join hca.aula as al  where mcpr.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch inner join ch.mallaCurricularParalelo as mcp join ch.periodoAcademico as pa  where pa.pracEstado=0 and ch.detallePuesto.fichaDocente.fcdcId=:fdId group by mcp.mlcrprId) and hca.hoclalEstado=0 group by cr.crrId order by cr.crrId asc")
+					.setParameter("fdId", fdId);
+			for(Object obj: query.getResultList()){
+				lstC.add(em.find(Carrera.class, obj));
+			}
 		} catch (Exception e) {
 			System.out.println(e);
 			return lstC;
@@ -77,9 +80,10 @@ public class SrvEmpleado implements SrvEmpleadoLocal {
 		try {
 			Object[] arrayObj;
 			Query query = em.createQuery(
-					"select ha.hracId,cr.crrId,nv.nvlId, p.prlId, ma.mtrId,ha.hracDia,hc.hoclId, al.alaId, mcp.mlcrprId, mcm.mlcrmtId from HorarioAcademico as ha join ha.mallaCurricularParalelo as mcp join mcp.paralelo as p join mcp.mallaCurricularMateria as mcm join mcm.materia as ma join ma.carrera as cr join mcm.nivelByNvlId as nv  join ha.horaClaseAula as hca join hca.horaClase as hc join hca.aula as al where mcp.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch inner join ch.mallaCurricularParalelo as mcp join ch.periodoAcademico as pa  where pa.pracEstado=0 and ch.detallePuesto.fichaDocente.fcdcId=:fdId group by mcp.mlcrprId) and hca.hoclalEstado=0 and ha.hracDia=:dia and cr.crrId=:crrId and hc.hoclHoraFin between :Hinicio and :Hfin order by cr.crrId,nv.nvlId, p.prlId, ha.hracDia, ha.hracDescripcion asc");
+					"select ha.hracId,cr.crrId,nv.nvlId, p.prlId, ma.mtrId,ha.hracDia,hc.hoclId, al.alaId, mcp.mlcrprId, mcm.mlcrmtId from HorarioAcademico as ha join ha.mallaCurricularParalelo as mcp join mcp.paralelo as p join mcp.mallaCurricularMateria as mcm join mcm.materia as ma join ma.carrera as cr join mcm.nivelByNvlId as nv  join ha.horaClaseAula as hca join hca.horaClase as hc join hca.aula as al where mcp.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch inner join ch.mallaCurricularParalelo as mcp join ch.periodoAcademico as pa  where pa.pracEstado=0 and ch.detallePuesto.fichaDocente.fcdcId=:fdId group by mcp.mlcrprId) and hca.hoclalEstado=0 and ha.hracDia=:dia and hc.hoclHoraFin between :Hinicio and :Hfin order by cr.crrId,nv.nvlId, p.prlId, ha.hracDia, ha.hracDescripcion asc");
 			query.setParameter("fdId", integer).setParameter("dia", dia).setParameter("Hinicio", arrayHora[0])
-					.setParameter("Hfin", arrayHora[2]).setParameter("crrId", crrId);
+					.setParameter("Hfin", arrayHora[2]);
+//					.setParameter("crrId", crrId);and cr.crrId=:crrId
 			for (Object obj : query.getResultList()) {
 				arrayObj = (Object[]) obj;
 				HorarioAcademico ha = em.find(HorarioAcademico.class, arrayObj[0]);

@@ -282,7 +282,7 @@ public class Control {
 					- hrrI.getHoraClaseAula().getHoraClase().getHoclHoraInicio();
 			List<ContenidoCurricular> lstAux = new ArrayList<>();
 			if (lstSgmt.isEmpty()) {
-				sgmHoraClaseRestante = lstCnt.get(0).getUnidadCurricular().getSyllabo().getSylHorasClase() - tiempo;
+				//sgmHoraClaseRestante = lstCnt.get(0).getUnidadCurricular().getSyllabo().getSylHorasClase() - tiempo;
 				for (ContenidoCurricular cnt : lstCnt) {
 					lstAux.add(cnt);
 					if (lstAux.size() == 3) {
@@ -291,11 +291,10 @@ public class Control {
 				}
 				lstCnt = lstAux;
 			} else {
-				sgmHoraClaseRestante = lstSgmt.get(lstSgmt.size() - 1).getSgmHoraClaseRestante() - tiempo;
+				//sgmHoraClaseRestante = lstSgmt.get(lstSgmt.size() - 1).getSgmHoraClaseRestante() - tiempo;
 				for (ContenidoCurricular cnt : lstCnt) {
 					for (Seguimiento sgm : lstSgmt) {
-						if (cnt.getCncrId().equals(sgm.getContenidoCurricular().getCncrId())
-								&& sgm.getSgmEstado().equals("COMPLETADO")) {
+						if (cnt.getCncrId().equals(sgm.getContenidoCurricular().getCncrId())) {
 						} else {
 							lstAux.add(cnt);
 							break;
@@ -333,14 +332,37 @@ public class Control {
 			lstSgmt = srvSgmt.getSeguimiento(
 					hrrF.getMallaCurricularParalelo().getMallaCurricularMateria().getMateria().getMtrId(),
 					regDcnt.getFcdcId());
-			horaClase = srvSgmt.obtenerHoraClasexHorario(hrrI);
+			horaClase = srvSgmt.obtenerHoraClasexHorario(hrrF);
 			int tiempo = hrrF.getHoraClaseAula().getHoraClase().getHoclHoraFin()
 					- hrrF.getHoraClaseAula().getHoraClase().getHoclHoraInicio();
-			if (!lstSgmt.isEmpty()) {
+			List<ContenidoCurricular> lstAux = new ArrayList<>();
+			if (lstSgmt.isEmpty()) {
+				sgmHoraClaseRestante = lstCnt.get(0).getUnidadCurricular().getSyllabo().getSylHorasClase() - tiempo;
+				for (ContenidoCurricular cnt : lstCnt) {
+					lstAux.add(cnt);
+					if (lstAux.size() == 3) {
+						break;
+					}
+				}
+				lstCnt = lstAux;
+			} else {
 				sgmHoraClaseRestante = lstSgmt.get(lstSgmt.size() - 1).getSgmHoraClaseRestante() - tiempo;
-				sgmObservacion = lstSgmt.get(lstSgmt.size() - 1).getSgmObservacion();
+				for (ContenidoCurricular cnt : lstCnt) {
+					for (Seguimiento sgm : lstSgmt) {
+						if (cnt.getCncrId().equals(sgm.getContenidoCurricular().getCncrId())) {
+						} else {
+							lstAux.add(cnt);
+							break;
+						}
+					}
+					if (lstAux.size() == 3) {
+						break;
+					}
+				}
+				lstCnt = lstAux;
 			}
 			// root1 = createCheckboxDocuments();
+			//sgmObservacion = lstSgmt.get(lstSgmt.size() - 1).getSgmObservacion();
 			regAss = asistencia;
 			formateador = new SimpleDateFormat("HH:mm");
 			regAss.setAssHoraSalida(formateador.format(ahora));
@@ -375,8 +397,6 @@ public class Control {
 				for (String selectcnt : selecCnts) {
 					for (ContenidoCurricular con : lstCnt) {
 						if (selectcnt.equals(con.getCncrDescripcion())) {
-							// con.setCncrEstado("COMPLETADO");
-							//srvSgmt.guardarActualizarContenido(con);
 							Seguimiento seg = new Seguimiento();
 							seg.setAsistencia(regAss);
 							if (flagIni) {

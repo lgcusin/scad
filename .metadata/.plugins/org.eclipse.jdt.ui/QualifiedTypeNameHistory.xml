@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="javax.faces.application.FacesMessage.Severity"/>
-<fullyQualifiedTypeName name="javax.faces.application.FacesMessage"/>
-<fullyQualifiedTypeName name="model.Contenido"/>
-<fullyQualifiedTypeName name="model.Actividad"/>
-<fullyQualifiedTypeName name="model.Herramienta"/>
-<fullyQualifiedTypeName name="model.Metodologia"/>
-<fullyQualifiedTypeName name="model.Bibliografia"/>
-<fullyQualifiedTypeName name="model.UnidadCurricular"/>
-<fullyQualifiedTypeName name="model.FichaEmpleado"/>
-<fullyQualifiedTypeName name="model.FichaDocente"/>
 <fullyQualifiedTypeName name="managedBeans.Login"/>
 <fullyQualifiedTypeName name="javax.faces.bean.ManagedProperty"/>
 <fullyQualifiedTypeName name="javax.faces.bean.RequestScoped"/>
-<fullyQualifiedTypeName name="javax.faces.bean.ViewScoped"/>
 <fullyQualifiedTypeName name="model.DetallePuesto"/>
 <fullyQualifiedTypeName name="model.Materia"/>
 <fullyQualifiedTypeName name="model.Seguimiento"/>
@@ -35,7 +24,6 @@
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Materia"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.MallaCurricularParalelo"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.MallaCurricularMateria"/>
-<fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.HuellaDactilar"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.TipoHuella"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
@@ -43,21 +31,33 @@
 <fullyQualifiedTypeName name="com.sun.org.omg.CORBA.InitializerHelper"/>
 <fullyQualifiedTypeName name="javax.persistence.Query"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Persona"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Seguimiento"/>
 <fullyQualifiedTypeName name="java.lang.Boolean"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.ContenidoCurricular"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Carrera"/>
 <fullyQualifiedTypeName name="ec.edu.uce.Biometrico.ejb.servicios.impl.SrvEmpleado"/>
-<fullyQualifiedTypeName name="ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvEmpleadoLocal"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Feriado"/>
 <fullyQualifiedTypeName name="ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvDocenteLocal"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.FichaDocente"/>
 <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
-<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.HorarioAcademico"/>
-<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Asistencia"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="javax.faces.bean.ViewScoped"/>
+<fullyQualifiedTypeName name="ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvEmpleadoLocal"/>
+<fullyQualifiedTypeName name="ec.edu.uce.Biometrico.jsf.managedBeans.Login"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Paralelo"/>
+<fullyQualifiedTypeName name="javax.faces.application.FacesMessage"/>
+<fullyQualifiedTypeName name="org.primefaces.event.RowEditEvent"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="sun.util.locale.provider.AuxLocaleProviderAdapter"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="com.sun.javafx.collections.MappingChange.Map"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.HorarioAcademico"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.HorarioAcademicoExamen"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Asistencia"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>
