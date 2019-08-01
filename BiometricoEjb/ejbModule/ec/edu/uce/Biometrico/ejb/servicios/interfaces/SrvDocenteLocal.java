@@ -57,4 +57,13 @@ public interface SrvDocenteLocal {
 	void guardarActualizarEstados(FichaDocente selectDcnt, TipoHuella selectTp, boolean flagMovil, boolean flagSinHuella);
 
 	List<Boolean> listarestados(Integer fcdcId);
+
+	/**
+	 * Permite obtener las asistencias de los docentes por facultad y enviar al
+	 * mail cada mes.
+	 * 
+	 * @param fclId
+	 * @return
+	 */
+	List<Asistencia> getAsistenciasReporte(Integer fclId);
 }

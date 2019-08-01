@@ -24,6 +24,8 @@ import ec.uce.edu.biometrico.jpa.ContenidoCurricular;
 import ec.uce.edu.biometrico.jpa.FichaDocente;
 import ec.uce.edu.biometrico.jpa.HorarioAcademico;
 import ec.uce.edu.biometrico.jpa.HuellaDactilar;
+import ec.uce.edu.biometrico.jpa.MallaCurricularMateria;
+import ec.uce.edu.biometrico.jpa.MallaCurricularParalelo;
 import ec.uce.edu.biometrico.jpa.Materia;
 import ec.uce.edu.biometrico.jpa.Persona;
 import ec.uce.edu.biometrico.jpa.Seguimiento;
@@ -345,5 +347,49 @@ public class SrvDocente implements SrvDocenteLocal {
 			return lstE;
 		}
 		return lstE;
+	}
+
+	/**
+	 * Permite obtener las asistencias de los docentes por facultad y enviar al
+	 * mail cada mes.
+	 * 
+	 * @param fclId
+	 * @return
+	 */
+	@Override
+	public List<Asistencia> getAsistenciasReporte(Integer fclId) {
+		List<Asistencia> asistenciaList = new ArrayList<>();
+		try {
+			Object[] objArray;
+			Query query;
+			if (fclId != null) {
+				query = em.createQuery("ad,fd,p,ha,mcp,mcm,m "
+						+ "from Asistencia as ad join as.fichaDocente as fd join fd.persona as p join as.horarioAcademico as ha "
+						+ "join ha.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m "
+						+ "join m.carrera as car join car.dependencia as dep where dep.dpn_id=:fclId "
+						+ "order by p.prs_primer_apellido,ad.asdc_fecha,m.mtr_descripcion,ad.asdc_hora_entrada ");
+				query.setParameter("fclId", fclId);
+				for (Object obj : query.getResultList()) {
+					objArray = (Object[]) obj;
+					Asistencia ad = (Asistencia) objArray[0];
+					FichaDocente fd = (FichaDocente) objArray[0];
+					Persona p = (Persona) objArray[0];
+					HorarioAcademico ha = (HorarioAcademico) objArray[0];
+					MallaCurricularParalelo mcp = (MallaCurricularParalelo) objArray[0];
+					MallaCurricularMateria mcm = (MallaCurricularMateria) objArray[0];
+					Materia m = (Materia) objArray[0];
+					fd.setPersona(p);
+					ad.setFichaDocente(fd);
+					mcm.setMateria(m);
+					mcp.setMallaCurricularMateria(mcm);
+					ha.setMallaCurricularParalelo(mcp);
+					ad.setHorarioAcademico(ha);
+					asistenciaList.add(ad);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Error en el proceso getAsistenciasReporte" + e.getStackTrace());
+		}
+		return asistenciaList;
 	}
 }

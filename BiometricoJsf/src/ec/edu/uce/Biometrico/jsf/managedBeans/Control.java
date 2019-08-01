@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -53,6 +54,7 @@ public class Control {
 	public Date ahora;
 	public SimpleDateFormat formateador;
 	public boolean generado = false;
+	public boolean envioMail = false;
 	public boolean flagDlg;
 	public boolean flagIni;
 	public boolean flagFin;
@@ -81,7 +83,7 @@ public class Control {
 
 	@SuppressWarnings("deprecation")
 	public void temporizador() {
-
+		validarEnvioReporteAsistencia();
 		ahora = new Date();
 		formateador = new SimpleDateFormat("HH:mm:ss");
 		hora = formateador.format(ahora);
@@ -684,5 +686,55 @@ public class Control {
 		} catch (InterruptedException e) {
 			System.out.println("Incapaz de matar proceso.");
 		}
+	}
+	
+	/**
+	 * Metodo que permite enviar el reporte de asistencia mensual al docente.
+	 */
+	private void validarEnvioReporteAsistencia() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		int anio = calendar.get(Calendar.YEAR);
+		int mes = calendar.get(Calendar.MONTH) + 1;
+		int dia = calendar.get(Calendar.DAY_OF_MONTH);
+		int ultimoDiaMes = obtenerUltimoDiaMes(anio, mes);
+		if (dia == ultimoDiaMes) {
+			List<Asistencia> asistenciaList = new ArrayList<>();
+			asistenciaList = srvDcn.getAsistenciasReporte(fclId);
+			if (!asistenciaList.isEmpty()) {
+				// Envio de mail
+			}
+		}
+	}
+
+	/**
+     * Metodo que obtiene la fecha fin del mes
+     *
+     * @param anio
+     * @param mes
+     * @return
+     */
+    public int obtenerUltimoDiaMes(int anio, int mes) {
+        Calendar calendario = Calendar.getInstance();
+        calendario.set(anio, mes - 1, 1);
+        return calendario.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
+	/**
+	 * The envioMail to get.
+	 * 
+	 * @return the envioMail
+	 */
+	public boolean isEnvioMail() {
+		return envioMail;
+	}
+
+	/**
+	 * The envioMail to set.
+	 * 
+	 * @param envioMail
+	 */
+	public void setEnvioMail(boolean envioMail) {
+		this.envioMail = envioMail;
 	}
 }
