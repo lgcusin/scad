@@ -87,26 +87,25 @@
 				<p:commandButton id="btnBuscar" value="Buscar"
 					action="#{detalleAct.listarActividades}" update="tblActividades"></p:commandButton>
 
-				<p:dataTable id="tblActividades"
-					rendered="#{login.docente or login.adminFacultad}"
-					value="#{detalleAct.lstSgm}" var="sg">
+				<p:dataTable id="tblActividades" value="#{detalleAct.lstSgm}"
+					var="sg">
 					<p:column headerText="Fecha">
 						<h:outputText value="#{sg.asistencia.assFecha}" />
 					</p:column>
+					<p:column headerText="Materia" rendered="#{login.adminFacultad}">
+						<h:outputText
+							value="#{sg.mallaCurricularParalelo.mallaCurricularMateria.materia.mtrDescripcion}" />
+					</p:column>
+					<p:column headerText="Unidad Curricular">
+						<h:outputText
+							value="#{sg.contenidoCurricular.unidadCurricular.uncrNombre}" />
+					</p:column>
 					<p:column headerText="Descripcion">
-						<h:outputText value="#{sg.sgmTemaClase}" />
+						<h:outputText value="#{sg.contenidoCurricular.cncrDescripcion}" />
 					</p:column>
 					<p:column headerText="Observacion">
 						<h:outputText value="#{sg.sgmObservacion}" />
 					</p:column>
-					<!-- <p:column id="colunm2" headerText="Opciones">
-						<p:commandButton id="btnVer" update=":frmActividades:ActDetail"
-							oncomplete="PF('ActDialog').show()" value="Ver"
-							title="Ver Actividades">
-							<f:setPropertyActionListener value="#{cn}"
-								target="#{detalleAct.selecCnt}" />
-						</p:commandButton>
-					</p:column> -->
 				</p:dataTable>
 				<div style="margin-left: 10px; margin-right: 10px;">
 					<p:commandButton value="Regresar" action="#{detalleAct.regresar}"></p:commandButton>

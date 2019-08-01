@@ -17,6 +17,7 @@ import ec.uce.edu.biometrico.jpa.MallaCurricularMateria;
 import ec.uce.edu.biometrico.jpa.MallaCurricularParalelo;
 import ec.uce.edu.biometrico.jpa.Materia;
 import ec.uce.edu.biometrico.jpa.Persona;
+import ec.uce.edu.biometrico.jpa.Seguimiento;
 import ec.uce.edu.biometrico.jpa.UnidadCurricular;
 
 /**
@@ -33,14 +34,13 @@ public class SrvEmpleado implements SrvEmpleadoLocal {
 	 * Default constructor.
 	 */
 	public SrvEmpleado() {
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stubxxxxxxxxxxxxxx
 	}
 
 	@Override
 	public List<Carrera> listarCarreras(Integer fdId) {
 		List<Carrera> lstC = new ArrayList<>();
 		try {
-			
 			Query query = em.createQuery("select cr.crrId from HorarioAcademico as ha join ha.mallaCurricularParalelo as mcpr join mcpr.paralelo as p join mcpr.mallaCurricularMateria as mcm join mcm.materia as ma join ma.carrera as cr join mcm.nivelByNvlId as nv  join ha.horaClaseAula as hca join hca.horaClase as hc join hca.aula as al  where mcpr.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch inner join ch.mallaCurricularParalelo as mcp join ch.periodoAcademico as pa  where pa.pracEstado=0 and ch.detallePuesto.fichaDocente.fcdcId=:fdId group by mcp.mlcrprId) and hca.hoclalEstado=0 group by cr.crrId order by cr.crrId asc")
 					.setParameter("fdId", fdId);
 			for(Object obj: query.getResultList()){
@@ -122,6 +122,42 @@ public class SrvEmpleado implements SrvEmpleadoLocal {
 			return lstD;
 		}
 		return lstD;
+	}
+
+	@Override
+	public List<Carrera> listarCarrerasxFacultad(Integer dpnId) {
+		List<Carrera> lstC = new ArrayList<>();
+		try {
+			Query query = em.createQuery("select cr.crrId from Carrera as cr where cr.dependencia.dpnId=:dpnId order by cr.crrId desc")
+					.setParameter("dpnId", dpnId);
+			for(Object obj: query.getResultList()){
+				lstC.add(em.find(Carrera.class, obj));
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+			return lstC;
+		}
+
+		return lstC;
+	}
+
+	@Override
+	public List<Seguimiento> listarSeguimientosxDocente(Integer fcdcId) {
+		List<Seguimiento> lstS = new ArrayList<>();
+		try {
+			Object[] objArray;
+			Query query = em.createQuery(
+					"select sg,mcp,mcm, m, ass, cnt, uc from Seguimiento as sg join sg.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m join sg.asistencia as ass join sg.contenidoCurricular as cnt join cnt.unidadCurricular as uc where sg.asistencia.fichaDocente.fcdcId=:fcdcId order by sg.sgmId asc ");
+			query.setParameter("fcdcId", fcdcId);
+			for (Object obj : query.getResultList()) {
+				objArray = (Object[]) obj;
+				lstS.add((Seguimiento) objArray[0]);
+			}
+		} catch (Exception e) {
+			System.out.println("Error al consultar seguimiento por docente y materia");
+			return lstS;
+		}
+		return lstS;
 	}
 
 }

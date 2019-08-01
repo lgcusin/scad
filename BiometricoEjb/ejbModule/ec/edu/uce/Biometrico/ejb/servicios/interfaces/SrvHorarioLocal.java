@@ -13,6 +13,7 @@ import ec.uce.edu.biometrico.jpa.HorarioAcademicoExamen;
 import ec.uce.edu.biometrico.jpa.Materia;
 import ec.uce.edu.biometrico.jpa.Nivel;
 import ec.uce.edu.biometrico.jpa.Paralelo;
+import ec.uce.edu.biometrico.jpa.PeriodoAcademico;
 
 @Local
 public interface SrvHorarioLocal {
@@ -35,10 +36,12 @@ public interface SrvHorarioLocal {
 
 	void guardarHorarioExamen(HorarioAcademicoExamen hor);
 
-	void eliminarHorario(Asistencia asis);
-
 	void actualizarGuardarAsistencia(Asistencia asis);
 
 	List<Asistencia> listarAsistenciasByHorario(Integer fcdcId, List<Integer> idHorarios, Date date);
+
+	String obtenerHoraClasexHorario(HorarioAcademico h, int i);
+
+	List<PeriodoAcademico> listarPeriodos(String string);
 
 }

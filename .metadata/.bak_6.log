@@ -1,4 +1,4 @@
-!SESSION 2019-07-27 10:30:08.703 -----------------------------------------------
+!SESSION 2019-08-01 00:54:16.851 -----------------------------------------------
 eclipse.buildId=4.6.3.M20170301-0400
 java.version=1.8.0_191
 java.vendor=Oracle Corporation
@@ -7,9 +7,9 @@ Framework arguments:  -product org.eclipse.epp.package.jee.product
 Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
 
 This is a continuation of log file D:\GitHub\scad\.metadata\.bak_5.log
-Created Time: 2019-07-30 15:43:45.755
+Created Time: 2019-08-01 02:10:27.929
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:43:45.763
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:10:27.938
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -100,7 +100,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:43:45.764
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:27.939
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -187,7 +187,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:43:45.764
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:27.940
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -275,7 +275,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:43:45.772
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:10:27.948
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -366,7 +366,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:43:45.772
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:27.948
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -454,7 +454,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:44:05.335
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:10:29.503
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -545,7 +545,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:05.337
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:29.505
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -632,7 +632,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:05.337
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:29.505
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -720,7 +720,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:44:05.345
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:10:29.515
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -811,7 +811,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:05.345
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:29.515
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -899,7 +899,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:44:12.903
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:10:32.066
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -990,7 +990,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:12.905
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:32.068
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -1077,7 +1077,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:12.905
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:32.068
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -1165,7 +1165,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:44:12.915
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:10:32.075
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -1256,7 +1256,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:12.916
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:32.075
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -1344,7 +1344,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:44:21.973
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:10:34.638
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -1435,7 +1435,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:21.974
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:34.639
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -1522,7 +1522,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:21.975
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:34.639
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -1610,7 +1610,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:44:21.986
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:10:34.645
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -1701,7 +1701,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:21.986
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:34.645
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -1789,7 +1789,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:44:27.051
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:10:37.190
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -1880,7 +1880,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:27.053
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:37.191
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -1967,7 +1967,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:27.053
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:37.191
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -2055,7 +2055,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:44:27.062
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:10:37.200
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -2146,7 +2146,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:27.063
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:37.200
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -2234,7 +2234,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:44:50.624
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:10:39.264
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -2325,7 +2325,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:50.625
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:39.265
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -2412,7 +2412,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:50.625
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:39.265
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -2500,7 +2500,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:44:50.631
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:10:39.275
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -2591,7 +2591,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:50.632
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:39.275
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -2679,7 +2679,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:44:53.177
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:10:40.341
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -2770,7 +2770,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:53.177
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:40.342
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -2857,7 +2857,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:53.178
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:40.342
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -2945,7 +2945,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:44:53.186
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:10:40.348
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -3036,7 +3036,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:44:53.186
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:40.349
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -3124,7 +3124,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:45:01.747
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:10:42.407
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -3215,7 +3215,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:01.748
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:42.408
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -3302,7 +3302,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:01.748
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:42.408
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -3390,7 +3390,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:45:01.756
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:10:42.415
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -3481,7 +3481,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:01.756
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:42.415
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -3569,7 +3569,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:45:08.813
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:10:47.466
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -3660,7 +3660,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:08.814
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:47.468
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -3747,7 +3747,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:08.815
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:47.468
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -3835,7 +3835,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:45:08.826
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:10:47.480
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -3926,7 +3926,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:08.826
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:47.480
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -4014,7 +4014,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:45:11.374
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:10:49.043
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -4105,7 +4105,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:11.374
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:49.044
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -4192,7 +4192,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:11.375
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:49.045
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -4280,7 +4280,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:45:11.381
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:10:49.054
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -4371,7 +4371,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:11.381
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:49.055
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -4459,7 +4459,447 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:45:21.934
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:10:51.705
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
+!STACK 1
+org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
+	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.handleCreationError(AbstractGuiceAwareExecutableExtensionFactory.java:96)
+	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.create(AbstractGuiceAwareExecutableExtensionFactory.java:64)
+	at org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:262)
+	at org.eclipse.core.internal.registry.ConfigurationElementHandle.createExecutableExtension(ConfigurationElementHandle.java:55)
+	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants$1.run(JavaModelManager.java:414)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants.getCompilationParticipants(JavaModelManager.java:409)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.initializeBuilder(JavaBuilder.java:589)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:169)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:735)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:206)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:246)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:301)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:304)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:360)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:383)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:144)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:235)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
+	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
+	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
+	at com.google.inject.internal.ConstructorInjectorStore.get(ConstructorInjectorStore.java:49)
+	at com.google.inject.internal.ConstructorBindingImpl.initialize(ConstructorBindingImpl.java:125)
+	at com.google.inject.internal.InjectorImpl.initializeJitBinding(InjectorImpl.java:521)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:847)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
+	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
+	at com.google.inject.internal.InjectorImpl.getProviderOrThrow(InjectorImpl.java:967)
+	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:1000)
+	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:961)
+	at com.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1013)
+	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.create(AbstractGuiceAwareExecutableExtensionFactory.java:57)
+	... 19 more
+Caused by: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
+	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
+	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
+	at com.google.inject.internal.MembersInjectorStore.get(MembersInjectorStore.java:65)
+	at com.google.inject.internal.ConstructorInjectorStore.createConstructor(ConstructorInjectorStore.java:73)
+	at com.google.inject.internal.ConstructorInjectorStore.access$000(ConstructorInjectorStore.java:28)
+	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:36)
+	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:32)
+	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
+	... 35 more
+Caused by: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+	at java.lang.Class.getDeclaredConstructors0(Native Method)
+	at java.lang.Class.privateGetDeclaredConstructors(Unknown Source)
+	at java.lang.Class.getDeclaredConstructors(Unknown Source)
+	at com.google.inject.spi.InjectionPoint.forConstructorOf(InjectionPoint.java:243)
+	at com.google.inject.internal.ConstructorBindingImpl.create(ConstructorBindingImpl.java:96)
+	at com.google.inject.internal.InjectorImpl.createUninitializedBinding(InjectorImpl.java:629)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:845)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
+	at com.google.inject.internal.InjectorImpl.createProviderBinding(InjectorImpl.java:317)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:805)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
+	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
+	at com.google.inject.internal.SingleFieldInjector.<init>(SingleFieldInjector.java:41)
+	at com.google.inject.internal.MembersInjectorStore.getInjectors(MembersInjectorStore.java:125)
+	at com.google.inject.internal.MembersInjectorStore.createWithListeners(MembersInjectorStore.java:95)
+	at com.google.inject.internal.MembersInjectorStore.access$000(MembersInjectorStore.java:34)
+	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:42)
+	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:39)
+	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
+	... 45 more
+Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cannot be found by org.eclipse.xtext_2.15.0.v20180916-0722
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:461)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:372)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:364)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 69 more
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:51.706
+!MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
+!STACK 0
+com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
+	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
+	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
+	at com.google.inject.internal.ConstructorInjectorStore.get(ConstructorInjectorStore.java:49)
+	at com.google.inject.internal.ConstructorBindingImpl.initialize(ConstructorBindingImpl.java:125)
+	at com.google.inject.internal.InjectorImpl.initializeJitBinding(InjectorImpl.java:521)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:847)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
+	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
+	at com.google.inject.internal.InjectorImpl.getProviderOrThrow(InjectorImpl.java:967)
+	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:1000)
+	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:961)
+	at com.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1013)
+	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.create(AbstractGuiceAwareExecutableExtensionFactory.java:57)
+	at org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:262)
+	at org.eclipse.core.internal.registry.ConfigurationElementHandle.createExecutableExtension(ConfigurationElementHandle.java:55)
+	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants$1.run(JavaModelManager.java:414)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants.getCompilationParticipants(JavaModelManager.java:409)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.initializeBuilder(JavaBuilder.java:589)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:169)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:735)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:206)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:246)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:301)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:304)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:360)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:383)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:144)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:235)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
+	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
+	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
+	at com.google.inject.internal.MembersInjectorStore.get(MembersInjectorStore.java:65)
+	at com.google.inject.internal.ConstructorInjectorStore.createConstructor(ConstructorInjectorStore.java:73)
+	at com.google.inject.internal.ConstructorInjectorStore.access$000(ConstructorInjectorStore.java:28)
+	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:36)
+	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:32)
+	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
+	... 35 more
+Caused by: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+	at java.lang.Class.getDeclaredConstructors0(Native Method)
+	at java.lang.Class.privateGetDeclaredConstructors(Unknown Source)
+	at java.lang.Class.getDeclaredConstructors(Unknown Source)
+	at com.google.inject.spi.InjectionPoint.forConstructorOf(InjectionPoint.java:243)
+	at com.google.inject.internal.ConstructorBindingImpl.create(ConstructorBindingImpl.java:96)
+	at com.google.inject.internal.InjectorImpl.createUninitializedBinding(InjectorImpl.java:629)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:845)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
+	at com.google.inject.internal.InjectorImpl.createProviderBinding(InjectorImpl.java:317)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:805)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
+	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
+	at com.google.inject.internal.SingleFieldInjector.<init>(SingleFieldInjector.java:41)
+	at com.google.inject.internal.MembersInjectorStore.getInjectors(MembersInjectorStore.java:125)
+	at com.google.inject.internal.MembersInjectorStore.createWithListeners(MembersInjectorStore.java:95)
+	at com.google.inject.internal.MembersInjectorStore.access$000(MembersInjectorStore.java:34)
+	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:42)
+	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:39)
+	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
+	... 45 more
+Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cannot be found by org.eclipse.xtext_2.15.0.v20180916-0722
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:461)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:372)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:364)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 69 more
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:51.706
+!MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
+!STACK 0
+com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
+	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
+	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
+	at com.google.inject.internal.ConstructorInjectorStore.get(ConstructorInjectorStore.java:49)
+	at com.google.inject.internal.ConstructorBindingImpl.initialize(ConstructorBindingImpl.java:125)
+	at com.google.inject.internal.InjectorImpl.initializeJitBinding(InjectorImpl.java:521)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:847)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
+	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
+	at com.google.inject.internal.InjectorImpl.getProviderOrThrow(InjectorImpl.java:967)
+	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:1000)
+	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:961)
+	at com.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1013)
+	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.create(AbstractGuiceAwareExecutableExtensionFactory.java:57)
+	at org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:262)
+	at org.eclipse.core.internal.registry.ConfigurationElementHandle.createExecutableExtension(ConfigurationElementHandle.java:55)
+	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants$1.run(JavaModelManager.java:414)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants.getCompilationParticipants(JavaModelManager.java:409)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.initializeBuilder(JavaBuilder.java:589)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:169)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:735)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:206)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:246)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:301)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:304)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:360)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:383)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:144)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:235)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
+	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
+	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
+	at com.google.inject.internal.MembersInjectorStore.get(MembersInjectorStore.java:65)
+	at com.google.inject.internal.ConstructorInjectorStore.createConstructor(ConstructorInjectorStore.java:73)
+	at com.google.inject.internal.ConstructorInjectorStore.access$000(ConstructorInjectorStore.java:28)
+	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:36)
+	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:32)
+	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
+	... 35 more
+Caused by: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+	at java.lang.Class.getDeclaredConstructors0(Native Method)
+	at java.lang.Class.privateGetDeclaredConstructors(Unknown Source)
+	at java.lang.Class.getDeclaredConstructors(Unknown Source)
+	at com.google.inject.spi.InjectionPoint.forConstructorOf(InjectionPoint.java:243)
+	at com.google.inject.internal.ConstructorBindingImpl.create(ConstructorBindingImpl.java:96)
+	at com.google.inject.internal.InjectorImpl.createUninitializedBinding(InjectorImpl.java:629)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:845)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
+	at com.google.inject.internal.InjectorImpl.createProviderBinding(InjectorImpl.java:317)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:805)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
+	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
+	at com.google.inject.internal.SingleFieldInjector.<init>(SingleFieldInjector.java:41)
+	at com.google.inject.internal.MembersInjectorStore.getInjectors(MembersInjectorStore.java:125)
+	at com.google.inject.internal.MembersInjectorStore.createWithListeners(MembersInjectorStore.java:95)
+	at com.google.inject.internal.MembersInjectorStore.access$000(MembersInjectorStore.java:34)
+	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:42)
+	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:39)
+	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
+	... 45 more
+Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cannot be found by org.eclipse.xtext_2.15.0.v20180916-0722
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:461)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:372)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:364)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 69 more
+
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:10:51.720
+!MESSAGE Exception occurred while creating compilation participant
+!STACK 1
+org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
+	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.handleCreationError(AbstractGuiceAwareExecutableExtensionFactory.java:96)
+	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.create(AbstractGuiceAwareExecutableExtensionFactory.java:64)
+	at org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:262)
+	at org.eclipse.core.internal.registry.ConfigurationElementHandle.createExecutableExtension(ConfigurationElementHandle.java:55)
+	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants$1.run(JavaModelManager.java:414)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants.getCompilationParticipants(JavaModelManager.java:409)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.initializeBuilder(JavaBuilder.java:589)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:169)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:735)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:206)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:246)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:301)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:304)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:360)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:383)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:144)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:235)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
+	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
+	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
+	at com.google.inject.internal.ConstructorInjectorStore.get(ConstructorInjectorStore.java:49)
+	at com.google.inject.internal.ConstructorBindingImpl.initialize(ConstructorBindingImpl.java:125)
+	at com.google.inject.internal.InjectorImpl.initializeJitBinding(InjectorImpl.java:521)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:847)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
+	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
+	at com.google.inject.internal.InjectorImpl.getProviderOrThrow(InjectorImpl.java:967)
+	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:1000)
+	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:961)
+	at com.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1013)
+	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.create(AbstractGuiceAwareExecutableExtensionFactory.java:57)
+	... 19 more
+Caused by: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
+	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
+	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
+	at com.google.inject.internal.MembersInjectorStore.get(MembersInjectorStore.java:65)
+	at com.google.inject.internal.ConstructorInjectorStore.createConstructor(ConstructorInjectorStore.java:73)
+	at com.google.inject.internal.ConstructorInjectorStore.access$000(ConstructorInjectorStore.java:28)
+	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:36)
+	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:32)
+	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
+	... 35 more
+Caused by: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+	at java.lang.Class.getDeclaredConstructors0(Native Method)
+	at java.lang.Class.privateGetDeclaredConstructors(Unknown Source)
+	at java.lang.Class.getDeclaredConstructors(Unknown Source)
+	at com.google.inject.spi.InjectionPoint.forConstructorOf(InjectionPoint.java:243)
+	at com.google.inject.internal.ConstructorBindingImpl.create(ConstructorBindingImpl.java:96)
+	at com.google.inject.internal.InjectorImpl.createUninitializedBinding(InjectorImpl.java:629)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:845)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
+	at com.google.inject.internal.InjectorImpl.createProviderBinding(InjectorImpl.java:317)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:805)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
+	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
+	at com.google.inject.internal.SingleFieldInjector.<init>(SingleFieldInjector.java:41)
+	at com.google.inject.internal.MembersInjectorStore.getInjectors(MembersInjectorStore.java:125)
+	at com.google.inject.internal.MembersInjectorStore.createWithListeners(MembersInjectorStore.java:95)
+	at com.google.inject.internal.MembersInjectorStore.access$000(MembersInjectorStore.java:34)
+	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:42)
+	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:39)
+	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
+	... 45 more
+Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cannot be found by org.eclipse.xtext_2.15.0.v20180916-0722
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:461)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:372)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:364)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 69 more
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:51.720
+!MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
+!STACK 0
+com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
+	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
+	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
+	at com.google.inject.internal.ConstructorInjectorStore.get(ConstructorInjectorStore.java:49)
+	at com.google.inject.internal.ConstructorBindingImpl.initialize(ConstructorBindingImpl.java:125)
+	at com.google.inject.internal.InjectorImpl.initializeJitBinding(InjectorImpl.java:521)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:847)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
+	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
+	at com.google.inject.internal.InjectorImpl.getProviderOrThrow(InjectorImpl.java:967)
+	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:1000)
+	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:961)
+	at com.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1013)
+	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.create(AbstractGuiceAwareExecutableExtensionFactory.java:57)
+	at org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:262)
+	at org.eclipse.core.internal.registry.ConfigurationElementHandle.createExecutableExtension(ConfigurationElementHandle.java:55)
+	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants$1.run(JavaModelManager.java:414)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants.getCompilationParticipants(JavaModelManager.java:409)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.initializeBuilder(JavaBuilder.java:589)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:169)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:735)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:206)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:246)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:301)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:304)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:360)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:383)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:144)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:235)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
+	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
+	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
+	at com.google.inject.internal.MembersInjectorStore.get(MembersInjectorStore.java:65)
+	at com.google.inject.internal.ConstructorInjectorStore.createConstructor(ConstructorInjectorStore.java:73)
+	at com.google.inject.internal.ConstructorInjectorStore.access$000(ConstructorInjectorStore.java:28)
+	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:36)
+	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:32)
+	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
+	... 35 more
+Caused by: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
+	at java.lang.Class.getDeclaredConstructors0(Native Method)
+	at java.lang.Class.privateGetDeclaredConstructors(Unknown Source)
+	at java.lang.Class.getDeclaredConstructors(Unknown Source)
+	at com.google.inject.spi.InjectionPoint.forConstructorOf(InjectionPoint.java:243)
+	at com.google.inject.internal.ConstructorBindingImpl.create(ConstructorBindingImpl.java:96)
+	at com.google.inject.internal.InjectorImpl.createUninitializedBinding(InjectorImpl.java:629)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:845)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
+	at com.google.inject.internal.InjectorImpl.createProviderBinding(InjectorImpl.java:317)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:805)
+	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
+	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
+	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
+	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
+	at com.google.inject.internal.SingleFieldInjector.<init>(SingleFieldInjector.java:41)
+	at com.google.inject.internal.MembersInjectorStore.getInjectors(MembersInjectorStore.java:125)
+	at com.google.inject.internal.MembersInjectorStore.createWithListeners(MembersInjectorStore.java:95)
+	at com.google.inject.internal.MembersInjectorStore.access$000(MembersInjectorStore.java:34)
+	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:42)
+	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:39)
+	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
+	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
+	... 45 more
+Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cannot be found by org.eclipse.xtext_2.15.0.v20180916-0722
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:461)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:372)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:364)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 69 more
+
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:10:52.592
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -4550,7 +4990,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:21.934
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:52.593
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -4637,7 +5077,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:21.935
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:52.593
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -4725,7 +5165,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:45:21.941
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:10:52.603
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -4816,7 +5256,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:21.941
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:10:52.603
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -4904,7 +5344,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:45:23.490
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:17:47.900
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -4995,7 +5435,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:23.491
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:17:47.901
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -5082,7 +5522,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:23.491
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:17:47.956
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -5170,7 +5610,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:45:23.499
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:17:47.964
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -5261,7 +5701,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:23.499
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:17:47.964
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -5349,10 +5789,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.recommenders.models.rcp 1 0 2019-07-30 15:45:23.631
-!MESSAGE jre:jre:call:zip:1.0.0 could not be resolved from the model repositories. Are you offline?
-
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:45:25.050
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:17:51.024
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -5443,7 +5880,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:25.052
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:17:51.025
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -5530,7 +5967,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:25.052
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:17:51.025
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -5618,7 +6055,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:45:25.061
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:17:51.032
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -5709,7 +6146,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:25.061
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:17:51.032
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -5797,7 +6234,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:45:26.615
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:18:10.605
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -5888,7 +6325,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:26.616
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:18:10.606
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -5975,7 +6412,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:26.616
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:18:10.607
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -6063,7 +6500,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:45:26.623
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:18:10.616
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -6154,7 +6591,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:26.623
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:18:10.616
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -6242,7 +6679,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:45:27.672
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:19:54.231
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -6333,7 +6770,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:27.672
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:19:54.232
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -6420,7 +6857,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:27.673
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:19:54.232
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -6508,7 +6945,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:45:27.681
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:19:54.246
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -6599,7 +7036,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:27.681
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:19:54.246
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -6687,7 +7124,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:45:28.732
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:19:56.303
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -6778,7 +7215,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:28.733
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:19:56.304
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -6865,7 +7302,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:28.734
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:19:56.304
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -6953,7 +7390,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:45:28.745
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:19:56.310
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -7044,7 +7481,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:28.745
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:19:56.310
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -7132,7 +7569,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:45:31.795
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:19:57.358
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -7223,7 +7660,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:31.796
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:19:57.359
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -7310,7 +7747,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:31.796
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:19:57.360
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -7398,7 +7835,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:45:31.807
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:19:57.368
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -7489,7 +7926,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:31.807
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:19:57.368
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -7577,7 +8014,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:45:45.866
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:19:58.429
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -7668,7 +8105,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:45.868
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:19:58.429
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -7755,7 +8192,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:45.868
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:19:58.430
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -7843,7 +8280,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:45:45.877
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:19:58.436
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -7934,7 +8371,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:45.877
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:19:58.436
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -8022,7 +8459,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:45:51.429
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:19:59.991
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -8113,7 +8550,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:51.429
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:19:59.993
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -8200,7 +8637,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:51.429
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:19:59.993
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -8288,7 +8725,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:45:51.435
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:19:59.999
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -8379,7 +8816,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:51.435
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:19:59.999
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -8467,7 +8904,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:45:56.483
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:20:04.136
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -8558,7 +8995,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:56.484
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:20:04.137
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -8645,7 +9082,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:56.484
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:20:04.137
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -8733,7 +9170,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:45:56.490
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:20:04.144
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -8824,7 +9261,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:45:56.490
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:20:04.144
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -8912,7 +9349,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:46:00.046
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:20:08.199
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -9003,7 +9440,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:46:00.048
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:20:08.201
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -9090,7 +9527,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:46:00.049
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:20:08.201
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -9178,7 +9615,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:46:00.056
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:20:08.209
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -9269,7 +9706,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:46:00.056
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:20:08.209
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -9357,7 +9794,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:46:03.601
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:20:10.766
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -9448,7 +9885,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:46:03.602
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:20:10.767
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -9535,7 +9972,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:46:03.602
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:20:10.767
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -9623,7 +10060,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:46:03.610
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:20:10.774
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -9714,7 +10151,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:46:03.611
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:20:10.774
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -9802,7 +10239,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:46:06.665
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:20:13.324
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -9893,7 +10330,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:46:06.666
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:20:13.325
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -9980,7 +10417,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:46:06.666
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:20:13.326
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -10068,7 +10505,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:46:06.673
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:20:13.336
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -10159,7 +10596,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:46:06.673
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:20:13.336
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -10247,7 +10684,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:46:08.227
+!ENTRY org.eclipse.jdt.core 4 2 2019-08-01 02:20:17.885
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -10338,7 +10775,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:46:08.227
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:20:17.886
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -10425,7 +10862,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:46:08.227
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:20:17.886
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
@@ -10513,7 +10950,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
 
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:46:08.236
+!ENTRY org.eclipse.jdt.core 4 4 2019-08-01 02:20:17.894
 !MESSAGE Exception occurred while creating compilation participant
 !STACK 1
 org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
@@ -10604,452 +11041,7 @@ Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cann
 	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
 	at java.lang.ClassLoader.loadClass(Unknown Source)
 	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:46:08.236
-!MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
-!STACK 0
-com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
-	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
-	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
-	at com.google.inject.internal.ConstructorInjectorStore.get(ConstructorInjectorStore.java:49)
-	at com.google.inject.internal.ConstructorBindingImpl.initialize(ConstructorBindingImpl.java:125)
-	at com.google.inject.internal.InjectorImpl.initializeJitBinding(InjectorImpl.java:521)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:847)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
-	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
-	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
-	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
-	at com.google.inject.internal.InjectorImpl.getProviderOrThrow(InjectorImpl.java:967)
-	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:1000)
-	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:961)
-	at com.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1013)
-	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.create(AbstractGuiceAwareExecutableExtensionFactory.java:57)
-	at org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:262)
-	at org.eclipse.core.internal.registry.ConfigurationElementHandle.createExecutableExtension(ConfigurationElementHandle.java:55)
-	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants$1.run(JavaModelManager.java:414)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
-	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants.getCompilationParticipants(JavaModelManager.java:409)
-	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.notifyParticipants(ReconcileWorkingCopyOperation.java:239)
-	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:95)
-	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:724)
-	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:790)
-	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1250)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:128)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:110)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:90)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:154)
-	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:89)
-	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
-	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:73)
-	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
-Caused by: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
-	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
-	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
-	at com.google.inject.internal.MembersInjectorStore.get(MembersInjectorStore.java:65)
-	at com.google.inject.internal.ConstructorInjectorStore.createConstructor(ConstructorInjectorStore.java:73)
-	at com.google.inject.internal.ConstructorInjectorStore.access$000(ConstructorInjectorStore.java:28)
-	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:36)
-	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:32)
-	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
-	... 36 more
-Caused by: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-	at java.lang.Class.getDeclaredConstructors0(Native Method)
-	at java.lang.Class.privateGetDeclaredConstructors(Unknown Source)
-	at java.lang.Class.getDeclaredConstructors(Unknown Source)
-	at com.google.inject.spi.InjectionPoint.forConstructorOf(InjectionPoint.java:243)
-	at com.google.inject.internal.ConstructorBindingImpl.create(ConstructorBindingImpl.java:96)
-	at com.google.inject.internal.InjectorImpl.createUninitializedBinding(InjectorImpl.java:629)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:845)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
-	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
-	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
-	at com.google.inject.internal.InjectorImpl.createProviderBinding(InjectorImpl.java:317)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:805)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
-	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
-	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
-	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
-	at com.google.inject.internal.SingleFieldInjector.<init>(SingleFieldInjector.java:41)
-	at com.google.inject.internal.MembersInjectorStore.getInjectors(MembersInjectorStore.java:125)
-	at com.google.inject.internal.MembersInjectorStore.createWithListeners(MembersInjectorStore.java:95)
-	at com.google.inject.internal.MembersInjectorStore.access$000(MembersInjectorStore.java:34)
-	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:42)
-	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:39)
-	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
-	... 46 more
-Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cannot be found by org.eclipse.xtext_2.15.0.v20180916-0722
-	at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:461)
-	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:372)
-	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:364)
-	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
-	at java.lang.ClassLoader.loadClass(Unknown Source)
-	... 70 more
-
-!ENTRY org.eclipse.jdt.core 4 2 2019-07-30 15:46:10.284
-!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core".
-!STACK 1
-org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
-	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.handleCreationError(AbstractGuiceAwareExecutableExtensionFactory.java:96)
-	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.create(AbstractGuiceAwareExecutableExtensionFactory.java:64)
-	at org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:262)
-	at org.eclipse.core.internal.registry.ConfigurationElementHandle.createExecutableExtension(ConfigurationElementHandle.java:55)
-	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants$1.run(JavaModelManager.java:414)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
-	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants.getCompilationParticipants(JavaModelManager.java:409)
-	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.notifyParticipants(ReconcileWorkingCopyOperation.java:239)
-	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:95)
-	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:724)
-	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:790)
-	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1250)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:128)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:110)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:90)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:154)
-	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:89)
-	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
-	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:73)
-	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
-Caused by: com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
-	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
-	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
-	at com.google.inject.internal.ConstructorInjectorStore.get(ConstructorInjectorStore.java:49)
-	at com.google.inject.internal.ConstructorBindingImpl.initialize(ConstructorBindingImpl.java:125)
-	at com.google.inject.internal.InjectorImpl.initializeJitBinding(InjectorImpl.java:521)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:847)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
-	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
-	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
-	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
-	at com.google.inject.internal.InjectorImpl.getProviderOrThrow(InjectorImpl.java:967)
-	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:1000)
-	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:961)
-	at com.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1013)
-	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.create(AbstractGuiceAwareExecutableExtensionFactory.java:57)
-	... 20 more
-Caused by: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
-	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
-	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
-	at com.google.inject.internal.MembersInjectorStore.get(MembersInjectorStore.java:65)
-	at com.google.inject.internal.ConstructorInjectorStore.createConstructor(ConstructorInjectorStore.java:73)
-	at com.google.inject.internal.ConstructorInjectorStore.access$000(ConstructorInjectorStore.java:28)
-	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:36)
-	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:32)
-	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
-	... 36 more
-Caused by: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-	at java.lang.Class.getDeclaredConstructors0(Native Method)
-	at java.lang.Class.privateGetDeclaredConstructors(Unknown Source)
-	at java.lang.Class.getDeclaredConstructors(Unknown Source)
-	at com.google.inject.spi.InjectionPoint.forConstructorOf(InjectionPoint.java:243)
-	at com.google.inject.internal.ConstructorBindingImpl.create(ConstructorBindingImpl.java:96)
-	at com.google.inject.internal.InjectorImpl.createUninitializedBinding(InjectorImpl.java:629)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:845)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
-	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
-	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
-	at com.google.inject.internal.InjectorImpl.createProviderBinding(InjectorImpl.java:317)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:805)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
-	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
-	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
-	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
-	at com.google.inject.internal.SingleFieldInjector.<init>(SingleFieldInjector.java:41)
-	at com.google.inject.internal.MembersInjectorStore.getInjectors(MembersInjectorStore.java:125)
-	at com.google.inject.internal.MembersInjectorStore.createWithListeners(MembersInjectorStore.java:95)
-	at com.google.inject.internal.MembersInjectorStore.access$000(MembersInjectorStore.java:34)
-	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:42)
-	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:39)
-	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
-	... 46 more
-Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cannot be found by org.eclipse.xtext_2.15.0.v20180916-0722
-	at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:461)
-	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:372)
-	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:364)
-	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
-	at java.lang.ClassLoader.loadClass(Unknown Source)
-	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:46:10.287
-!MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
-!STACK 0
-com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
-	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
-	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
-	at com.google.inject.internal.ConstructorInjectorStore.get(ConstructorInjectorStore.java:49)
-	at com.google.inject.internal.ConstructorBindingImpl.initialize(ConstructorBindingImpl.java:125)
-	at com.google.inject.internal.InjectorImpl.initializeJitBinding(InjectorImpl.java:521)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:847)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
-	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
-	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
-	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
-	at com.google.inject.internal.InjectorImpl.getProviderOrThrow(InjectorImpl.java:967)
-	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:1000)
-	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:961)
-	at com.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1013)
-	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.create(AbstractGuiceAwareExecutableExtensionFactory.java:57)
-	at org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:262)
-	at org.eclipse.core.internal.registry.ConfigurationElementHandle.createExecutableExtension(ConfigurationElementHandle.java:55)
-	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants$1.run(JavaModelManager.java:414)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
-	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants.getCompilationParticipants(JavaModelManager.java:409)
-	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.notifyParticipants(ReconcileWorkingCopyOperation.java:239)
-	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:95)
-	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:724)
-	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:790)
-	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1250)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:128)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:110)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:90)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:154)
-	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:89)
-	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
-	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:73)
-	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
-Caused by: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
-	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
-	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
-	at com.google.inject.internal.MembersInjectorStore.get(MembersInjectorStore.java:65)
-	at com.google.inject.internal.ConstructorInjectorStore.createConstructor(ConstructorInjectorStore.java:73)
-	at com.google.inject.internal.ConstructorInjectorStore.access$000(ConstructorInjectorStore.java:28)
-	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:36)
-	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:32)
-	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
-	... 36 more
-Caused by: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-	at java.lang.Class.getDeclaredConstructors0(Native Method)
-	at java.lang.Class.privateGetDeclaredConstructors(Unknown Source)
-	at java.lang.Class.getDeclaredConstructors(Unknown Source)
-	at com.google.inject.spi.InjectionPoint.forConstructorOf(InjectionPoint.java:243)
-	at com.google.inject.internal.ConstructorBindingImpl.create(ConstructorBindingImpl.java:96)
-	at com.google.inject.internal.InjectorImpl.createUninitializedBinding(InjectorImpl.java:629)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:845)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
-	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
-	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
-	at com.google.inject.internal.InjectorImpl.createProviderBinding(InjectorImpl.java:317)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:805)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
-	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
-	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
-	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
-	at com.google.inject.internal.SingleFieldInjector.<init>(SingleFieldInjector.java:41)
-	at com.google.inject.internal.MembersInjectorStore.getInjectors(MembersInjectorStore.java:125)
-	at com.google.inject.internal.MembersInjectorStore.createWithListeners(MembersInjectorStore.java:95)
-	at com.google.inject.internal.MembersInjectorStore.access$000(MembersInjectorStore.java:34)
-	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:42)
-	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:39)
-	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
-	... 46 more
-Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cannot be found by org.eclipse.xtext_2.15.0.v20180916-0722
-	at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:461)
-	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:372)
-	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:364)
-	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
-	at java.lang.ClassLoader.loadClass(Unknown Source)
-	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:46:10.288
-!MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
-!STACK 0
-com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
-	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
-	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
-	at com.google.inject.internal.ConstructorInjectorStore.get(ConstructorInjectorStore.java:49)
-	at com.google.inject.internal.ConstructorBindingImpl.initialize(ConstructorBindingImpl.java:125)
-	at com.google.inject.internal.InjectorImpl.initializeJitBinding(InjectorImpl.java:521)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:847)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
-	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
-	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
-	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
-	at com.google.inject.internal.InjectorImpl.getProviderOrThrow(InjectorImpl.java:967)
-	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:1000)
-	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:961)
-	at com.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1013)
-	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.create(AbstractGuiceAwareExecutableExtensionFactory.java:57)
-	at org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:262)
-	at org.eclipse.core.internal.registry.ConfigurationElementHandle.createExecutableExtension(ConfigurationElementHandle.java:55)
-	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants$1.run(JavaModelManager.java:414)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
-	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants.getCompilationParticipants(JavaModelManager.java:409)
-	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.notifyParticipants(ReconcileWorkingCopyOperation.java:239)
-	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:95)
-	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:724)
-	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:790)
-	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1250)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:128)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:110)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:90)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:154)
-	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:89)
-	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
-	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:73)
-	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
-Caused by: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
-	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
-	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
-	at com.google.inject.internal.MembersInjectorStore.get(MembersInjectorStore.java:65)
-	at com.google.inject.internal.ConstructorInjectorStore.createConstructor(ConstructorInjectorStore.java:73)
-	at com.google.inject.internal.ConstructorInjectorStore.access$000(ConstructorInjectorStore.java:28)
-	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:36)
-	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:32)
-	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
-	... 36 more
-Caused by: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-	at java.lang.Class.getDeclaredConstructors0(Native Method)
-	at java.lang.Class.privateGetDeclaredConstructors(Unknown Source)
-	at java.lang.Class.getDeclaredConstructors(Unknown Source)
-	at com.google.inject.spi.InjectionPoint.forConstructorOf(InjectionPoint.java:243)
-	at com.google.inject.internal.ConstructorBindingImpl.create(ConstructorBindingImpl.java:96)
-	at com.google.inject.internal.InjectorImpl.createUninitializedBinding(InjectorImpl.java:629)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:845)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
-	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
-	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
-	at com.google.inject.internal.InjectorImpl.createProviderBinding(InjectorImpl.java:317)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:805)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
-	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
-	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
-	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
-	at com.google.inject.internal.SingleFieldInjector.<init>(SingleFieldInjector.java:41)
-	at com.google.inject.internal.MembersInjectorStore.getInjectors(MembersInjectorStore.java:125)
-	at com.google.inject.internal.MembersInjectorStore.createWithListeners(MembersInjectorStore.java:95)
-	at com.google.inject.internal.MembersInjectorStore.access$000(MembersInjectorStore.java:34)
-	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:42)
-	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:39)
-	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
-	... 46 more
-Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cannot be found by org.eclipse.xtext_2.15.0.v20180916-0722
-	at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:461)
-	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:372)
-	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:364)
-	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
-	at java.lang.ClassLoader.loadClass(Unknown Source)
-	... 70 more
-
-!ENTRY org.eclipse.jdt.core 4 4 2019-07-30 15:46:10.300
-!MESSAGE Exception occurred while creating compilation participant
-!STACK 1
-org.eclipse.core.runtime.CoreException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
-	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.handleCreationError(AbstractGuiceAwareExecutableExtensionFactory.java:96)
-	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.create(AbstractGuiceAwareExecutableExtensionFactory.java:64)
-	at org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:262)
-	at org.eclipse.core.internal.registry.ConfigurationElementHandle.createExecutableExtension(ConfigurationElementHandle.java:55)
-	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants$1.run(JavaModelManager.java:414)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
-	at org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants.getCompilationParticipants(JavaModelManager.java:409)
-	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.notifyParticipants(ReconcileWorkingCopyOperation.java:239)
-	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:95)
-	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:724)
-	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:790)
-	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1250)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:128)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.access$0(JavaReconcilingStrategy.java:110)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:90)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:87)
-	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:154)
-	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:89)
-	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:104)
-	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:73)
-	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
-Caused by: com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
-	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
-	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
-	at com.google.inject.internal.ConstructorInjectorStore.get(ConstructorInjectorStore.java:49)
-	at com.google.inject.internal.ConstructorBindingImpl.initialize(ConstructorBindingImpl.java:125)
-	at com.google.inject.internal.InjectorImpl.initializeJitBinding(InjectorImpl.java:521)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:847)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
-	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
-	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
-	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
-	at com.google.inject.internal.InjectorImpl.getProviderOrThrow(InjectorImpl.java:967)
-	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:1000)
-	at com.google.inject.internal.InjectorImpl.getProvider(InjectorImpl.java:961)
-	at com.google.inject.internal.InjectorImpl.getInstance(InjectorImpl.java:1013)
-	at org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory.create(AbstractGuiceAwareExecutableExtensionFactory.java:57)
-	... 20 more
-Caused by: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:553)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:419)
-	at com.google.inject.internal.util.$CustomConcurrentHashMap$ComputingImpl.get(CustomConcurrentHashMap.java:2041)
-	at com.google.inject.internal.FailableCache.get(FailableCache.java:50)
-	at com.google.inject.internal.MembersInjectorStore.get(MembersInjectorStore.java:65)
-	at com.google.inject.internal.ConstructorInjectorStore.createConstructor(ConstructorInjectorStore.java:73)
-	at com.google.inject.internal.ConstructorInjectorStore.access$000(ConstructorInjectorStore.java:28)
-	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:36)
-	at com.google.inject.internal.ConstructorInjectorStore$1.create(ConstructorInjectorStore.java:32)
-	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
-	... 36 more
-Caused by: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor
-	at java.lang.Class.getDeclaredConstructors0(Native Method)
-	at java.lang.Class.privateGetDeclaredConstructors(Unknown Source)
-	at java.lang.Class.getDeclaredConstructors(Unknown Source)
-	at com.google.inject.spi.InjectionPoint.forConstructorOf(InjectionPoint.java:243)
-	at com.google.inject.internal.ConstructorBindingImpl.create(ConstructorBindingImpl.java:96)
-	at com.google.inject.internal.InjectorImpl.createUninitializedBinding(InjectorImpl.java:629)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:845)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
-	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
-	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
-	at com.google.inject.internal.InjectorImpl.createProviderBinding(InjectorImpl.java:317)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBinding(InjectorImpl.java:805)
-	at com.google.inject.internal.InjectorImpl.createJustInTimeBindingRecursive(InjectorImpl.java:772)
-	at com.google.inject.internal.InjectorImpl.getJustInTimeBinding(InjectorImpl.java:256)
-	at com.google.inject.internal.InjectorImpl.getBindingOrThrow(InjectorImpl.java:205)
-	at com.google.inject.internal.InjectorImpl.getInternalFactory(InjectorImpl.java:853)
-	at com.google.inject.internal.SingleFieldInjector.<init>(SingleFieldInjector.java:41)
-	at com.google.inject.internal.MembersInjectorStore.getInjectors(MembersInjectorStore.java:125)
-	at com.google.inject.internal.MembersInjectorStore.createWithListeners(MembersInjectorStore.java:95)
-	at com.google.inject.internal.MembersInjectorStore.access$000(MembersInjectorStore.java:34)
-	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:42)
-	at com.google.inject.internal.MembersInjectorStore$1.create(MembersInjectorStore.java:39)
-	at com.google.inject.internal.FailableCache$1.apply(FailableCache.java:39)
-	at com.google.inject.internal.util.$MapMaker$StrategyImpl.compute(MapMaker.java:549)
-	... 46 more
-Caused by: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor cannot be found by org.eclipse.xtext_2.15.0.v20180916-0722
-	at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:461)
-	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:372)
-	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:364)
-	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:161)
-	at java.lang.ClassLoader.loadClass(Unknown Source)
-	... 70 more
-!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-07-30 15:46:10.300
+!SUBENTRY 1 org.eclipse.xtext.ui.shared 4 0 2019-08-01 02:20:17.894
 !MESSAGE com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor (occurred in org.eclipse.xtext.ui.shared.internal.ExecutableExtensionFactory)
 !STACK 0
 com.google.inject.internal.util.$ComputationException: com.google.inject.internal.util.$ComputationException: java.lang.NoClassDefFoundError: org/objectweb/asm/ClassVisitor

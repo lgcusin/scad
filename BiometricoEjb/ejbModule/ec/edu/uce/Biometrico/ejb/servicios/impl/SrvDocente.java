@@ -25,6 +25,7 @@ import ec.uce.edu.biometrico.jpa.FichaDocente;
 import ec.uce.edu.biometrico.jpa.HorarioAcademico;
 import ec.uce.edu.biometrico.jpa.HuellaDactilar;
 import ec.uce.edu.biometrico.jpa.Materia;
+import ec.uce.edu.biometrico.jpa.Nivel;
 import ec.uce.edu.biometrico.jpa.Persona;
 import ec.uce.edu.biometrico.jpa.Seguimiento;
 import ec.uce.edu.biometrico.jpa.TipoHuella;
@@ -254,26 +255,12 @@ public class SrvDocente implements SrvDocenteLocal {
 	}
 
 	@Override
-	public List<Materia> listarMaterias(Integer crrId) {
-		List<Materia> lstM = new ArrayList<>();
-		try {
-			Query query = em.createQuery("select mtr from Materia as mtr where mtr.carrera.crrId=:crrId");
-			query.setParameter("crrId", crrId);
-			lstM = query.getResultList();
-		} catch (Exception e) {
-			System.out.println("Error al consultar materias por carrera");
-			return lstM;
-		}
-		return lstM;
-	}
-
-	@Override
-	public List<Seguimiento> listarSeguimientos(Integer fcdcId, Integer mtrId) {
+	public List<Seguimiento> listarSeguimientosxDocenteMateria(Integer fcdcId, Integer mtrId) {
 		List<Seguimiento> lstS = new ArrayList<>();
 		try {
 			Object[] objArray;
 			Query query = em.createQuery(
-					"select sgm, mt , ass, fd from Seguimiento as sgm join sgm.mallaCurricularMateria.materia as mt join sgm.asistencia as ass join ass.fichaDocente as fd where fd.fcdcId=:fcdcId and mt.mtrId=:mtrId ");
+					"select sg,ass,cnt,uc from Seguimiento as sg join sg.asistencia as ass join sg.contenidoCurricular as cnt join cnt.unidadCurricular as uc where sg.mallaCurricularParalelo.mallaCurricularMateria.materia.mtrId=:mtrId and ass.fichaDocente.fcdcId=:fcdcId order by sg.sgmId asc");
 			query.setParameter("fcdcId", fcdcId).setParameter("mtrId", mtrId);
 			for (Object obj : query.getResultList()) {
 				objArray = (Object[]) obj;
@@ -345,5 +332,41 @@ public class SrvDocente implements SrvDocenteLocal {
 			return lstE;
 		}
 		return lstE;
+	}
+
+	@Override
+	public boolean verificarLogin(FichaDocente regDcnt) {
+		try {
+			Query query = em.createQuery(
+					"select hd.hldcCodigoAuxiliar from HuellaDactilar as hd where hd.fichaDocente.fcdcId=:fdId and hd.hldcCodigoAuxiliar=1");
+			query.setParameter("fdId", regDcnt.getFcdcId());
+			Integer codigo = (Integer) query.getSingleResult();
+			if (codigo == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+
+	}
+
+	@Override
+	public List<Materia> listarMateriasxCarrera(Integer fcdcId,Integer crrId) {
+		List<Materia> lstM = new ArrayList<>();
+		try {
+			Query query = em.createQuery(
+					"select ma.mtrId from HorarioAcademico as ha join ha.mallaCurricularParalelo as mcpr join mcpr.paralelo as p join mcpr.mallaCurricularMateria as mcm join mcm.materia as ma join ma.carrera as cr join mcm.nivelByNvlId as nv  join ha.horaClaseAula as hca join hca.horaClase as hc join hca.aula as al  where mcpr.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch inner join ch.mallaCurricularParalelo as mcp join ch.periodoAcademico as pa  where pa.pracEstado=0 and ch.detallePuesto.fichaDocente.fcdcId=:fdId group by mcp.mlcrprId) and hca.hoclalEstado=0 and cr.crrId=:crrId group by ma.mtrId order by ma.mtrId asc");
+			query.setParameter("crrId", crrId);
+			query.setParameter("fdId", fcdcId);
+			for (Object obj : query.getResultList()) {
+				lstM.add(em.find(Materia.class, obj));
+			}
+		} catch (Exception e) {
+			System.out.println("Error al consultar materias por semestre: " + e);
+			return lstM;
+		}
+		return lstM;
 	}
 }

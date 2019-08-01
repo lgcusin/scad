@@ -62,7 +62,8 @@ public class DetalleAsistencia {
 		selectDcn = new FichaDocente();
 		if (beanLogin.adminFacultad) {
 			mostrarFiltros = true;
-			lstCarreras = srvEmp.listarCarreras(beanLogin.getDt().get(0).getCarrera().getDependencia().getDpnId());
+			lstCarreras = srvEmp
+					.listarCarrerasxFacultad(beanLogin.getDt().get(0).getCarrera().getDependencia().getDpnId());
 		} else {
 			mostrarFiltros = false;
 		}
@@ -73,7 +74,7 @@ public class DetalleAsistencia {
 		if (event.getNewValue() != null) {
 			System.out.println("Metodo de setear codigo carrera: " + event.getNewValue());
 			crrId = (Integer) event.getNewValue();
-			lstD = srvEmp.listarDocentes(crrId);
+			lstD = srvEmp.listarDocentesxCarrera(crrId);
 		} else {
 			lstD = null;
 			System.out.println("No ha seleccionada una carrera: ");
@@ -232,7 +233,7 @@ public class DetalleAsistencia {
 		}
 	}
 
-	private void generarpdf() {
+	public void generarpdf() {
 		if (!lstA.isEmpty()) {
 			String docente = getInfoDocente();
 			Date fechaActual = new Date();
@@ -258,8 +259,10 @@ public class DetalleAsistencia {
 			}
 			templatePDF.addImagePie();
 			templatePDF.closeDocument();
-			System.out.println(
-					"Archivo generado en la carpeta SistemaBiometricoUCE del su disco local C, verifique por favor.");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Archivo generado en la carpeta SistemaBiometricoUCE del su disco local C, verifique por favor.",
+					"");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} else {
 			mostrarMensaje("No existen asistencias registradas.", "");
 		}

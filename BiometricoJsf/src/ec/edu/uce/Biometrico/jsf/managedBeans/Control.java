@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -15,19 +14,20 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.PrimeFacesContext;
 import org.primefaces.context.RequestContext;
-import org.primefaces.model.DefaultTreeNode;
-import org.primefaces.model.TreeNode;
 
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.JSDCLocal;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvDocenteLocal;
+import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvLoginLocal;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvSeguimientoLocal;
 import ec.uce.edu.biometrico.jpa.Asistencia;
 import ec.uce.edu.biometrico.jpa.ContenidoCurricular;
+import ec.uce.edu.biometrico.jpa.DetallePuesto;
 import ec.uce.edu.biometrico.jpa.FichaDocente;
 import ec.uce.edu.biometrico.jpa.HorarioAcademico;
 import ec.uce.edu.biometrico.jpa.Seguimiento;
-import ec.uce.edu.biometrico.jpa.UnidadCurricular;
+import ec.uce.edu.biometrico.jpa.UsuarioRol;
 
 @ManagedBean(name = "control")
 @ViewScoped
@@ -39,6 +39,8 @@ public class Control {
 	private SrvSeguimientoLocal srvSgmt;
 	@EJB
 	private SrvDocenteLocal srvDcn;
+	@EJB
+	private SrvLoginLocal srvlgn;
 
 	private FichaDocente regDcnt;
 	private HorarioAcademico hrrI;
@@ -63,6 +65,11 @@ public class Control {
 	private String sgmEstado;
 	private boolean flagHrr;
 	private boolean dispositivo = true;
+	private boolean flagLog;
+	private UsuarioRol usuarioRol;
+	private String nick;
+	private String clave;
+	private List<DetallePuesto> dt;
 
 	@PostConstruct
 	public void init() {
@@ -93,7 +100,30 @@ public class Control {
 	}
 
 	public void probar() {
-		System.out.println("Hacicendo CLick!!!");
+		System.out.println("Va iniciar a login huellas!!!");
+	}
+
+
+	public void ingresar() throws SQLException, IOException {
+		usuarioRol = srvlgn.verificar(nick, clave);
+		if (usuarioRol.getUsroId() != null) {
+			if (usuarioRol.getRol().getRolId() == 5) {
+				dt = srvlgn.listarDetallePuestoDocente(usuarioRol.getUsuario().getPersona().getPrsId());
+				regDcnt = dt.get(0).getFichaDocente();
+				regDcnt.setDetallePuestos(dt);
+				nick = " ";
+				clave = " ";
+				if(srvDcn.verificarLogin(regDcnt)){
+					registrar();
+				}else{
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "No tiene acceso mediante login", "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}	
+			}
+		} else {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "usuario o contraseña no validos", "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 	}
 
 	public void detectar() throws SQLException, IOException, InterruptedException {
@@ -282,7 +312,9 @@ public class Control {
 					- hrrI.getHoraClaseAula().getHoraClase().getHoclHoraInicio();
 			List<ContenidoCurricular> lstAux = new ArrayList<>();
 			if (lstSgmt.isEmpty()) {
-				//sgmHoraClaseRestante = lstCnt.get(0).getUnidadCurricular().getSyllabo().getSylHorasClase() - tiempo;
+				// sgmHoraClaseRestante =
+				// lstCnt.get(0).getUnidadCurricular().getSyllabo().getSylHorasClase()
+				// - tiempo;
 				for (ContenidoCurricular cnt : lstCnt) {
 					lstAux.add(cnt);
 					if (lstAux.size() == 3) {
@@ -291,7 +323,8 @@ public class Control {
 				}
 				lstCnt = lstAux;
 			} else {
-				//sgmHoraClaseRestante = lstSgmt.get(lstSgmt.size() - 1).getSgmHoraClaseRestante() - tiempo;
+				// sgmHoraClaseRestante = lstSgmt.get(lstSgmt.size() -
+				// 1).getSgmHoraClaseRestante() - tiempo;
 				for (ContenidoCurricular cnt : lstCnt) {
 					for (Seguimiento sgm : lstSgmt) {
 						if (cnt.getCncrId().equals(sgm.getContenidoCurricular().getCncrId())) {
@@ -361,14 +394,17 @@ public class Control {
 				}
 				lstCnt = lstAux;
 			}
-			// root1 = createCheckboxDocuments();
-			//sgmObservacion = lstSgmt.get(lstSgmt.size() - 1).getSgmObservacion();
+			// sgmObservacion = lstSgmt.get(lstSgmt.size() -
+			// 1).getSgmObservacion();
 			regAss = asistencia;
 			formateador = new SimpleDateFormat("HH:mm");
 			regAss.setAssHoraSalida(formateador.format(ahora));
 			regAss.setAssEstado("FINALIZADO");
 			flagFin = true;
 			flagDlg = true;
+			// flagLog = false;
+			// RequestContext.getCurrentInstance().addCallbackParam("flagLog",
+			// flagLog);
 			RequestContext.getCurrentInstance().addCallbackParam("flagDlg", flagDlg);
 			return null;
 		}
@@ -429,7 +465,7 @@ public class Control {
 
 	}
 
-	public void actualizarRegistros(Asistencia regAss){
+	public void actualizarRegistros(Asistencia regAss) {
 		for (Asistencia as : lstAss) {
 			if (regAss.getHorarioAcademico().getMallaCurricularParalelo().getMlcrprId()
 					.equals(as.getHorarioAcademico().getMallaCurricularParalelo().getMlcrprId())) {
@@ -437,32 +473,12 @@ public class Control {
 				if (flagIni) {
 					as.setAssHoraEntrada(regAss.getAssHoraEntrada());
 				} else {
-					as.setAssHoraSalida(regAss.getAssHoraSalida());;
+					as.setAssHoraSalida(regAss.getAssHoraSalida());
+					;
 				}
 				srvSgmt.guardarRegistro(as);
 			}
-		}	
-	}
-	public TreeNode createCheckboxDocuments() {
-		TreeNode root = new DefaultTreeNode("Root", null);
-		List<UnidadCurricular> lstUn = srvSgmt.listarUnidadCurricular(
-				hrrI.getMallaCurricularParalelo().getMallaCurricularMateria().getMateria().getMtrId());
-		for (UnidadCurricular unidadCurricular : lstUn) {
-			TreeNode unidad = new DefaultTreeNode(unidadCurricular.getUncrDescripcion(), root);
-			List<ContenidoCurricular> lstCn = srvSgmt.listarContenidos(unidadCurricular.getUncrId());
-			for (ContenidoCurricular contenidoCurricular : lstCn) {
-				TreeNode contenidos = new DefaultTreeNode(contenidoCurricular.getCncrDescripcion(), unidad);
-				// List<Actividad> lstAc=
-				// srvSgmt.listarActividades(contenido.getCntId());
-				// for (Actividad actividad : lstAc) {
-				// TreeNode actividads = new
-				// DefaultTreeNode(actividad.getActDescripcion(),contenidos);
-				// }
-			}
 		}
-
-		return root;
-
 	}
 
 	public void cleanClose() {
@@ -470,12 +486,44 @@ public class Control {
 		lstCnt = null;
 		lstSgmt = null;
 		regAss = null;
+		regDcnt = null;
 		sgmObservacion = null;
 		sgmHoraClaseRestante = 0;
 	}
 
 	public void generar() {
 		generado = srvSgmt.generar(ahora, fclId);
+	}
+
+	/*
+	 * Metodo que permite mostrar el sistema biometrico sin otra aplicacion en
+	 * el sistema.
+	 * 
+	 * @param proceso
+	 */
+	private void matarProceso(String proceso) {
+		// Ha sido probado en win y linux
+		String osName = System.getProperty("os.name");
+		String cmd = "";
+		if (osName.toUpperCase().contains("WIN")) {// S.O. Windows
+			cmd += "tskill " + proceso;
+		} else {
+			cmd += "killall " + proceso;
+		}
+		Process hijo;
+		try {
+			hijo = Runtime.getRuntime().exec(cmd);
+			hijo.waitFor();
+			if (hijo.exitValue() == 0) {
+				System.out.println("proceso matado con exito");
+			} else {
+				System.out.println("Incapaz de matar proceso. Exit code: " + hijo.exitValue() + "n");
+			}
+		} catch (IOException e) {
+			System.out.println("Incapaz de matar proceso.");
+		} catch (InterruptedException e) {
+			System.out.println("Incapaz de matar proceso.");
+		}
 	}
 
 	// setters and getters
@@ -638,8 +686,6 @@ public class Control {
 	public void setLstAss(List<Asistencia> lstAss) {
 		this.lstAss = lstAss;
 	}
-	
-	
 
 	/**
 	 * @return the sgmEstado
@@ -649,40 +695,41 @@ public class Control {
 	}
 
 	/**
-	 * @param sgmEstado the sgmEstado to set
+	 * @param sgmEstado
+	 *            the sgmEstado to set
 	 */
 	public void setSgmEstado(String sgmEstado) {
 		this.sgmEstado = sgmEstado;
 	}
 
-	/*
-	 * Metodo que permite mostrar el sistema biometrico sin otra aplicacion en
-	 * el sistema.
-	 * 
-	 * @param proceso
+	/**
+	 * @return the nick
 	 */
-	private void matarProceso(String proceso) {
-		// Ha sido probado en win y linux
-		String osName = System.getProperty("os.name");
-		String cmd = "";
-		if (osName.toUpperCase().contains("WIN")) {// S.O. Windows
-			cmd += "tskill " + proceso;
-		} else {
-			cmd += "killall " + proceso;
-		}
-		Process hijo;
-		try {
-			hijo = Runtime.getRuntime().exec(cmd);
-			hijo.waitFor();
-			if (hijo.exitValue() == 0) {
-				System.out.println("proceso matado con exito");
-			} else {
-				System.out.println("Incapaz de matar proceso. Exit code: " + hijo.exitValue() + "n");
-			}
-		} catch (IOException e) {
-			System.out.println("Incapaz de matar proceso.");
-		} catch (InterruptedException e) {
-			System.out.println("Incapaz de matar proceso.");
-		}
+	public String getNick() {
+		return nick;
 	}
+
+	/**
+	 * @param nick
+	 *            the nick to set
+	 */
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+
+	/**
+	 * @return the clave
+	 */
+	public String getClave() {
+		return clave;
+	}
+
+	/**
+	 * @param clave
+	 *            the clave to set
+	 */
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+
 }

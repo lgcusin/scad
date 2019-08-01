@@ -25,6 +25,7 @@ import ec.uce.edu.biometrico.jpa.HorarioAcademicoExamen;
 import ec.uce.edu.biometrico.jpa.Materia;
 import ec.uce.edu.biometrico.jpa.Nivel;
 import ec.uce.edu.biometrico.jpa.Paralelo;
+import ec.uce.edu.biometrico.jpa.PeriodoAcademico;
 
 @ManagedBean(name = "registroExamen")
 @ViewScoped
@@ -41,6 +42,7 @@ public class RegistroHorarioExamen {
 	private Carrera selectCrr;
 	private Nivel selectSem;
 	private Paralelo selectPar;
+	private Asistencia selectAss;
 	private Integer crrId;
 	private Integer mtrId;
 	private Integer smsId;
@@ -51,8 +53,10 @@ public class RegistroHorarioExamen {
 	private List<Nivel> lstS;
 	private List<Paralelo> lstParalelos;
 	private List<HorarioAcademico> lstHorarios;
+	private List<PeriodoAcademico> lstPeriodos;
 	private Boolean flagEditar;
 	private String fecha;
+	private List<HorarioAcademicoExamen> lstHorariosExa;
 
 	@PostConstruct
 	public void init() {
@@ -133,44 +137,66 @@ public class RegistroHorarioExamen {
 
 	public void editarDataHorario() throws ParseException {
 		System.out.println("Metodo para ver informacion de horario");
+		Date fechaA = new Date();
+		if (dataLogin.getDt().get(0).getCarrera().getDependencia().getDpnId() == 10) {
+			lstPeriodos = srvHor.listarPeriodos(" MEDICINA");
+		} else {
+			lstPeriodos = srvHor.listarPeriodos("");
+		}
 		lstHorarios = srvHor.listarHorarios(
 				dataLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId(),
 				selectPar.getPrlId(), selectMtr.getMtrId());
-		List<HorarioAcademico> lstAux = new ArrayList<>();
-		lstAux.addAll(lstHorarios);
-		for (HorarioAcademico h : lstHorarios) {
-			List<HorarioAcademico> auxHorario = new ArrayList<>();
-			for (HorarioAcademico h2 : lstHorarios) {
-				if (h.getHracDia().equals(h2.getHracDia()) && h.getMallaCurricularParalelo().getMlcrprId()
-						.equals(h2.getMallaCurricularParalelo().getMlcrprId())) {
-					auxHorario.add(h2);
-				}
-			}
-			for (int i = 1; i < auxHorario.size(); i++) {
-				if (lstAux.contains(auxHorario.get(i))) {
-					lstAux.remove(auxHorario.get(i));
-				}
-			}
-		}
+		if (fechaA.getTime() < lstPeriodos.get(0).getPracFechaIncio().getTime()) {
 
+		} else if (lstPeriodos.get(0).getPracFechaIncio().getTime() < fechaA.getTime()
+				&& lstPeriodos.get(0).getPracFechaIncio().getTime() > fechaA.getTime()) {
+
+		}
 		lstAsistenciasByHorario = srvHor.listarAsistenciasByHorario(
 				dataLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId(),
 				getIdHorarios(lstHorarios), getFormatoFechaProceso());
-
-		lstAsistencias = new ArrayList<>();
-		for (HorarioAcademico h : lstAux) {
-			Asistencia asis = new Asistencia();
-			// asis.setDiaSemana(getDiaSemana(h));
-			fecha = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-			asis.setAssFecha(new SimpleDateFormat("yyyy-MM-dd").parse(fecha));
-			asis.setAssEstado("EXAMEN");
-			asis.setHorarioAcademico(h);
-			asis.setFichaDocente(dataLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0));
-			lstAsistencias.add(asis);
+		if (lstAsistenciasByHorario.isEmpty()) {
+			lstAsistencias = new ArrayList<>();
+			List<HorarioAcademico> lstAux = new ArrayList<>();
+			lstAux.addAll(lstHorarios);
+			for (HorarioAcademico h : lstHorarios) {
+				List<HorarioAcademico> auxHorario = new ArrayList<>();
+				for (HorarioAcademico h2 : lstHorarios) {
+					if (h.getHracDia().equals(h2.getHracDia()) && h.getMallaCurricularParalelo().getMlcrprId()
+							.equals(h2.getMallaCurricularParalelo().getMlcrprId())) {
+						auxHorario.add(h2);
+					}
+				}
+				for (int i = 1; i < auxHorario.size(); i++) {
+					if (lstAux.contains(auxHorario.get(i))) {
+						lstAux.remove(auxHorario.get(i));
+					}
+				}
+			}
+			for (HorarioAcademico h : lstAux) {
+				Asistencia asis = new Asistencia();
+				fecha = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+				asis.setAssFecha(new SimpleDateFormat("yyyy-MM-dd").parse(fecha));
+				asis.setAssEstado("EXAMEN");
+				asis.setHorarioAcademico(h);
+				asis.setAssHoraEntrada(srvHor.obtenerHoraClasexHorario(h, 1));
+				asis.setAssHoraSalida(srvHor.obtenerHoraClasexHorario(h, 2));
+				asis.setFichaDocente(dataLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0));
+				lstAsistencias.add(asis);
+				flagEditar = true;
+			}
+		} else {
+			flagEditar = true;
+			lstAsistencias = lstAsistenciasByHorario;
+			FacesMessage msg = new FacesMessage("Horarios de Examenes encontrados");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 
-		flagEditar = true;
 	}
+
+	// public List<HorarioAcademicoExamen> buscarHorariosExamen() {
+	//
+	// }
 
 	/**
 	 * Metodo que permite obtener el formato de la fecha proceso.
@@ -237,21 +263,6 @@ public class RegistroHorarioExamen {
 		return result;
 	}
 
-	public void onAddNew() {
-		HorarioAcademico h = new HorarioAcademico();
-		if (lstHorarios != null && lstHorarios.size() == 0) {
-		} else {
-
-		}
-		lstHorarios.add(h);
-		FacesMessage msg = new FacesMessage("Nuevo registro añadido");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-	public void onRowEdit(RowEditEvent event) {
-		actualizar((Asistencia) event.getObject());
-	}
-
 	public void actualizar(Asistencia asis) {
 		System.out.println("Guardar cambios de horario");
 		try {
@@ -273,6 +284,48 @@ public class RegistroHorarioExamen {
 		} catch (Exception e) {
 			System.out.println("Error al guardar horario" + e);
 		}
+	}
+
+	public void guardarAsistenciaHorarioExamen() {
+		try {
+			if (selectAss.getAssId() == null) {
+				for (Asistencia as : lstAsistencias) {
+
+					for (HorarioAcademico hr : lstHorarios) {
+						if (selectAss.equals(as)) {
+							HorarioAcademicoExamen horEx = new HorarioAcademicoExamen();
+							horEx.setHracexHoraInicio(Integer.parseInt(selectAss.getAssHoraEntrada().substring(0, 1)));
+							horEx.setHracexHoraFin(Integer.parseInt(selectAss.getAssHoraSalida().substring(0, 1)));
+							horEx.setHracexEstado(0);
+							srvHor.guardarHorarioExamen(horEx);
+							as.setHorarioAcademico(hr);
+							as.setHorarioAcademicoExamen(horEx);
+							as.setAssHoraEntrada(null);
+							as.setAssHoraSalida(null);
+							Date date = new SimpleDateFormat(FORMATOFECHA).parse(fecha);
+							as.setAssFecha(date);
+							srvHor.actualizarGuardarAsistencia(as);
+						}
+						if (as.getHorarioAcademico().equals(hr)) {
+							as.setHorarioAcademico(hr);
+							as.setAssHoraEntrada(selectAss.getAssHoraEntrada());
+							as.setAssHoraSalida(selectAss.getAssHoraSalida());
+							as.setAssEstado("JUSTIFICADO");
+							Date date = new SimpleDateFormat(FORMATOFECHA).parse(fecha);
+							as.setAssFecha(date);
+							srvHor.actualizarGuardarAsistencia(as);
+						}
+					}
+				}
+
+			} else {
+
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
 	}
 
 	private boolean validarHora(String assHoraEntrada, String assHoraSalida) {
@@ -300,23 +353,6 @@ public class RegistroHorarioExamen {
 			}
 		}
 
-	}
-
-	public void onRowCancel(RowEditEvent event) {
-	}
-
-	public void eliminarHorario(Asistencia asis) {
-		System.out.println("Metodo que elimina el horario");
-		List<Asistencia> lstAux = new ArrayList<>();
-		for (Asistencia as : lstAsistencias) {
-			if (asis.getAssId() != as.getAssId()) {
-				lstAux.add(asis);
-			} else {
-				srvHor.eliminarHorario(asis);
-			}
-		}
-		System.out.println("Nueva lista de horarios" + lstAux.size());
-		lstAsistencias = lstAux;
 	}
 
 	// Setters and getters
@@ -417,6 +453,21 @@ public class RegistroHorarioExamen {
 	 */
 	public void setSelectSem(Nivel selectSem) {
 		this.selectSem = selectSem;
+	}
+
+	/**
+	 * @return the selectAss
+	 */
+	public Asistencia getSelectAss() {
+		return selectAss;
+	}
+
+	/**
+	 * @param selectAss
+	 *            the selectAss to set
+	 */
+	public void setSelectAss(Asistencia selectAss) {
+		this.selectAss = selectAss;
 	}
 
 	/**

@@ -41,15 +41,14 @@ public class AdministrarParametro {
 	private String horaEntradaDespues;
 	private String horaSalidaDespues;
 	private String horaAtraso;
-	private static String[] camposParametros = { "ENTRADA ANTES", "ENTRADA DESPUES", "SALIDA ANTES", "SALIDA DESPUES",
-			"ATRASO" };
+	private static String[] camposParametros = { "ENTRADA ANTES", "ENTRADA DESPUES", "ATRASO", "SALIDA ANTES",
+			"SALIDA DESPUES" };
 
 	@PostConstruct
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		beanLogin = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
-		lstFacultad.add(beanLogin.getUsuarioRol().getUsuario().getPersona().getFichaEmpleados().get(0)
-				.getDetallePuestos().get(0).getCarrera().getDependencia());
+		lstFacultad.add(beanLogin.getDt().get(0).getCarrera().getDependencia());
 		// lstFacultad = srvAdm.listarFacultades();
 		initRegistroParametro();
 	}
@@ -61,7 +60,7 @@ public class AdministrarParametro {
 		registroParametro = new Parametro();
 		selectFacultad = new Dependencia();
 	}
-	
+
 	public void setFacultadID(ValueChangeEvent event) {
 		if (event.getNewValue() != null) {
 			selectFacultad.setDpnId((Integer) event.getNewValue());
@@ -105,11 +104,11 @@ public class AdministrarParametro {
 		} else if (lstParametro.get(index).getPrmDescripcion().equalsIgnoreCase(camposParametros[1])) {
 			horaEntradaDespues = lstParametro.get(index).getPrmValor();
 		} else if (lstParametro.get(index).getPrmDescripcion().equalsIgnoreCase(camposParametros[2])) {
-			horaSalidaAntes = lstParametro.get(index).getPrmValor();
-		} else if (lstParametro.get(index).getPrmDescripcion().equalsIgnoreCase(camposParametros[3])) {
-			horaSalidaDespues = lstParametro.get(index).getPrmValor();
-		} else {
 			horaAtraso = lstParametro.get(index).getPrmValor();
+		} else if (lstParametro.get(index).getPrmDescripcion().equalsIgnoreCase(camposParametros[3])) {
+			horaSalidaAntes = lstParametro.get(index).getPrmValor();
+		} else {
+			horaSalidaDespues = lstParametro.get(index).getPrmValor();
 		}
 	}
 
@@ -134,7 +133,6 @@ public class AdministrarParametro {
 		}
 	}
 
-
 	/**
 	 * Metodo para guardar o actualizar los parametros.
 	 */
@@ -148,13 +146,13 @@ public class AdministrarParametro {
 			registroParametro.setPrmValor(horaEntradaDespues);
 			srvAdm.guardarActualizarParametro(registroParametro);
 			validarListaParametro(2);
-			registroParametro.setPrmValor(horaSalidaAntes);
+			registroParametro.setPrmValor(horaAtraso);
 			srvAdm.guardarActualizarParametro(registroParametro);
 			validarListaParametro(3);
-			registroParametro.setPrmValor(horaSalidaDespues);
+			registroParametro.setPrmValor(horaSalidaAntes);
 			srvAdm.guardarActualizarParametro(registroParametro);
 			validarListaParametro(4);
-			registroParametro.setPrmValor(horaAtraso);
+			registroParametro.setPrmValor(horaSalidaDespues);
 			srvAdm.guardarActualizarParametro(registroParametro);
 			mostrarMensaje("Se han guardado los cambios.", "Success!");
 		}

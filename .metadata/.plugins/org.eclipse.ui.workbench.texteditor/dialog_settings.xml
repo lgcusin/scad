@@ -2,22 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="eliminarHorario" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
-			<item value="require"/>
-			<item value="registroPrl"/>
-			<item value="pnlhorario"/>
-			<item value="id=&quot;dtsParalelos"/>
-			<item value="dtsParalelos"/>
-			<item value="pnlResultados"/>
-			<item value="verDataHorario"/>
-			<item value="mtrDescripcion"/>
+			<item value="eliminarHorario"/>
+			<item value="long"/>
+			<item value="BigDecimal"/>
+			<item value="No existe un horario o está fuera del plazo establecido"/>
+			<item value="flagLog"/>
+			<item value="flagDlg"/>
+			<item value="dlgLog"/>
+			<item value="dlgCntrl"/>
 		</list>
 		<list key="replacehistory">
+			<item value="Integer"/>
 			<item value="registroExamen"/>
 			<item value="pnlAsistencia"/>
 			<item value="carrera"/>
@@ -25,7 +26,6 @@
 			<item value="cncrDescripcion"/>
 			<item value="mtrDescripcion"/>
 			<item value="crrDescripcion"/>
-			<item value="Integer"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

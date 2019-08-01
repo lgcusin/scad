@@ -46,8 +46,7 @@ public class GenerarRegistros {
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		beanLogin = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
-		lstCarrera = srvEmp.listarCarreras(beanLogin.getUsuarioRol().getUsuario().getPersona().getFichaEmpleados()
-				.get(0).getDetallePuestos().get(0).getCarrera().getDependencia().getDpnId());
+		lstCarrera = srvEmp.listarCarrerasxFacultad(beanLogin.getDt().get(0).getCarrera().getDependencia().getDpnId());
 		iniciarBean();
 	}
 

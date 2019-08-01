@@ -51,18 +51,11 @@ public class DetalleActividad {
 		if (beanLogin.Docente) {
 			selecCnt = new ContenidoCurricular();
 			selectMtr = new Materia();
-			lstC = new ArrayList<Carrera>();
-			for (DetallePuesto dt : beanLogin.getDt()) {
-				lstC.add(dt.getCarrera());
-			}
-
-			// lstCn =
-			// srvDnt.listarContenidos(beanLogin.getUsr().getFichaDocente().getFcdcId());
-
+			lstC = srvEmp.listarCarreras(beanLogin.getDt().get(0).getFichaDocente().getFcdcId());
 		}
 		if (beanLogin.adminFacultad) {
 			selectDcn = new FichaDocente();
-			lstC = srvEmp.listarCarreras(beanLogin.getDt().get(0).getCarrera().getDependencia().getDpnId());
+			lstC = srvEmp.listarCarrerasxFacultad(beanLogin.getDt().get(0).getCarrera().getDependencia().getDpnId());
 		}
 
 	}
@@ -71,9 +64,8 @@ public class DetalleActividad {
 		if (event.getNewValue() != null) {
 			System.out.println("Metodo de setear codigo carrera: " + event.getNewValue());
 			crrId = (Integer) event.getNewValue();
-			lstD = srvEmp.listarDocentes(crrId);
+			lstD = srvEmp.listarDocentesxCarrera(crrId);
 		} else {
-			lstD = null;
 			System.out.println("No ha seleccionada una carrera: ");
 		}
 
@@ -84,9 +76,7 @@ public class DetalleActividad {
 			System.out.println("Metodo de setear codigo carrera: " + event.getNewValue());
 			crrId = (Integer) event.getNewValue();
 			lstM = new ArrayList<>();
-			for (Materia mt : srvDnt.listarMaterias(crrId)) {
-				lstM.add(mt);
-			}
+			lstM = srvDnt.listarMateriasxCarrera(beanLogin.getDt().get(0).getFichaDocente().getFcdcId(), crrId);
 		} else {
 			lstD = null;
 			System.out.println("No ha seleccionada una carrera: ");
@@ -95,14 +85,12 @@ public class DetalleActividad {
 	}
 
 	public void listarActividades() {
+		lstSgm= new ArrayList<>();
 		if (beanLogin.Docente) {
-			// lstCn =
-			// srvDnt.listarContenidos(beanLogin.getUsr().getFichaDocente().getFcdcId());
-			lstSgm = srvDnt.listarSeguimientos(
-					beanLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId(),
+			lstSgm = srvDnt.listarSeguimientosxDocenteMateria(beanLogin.getDt().get(0).getFichaDocente().getFcdcId(),
 					selectMtr.getMtrId());
 		} else {
-
+			lstSgm= srvEmp.listarSeguimientosxDocente(selectDcn.getFcdcId());
 		}
 	}
 

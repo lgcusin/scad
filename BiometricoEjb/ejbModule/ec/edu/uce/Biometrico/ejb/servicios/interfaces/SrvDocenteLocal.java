@@ -50,11 +50,14 @@ public interface SrvDocenteLocal {
 	 */
 	void actualizarAsistencia(Asistencia asistencia);
 
-	List<Materia> listarMaterias(Integer crrId);
 
-	List<Seguimiento> listarSeguimientos(Integer fcdcId, Integer mtrId);
+	List<Seguimiento> listarSeguimientosxDocenteMateria(Integer fcdcId, Integer mtrId);
 
 	void guardarActualizarEstados(FichaDocente selectDcnt, TipoHuella selectTp, boolean flagMovil, boolean flagSinHuella);
 
 	List<Boolean> listarestados(Integer fcdcId);
+
+	boolean verificarLogin(FichaDocente regDcnt);
+
+	List<Materia> listarMateriasxCarrera(Integer fcdcId,Integer crrId);
 }

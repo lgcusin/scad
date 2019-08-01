@@ -2,6 +2,7 @@ package ec.edu.uce.Biometrico.ejb.servicios.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -19,6 +20,7 @@ import ec.uce.edu.biometrico.jpa.HorarioAcademicoExamen;
 import ec.uce.edu.biometrico.jpa.Materia;
 import ec.uce.edu.biometrico.jpa.Nivel;
 import ec.uce.edu.biometrico.jpa.Paralelo;
+import ec.uce.edu.biometrico.jpa.PeriodoAcademico;
 
 /**
  * Session Bean implementation class SrvHorario
@@ -220,18 +222,6 @@ public class SrvHorario implements SrvHorarioLocal {
 	 */
 
 	@Override
-	public void eliminarHorario(Asistencia asis) {
-		try {
-			Asistencia a = em.find(Asistencia.class, asis.getAssId());
-			if (a != null) {
-				em.remove(a);
-			}
-		} catch (Exception e) {
-			System.out.println("Error al eliminar horario" + e);
-		}
-	}
-
-	@Override
 	public void actualizarGuardarAsistencia(Asistencia asis) {
 		try {
 			if (asis.getAssId() != null) {
@@ -246,7 +236,6 @@ public class SrvHorario implements SrvHorarioLocal {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Asistencia> listarAsistenciasByHorario(Integer fcdcId, List<Integer> idHorarios, Date fechaProceso) {
 		List<Asistencia> lstAsistencia = new ArrayList<>();
@@ -257,11 +246,78 @@ public class SrvHorario implements SrvHorarioLocal {
 			query.setParameter("idHorarios", idHorarios);
 			query.setParameter("fechaProceso", fechaProceso);
 			query.setParameter("fcdcId", fcdcId);
-			query.getResultList(); // Falta procesar data
+			Object[] objArray;
+			HashMap<String, Object> map;
+			for (Object object : query.getResultList()) {
+				objArray = (Object[]) object;
+				Asistencia ad = new Asistencia();
+				HorarioAcademicoExamen hae = new HorarioAcademicoExamen();
+				ad = (Asistencia) objArray[0];
+				hae = (HorarioAcademicoExamen) objArray[1];
+				ad.setHorarioAcademicoExamen(hae);
+				lstAsistencia.add(ad);
+			}
 		} catch (Exception e) {
 			System.out.println("Error al consultar los asistencias por horarios" + e);
 		}
 		return lstAsistencia;
+	}
+
+	@Override
+	public String obtenerHoraClasexHorario(HorarioAcademico h, int i) {
+		String hora = "";
+		List<HorarioAcademico> lstH = new ArrayList<>();
+		try {
+			Object[] arrayObj;
+			Query query = em.createQuery(
+					"select ha, hca, hc from HorarioAcademico as ha join ha.horaClaseAula as hca join hca.horaClase as hc where ha.mallaCurricularParalelo.mlcrprId=:mcpId and ha.hracDia=:dia order by ha.hracDescripcion");
+			query.setParameter("mcpId", h.getMallaCurricularParalelo().getMlcrprId()).setParameter("dia",
+					h.getHracDia());
+			for (Object obj : query.getResultList()) {
+				arrayObj = (Object[]) obj;
+				lstH.add((HorarioAcademico) arrayObj[0]);
+			}
+			switch (i) {
+			case 1:
+				if (lstH.get(0).getHoraClaseAula().getHoraClase().getHoclHoraInicio() < 10) {
+					hora = "0" + lstH.get(0).getHoraClaseAula().getHoraClase().getHoclHoraInicio() + ":00";
+				} else {
+					hora = lstH.get(0).getHoraClaseAula().getHoraClase().getHoclHoraInicio() + ":00";
+				}
+				break;
+			case 2:
+				if (lstH.get(lstH.size() - 1).getHoraClaseAula().getHoraClase().getHoclHoraFin() < 10) {
+					hora = "0" +lstH.get(lstH.size() - 1).getHoraClaseAula().getHoraClase().getHoclHoraFin() + ":00";
+				} else {
+					hora = lstH.get(lstH.size() - 1).getHoraClaseAula().getHoraClase().getHoclHoraFin() + ":00";
+				}
+
+				break;
+			}
+		} catch (Exception e) {
+			System.out.println("Error al obtener hora clase");
+			return hora;
+		}
+		return hora;
+	}
+
+	@Override
+	public List<PeriodoAcademico> listarPeriodos(String string) {
+		String param= "%HEMISEMESTRE"+string;
+		List<PeriodoAcademico> lstP= new ArrayList<>();
+		try{
+			Object[] arrayObj;
+			Query query= em.createQuery("select pa from PlanificacionCronograma as pc join pc.cronogramaProcesoFlujo as cpf join cpf.procesoFlujo as pf join cpf.cronograma as crn join crn.periodoAcademico as pa where pc.plcrEstado=0 and  pf.prflEstado=0 and pf.prflDescripcion like :param and crn.crnEstado=0 and crn.crnTipo=0 and  pa.pracEstado=0 order by pa.pracFechaIncio asc");
+			query.setParameter("param", param);
+			for(Object obj: query.getResultList()){
+			arrayObj= (Object[]) obj;
+				lstP.add((PeriodoAcademico) arrayObj[0]);
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			return lstP;
+		}
+		return lstP;
 	}
 
 }

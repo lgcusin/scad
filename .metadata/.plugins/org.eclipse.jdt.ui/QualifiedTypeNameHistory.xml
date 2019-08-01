@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="managedBeans.Login"/>
-<fullyQualifiedTypeName name="javax.faces.bean.ManagedProperty"/>
-<fullyQualifiedTypeName name="javax.faces.bean.RequestScoped"/>
-<fullyQualifiedTypeName name="model.DetallePuesto"/>
-<fullyQualifiedTypeName name="model.Materia"/>
-<fullyQualifiedTypeName name="model.Seguimiento"/>
-<fullyQualifiedTypeName name="servicios.SrvSeguimientoLocal"/>
 <fullyQualifiedTypeName name="javax.persistence.UniqueConstraint"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Nivel"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Dependencia"/>
@@ -14,7 +7,6 @@
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.UsuarioRol"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.FichaEmpleado"/>
 <fullyQualifiedTypeName name="ec.edu.uce.Biometrico.ejb.servicios.impl.SrvDocente"/>
-<fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.CargaHoraria"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
@@ -24,7 +16,6 @@
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Materia"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.MallaCurricularParalelo"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.MallaCurricularMateria"/>
-<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.HuellaDactilar"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.TipoHuella"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
 <fullyQualifiedTypeName name="org.hibernate.jpa.criteria.predicate.BetweenPredicate"/>
@@ -40,24 +31,33 @@
 <fullyQualifiedTypeName name="ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvDocenteLocal"/>
 <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
-<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.FichaDocente"/>
 <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
-<fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="javax.faces.bean.ViewScoped"/>
 <fullyQualifiedTypeName name="ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvEmpleadoLocal"/>
 <fullyQualifiedTypeName name="ec.edu.uce.Biometrico.jsf.managedBeans.Login"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Paralelo"/>
 <fullyQualifiedTypeName name="javax.faces.application.FacesMessage"/>
 <fullyQualifiedTypeName name="org.primefaces.event.RowEditEvent"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="sun.util.locale.provider.AuxLocaleProviderAdapter"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="com.sun.javafx.collections.MappingChange.Map"/>
 <fullyQualifiedTypeName name="java.util.HashSet"/>
 <fullyQualifiedTypeName name="java.util.Set"/>
-<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.HorarioAcademico"/>
-<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.HorarioAcademicoExamen"/>
+<fullyQualifiedTypeName name="javax.persistence.Transient"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="com.sun.javafx.collections.MappingChange.Map"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="org.apache.commons.collections.map.HashedMap"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.LinkedHashMap"/>
 <fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Asistencia"/>
-<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.FichaDocente"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.HuellaDactilar"/>
+<fullyQualifiedTypeName name="org.primefaces.context.PrimeFacesContext"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.HorarioAcademicoExamen"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.Cronograma"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.HorarioAcademico"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="ec.uce.edu.biometrico.jpa.PeriodoAcademico"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
 </qualifiedTypeNameHistroy>

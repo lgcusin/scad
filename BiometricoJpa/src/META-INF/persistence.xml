@@ -40,6 +40,10 @@
 		<class>ec.uce.edu.biometrico.jpa.Rol</class>
 		<class>ec.uce.edu.biometrico.jpa.TipoMateria</class>
 		<class>ec.uce.edu.biometrico.jpa.Feriado</class>
+		<class>ec.uce.edu.biometrico.jpa.Cronograma</class>
+		<class>ec.uce.edu.biometrico.jpa.CronogramaProcesoFlujo</class>
+		<class>ec.uce.edu.biometrico.jpa.ProcesoFlujo</class>
+		<class>ec.uce.edu.biometrico.jpa.PlanificacionCronograma</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
 			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" />

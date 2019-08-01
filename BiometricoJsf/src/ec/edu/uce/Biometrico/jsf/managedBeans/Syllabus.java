@@ -79,7 +79,7 @@ public class Syllabus {
 					beanLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId());
 		}
 		if (beanLogin.isAdminFacultad()) {
-			lstC = srvEmp.listarCarreras(beanLogin.getDt().get(0).getCarrera().getDependencia().getDpnId());
+			lstC = srvEmp.listarCarrerasxFacultad(beanLogin.getDt().get(0).getCarrera().getDependencia().getDpnId());
 		}
 
 	}

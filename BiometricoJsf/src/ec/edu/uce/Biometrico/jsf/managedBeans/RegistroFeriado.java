@@ -144,7 +144,7 @@ public class RegistroFeriado {
 	public void setDependenciaID(ValueChangeEvent event) {
 		if (event.getNewValue() != null) {
 			selectDependencia.setDpnId((Integer) event.getNewValue());
-			lstCarrera = srvEmp.listarCarreras((Integer) event.getNewValue());
+			lstCarrera = srvEmp.listarCarrerasxFacultad((Integer) event.getNewValue());
 		} else {
 			selectDependencia.setDpnId(null);
 		}

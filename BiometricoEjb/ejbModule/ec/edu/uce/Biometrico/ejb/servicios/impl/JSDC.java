@@ -287,6 +287,7 @@ public class JSDC implements JSDCLocal {
 					if (quality[0] < MINIMUM_QUALITY) {
 						System.out.println("GetImageEx() Success [" + ret + "] but image quality is [" + quality[0]
 								+ "]. Please try again");
+						
 					} else {
 						System.out.println("GetImageEx() Success [" + ret + "]");
 						iError = fplib.CreateTemplate(fingerInfo, imageBuffer1, regMin1);
