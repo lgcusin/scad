@@ -60,4 +60,13 @@ public interface SrvDocenteLocal {
 	boolean verificarLogin(FichaDocente regDcnt);
 
 	List<Materia> listarMateriasxCarrera(Integer fcdcId,Integer crrId);
+	
+	/**
+	 * Permite obtener las asistencias de los docentes por facultad y enviar al
+	 * mail cada mes.
+	 * 
+	 * @param fclId
+	 * @return
+	 */
+	List<Asistencia> getAsistenciasReporte(Integer fclId);
 }
