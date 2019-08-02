@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value=" Consultas / Consultar notas " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+	<h:form id="frmMatricula" enctype="multipart/form-data" acceptcharset="UTF-8" >
+		<!-- ******************** PANEL PARÁMETROS DE BÚSQUEDA************************ -->
+		<p:panel id="pnlBusqueda" header="Parámetros de búsqueda">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 2 ************************ --> 
+				<div class="row cells8">
+					<div class="cell colspan4"><!-- CARRERA -->
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcCarrera" value="#{estudianteNotasPregradoForm.enpfCarreraDtoBuscar.crrId}"
+										required="false" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%">
+										<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccioneTodos}" itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"  value="#{estudianteNotasPregradoForm.enpfListCarreraDto}"
+											itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgCarrera" for="slcCarrera" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div><!-- ******************** FIN FILA NUMERO 2 ************************ --> 
+				</div>
+		</p:panel>
+		<div>
+			<p:commandButton id="btnBuscar" value="Buscar"  action="#{estudianteNotasPregradoForm.buscar()}"   
+				update="pnlResultados" onclick="PF('dialogoTrabajando').show();" onsuccess="PF('dialogoTrabajando').hide();"/>
+			<p:commandButton id="btnLimpiar" value="Limpiar" action="#{estudianteNotasPregradoForm.limpiar()}" 
+				update="pnlResultados , pnlBusqueda"  onclick="PF('dialogoTrabajando').show();" onsuccess="PF('dialogoTrabajando').hide();"/>	
+		</div>
+		<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+			<p:dataTable id="dtsMatricula" var="item" value="#{estudianteNotasPregradoForm.enpfListMatriculaDto}"
+		   		 		rows="15" paginator="true" paginatorPosition="bottom"
+	                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+	                          style="text-align: center;" rowIndexVar="rowIndex">
+					
+					<p:column headerText="#" style="width: 1em ! important; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+	                <p:column headerText="Período Académico"  style="width: 4em  ! important; text-align: center;">
+			            <h:outputText value="#{item.pracDescripcion}"/>
+			        </p:column>          
+	                <p:column headerText="Carrera"  style="width: 30em  ! important; text-align: left;">
+			            <h:outputText value="#{item.crrDescripcion}"/>
+			        </p:column>
+			        <p:column headerText="Nivel" style="width: 4em  ! important; text-align: center;">
+			            <h:outputText value="#{listasCombosForm.getListaNivelFichaMatricula(item.fcmtNivelUbicacion) }"/>
+			        </p:column>
+			        <p:column headerText="Opción" style="width: 4em ! important; text-align: center;"  >
+						<p:commandLink id="cmdlVerNotas" value="Ver notas " action="#{estudianteNotasPregradoForm.irVerNotas(item)}" 
+				        			  onclick="PF('dialogoTrabajando').show();"  ajax="false" style="margin: 0px 5px; color: blue;"/>
+			        </p:column>
+				</p:dataTable>
+		</p:panel>
+		<div>
+			<p:commandButton id="btnRegresar" value="Regresar" action="#{estudianteNotasPregradoForm.irInicio()}" immediate="true" ajax="false" />
+		</div>
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

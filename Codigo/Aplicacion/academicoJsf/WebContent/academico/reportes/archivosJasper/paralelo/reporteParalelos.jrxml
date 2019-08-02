@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
+<!-- 2018-04-03T16:59:55 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteParalelos" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a8c0e2ac-a2af-4172-9cf1-a2b731a2f6d1">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="imagenCabecera" class="java.lang.String"/>
+	<parameter name="imagenPie" class="java.lang.String"/>
+	<parameter name="facultad" class="java.lang.String"/>
+	<parameter name="periodo" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="total_inscritos" class="java.lang.String"/>
+	<parameter name="total_matriculados" class="java.lang.String"/>
+	<parameter name="nick" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="carrera" class="java.lang.String"/>
+	<field name="nivel" class="java.lang.String"/>
+	<field name="asignatura" class="java.lang.String"/>
+	<field name="paralelo" class="java.lang.String"/>
+	<field name="aula" class="java.lang.String"/>
+	<field name="cupo" class="java.lang.String"/>
+	<field name="inscritos" class="java.lang.String"/>
+	<field name="matriculados" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="146" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="2" width="595" height="61" uuid="82632fff-4560-47b9-802c-3ee7b1f45358"/>
+				<imageExpression><![CDATA[$P{imagenCabecera}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="25" y="76" width="100" height="17" forecolor="#000000" backcolor="#FFFFFF" uuid="1b75babd-2773-425e-b986-b04d43f77048"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FACULTAD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="5" y="93" width="120" height="17" forecolor="#000000" backcolor="#FFFFFF" uuid="c4a3e4dc-7814-468e-9424-98a1aa09b218"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERÍODO ACADÉMICO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="34" y="110" width="91" height="17" forecolor="#000000" backcolor="#FFFFFF" uuid="fb5af086-3af3-48d0-9b46-5d3b74a6e4a2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="133" y="76" width="435" height="16" backcolor="#48B1F0" uuid="ba192892-b03c-4aed-b9c4-87deb3551e08">
+					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+					<paragraph lineSpacing="Proportional"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  "+$P{facultad}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="130" y="76" width="3" height="64" backcolor="#48B1F1" uuid="24d54125-9513-4871-8287-bf9740fea6e0">
+					<property name="com.jaspersoft.studio.unit.width" value="mm"/>
+				</reportElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="92" width="175" height="17" uuid="a859bf10-3f4f-4d33-be9b-db6fb3570f0b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  "+$P{periodo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="110" width="435" height="17" uuid="bf5a474f-779f-41c4-8f03-f3892d19e62f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  "+$P{fecha}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame" hAlign="Center">
+				<reportElement x="0" y="38" width="595" height="-63" uuid="be24a411-890b-4c3b-8f37-fe64c24e21cb"/>
+				<imageExpression><![CDATA[$P{imagenPie}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="4" y="14" width="106" height="30" forecolor="#FCFAFA" backcolor="#9C9B9B" uuid="d1a74ee7-874f-47b4-8b40-af97004be45a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Carrera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="110" y="14" width="50" height="30" forecolor="#FCFAFA" backcolor="#9C9B9B" uuid="6c329955-ad49-4995-9c53-ad85e160a7ee"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nivel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="160" y="14" width="180" height="30" forecolor="#FCFAFA" backcolor="#9C9B9B" uuid="6287fe0b-106e-4b82-bd84-98c3d9aea5ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Asignatura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="340" y="14" width="50" height="30" forecolor="#FCFAFA" backcolor="#9C9B9B" uuid="2af3a16b-043c-47db-b12f-9956a9e432fd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paralelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="390" y="14" width="50" height="30" forecolor="#FCFAFA" backcolor="#9C9B9B" uuid="50aa0998-900d-445d-92d8-9bcb6da95dd6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="440" y="14" width="50" height="30" forecolor="#FCFAFA" backcolor="#9C9B9B" uuid="cacaba7a-aeef-48ce-b144-9613a335ed13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cupo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="490" y="14" width="50" height="30" forecolor="#FCFAFA" backcolor="#9C9B9B" uuid="ded04740-f6c8-4de2-81de-6f61b538ecc3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inscritos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="540" y="14" width="50" height="30" forecolor="#FCFAFA" backcolor="#9C9B9B" uuid="2b1904c8-3456-4f61-bfac-11a62ffb3e72"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Matriculados]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="4" y="0" width="106" height="30" uuid="d69e075e-defe-4dee-a35b-ace1d25c6d0c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{carrera}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="0" width="50" height="30" uuid="ff4550d2-e449-4002-ba88-dca118ba3f38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nivel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="0" width="180" height="30" uuid="62e51e41-c21f-48e4-9247-f653d6e67310"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{asignatura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="50" height="30" uuid="8a5b8140-09e4-406f-8436-3cd85b166e9d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{paralelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="0" width="50" height="30" uuid="265dbe60-2e09-4a4f-8ce8-961ba14decf9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="50" height="30" uuid="605c3639-b376-44b3-8fa0-5af721dd2566"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cupo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="0" width="50" height="30" uuid="5843cfc1-a890-4083-9ac9-d1a01b7924e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inscritos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="540" y="0" width="50" height="30" uuid="4125709c-5329-44e5-9bb0-491804ebe4f9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matriculados}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="510" y="10" width="30" height="14" uuid="a0fedad2-12ef-4d99-a9d9-8a1ce5999503"/>
+				<textElement textAlignment="Center">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="540" y="10" width="51" height="14" uuid="e93a47e7-3375-4ad9-a514-1dadf0d39031"/>
+				<textElement textAlignment="Center">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="121" splitType="Stretch">
+			<image scaleImage="FillFrame" hAlign="Center">
+				<reportElement x="0" y="90" width="595" height="31" uuid="790329e7-096f-4641-b8e7-30ead847db51"/>
+				<imageExpression><![CDATA[$P{imagenPie}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="13" y="76" width="86" height="14" uuid="79956382-6fe9-4f50-bda1-0eb2cdc2690f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nick}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="76" width="306" height="14" uuid="3ed1c00e-e05c-4bd7-a770-cff58a7606f2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Documento generado automáticamente en siiu.uce.edu.ec"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="484" y="29" width="50" height="30" uuid="8131cc32-3680-4e37-a437-176c7fdaefbb"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total_inscritos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="534" y="29" width="50" height="30" uuid="c4bd05cf-0e11-417c-8e0f-94ba501bf937"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total_matriculados}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="484" y="9" width="50" height="20" uuid="f6656c71-1d92-43e1-874e-8c55ef7f583e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="534" y="9" width="50" height="20" uuid="04a7adef-982a-4217-9c11-c1faff48111b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

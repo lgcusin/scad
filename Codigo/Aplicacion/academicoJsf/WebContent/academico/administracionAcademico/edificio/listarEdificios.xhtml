@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Administración / Edificio " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador';
+    	var varError = document.getElementById(idVarError);
+    	if(varError.value == 3){
+    		document.getElementById('frmListarEdificios:btnEliminarValidarModal').click();
+        }
+    } 
+
+ //]]> 
+</script>
+<h:form id="frmListarEdificios" enctype="multipart/form-data" acceptcharset="UTF-8">
+		<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" >  <!-- Combo de Período Académico -->
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblDependencia" for="slcDependencia" value="Facultad:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcDependencia" value="#{administracionEdificioForm.aefDependenciaDto.dpnId}" 
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccioneTodos}" itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionEdificioForm.aefListaDependenciaDto}"
+												  itemLabel="#{item.dpnDescripcion}" itemValue="#{item.dpnId}" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	<!-- Fin fila 1 -->
+		   	</div> 
+		</p:panel>
+		<div >  
+			<p:commandButton id="btnBuscar" value="Buscar" action="#{administracionEdificioForm.buscar(administracionEdificioForm.aefDependenciaDto.dpnId)}"
+								update=":frmListarEdificios:pnlResultados" onclick="PF('dialogoTrabajando').show();" 
+								oncomplete="PF('dialogoTrabajando').hide();"/> 
+			<p:commandButton id="btnLimpiar" value="Limpiar" action="#{administracionEdificioForm.limpiar()}"
+							update=":frmListarEdificios:pnlBusqueda , :frmListarEdificios:pnlResultados"/> 
+		</div>
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda" >
+			<p:dataTable id="dtsEdificio" var="item" value="#{administracionEdificioForm.aefListEdificioDtoBusq}"		
+			    		 		rows="10" paginator="true" paginatorPosition="bottom"			    		 		
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">			                         
+					        				       
+					        <p:column headerText="Descripción" style="width: 12em ! important;">
+					            <h:outputText value="#{item.edfDescripcion}"/>
+					        </p:column>
+					        <p:column headerText="Estado" style="width: 2em ! important; text-align:center">
+					            <h:outputText value="#{listasCombosForm.getLabelEstadoEdificio(item.edfEstado)}"/>
+					        </p:column>
+					        <p:column headerText="Opción" style="width: 2em ! important; text-align:center">
+					        	<p:commandLink id="cmdlEditar" value="Editar" action="#{administracionEdificioForm.irEditarEdificio(item)}" style="margin-left:15px"  />
+					        	<p:commandLink id="cmdlEliminar" action="#{administracionEdificioForm.verificarClickEliminar(item)}" value="Eliminar" style="margin-left:15px" ajax="false" />
+					        </p:column>
+				</p:dataTable>
+		</p:panel>
+		
+		<div >
+			<p:commandButton id="btnSalir" value="Regresar" action="#{administracionEdificioForm.irInicio()}" immediate="true" ajax="false"/>
+			<p:commandButton id="btnNuevo" value="Nuevo" action="#{administracionEdificioForm.irNuevoEdificio()}" immediate="true" ajax="false"/>
+			
+			<p:commandButton id="btnEliminarValidarModal" value="EjecutarModalElimnar" style="visibility:hidden;">
+    				<p:ajax oncomplete="PF('dialogoEliminarEdificio').show();" update=":frmModalEliminarEdificio" />
+    		</p:commandButton>
+		</div>
+	</h:form>		
+	<ui:include src="/academico/administracionAcademico/edificio/modalEliminar.xhtml" />
+	
+	<h:form id="compOculto" style="visibility:hidden;">
+	 	<p:inputText id="txtValidador" value="#{administracionEdificioForm.aefValidadorClic}" >
+		</p:inputText>	
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

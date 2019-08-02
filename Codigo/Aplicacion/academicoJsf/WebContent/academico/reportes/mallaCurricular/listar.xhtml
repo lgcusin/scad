@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Reportes / Malla curricular / Listar" />
+		</ui:include>
+	</ui:define>
+	<ui:define name="cuerpo">
+<script language="JavaScript">
+		//<![CDATA[
+	    function verificarErrores(){
+	        var idVarAgregar = 'compOculto:txtValidador';
+	     	var varAgregar = document.getElementById(idVarAgregar);
+		    	if(varAgregar.value == 1){
+		  		document.getElementById('frmMallaCurricular:cmdlModalReporte').click();
+		 	    }
+	  	    }
+  	  	//]]> 
+</script>
+<script language="JavaScript">
+//<![CDATA[
+	function abrirVentaReporte(formato, nombreReporte, tipo){
+		var url = "/aplicacion/reportes";
+		url = url + "?nombreJasper=" + nombreReporte;
+		url = url + "&formato=" + formato;
+		url = url + "&tipo=" + tipo;
+		if(formato == 'vista'){
+			var reportWindow = window.open(url);
+			reportWindow.focus();
+		}else{
+			var reportWindow = window.open(url);
+		}
+    } 
+ //]]> 
+</script>
+	
+		<h:form id="frmMallaCurricular" enctype="multipart/form-data" acceptcharset="UTF-8">
+			<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+					<div class="row cells8">
+						<div class="cell colspan3">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcCarrera" value="#{mallaCurricularForm.amcfCarreraId}" style="width:100%">
+										<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item" value="#{mallaCurricularForm.amcfListCarrera}"
+											itemLabel="#{item.crrDescripcion}" 
+											itemValue="#{item.crrId}" />
+									</h:selectOneMenu>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+				</div>
+			</p:panel>
+			
+			<div>
+				<p:commandButton id="btnBuscar" value="Buscar"
+					action="#{mallaCurricularForm.buscarMallas()}"
+					update=":frmMallaCurricular"
+					onclick="PF('dialogoTrabajando').show();"
+					oncomplete="PF('dialogoTrabajando').hide();" />
+				<p:commandButton id="btnLimpiar" value="Limpiar"
+					action="#{mallaCurricularForm.limpiarFormListarMallaCurricular()}"
+					update=":frmMallaCurricular" />
+			</div>
+			
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+				<p:dataTable id="dtsEstudiante" var="item" value="#{mallaCurricularForm.amcfListMallaCurricularDto}"
+					rowIndexVar="rowIndex"
+					rows="10" paginator="true" paginatorPosition="bottom"
+					rowsPerPageTemplate="5,10,15"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					emptyMessage="NO SE ENCONTRÓ REGISTROS CON LOS PARÁMETROS INGRESADOS">
+
+					<p:column headerText="#" style="width: 1em ! important; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column headerText="Carrera" style="width: 6em ! important;">
+						<h:outputText value="#{item.crrDescripcion}" />
+					</p:column>
+					<p:column headerText="Descripción" style="width: 12em ! important;">
+						<h:outputText value="#{item.mlcrDescripcion}" />
+					</p:column>
+					<p:column headerText="Vigencia" style="width: 1em ! important;">
+						<h:outputText value="#{mallaCurricularForm.establecerVigenciaMallaCurricular(item.mlcrVigencia)}" />
+					</p:column>
+					<p:column headerText="Org aprendizaje" style="width: 2em ! important;">
+						<h:outputText value="#{mallaCurricularForm.establecerOrgAprendizajeMallaCurricular(item.mlcrTipoOrgAprendizaje)}" />
+					</p:column>
+					<p:column headerText="Estado" style="width: 2em ! important;">
+						<h:outputText value="#{mallaCurricularForm.establecerEstadoMallaCurricular(item.mlcrEstado)}" />
+					</p:column>
+					<p:column headerText="Opciones" class="border-none" style="width: 3em ! important;">
+					<p:panelGrid>
+						<p:row>
+							<p:column>
+								<p:commandLink id="cmdlImprimir" value="Imprimir"
+									onclick="PF('dialogoTrabajando').show();" 
+									action="#{mallaCurricularForm.imprimirMallaCurricular(item)}"
+									ajax="false"/>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			
+			<div>
+				<p:commandButton id="btnRegresar" value="Regresar"
+					action="#{mallaCurricularForm.irInicio()}"
+					immediate="true"
+					ajax="false" />
+				<p:commandButton id="cmdlModalReporte" value="Imprimir reporte" style="visibility:hidden;">
+					<p:ajax oncomplete="abrirVentaReporte('#{mallaCurricularForm.amcfTipoArchivo}','#{mallaCurricularForm.amcfNombreArchivo}','#{mallaCurricularForm.amcfNombreReporte}');" />
+				</p:commandButton>	
+			</div>
+		</h:form>
+		
+		<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador" value="#{mallaCurricularForm.amcfActivarReporte}" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

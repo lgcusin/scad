@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Administración académico / Asignatura / Ver" />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+
+   <script language="JavaScript">
+    //<![CDATA[
+	     function nobackbutton(){
+	 		window.location.hash="no-back-button";
+	  		window.location.hash="Again-No-back-button" //chrome
+	   		window.onhashchange=function(){window.location.hash="no-back-button";}
+		  
+	      }
+ //]]> 
+</script>
+
+	<h:form id="frmVerMateria" >
+		
+		<!--******************************PANEL DE INFORMACIÓN MATERIA*******************************-->	
+		<p:panel id="pnlDatosAula" header="Información de la asignatura">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				
+				<!-- ******************** FILA NUMERO 1  ************************ -->
+				<div class="row cells8"> 
+				
+					    <div class="cell colspan4"><!--Dependencia de la materia -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblFacultad" for="facultad" value="Facultad: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="facultad" value="#{administracionMateriaForm.amfMateriaDto.dpnDescripcion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						 </ui:decorate>
+					   </div>
+						<div class="cell colspan4"> <!--carrera de la materia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCarrera" for="carrera" value="Carrera: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="carrera" value="#{administracionMateriaForm.amfMateriaDto.crrDescripcion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					    </div>
+				</div> <!-- Fin fila 1 -->
+			
+			    	<!-- ******************** FILA NUMERO 2  ************************ -->
+				<div class="row cells8"> 					
+						<div class="cell colspan4"> <!--Código de la materia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCodigo" for="codigo" value="Código: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="codigo" value="#{administracionMateriaForm.amfMateriaDto.mtrCodigo}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					    </div>
+						<div class="cell colspan4">  <!-- Descripción de la materia-->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblMateriaDescripcion" for="materiaDescripcion" value="Descripción: " />
+							</ui:define>
+							<ui:define name="valor">
+							 	<p:outputLabel id="materiaDescripcion" value="#{administracionMateriaForm.amfMateriaDto.mtrDescripcion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						 </ui:decorate>
+					    </div>
+						
+				</div> <!-- Fin fila 2 -->
+								
+				<!-- ******************** FILA NUMERO 3  ************************ -->
+				<div class="row cells8"> 
+					
+					<div class="cell colspan4"> <!-- estado de la materia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblEstado" for="estado" value="Estado: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="estado" value="#{listasCombosForm.getLabelEstadoMateria(administracionMateriaForm.amfMateriaDto.mtrEstado)}" 
+											style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+					<div class="cell colspan4">  <!-- Tipo de la materia-->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblMateriaTipo" for="materiaTipo" value="Tipo: " />
+							</ui:define>
+							<ui:define name="valor">
+							 	<p:outputLabel id="materiaTipo" value="#{administracionMateriaForm.amfMateriaDto.tpmtDescripcion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+			</div> <!-- Fin fila 3 -->
+		  </div> 
+ 		</p:panel>	
+ 		<p:panel id="pnlDatosHoras" header="Horas de asignación">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed" >
+			<!-- ******************** FILA NUMERO 6  ************************ -->
+				<div class="row cells8"> 
+				   <div class="cell colspan4"> <!-- Unidad de medida-->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblUnidadMedida" for="unidadMedida" value="Unidad de medida: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="unidadMedida" value="#{listasCombosForm.getLabelUnidadMedida(administracionMateriaForm.amfMateriaDto.mtrUnidadMedida)}" 
+											style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+				   </div>
+				   <div class="cell colspan4"> <!-- creditos de la materia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCreditos" for="creditos" value="Créditos: " />
+							</ui:define>
+							<ui:define name="valor">
+							 	<p:outputLabel id="creditos" value="#{administracionMateriaForm.amfMateriaDto.mtrCreditos}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+				
+				     </div>
+		     	</div> <!-- Fin fila 3 -->
+		     	<!-- ******************** FILA NUMERO 5  ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- horas docente de la materia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblHoras" for="horas" value="Horas de Docencia semanal: " />
+							</ui:define>
+							<ui:define name="valor">
+							 	<p:outputLabel id="horas" value="#{administracionMateriaForm.amfMateriaDto.mtrHoras}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+				     </div> 
+				     <div class="cell colspan4"> <!-- Horas semestre-->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblHorasSemestre" for="horasSemestre" value="Horas de Docencia semestral: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="horasSemestre" value="#{administracionMateriaForm.amfMateriaDto.mtrHorasCien}" 
+											style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div>
+				
+				<!-- ******************** FILA NUMERO 5  ************************ -->
+				<div class="row cells8"> 
+					 <div class="cell colspan4"> <!-- creditos de la materia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblHorasPracSema" for="horasPracSema" value="Horas PAE semanal: " />
+							</ui:define>
+							<ui:define name="valor">
+							 	<p:outputLabel id="horasPracSema" value="#{administracionMateriaForm.amfMateriaDto.mtrHorasPracSema}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+				
+				     </div> 
+					<div class="cell colspan4"> <!-- horas docente de la materia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblHorasPracticas" for="horasPracticas" value="Horas PAE semestral: " />
+							</ui:define>
+							<ui:define name="valor">
+							 	<p:outputLabel id="horasPracticas" value="#{administracionMateriaForm.amfMateriaDto.mtrHorasPracticas}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+				     </div> 
+				</div>
+				
+				<!-- ******************** FILA NUMERO 5  ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- horas docente de la materia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblHorasAutonomoSema" for="horasAutonomoSema" value="Horas trabajo autónomo semanal: " />
+							</ui:define>
+							<ui:define name="valor">
+							 	<p:outputLabel id="horasAutonomoSema" value="#{administracionMateriaForm.amfMateriaDto.mtrHorasAutonoSema}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+							</ui:decorate>
+				
+				     </div> 
+				     <div class="cell colspan4"> <!-- creditos de la materia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblHorasAutonomo" for="horasAutonomo" value="Horas trabajo autónomo semestral: " />
+							</ui:define>
+							<ui:define name="valor">
+							 	<p:outputLabel id="horasAutonomo" value="#{administracionMateriaForm.amfMateriaDto.mtrHorasTrabAutonomo}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+				     </div> 
+				</div>
+			</div>
+			</p:panel>
+				
+			<p:panel id="pnlDatosCaracteristica" header="Características">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed" >	
+				
+				<!-- ******************** FILA NUMERO 4  ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- Relación de trabajo -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblRelacionTrabajo" for="relacionTrabajo" value="Relación de trabajo: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="relacionTrabajo" value="#{listasCombosForm.getLabelRelacionTrabajoMateria(administracionMateriaForm.amfMateriaDto.mtrRelacionTrabajo)}" 
+											style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+					<div class="cell colspan4">  <!-- Campo de formación de la materia-->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblMateriaCampoFormacion" for="campoFormacion" value="Campo de Formación: " />
+							</ui:define>
+							<ui:define name="valor">
+							 	<p:outputLabel id="campoFormacion" value="#{administracionMateriaForm.amfMateriaDto.cmfrDescripcion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 4 -->
+				
+				<!-- ******************** FILA NUMERO 7  ************************ -->
+				<div class="row cells8"> 
+				<div class="cell colspan4"> <!-- núcleo problémico -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblNucleoProblemico" for="nucleoProblemico" value="Núcleo Problémico: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="nucleoProblemico" value="#{administracionMateriaForm.amfMateriaDto.ncprDescripcion}" 
+											style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>					
+					
+				</div> <!-- Fin fila 7 -->
+					
+				<!-- ******************** FILA NUMERO 9  ************************ -->
+			</div><!-- Fin GRID-->
+		</p:panel>
+		<div >
+			<p:commandButton id="btnRegresar" value="Regresar" immediate="true" ajax="false" action="#{administracionMateriaForm.irRegresarListar()}" />
+			<p:commandButton id="btnEditar" value="Editar" immediate="true" ajax="false" rendered="#{administracionMateriaForm.amfMateriaDto.crrProceso == 0 or administracionMateriaForm.amfMateriaDto.dpnId == 27 }"
+							 action="#{administracionMateriaForm.editarMateria(administracionMateriaForm.amfMateriaDto)}" />
+		</div>
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

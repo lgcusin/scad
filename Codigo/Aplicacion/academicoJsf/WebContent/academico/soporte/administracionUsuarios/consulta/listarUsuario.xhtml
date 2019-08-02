@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Reportes / Usuario " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador';
+    	var varError = document.getElementById(idVarError);
+    	if(varError.value == 1){
+    		document.getElementById('frmMallaMateria:cmdlModalReporte2').click();
+        }
+    } 
+    function nobackbutton(){
+   		window.location.hash="no-back-button";
+   		window.location.hash="Again-No-back-button" //chrome
+   		window.onhashchange=function(){window.location.hash="no-back-button";}
+	}
+    
+ //]]> 
+</script>
+<script language="JavaScript">
+	//<![CDATA[
+		function abrirVentaReporte(formato, nombreReporte, tipo){
+			var url = "/aplicacion/reportes";
+			url = url + "?nombreJasper=" + nombreReporte;
+			url = url + "&formato=" + formato;
+			url = url + "&tipo=" + tipo;
+			if(formato == 'vista'){
+				var reportWindow = window.open(url);
+				reportWindow.focus();
+			}else{
+				var reportWindow = window.open(url);
+			}
+	    } 
+	 //]]> 
+</script>
+	<h:form id="frmMallaMateria" enctype="multipart/form-data" acceptcharset="UTF-8" >
+		<p:panel id="pnlBusqueda" header="Usuario rol carrera">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblFacultad" for="slcFacultad" value="Facultad:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcFacultad" value="#{consultaUsuarioForm.ammfMallaCurricularDtoBusq.dpnId}" 
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{consultaUsuarioForm.ammfListFacultadBusq}" 
+												  itemLabel="#{item.dpnDescripcion}" itemValue="#{item.dpnId}" />
+									<p:ajax event="change" listener="#{consultaUsuarioForm.cambiarCarrera(consultaUsuarioForm.ammfMallaCurricularDtoBusq.dpnId)}"
+											update=" lblFacultad , slcFacultad  , lblCarrera , slcCarrera , lblRol , slcRol , lblEstado , slcEstado , pnlResultados , lblPostgrado , slcPostgrado" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+				<!-- ******************** FILA NUMERO 2 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcCarrera" value="#{consultaUsuarioForm.ammfMallaCurricularDtoBusq.crrId}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccioneTodos}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{consultaUsuarioForm.ammfListCarreraBusq}"
+												  itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />
+									<p:ajax event="change" listener="#{consultaUsuarioForm.cambiarRol()}"
+											update="lblCarrera , slcCarrera , lblRol , slcRol , lblEstado , slcEstado , pnlResultados" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	<!-- ******************** FILA NUMERO 2 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPostgrado" for="slcPostgrado" value="Postgrado:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcPostgrado" value="#{consultaUsuarioForm.ammfPostgradoBusq}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccioneTodos}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{consultaUsuarioForm.ammfListPostgradoBusq}"
+												  itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />
+									<p:ajax event="change" listener="#{consultaUsuarioForm.cambiarRol()}"
+											update="lblPostgrado , slcPostgrado , lblRol , slcRol , lblEstado , slcEstado , pnlResultados" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	<!-- ******************** FILA NUMERO 3 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblRol" for="slcRol" value="Rol:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcRol" value="#{consultaUsuarioForm.ammfRolBusq.rolId}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccioneTodos}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{consultaUsuarioForm.ammfListRolBusq}"
+												  itemLabel="#{item.rolDetalle}" itemValue="#{item.rolId}" />
+									<p:ajax event="change" listener="#{consultaUsuarioForm.cambiarEstado()}"
+											update="lblRol , slcRol , lblEstado , slcEstado , pnlResultados" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	<!-- ******************** FILA NUMERO 4 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblEstado" for="slcEstado" value="Estado:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcEstado" value="#{consultaUsuarioForm.ammfEstadoRoflcr}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccioneTodos}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{listasCombosForm.listaEstadoRoflcr}"
+												  itemLabel="#{item.label}" itemValue="#{item.value}" />
+									<p:ajax event="change" listener="#{consultaUsuarioForm.cambiarRol()}"
+											update="lblEstado , slcEstado , pnlResultados  " />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		   	</div> 		
+		</p:panel>
+		<div >
+			<p:commandButton id="btnBuscar" value="Buscar"  action="#{consultaUsuarioForm.buscar()}"
+								update=":frmMallaMateria:pnlResultados" onclick="PF('dialogoTrabajando').show();" 
+								oncomplete="PF('dialogoTrabajando').hide();"/> 
+			<p:commandButton id="btnLimpiar" value="Limpiar"  action="#{consultaUsuarioForm.limpiar()}"  
+								update=":frmMallaMateria:pnlBusqueda , :frmMallaMateria:pnlResultados" />  
+		</div>
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda" >
+			<p:dataTable id="dtsEstudiante" var="item" value="#{consultaUsuarioForm.ammfListUsuarioRolBusq}" rendered="#{consultaUsuarioForm.ammfHabilitaSinRoflcrBusq == false}"
+			    		 		rows="10" paginator="true" paginatorPosition="bottom"
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+			                
+			                <p:column headerText="Identificación" style="width: 2em ! important;">
+					            <h:outputText value="#{item.prsIdentificacion}"/>
+					        </p:column>         
+					        <p:column headerText="Apellidos" style="width: 5em ! important;">
+					            <h:outputText value="#{item.prsPrimerApellido} #{item.prsSegundoApellido} "/>
+					        </p:column>
+					        <p:column headerText="Nombres" style="width: 5em ! important;">
+					            <h:outputText value="#{item.prsNombres}"/>
+					        </p:column>
+					        <p:column headerText="Nick" style="width: 4em ! important;">
+					            <h:outputText value="#{item.usrNick}"/>
+					        </p:column>
+					        <p:column headerText="Facultad" style="width: 6em ! important;">
+					            <h:outputText value="#{item.fclDescripcion}"/>
+					        </p:column>
+					        <p:column headerText="Carrera" style="width: 6em ! important;">
+					            <h:outputText value="#{item.crrDetalle}"/>
+					        </p:column>
+					        <p:column headerText="Rol" style="width: 4em ! important;">
+					            <h:outputText value="#{item.rolDetalle}"/>
+					        </p:column>
+					        <p:column headerText="Estado rol carrera" style="width: 2em ! important;text-align:center">
+					            <h:outputText value="#{listasCombosForm.getLabelEstadoRoflcr(item.roflcrEstado)}"/>
+					        </p:column>
+					        
+				</p:dataTable>
+				
+				<p:dataTable id="dtsEstudianteAlterno" var="item" value="#{consultaUsuarioForm.ammfListUsuarioRolBusq}" rendered="#{consultaUsuarioForm.ammfHabilitaSinRoflcrBusq}"
+			    		 		rows="10" paginator="true" paginatorPosition="bottom"
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+			                
+			                <p:column headerText="Identificación" style="width: 1em ! important;">
+					            <h:outputText value="#{item.prsIdentificacion}"/>
+					        </p:column>         
+					        <p:column headerText="Apellidos" style="width: 5em ! important;">
+					            <h:outputText value="#{item.prsPrimerApellido} #{item.prsSegundoApellido} "/>
+					        </p:column>
+					        <p:column headerText="Nombres" style="width: 5em ! important;">
+					            <h:outputText value="#{item.prsNombres}"/>
+					        </p:column>
+					        <p:column headerText="Nick" style="width: 4em ! important;">
+					            <h:outputText value="#{item.usrNick}"/>
+					        </p:column>
+					        <p:column headerText="Rol" style="width: 4em ! important;">
+					            <h:outputText value="#{item.rolDetalle}"/>
+					        </p:column>
+					        <p:column headerText="Estado del rol" style="width: 2em ! important;text-align:center">
+					            <h:outputText value="#{listasCombosForm.getLabelEstadoUsuarioRol(item.usroEstado)}"/>
+					        </p:column>
+					        
+				</p:dataTable>
+		</p:panel>
+		<div>
+			<p:commandButton id="btnRegresar" value="Regresar" action="#{consultaUsuarioForm.irInicio()}" immediate="true" ajax="false" />
+			
+			<p:commandButton id="btnImprimir2" value="Imprimir XLS" action="#{consultaUsuarioForm.verificarClickImprimir()}"
+    		  onclick="PF('dialogoTrabajando').show();" oncomplete="PF('dialogoTrabajando').hide();" ajax="false" />
+    		  
+    		<p:commandButton id="cmdlModalReporte2" value="Imprimir reporte XLS" style="visibility:hidden;">
+				<p:ajax oncomplete="abrirVentaReporte('XLS','reporteUsuarios','REPORTE_USUARIOS_XLS');" />
+			</p:commandButton>
+			
+		</div>
+	</h:form>
+	<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador"
+				value="#{consultaUsuarioForm.ammfValidadorClic}" />
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Reportes / Registro de notas por docente / Listar " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+	//<![CDATA[
+	    function abrirVentaReporte(formato, nombreReporte, tipo){
+				var url = "/aplicacion/reportes";
+				url = url + "?nombreJasper=" + nombreReporte;
+				url = url + "&formato=" + formato;
+				url = url + "&tipo=" + tipo;
+				if(formato == 'vista'){
+					var reportWindow = window.open(url);
+					reportWindow.focus();
+				}else{
+					var reportWindow = window.open(url);
+				}
+		   } 
+	 //]]> 
+</script>
+	<h:form id="frmListarNotaIndividual" enctype="multipart/form-data" acceptcharset="UTF-8">
+		<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+			<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPeriodo" for="slcPeriodo" value="Período académico:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcPeriodo" value="#{reporteDocenteNotasForm.rdfDocenteBuscar.pracId}"
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"/> 
+									<f:selectItems  var="item" value="#{reporteDocenteNotasForm.arndfListPeriodoAcademicoBusq}"
+												  itemLabel="#{item.pracDescripcion}" itemValue="#{item.pracId}" />
+									<p:ajax event="change" 
+											update=" lblCarrera , slcCarrera , msgCarrera , lblPeriodo , slcPeriodo , msgPeriodo ,  pnlResultados" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgPeriodo" for="slcPeriodo" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+				<!-- ******************** FILA NUMERO 2 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera/Programa:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcCarrera" value="#{reporteDocenteNotasForm.rdfDocenteBuscar.crrId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccioneTodos}" itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{reporteDocenteNotasForm.rdfListaCarrerasDirector}"
+												  itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />
+									<p:ajax event="change" 
+											update="lblPeriodo , slcPeriodo , msgPeriodo , lblCarrera , slcCarrera , msgCarrera , pnlBusqueda , pnlResultados " />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgCarrera" for="slcCarrera" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	<div class="row cells8">
+						<div class="cell colspan4"><!-- IDENTIFICACION -->
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacion" for="txtIdentificacion" value="Identificación: " />
+								</ui:define>
+								<ui:define name="valor" > 
+									<p:inputText id="txtIdentificacion" value="#{reporteDocenteNotasForm.rdfDocenteBuscar.prsIdentificacion}" style="width:98%">
+		       						<p:ajax event="blur" 
+										update="lblPeriodo ,  slcPeriodo ,   lblIdentificacion , txtIdentificacion , pnlResultados" />
+								</p:inputText>	
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+		   	</div> 		
+		</p:panel>
+		<div >
+			<p:commandButton id="btnBuscar" value="Buscar"  action="#{reporteDocenteNotasForm.buscar()}"
+								update=":frmListarNotaIndividual , btnExportar" onclick="PF('dialogoTrabajando').show();" 
+								oncomplete="PF('dialogoTrabajando').hide();"/> 
+			<p:commandButton id="btnLimpiar" value="Limpiar" action="#{reporteDocenteNotasForm.limpiar()}"
+								update=":frmListarNotaIndividual" /> 
+			<p:commandButton id="btnExportar" value="Exportar a excel" action="#{reporteDocenteNotasForm.generarReporte()}" rendered="#{reporteDocenteNotasForm.activadorDescargar}" >
+    				<p:ajax oncomplete="abrirVentaReporte('XLS','reporteEstadisticoNotas','ESTADISTICAS');" />
+    		</p:commandButton> 
+		</div>
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda" >
+			<p:dataTable id="dtsEstudiante" var="item" value="#{reporteDocenteNotasForm.arndfListParaleloBusq}"
+			    		 		rows="10" paginator="true" paginatorPosition="bottom"
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+			                <p:column headerText="Apellidos y Nombres" style="width: 8em ! important;" rendered="#{notasPregradoForm.npfActivadorCohorte==1?'false':'true'}">
+					            <h:outputText value="#{item.prsPrimerAPellido} #{item.prsSegundoApellido!=null?item.prsSegundoApellido:''} #{item.prsNombres}"/>
+					        </p:column>         
+					        <p:column headerText="Carrera/Programa" style="width: 10em ! important;">
+					            <h:outputText value="#{item.crrDetalle}"/>
+					        </p:column>
+					        <p:column headerText="Asignatura" style="width: 5em ! important;">
+					            <h:outputText value="#{item.mtrDescripcion}"/>
+					        </p:column>
+					        <p:column headerText="Paralelo" style="width: 1em ! important; text-align:center">
+					            <h:outputText value="#{item.prlDescripcion}"/>
+					        </p:column>
+					        <p:column headerText="Opciones" style="width: 6em ! important; text-align:center" >
+					        	<table style="width:100%; border-color: #dddd">
+					        		<tr>
+									    <p:commandLink id="cmdlVer" value="Ver información"  action="#{reporteDocenteNotasForm.reporteNotas(item)}" style="margin: 0px 1px;" update=":frmListarNotaIndividual" 
+									    onclick="PF('dialogoTrabajando').show();"  
+										oncomplete="PF('dialogoTrabajando').hide();" ajax="false" inmediate="true"/>
+									   
+									 </tr>
+					        	</table>
+					        </p:column>
+				</p:dataTable>
+		</p:panel>
+		<div >
+			<p:commandButton id="btnSalir" value="Regresar" action="#{reporteDocenteNotasForm.irInicio()}" />
+		</div>
+	</h:form>		
+</ui:define>
+</ui:composition>
+</html>

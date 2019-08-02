@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value=" Evaluación Docente / Resultados " />
+		</ui:include>
+	</ui:define>
+	<ui:define name="cuerpo">
+	
+	<script language="JavaScript">
+	//<![CDATA[
+			 function abrirVentaReporte(formato, nombreReporte, tipo){
+				var url = "/aplicacion/reportes";
+				url = url + "?nombreJasper=" + nombreReporte;
+				url = url + "&formato=" + formato;
+				url = url + "&tipo=" + tipo;
+				if(formato == 'vista'){
+					var reportWindow = window.open(url);
+					reportWindow.focus();
+				}else{
+					var reportWindow = window.open(url);
+				}
+		   } 
+
+		//]]> 
+	</script>
+			
+	<script language="JavaScript">
+		//<![CDATA[
+			function verificarErrores(){
+		    	var idVarError = 'compOculto:txtValidador';
+		    	var varError = document.getElementById(idVarError);
+		    	if(varError.value == 1){
+		   		document.getElementById('frmVerResutados:btnModalReporte').click();
+		        }
+		    } 
+		 //]]> 
+	</script>
+	
+		<h:form id="frmVerResutados" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+
+			<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+
+			<p:panel id="pnlDocente" header="Información Directivo">
+
+				<div class="grid condensed">
+
+					<!-- ******************** FILA NUMERO 0 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- Nombre -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNombre" for="txtNombre" value="Nombre: " />
+								</ui:define>
+
+								<ui:define name="valor">
+									<p:outputLabel id="txtNombre"
+										value="#{verResultadosForm.vrfDocente.prsPrimerApellido} #{verResultadosForm.vrfDocente.prsSegundoApellido} #{verResultadosForm.vrfDocente.prsNombres}">
+									</p:outputLabel>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgNombre" for="txtNombre" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 0 ************************ -->
+
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- IDENTIFICACION -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacionView"
+										for="txtIdentificacionView" value="Identificación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtIdentificacionView"
+										value="#{verResultadosForm.vrfDocente.prsIdentificacion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+
+						<!-- ******************** FIN FILA NUMERO 1 ************************ -->
+
+						<!-- ******************** FILA NUMERO 2 ************************ -->
+
+						<div class="cell colspan4">
+							<!-- TIEMPO DE DEDICACION -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblTiempoDedicacion"
+										for="txtTiempoDedicacion" value="Tiempo de Dedicación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtTiempoDedicacion"
+										value="#{verResultadosForm.vrfDocente.tmddDescripcion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 2 ************************ -->
+
+					<!-- ******************** FILA NUMERO 2.1 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- RELACION LABORAL -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblRelacionLaboral" for="txtRelacionLaboral"
+										value="Relación Laboral: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtRelacionLaboral"
+										value="#{verResultadosForm.vrfDocente.rllbDescripcion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+
+						<!-- ******************** FIN FILA NUMERO 2.1 ************************ -->
+
+						<!-- ******************** FILA NUMERO 2.2 ************************ -->
+
+						<div class="cell colspan4">
+							<!-- CATEGORIA -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCategoria" for="txtCategoria"
+										value="Categoría: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtCategoria"
+										value="#{verResultadosForm.vrfDocente.pstDenominacion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 2.2 ************************ -->
+
+				</div>
+			</p:panel>
+
+			<!-- ******************** PANEL PARÁMETROS DE BÚSQUEDA************************ -->
+
+			<p:panel id="pnlBusqueda" header="Parámetros de búsqueda"
+				rendered="#{verResultadosForm.vrfListaPeriodos.size() > 1 ? 'true':'false'}">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+
+					<!-- ******************** FILA NUMERO 0 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- PERIODO -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPeriodo" for="slcPeriodo"
+										value="Período: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcPeriodo"
+										value="#{verResultadosForm.vrfPeriodoBuscar}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccioneTodos}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{verResultadosForm.vrfListaPeriodos}"
+											itemLabel="#{item.pracDescripcion}"
+											itemValue="#{item.pracId}" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgPeriodo" for="slcPeriodo" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 0 ************************ -->
+				</div>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnBuscar" value="Buscar"
+					rendered="#{verResultadosForm.vrfListaPeriodos.size() > 1 ? 'true':'false'}"
+					action="#{verResultadosForm.buscar()}"
+					update="frmVerResutados"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" /> 
+			</div>
+
+			<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+
+			<p:panel id="pnlResultados" header="Docentes">
+				<p:dataTable id="dtsMatricula" var="item"
+					value="#{verResultadosForm.vrfListaEvaluacionesDto}" rows="10"
+					paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" rowIndexVar="rowIndex"
+					emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+					<p:column headerText="#" style="width:5%; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column headerText="Período"
+						style="width:10%; text-align: center;">
+						<h:outputText value="#{item.pracDescripcion}" />
+					</p:column>
+					<p:column headerText="Evaluación">
+						<h:outputText value="#{item.tpevDescripcion} #{item.crrDescripcion == null ? '':'-' } #{verResultadosForm.etiquetaCarreraArea(item.tpevId, item.crrId, item.crrDescripcion)}" />
+					</p:column>  
+					<p:column headerText="Opciones" style="width:6em; text-align: center;">
+						<p:commandLink value="Ver" action="#{verResultadosForm.generarReporte(item)}" ajax="false"
+							
+							style="margin: 0px 5px; color:blue"/>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnRegresar" value="Regresar"
+					action="#{verResultadosForm.irInicio()}" immediate="true"
+					ajax="false" onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+				<p:commandButton id="btnModalReporte" value="EjecutarModalAceptar" style="visibility:hidden;">
+					<p:ajax oncomplete="abrirVentaReporte('PDF_INLINE','#{verResultadosForm.vrfNombreJasper}','#{verResultadosForm.vrfNombreReporte}');"
+						async="false" />
+				</p:commandButton>
+			</div>
+
+		</h:form>
+		<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador"
+				value="#{verResultadosForm.vrfActivarReporte}" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

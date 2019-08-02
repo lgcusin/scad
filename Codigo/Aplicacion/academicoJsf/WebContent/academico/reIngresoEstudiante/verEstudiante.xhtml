@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Secretaría / Estudiantes / Lista de estudiantes / Ver datos estudiante para reingreso" />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+	<h:form id="frmVerEstudiante" >
+		
+		<!--******************************PANEL DE INFORMACIÓN PERSONAL*******************************-->	
+		<p:panel id="pnlDatosPersonales" header="Información personal">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+				<div class="row cells8"> 
+					
+					<div class="cell colspan4"> <!-- número de documento -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblIdentificacion" for="identificacion" value="No. identificación: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="identificacion" value="#{estudianteReingresoForm.erfEstudianteVer.prsIdentificacion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 1 -->
+         
+				<!-- ******************** FILA NUMERO 2 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!--Nombres -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblNombres" for="nombres" value="Nombres: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="nombres" value="#{estudianteReingresoForm.erfEstudianteVer.prsNombres}" 
+											style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+					
+					<div class="cell colspan4"><!--Primer apellido -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblPrimerApelido" for="primerApelido" value="Primer apellido: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="primerApelido" value="#{estudianteReingresoForm.erfEstudianteVer.prsPrimerApellido}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 2 -->
+
+      
+				<!-- ******************** FILA NUMERO 3 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- Segundo apellido -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblSegundoApellido" for="segundoApellido" value="Segundo apellido: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="segundoApellido" value="#{estudianteReingresoForm.erfEstudianteVer.prsSegundoApellido}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+					
+				</div> <!-- Fin fila 3 -->
+			
+				
+				<!-- ******************** FILA NUMERO 5 ************************ -->
+				
+				
+				<!-- ******************** FILA NUMERO 6 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- Mail Institucional-->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblMailInstitucional" for="mailInstitucional" value="Mail institucional: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="mailInstitucional" value="#{estudianteReingresoForm.erfEstudianteVer.prsMailInstitucional}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+					<div class="cell colspan4"> <!-- Mail Personal -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblMailPersonal" for="mailPersonal" value="Mail personal: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="mailPersonal" value="#{estudianteReingresoForm.erfEstudianteVer.prsMailPersonal}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 6 -->
+				
+				
+
+			</div><!-- Fin GRID-->
+		</p:panel>
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda" >
+			<p:dataTable id="dtsEstudiante" var="item" value="#{estudianteReingresoForm.erfListEstudianteBusq}"
+			    		 		rows="10" paginator="true" paginatorPosition="bottom"
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+			                         
+					        <p:column headerText="Facultad" style="width: 3em ! important;text-align: center;">
+					            <h:outputText value="#{item.dpnDescripcion}"/>
+					        </p:column>
+					        <p:column headerText="Carrera" style="width: 12em ! important;text-align: center;">
+					            <h:outputText value="#{item.crrDescripcion}"/>
+					        </p:column>
+ 					  		 <p:column headerText="Requiere homologación"  style="width: 1em ! important;text-align: center;"> 
+ 					  		 	<h:outputText value="Si: " /> 
+ 					          	<h:selectBooleanCheckbox value="#{estudianteReingresoForm.erfHomologacionSi}" />
+ 					        </p:column>
+ 					        <p:column headerText="Aprobacion"  style="width: 1em ! important;text-align: center;">
+ 					        	<h:outputText value="Si: " /> 
+ 					          	<h:selectBooleanCheckbox value="#{estudianteReingresoForm.erfReingresoSi}" />
+ 					        </p:column>  
+				</p:dataTable>
+		</p:panel>	
+		
+		
+		<div >
+			<p:commandButton id="btnCancelar" value="Regresar" immediate="true" ajax="false" action="#{estudianteReingresoForm.regresaAlistarEstudiante(estudianteReingresoForm.erfUsuario)}" />
+
+			<p:commandButton id="btnEditar" value="Guardar" immediate="true" ajax="false" action="#{estudianteListaForm.editarDatosEstudiante(estudianteListaForm.elfEstudianteVer)}" />
+		
+		</div>
+
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

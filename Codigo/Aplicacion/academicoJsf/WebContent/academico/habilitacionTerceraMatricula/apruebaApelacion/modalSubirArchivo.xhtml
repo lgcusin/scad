@@ -1,0 +1,118 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      			xmlns:ui="http://java.sun.com/jsf/facelets"
+      			xmlns:f="http://java.sun.com/jsf/core"
+      			xmlns:h="http://java.sun.com/jsf/html"
+     			xmlns:p="http://primefaces.org/ui">
+	<h:form id="frmModalSubirArchivo">
+		<p:dialog widgetVar="dialogoModalSubirArchivo" modal="true" draggable="false" closable="false" 
+				  resizable="false" height="400" width="1000" styleClass="modal-sin-header" >
+			<p:outputLabel 
+				value="Cargar resolución"
+				style="font-size: 1.1em !important;" />
+				
+            <p:messages for="mensaje" autoUpdate="true" globalOnly="true" />
+					
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+
+				<div class="grid condensed" >
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+				<div class="row cells8"> 
+						    <div class="cell colspan4"><!--Dependencia de la materia -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCodigoMateria" for="codigoMateria" value="Código: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="codigoMateria" value="#{aprobacionApelacionTerceraMatriculaForm.aatmfMateriaSeleccionada.mtrCodigo}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%" update ="codigoMateria"/>
+							</ui:define>
+						 </ui:decorate>
+					   </div>
+						
+				</div> <!-- Fin fila 1 -->
+			
+				<!-- ******************** FILA NUMERO 2 ************************ -->
+				<div class="row cells8"> 
+						
+						<div class="cell colspan4"> <!--carrera de la materia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblMateria" for="materia" value="Asignatura: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="materia" value="#{aprobacionApelacionTerceraMatriculaForm.aatmfMateriaSeleccionada.mtrDescripcion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:98%" update ="materia"/>
+							</ui:define>
+						</ui:decorate>
+					    </div>
+				</div> <!-- Fin fila 1 -->
+				
+					<!-- ******************** FILA NUMERO 3 ************************ -->
+				 				
+ 				<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblArchivo" for="txtArchivo"
+										value="Seleccione el archivo que contiene la resolución del Consejo Directivo " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtArchivo"
+										value="#{aprobacionApelacionTerceraMatriculaForm.aatmfNombreArchivoAuxiliar}"
+										style="font-weight: Normal !important;">
+									</p:outputLabel>
+									<p:fileUpload id="flupArchivoSubir"
+										fileUploadListener="#{aprobacionApelacionTerceraMatriculaForm.handleFileUpload}"
+										auto="true" sizeLimit="1048576" allowTypes="/(\.|\/)(pdf)$/"
+										update=":frmVerApelacion, txtArchivo" cancelLabel="Cancelar"
+										fileLimitMessage="Ya ha seleccionado un archivo"
+										invalidSizeMessage="Tamaño de archivo excedido! máximo 1mb"
+										label="Buscar"
+										invalidFileMessage="Tipo de archivo no válido! solo formato pdf"
+										uploadLabel="Cargar"
+										requiredMessage="Campo requerido">
+									</p:fileUpload>
+									
+								</ui:define>
+							</ui:decorate>
+						</div>
+					 	
+						
+						
+					</div>	  	  
+					
+					
+ 					
+ 				
+ 					  	
+			 </div>  <!-- Fin Grid Condensed --> 
+			</p:panel>
+       
+       
+     <div class="row cells8">
+      
+                 <p:commandButton 
+					id="btnCerrarModal" 
+					value="Cerrar"
+					action="#{aprobacionApelacionTerceraMatriculaForm.CancelarSubirArchivo()}"
+					oncomplete="PF('dialogoModalSubirArchivo').hide();" 
+					update=":frmVerApelacion, :frmVerApelacion:dtsMaterias"	  />
+					
+				<p:commandButton 
+					id="btnGuardarSubirArchivo" 
+					value="Cargar documento"
+					action="#{aprobacionApelacionTerceraMatriculaForm.guardarSubirArchivo(aprobacionApelacionTerceraMatriculaForm.aatmfMateriaSeleccionada)}"
+					update=":frmVerApelacion"
+				/>
+		
+		  
+				
+			
+		</div>
+			
+		</p:dialog> 
+	</h:form>
+</ui:composition>

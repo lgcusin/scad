@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value=" Carga Horaria / Asignación de Horarios" />
+		</ui:include>
+	</ui:define>
+	<ui:define name="cuerpo">
+		<script language="JavaScript">
+			//<![CDATA[
+			    function verificarErrores(){
+			        var idVarAgregar = 'compOculto:txtValidador';
+			     	var varAgregar = document.getElementById(idVarAgregar);
+				    	if(varAgregar.value == 1){
+				  			document.getElementById('frmHorarioClases:cmdlModalActividades').click();
+				 	    }else if (varAgregar.value == 2) {
+				  			document.getElementById('frmHorarioClases:cmdlModalReporte').click();
+						}
+			  	    }
+			 //]]> 
+		</script>
+		<script language="JavaScript">
+			//<![CDATA[
+				function abrirVentaReporte(formato, nombreReporte, tipo){
+					var url = "/aplicacion/reportes";
+					url = url + "?nombreJasper=" + nombreReporte;
+					url = url + "&formato=" + formato;
+					url = url + "&tipo=" + tipo;
+					if(formato == 'vista'){
+						var reportWindow = window.open(url);
+						reportWindow.focus();
+					}else{
+						var reportWindow = window.open(url);
+					}
+			    } 
+			 //]]> 
+		</script>
+		<h:form id="frmHorarioClases" enctype="multipart/form-data" acceptcharset="UTF-8">
+
+			<p:panel id="pnlDocente" header="Información Docente">
+
+				<div class="grid condensed">
+					<div class="row cells8"> 
+						<div class="cell colspan4">
+							<ui:decorate	template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNombre" for="txtNombre" value="Nombre: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtNombre"
+										value="#{asignacionHorarioForm.ahfPersonaDto.prsPrimerApellido} #{asignacionHorarioForm.ahfPersonaDto.prsSegundoApellido} #{asignacionHorarioForm.ahfPersonaDto.prsNombres}">
+									</p:outputLabel>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgNombre" for="txtNombre" />
+								</ui:define>
+							</ui:decorate>
+						</div> 
+
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- IDENTIFICACION -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacionView"
+										for="txtIdentificacionView" value="Identificación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtIdentificacionView"
+										value="#{asignacionHorarioForm.ahfPersonaDto.prsIdentificacion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblTiempoDedicacion"
+										for="txtTiempoDedicacion" value="Tiempo de Dedicación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtTiempoDedicacion"
+										value="#{asignacionHorarioForm.ahfPersonaDto.tmddDescripcion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblRelacionLaboral" for="txtRelacionLaboral"
+										value="Relación Laboral: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtRelacionLaboral"
+										value="#{asignacionHorarioForm.ahfPersonaDto.rllbDescripcion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCategoria" for="txtCategoria"
+										value="Categoría: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtCategoria"
+										value="#{asignacionHorarioForm.ahfPersonaDto.pstDenominacion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+				</div>
+
+			</p:panel>
+
+
+			<p:panel id="pnlHorarioClases" header="Horario académico" >
+				<p:dataTable id="dtsEstudiante" 
+					var="item"
+					value="#{asignacionHorarioForm.ahfListHoraClaseDto}"
+					rows="25" paginator="false" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="15,30,45"
+					emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+					<p:column headerText="Hora" style="width: 1em ! important; text-align: center">
+						<h:outputText value="#{item.hoclDescripcion}" />
+					</p:column>
+					<p:column id="colLunes" headerText="Lunes" style="width: 2em ! important; text-align: center"  class="border-none">
+						<p:commandLink id="comp3Lunes" 
+										value="Asignar"
+										rendered="#{!item.hoclLunesHoraClaseDto.hoclCheckBox}" style="text-align:right;color:blue;" 
+										action="#{asignacionHorarioForm.asignarNuevaFuncion(item.hoclLunesHoraClaseDto,0,item.hoclLunesHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+						<p:commandLink id="comp4Lunes" 
+										value="#{item.hoclLunesHoraClaseDto.hoclDescripcion}"  
+										rendered="#{item.hoclLunesHoraClaseDto.hoclCheckBox}"
+										action="#{asignacionHorarioForm.quitarHoraClase(item.hoclLunesHoraClaseDto,0,item.hoclLunesHoraClaseDto.hoclHoraInicio)}" 
+										style="text-align:right;color:red;" 
+										ajax="false"/>
+					</p:column>
+					<p:column id="colMartes" headerText="Martes" style="width: 2em ! important; text-align: center"  class="border-none">
+									<p:commandLink id="comp3Martes" value="Asignar" rendered="#{!item.hoclMartesHoraClaseDto.hoclCheckBox}" style="text-align:right;color:blue;" 
+										action="#{asignacionHorarioForm.asignarNuevaFuncion(item.hoclMartesHoraClaseDto,1,item.hoclMartesHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+									<p:commandLink id="comp4Martes" 
+										value="#{item.hoclMartesHoraClaseDto.hoclDescripcion}"  
+										rendered="#{item.hoclMartesHoraClaseDto.hoclCheckBox}" 
+										action="#{asignacionHorarioForm.quitarHoraClase(item.hoclMartesHoraClaseDto,1,item.hoclMartesHoraClaseDto.hoclHoraInicio)}"
+										style="text-align:right;color:red;"  
+										ajax="false"/>
+					</p:column>
+					<p:column id="colMiercoles" headerText="Miercóles" style="width: 2em ! important; text-align: center"  class="border-none">
+									<p:commandLink id="comp3Miercoles" value="Asignar" rendered="#{!item.hoclMiercolesHoraClaseDto.hoclCheckBox}" style="text-align:right;color:blue;" 
+										action="#{asignacionHorarioForm.asignarNuevaFuncion(item.hoclMiercolesHoraClaseDto,2,item.hoclMiercolesHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+									<p:commandLink id="comp4Miercoles" 
+										value="#{item.hoclMiercolesHoraClaseDto.hoclDescripcion} #{item.hoclMiercolesHoraClaseDto.hracParaleloDto.prlCodigo}"  
+										rendered="#{item.hoclMiercolesHoraClaseDto.hoclCheckBox}" 
+										action="#{asignacionHorarioForm.quitarHoraClase(item.hoclMiercolesHoraClaseDto,2,item.hoclMiercolesHoraClaseDto.hoclHoraInicio)}" 
+										style="text-align:right;color:red;" 
+										ajax="false" />
+					</p:column>
+					<p:column id="colJueves" headerText="Jueves" style="width: 2em ! important; text-align: center"  class="border-none">
+									<p:commandLink id="comp3Jueves" value="Asignar" rendered="#{!item.hoclJuevesHoraClaseDto.hoclCheckBox}" style="text-align:right;color:blue;" 
+										action="#{asignacionHorarioForm.asignarNuevaFuncion(item.hoclJuevesHoraClaseDto,3,item.hoclJuevesHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+									<p:commandLink id="comp4Jueves"
+										value="#{item.hoclJuevesHoraClaseDto.hoclDescripcion}"  
+										rendered="#{item.hoclJuevesHoraClaseDto.hoclCheckBox}" 
+										action="#{asignacionHorarioForm.quitarHoraClase(item.hoclJuevesHoraClaseDto,3,item.hoclJuevesHoraClaseDto.hoclHoraInicio)}"
+										style="text-align:right;color:red;" 
+										ajax="false"/>
+					</p:column>
+					<p:column id="colViernes" headerText="Viernes" style="width: 2em ! important; text-align: center"  class="border-none">
+									<p:commandLink id="comp3Viernes" value="Asignar"  rendered="#{!item.hoclViernesHoraClaseDto.hoclCheckBox}" style="text-align:right;color:blue;" 
+										action="#{asignacionHorarioForm.asignarNuevaFuncion(item.hoclViernesHoraClaseDto,4,item.hoclViernesHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+									<p:commandLink id="comp4Viernes" 
+										value="#{item.hoclViernesHoraClaseDto.hoclDescripcion}"  
+										rendered="#{item.hoclViernesHoraClaseDto.hoclCheckBox}" 
+										action="#{asignacionHorarioForm.quitarHoraClase(item.hoclViernesHoraClaseDto,4,item.hoclViernesHoraClaseDto.hoclHoraInicio)}" 
+										style="text-align:right;color:red;" 
+										ajax="false"/>
+					</p:column>
+					<p:column id="colSabado" headerText="Sábado" style="width: 2em ! important; text-align: center"  class="border-none">
+									<p:commandLink id="comp3Sabado" value="Asignar" rendered="#{!item.hoclSabadoHoraClaseDto.hoclCheckBox}" style="text-align:right;color:blue;" 
+										action="#{asignacionHorarioForm.asignarNuevaFuncion(item.hoclSabadoHoraClaseDto,5,item.hoclSabadoHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+									<p:commandLink id="comp4Sabado" 
+										value="#{item.hoclSabadoHoraClaseDto.hoclDescripcion}"  
+										rendered="#{item.hoclSabadoHoraClaseDto.hoclCheckBox}"  
+										action="#{asignacionHorarioForm.quitarHoraClase(item.hoclSabadoHoraClaseDto,5,item.hoclSabadoHoraClaseDto.hoclHoraInicio)}" 
+										style="text-align:right;color:red;"
+										ajax="false"/>
+					</p:column>
+					<p:column id="colDomingo" headerText="Domingo" style="width: 2em ! important; text-align: center"  class="border-none">
+									<p:commandLink id="comp3Domingo" value="Asignar" rendered="#{!item.hoclDomingoHoraClaseDto.hoclCheckBox}" style="text-align:right;color:blue;" 
+										action="#{asignacionHorarioForm.asignarNuevaFuncion(item.hoclDomingoHoraClaseDto,6,item.hoclDomingoHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+									<p:commandLink id="comp4Domingo" 
+										value="#{item.hoclDomingoHoraClaseDto.hoclDescripcion}"  
+										rendered="#{item.hoclDomingoHoraClaseDto.hoclCheckBox}"  
+										action="#{asignacionHorarioForm.quitarHoraClase(item.hoclDomingoHoraClaseDto,6,item.hoclDomingoHoraClaseDto.hoclHoraInicio)}"
+										style="text-align:right;color:red;"
+										ajax="false"/>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			<div>
+				<p:commandButton id="btnCancelar" value="Regresar"
+					action="#{asignacionHorarioForm.irBuscarDocentes()}"
+					immediate="true" ajax="false" />
+				<p:commandButton id="btnImprimir" value="Imprimir" 
+					action="#{asignacionHorarioForm.verificarClickImprimir()}"
+	    		    onclick="PF('dialogoTrabajando').show();" oncomplete="PF('dialogoTrabajando').hide();" 
+	    		    ajax="false"/>
+				<p:commandButton id="cmdlModalActividades" value="Activar Modal Actividades" style="visibility:hidden;">
+					<p:ajax oncomplete="PF('dlgAgregarHorario').show();" onclick="PF('dialogoTrabajando').show();" update=":frmModalAgregarHorario" />
+				</p:commandButton>
+				<p:commandButton id="cmdlModalReporte" value="Activar Modal Reporte" style="visibility:hidden;">
+					<p:ajax oncomplete="abrirVentaReporte('#{asignacionHorarioForm.ahfExtensionArchivo}','#{asignacionHorarioForm.ahfNombreArchivo}','#{asignacionHorarioForm.ahfTokenReporte}');" />
+				</p:commandButton>
+			</div>
+		</h:form>
+
+		<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador" value="#{asignacionHorarioForm.ahfActivarModal}" />
+		</h:form>
+		
+		<ui:include	src="/academico/cargaHoraria/funcionalidad/modalAsignarHoras.xhtml" />
+
+	</ui:define>
+</ui:composition>
+</html>

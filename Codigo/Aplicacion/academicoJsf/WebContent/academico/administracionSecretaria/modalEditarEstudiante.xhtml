@@ -1,0 +1,41 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      			xmlns:ui="http://java.sun.com/jsf/facelets"
+      			xmlns:f="http://java.sun.com/jsf/core"
+      			xmlns:h="http://java.sun.com/jsf/html"
+     			xmlns:p="http://primefaces.org/ui">
+     			
+     			
+     			 
+	<h:form id="frmModalEditarEstudiante">
+		<p:dialog widgetVar="dialogoEditarEstudiante" modal="true" draggable="false" closable="false" 
+				  resizable="false" height="120" width="400" styleClass="modal-sin-header" >
+			<p:outputLabel value="Modificar información estudiante" style="font-size: 1.2em !important;"/>	  
+			<table>
+				<tr>
+					<td>
+						<div style="width: 25px; padding: 2px; display: inline-block; margin-right: 7px;">	
+							<h:graphicImage value="/img/Alerta.png" alt="U.C.E" style="width: 100%; "/>
+						</div>
+						
+					</td>
+					<td>
+						<p:outputLabel value="¿Seguro que desea modificar la información del estudiante?" />
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="2">
+						<h:panelGroup>
+							<p:commandButton value="Si"  onclick="PF('dialogoTrabajando').show();" action="#{estudianteListaForm.guardarEstudianteEditado()}"
+		    							oncomplete="PF('dialogoEditarEstudiante').hide();" update="frmModalEditarEstudiante" ajax="false" />
+		        			<p:commandButton value="No" action="#{estudianteListaForm.ClickCerrarModalEditarEstudiante()}" 
+		        			                 oncomplete="PF('dialogoEditarEstudiante').hide();"  
+		        			                 style="margin-left: 5px;"/>
+						</h:panelGroup>
+					</td>
+				</tr>
+			</table>
+		</p:dialog> 
+	</h:form>
+</ui:composition>

@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value=" Evaluación Docente / Autoevaluación " />
+		</ui:include>
+	</ui:define>
+	<ui:define name="cuerpo">
+	
+	<script language="JavaScript">
+	//<![CDATA[
+			 function abrirVentaReporte(formato, nombreReporte, tipo){
+				var url = "/aplicacion/reportes";
+				url = url + "?nombreJasper=" + nombreReporte;
+				url = url + "&formato=" + formato;
+				url = url + "&tipo=" + tipo;
+				if(formato == 'vista'){
+					var reportWindow = window.open(url);
+					reportWindow.focus();
+				}else{
+					var reportWindow = window.open(url);
+				}
+		   } 
+
+		//]]> 
+	</script>
+			
+	<script language="JavaScript">
+		//<![CDATA[
+			function verificarErrores(){
+		    	var idVarError = 'compOculto:txtValidador';
+		    	var varError = document.getElementById(idVarError);
+		    	if(varError.value == 1){
+		   		document.getElementById('frmAutoevaluacionDocente:btnModalReporte').click();
+		        }
+		    } 
+		 //]]> 
+	</script>
+	
+		<h:form id="frmAutoevaluacionDocente" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+
+			<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+
+			<p:panel id="pnlDocente" header="Información Docente">
+
+				<div class="grid condensed">
+
+					<!-- ******************** FILA NUMERO 0 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- Nombre -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNombre" for="txtNombre" value="Nombre: " />
+								</ui:define>
+
+								<ui:define name="valor">
+									<p:outputLabel id="txtNombre"
+										value="#{autoevaluacionForm.afDocente.prsPrimerApellido} #{autoevaluacionForm.afDocente.prsSegundoApellido} #{autoevaluacionForm.afDocente.prsNombres}">
+									</p:outputLabel>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgNombre" for="txtNombre" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 0 ************************ -->
+
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- IDENTIFICACION -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacionView"
+										for="txtIdentificacionView" value="Identificación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtIdentificacionView"
+										value="#{autoevaluacionForm.afDocente.prsIdentificacion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+
+						<!-- ******************** FIN FILA NUMERO 1 ************************ -->
+
+						<!-- ******************** FILA NUMERO 2 ************************ -->
+
+						<div class="cell colspan4">
+							<!-- TIEMPO DE DEDICACION -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblTiempoDedicacion"
+										for="txtTiempoDedicacion" value="Tiempo de Dedicación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtTiempoDedicacion"
+										value="#{autoevaluacionForm.afDocente.tmddDescripcion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 2 ************************ -->
+
+					<!-- ******************** FILA NUMERO 2.1 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- RELACION LABORAL -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblRelacionLaboral" for="txtRelacionLaboral"
+										value="Relación Laboral: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtRelacionLaboral"
+										value="#{autoevaluacionForm.afDocente.rllbDescripcion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+
+						<!-- ******************** FIN FILA NUMERO 2.1 ************************ -->
+
+						<!-- ******************** FILA NUMERO 2.2 ************************ -->
+
+						<div class="cell colspan4">
+							<!-- CATEGORIA -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCategoria" for="txtCategoria"
+										value="Categoría: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtCategoria"
+										value="#{autoevaluacionForm.afDocente.pstDenominacion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 2.2 ************************ -->
+
+				</div>
+			</p:panel>
+
+			<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+				<p:dataTable id="dtsMatricula" var="item"
+					value="#{autoevaluacionForm.afListaEvaluaciones}" rows="10"
+					paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" rowIndexVar="rowIndex"
+					emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+					>
+					<p:column headerText="#" style="width:5%; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column headerText="Descripción" >
+						<h:outputText value="#{item.evaDescripcion}" />
+					</p:column>
+					<p:column headerText="Estado" style="width:10%; text-align: center;">
+						<h:outputText value="#{autoevaluacionForm.mostrarEstado(item.evaEstado)}" />
+					</p:column>
+					<p:column headerText="Opciones" style="width:10%; text-align: center; ">
+					
+						<p:commandLink value="Ver" action="#{autoevaluacionForm.generarReporteAutoevaluacion(item)}" ajax="false"
+							rendered="#{autoevaluacionForm.verificarEvaluacion(item, 1) ? 'false':'true'}"
+							style="margin: 0px 5px; color:blue"/>
+							
+						<p:commandLink id="cmdlEvaluar" value="Evaluar"
+							rendered="#{item.evaEstado  == 0 ? autoevaluacionForm.verificarEvaluacion(item, 1):'false'}"
+							action="#{autoevaluacionForm.irEvaluarAutoevaluacion(item)}"
+							onclick="PF('dialogoTrabajando').show();" ajax="false"
+							style="margin: 0px 5px; color:blue" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnRegresar" value="Regresar"
+					action="#{autoevaluacionForm.irInicio()}" immediate="true"
+					ajax="false" onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+				<p:commandButton id="btnModalReporte" value="EjecutarModalAceptar" style="visibility:hidden;">
+					<p:ajax oncomplete="abrirVentaReporte('PDF_INLINE','autoEvaluacion','AUTOEVALUACION');" async="false" />	    				
+		    	</p:commandButton>
+			</div>
+
+		</h:form>
+
+		<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador"	value="#{autoevaluacionForm.afActivarReporte}" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

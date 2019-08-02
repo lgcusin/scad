@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+			value="Administración académico / Paralelos / Nuevo Nivelación" />
+				
+		</ui:include>
+	</ui:define>
+
+
+	<ui:define name="cuerpo">
+
+		<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador';
+    	var varError = document.getElementById(idVarError);
+    	if(varError.value == 1){
+    		document.getElementById('frmNuevoParalelo:btnGenerarNuevoParaleloValidarModal').click();
+    	}
+    	
+    	//if(varError.value == 2){
+    //		document.getElementById('frmNuevoParalelo:btnEditarParaleloValidarModal').click();
+     //   }
+    } 
+    
+    function nobackbutton(){
+   		window.location.hash="no-back-button";
+   		window.location.hash="Again-No-back-button" //chrome
+   		window.onhashchange=function(){window.location.hash="no-back-button";}
+	}
+    
+ //]]> 
+</script>
+
+		<h:form id="frmNuevoParalelo" enctype="multipart/form-data" 	acceptcharset="UTF-8">
+				
+			<!-- *************************************************************************************************** -->
+			<!-- **********************************PANEL IDENTIFICACION DEL PUESTO********************************** -->
+			<p:panel id="pnlDatos" header="Datos de identificación del paralelo">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed" >
+				<div class="row cells8"> 
+					<div class="cell colspan4" >       <!-- Carrera del Paralelo  en una lista desplegable -->
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblPeriodo" for="slcPeriodo" value="Período académico: " />
+									</ui:define>
+									<ui:define name="valor">
+										<h:selectOneMenu id="slcPeriodo" value="#{administracionParaleloForm.apfPeriodoAcademico.pracId}" style="width: 100%;" 
+											required="#{!administracionParaleloForm.apfHabilitarPeriodo}" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}" 
+											disabled="#{administracionParaleloForm.apfHabilitarPeriodo}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" />
+										  	<f:selectItems value="#{administracionParaleloForm.apfListPeriodoAcademico}" var="item"
+													itemLabel="#{item.pracDescripcion}" itemValue="#{item.pracId}" />  
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgPeriodo" for="slcPeriodo" />
+									</ui:define>
+							    </ui:decorate>
+						    </div>
+				</div>
+				<div class="row cells8">				<!-- ******************** FILA NUMERO 1 ************************ -->	
+					<div class="cell colspan4" >       <!-- Carrera del Paralelo  en una lista desplegable -->
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera: " />
+									</ui:define>
+									<ui:define name="valor">
+										<h:selectOneMenu id="slcCarrera" value="#{administracionParaleloForm.apfParaleloDto.crrId}" style="width: 100%;" 
+											required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}"/>
+										  	<f:selectItems value="#{administracionParaleloForm.apfListCarreraDto}" var="item"
+													itemLabel="#{item.crrDetalle}" itemValue="#{item.crrId}" />  
+											<p:ajax event="change" listener="#{administracionParaleloForm.cambiarCarreraNivelacion()}"  update="lblCarrera , txtCodigo , slcNivel ,  pnlResultados , dtsParalelo , dtlSeleccion , slcArea" />
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgCarrera" for="slcCarrera" />
+									</ui:define>
+							    </ui:decorate>
+						    </div>
+					<div class="cell colspan4" >       <!-- Carrera del Paralelo  en una lista desplegable -->
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblNivel" for="slcNivel" value="Nivel: " />
+									</ui:define>
+									<ui:define name="valor">
+										<h:selectOneMenu id="slcNivel" value="#{administracionParaleloForm.apfNivelDto.nvlId}" style="width: 100%;" 
+											disabled="#{administracionParaleloForm.apfHabilitadorNivel}" required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}"/>
+										  	<f:selectItems value="#{administracionParaleloForm.apfListNivel}" var="item"
+													itemLabel="#{item.nvlDescripcion}" itemValue="#{item.nvlId}" />  
+											<p:ajax event="change" listener="#{administracionParaleloForm.cambiarNivelNivelacion()}"  update="slcNivel , txtCodigo ,  pnlResultados , dtsParalelo , dtlSeleccion , btnGuardarNuevoParalelo" />
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgNivel" for="slcNivel" />
+									</ui:define>
+							    </ui:decorate>
+						    </div>
+				</div> <!-- Fin fila 1 -->
+					<!-- ******************** FILA NUMERO 2 ************************ -->
+				<div class="row cells8">  
+				<div class="cell colspan4" >       <!-- Carrera del Paralelo  en una lista desplegable -->
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblArea" for="slcArea" value="Area: " />
+									</ui:define>
+									<ui:define name="valor">
+										<h:selectOneMenu id="slcArea" value="#{administracionParaleloForm.apfParaleloDto.mlcrprNivelacionCrrId}" style="width: 100%;" 
+											required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}"/>
+										  	<f:selectItems value="#{administracionParaleloForm.apfListCarreraDtoNivelacion}" var="item"
+													itemLabel="#{item.crrDetalle}" itemValue="#{item.crrId}" />  
+											<p:ajax event="change" listener="#{administracionParaleloForm.cambiarAreaNivelacion()}"  update="lblCarrera , txtCodigo , slcNivel ,  pnlResultados , dtsParalelo , dtlSeleccion" />
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgArea" for="slcArea" />
+									</ui:define>
+							    </ui:decorate>
+						    </div>
+					   	<div class="cell colspan4" >  <!-- Código Paralelo -->
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml"> 
+ 									<ui:define name="etiqueta"> 
+									<p:outputLabel id="lblCodigo" for="txtCodigo" value="Código del paralelo: " /> 
+								</ui:define> 
+ 									<ui:define name="valor"> 
+ 										<p:inputText id="txtCodigo" value="#{administracionParaleloForm.apfParaleloDto.prlCodigo.concat('/').concat(administracionParaleloForm.sufijoNivelacion.toUpperCase())}" 
+										disabled="true" style=" opacity:1.5;">
+ 										<p:ajax event="blur" update="lblCodigo , txtCodigo , msgCodigo " /> 
+ 									</p:inputText> 
+ 								</ui:define>
+								<ui:define name="etiquetaError"> 
+									<p:message id="msgCodigo" for="txtCodigo" /> 
+ 								</ui:define> 
+							</ui:decorate> 
+					   	</div>
+ 					 </div> 
+ 							
+ 				<!-- Fin fila 2 -->
+ 				<div class="row cells8">  
+ 					<div class="cell colspan4" > 
+ 						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblSeleccion" for="dtlSeleccion" value="Selección: " />
+									</ui:define>
+									<ui:define name="valor">
+		       			<h:selectOneMenu id="dtlSeleccion" value="#{administracionParaleloForm.apfSeleccionarTodos}" style="width: 100%;" 
+		       				disabled="#{administracionParaleloForm.apfHabilitadorSeleccion}">
+							<f:selectItem itemLabel="SELECCIONAR" itemValue="#{generalesConstantesForm.appIdBase}"/> 
+							<f:selectItems value="#{listasCombosForm.tipoSeleccion}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}" />
+							<p:ajax event="change"  update="dtsParalelo , pnlResultados, btnGuardarNuevoParalelo" listener="#{administracionParaleloForm.seleccionarTodos()}"/>
+						</h:selectOneMenu>
+						</ui:define>
+						</ui:decorate> 
+					 </div> 
+					 <div class="cell colspan4" >  <!-- Código Paralelo -->
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml"> 
+ 									<ui:define name="etiqueta"> 
+									<p:outputLabel id="lblSufijo" for="txtSufijo" value="Sufijo: " /> 
+								</ui:define> 
+ 									<ui:define name="valor"> 
+ 										<p:inputText id="txtSufijo" value="#{administracionParaleloForm.sufijoNivelacion}" maxlength="15">
+ 										<p:ajax event="blur" update="lblSufijo , txtSufijo , msgSufijo,  txtCodigo" /> 
+ 									</p:inputText> 
+ 								</ui:define>
+								<ui:define name="etiquetaError"> 
+									<p:message id="msgSufijo" for="txtSufijo" /> 
+ 								</ui:define> 
+							</ui:decorate> 
+					   	</div>
+ 				</div> 
+ 				
+			</div>
+			</p:panel>
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda" >
+		  <!-- ****  Asigno la lista de paralelos apfListParaleloDto del Bean Manejado  administracionParaleloForm al dataTable*** -->
+			<p:dataTable id="dtsParalelo" var="item" value="#{administracionParaleloForm.apfListMallaCurricularDto}"			
+			    		 		rows="15" paginator="true" paginatorPosition="bottom"	    		 		
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">			                         
+					         <p:column headerText="Código" style="width: 5em ! important;">
+					            <h:outputText value="#{item.mtrCodigo}"/>
+					        </p:column>
+					        <p:column headerText="Carrera" style="width: 5em ! important;">
+					            <h:outputText value="#{administracionParaleloForm.apfCarreraDto.crrDescripcion}"/>
+					        </p:column>
+					         <p:column headerText="Asignatura" style="width: 15em ! important;">
+					            <h:outputText value="#{item.mtrDescripcion}"/>
+					        </p:column>
+					        <p:column headerText="Cupo" style="width: 3em ! important; text-align:center">
+					        	<p:inputText id="txtCodigo" value="#{item.mlcrprCupo}" 
+										disabled="#{!item.mtrAsignada}"  >
+										
+								</p:inputText>
+					        </p:column>
+ 					        
+ 					        <p:column headerText="Reserva para repetidores" style="width: 3em ! important; text-align:center"> 
+ 					        	<p:inputText id="txtReserva" value="#{item.mlcrprReservaRepetidos}"  
+ 										disabled="#{!item.mtrAsignada}" > 
+								
+								</p:inputText>
+					        </p:column> 
+					        <p:column headerText="Seleccionar" style="width: 4.5em  ! important; text-align:center">
+					        	<h:outputText value="Agregar a paralelo  :"/>
+								<h:selectBooleanCheckbox value="#{item.mtrAsignada}" disabled="#{item.mtrSubId==generalesConstantesForm.appIdBase?'false':'true'}">
+								<p:ajax event="click"  update="txtCodigo , txtReserva" />
+								</h:selectBooleanCheckbox>
+			        		</p:column>
+				</p:dataTable>
+		</p:panel>
+			
+			<div>
+				<p:commandButton id="btnRegresar" value="Cancelar" immediate="true" ajax="false" 
+				action="#{administracionParaleloForm.irAdministracionParalelo(administracionParaleloForm.apfUsuario)}" />
+			
+				<p:commandButton id="btnGuardarNuevoParalelo" value="Guardar Nuevo" disabled="#{administracionParaleloForm.apfHabilitadorGuardar}"
+				action="#{administracionParaleloForm.verificarClickNuevoParalelo()}"
+									ajax="false" />
+				<p:commandButton id="btnGenerarNuevoParaleloValidarModal" value="EjecutarModalNuevoPuesto" 
+					style="visibility:hidden;">
+				<p:ajax oncomplete="PF('dialogoGuardarNuevo').show();" update=":frmModalGuardarNuevo" />
+				</p:commandButton>  
+				    
+			</div>
+		</h:form>
+
+		    <ui:include	src="/academico/administracionAcademico/paralelo/paraleloNivelacion/modalGuardarNuevo.xhtml" />
+		    
+  
+       <h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador" value="#{administracionParaleloForm.apfValidadorClick}">
+			</p:inputText> 
+		</h:form>
+		
+	
+		</ui:define>	
+</ui:composition>
+
+</html>

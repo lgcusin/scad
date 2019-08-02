@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Reportes / Carga Horaria " />
+		</ui:include>
+	</ui:define>
+	
+	<ui:define name="cuerpo">
+	
+	<script language="JavaScript">
+		//<![CDATA[
+		    function verificarErrores(){
+		        var idVarAgregar = 'compOculto:txtValidador';
+		     	var varAgregar = document.getElementById(idVarAgregar);
+			    	if(varAgregar.value == 1){
+			  		document.getElementById('frmCargaHorariaDocente:cmdlModalReporte').click();
+			 	    }
+		  	    }
+		 //]]> 
+	</script>
+	<script language="JavaScript">
+		//<![CDATA[
+			function abrirVentaReporte(formato, nombreReporte, tipo){
+				var url = "/aplicacion/reportes";
+				url = url + "?nombreJasper=" + nombreReporte;
+				url = url + "&formato=" + formato;
+				url = url + "&tipo=" + tipo;
+				if(formato == 'vista'){
+					var reportWindow = window.open(url);
+					reportWindow.focus();
+				}else{
+					var reportWindow = window.open(url);
+				}
+		    } 
+		 //]]> 
+	</script>
+	
+		<h:form id="frmCargaHorariaDocente" enctype="multipart/form-data" acceptcharset="UTF-8">
+
+			<p:panel id="pnlDocente" header="Información Docente">
+
+				<div class="grid condensed">
+					<div class="row cells8"> 
+						<div class="cell colspan4">
+							<ui:decorate	template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNombre" for="txtNombre" value="Nombre: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtNombre"
+										value="#{reporteCargaHorariaForm.rchfDocenteDto.prsPrimerApellido} #{reporteCargaHorariaForm.rchfDocenteDto.prsSegundoApellido} #{reporteCargaHorariaForm.rchfDocenteDto.prsNombres}">
+									</p:outputLabel>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgNombre" for="txtNombre" />
+								</ui:define>
+							</ui:decorate>
+						</div> 
+
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- IDENTIFICACION -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacionView"
+										for="txtIdentificacionView" value="Identificación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtIdentificacionView"
+										value="#{reporteCargaHorariaForm.rchfDocenteDto.prsIdentificacion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblTiempoDedicacion"
+										for="txtTiempoDedicacion" value="Tiempo de Dedicación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtTiempoDedicacion"
+										value="#{reporteCargaHorariaForm.rchfDocenteDto.tmddDescripcion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblRelacionLaboral" for="txtRelacionLaboral"
+										value="Relación Laboral: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtRelacionLaboral"
+										value="#{reporteCargaHorariaForm.rchfDocenteDto.rllbDescripcion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCategoria" for="txtCategoria"
+										value="Categoría: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtCategoria"
+										value="#{reporteCargaHorariaForm.rchfDocenteDto.pstDenominacion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+				</div>
+			</p:panel>
+
+			<p:panel id="pnlResultados" header="Impartición de Clases">
+				<p:dataTable id="tblResultados" var="item"
+					value="#{reporteCargaHorariaForm.rchfListImparticionClasesCargaHorariaDto}"
+					rows="20" paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15"
+					emptyMessage="NO SE ENCONTRARON DATOS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+					rowIndexVar="rowIndex">
+
+						<p:column headerText="#" style="width: 0.1em ! important; text-align: center;">
+							<h:outputText value="#{rowIndex+1}" />
+						</p:column>
+						<p:column headerText="Carrera" style="width: 10em ! important; text-align:left;">
+    				        <h:outputText value="#{item.cahrCarreraDto.crrDescripcion}"/>
+				        </p:column>
+				        <p:column headerText="Asignatura" style="width: 10em ! important; text-align:left;">
+  				            <h:outputText value="#{item.cahrMateriaDto.mtrDescripcion}"/>
+				        </p:column>
+				        <p:column headerText="Paralelo" style="width: 4em ! important;text-align:center;">
+				            <h:outputText value="#{item.cahrParaleloDto.prlDescripcion} #{item.cahrObservacion}"/>
+				        </p:column>
+				        <p:column headerText="Horas por semana" style="width: 2em ! important;text-align:center;">
+				            <h:outputText value="#{item.cahrNumHoras}" style="text-align:center ! important;"/>
+				        </p:column>
+				      	<p:column headerText="Estudiantes matrículados" style="width: 2em ! important;text-align:center;">
+				            <h:outputText value="#{item.cahrParaleloDto.mlcrprMatriculados}" style="text-align:center ! important;"/>
+				        </p:column>
+				</p:dataTable>
+			</p:panel>
+
+
+			<div>
+				<p:commandButton id="btnRegresar" value="Regresar"
+					action="#{reporteCargaHorariaForm.irInicio()}" immediate="true"
+					ajax="false" onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+				<p:commandButton id="btnImprimir" value="Imprimir"
+					onclick="PF('dialogoTrabajando').show();" ajax="false"
+					action="#{reporteCargaHorariaForm.generarReporteIndividualCargaHoraria()}"
+					style="margin: 0px 5px;"/>
+				<p:commandButton id="cmdlModalReporte" value="Imprimir reporte" style="visibility:hidden;">
+					<p:ajax oncomplete="abrirVentaReporte('#{reporteCargaHorariaForm.rchfTipoArchivo}','#{reporteCargaHorariaForm.rchfNombreArchivo}','#{reporteCargaHorariaForm.rchfNombreReporte}');" />
+				</p:commandButton>
+			</div>
+		</h:form>
+		
+		<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador" value="#{reporteCargaHorariaForm.rchfActivarReporte}" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

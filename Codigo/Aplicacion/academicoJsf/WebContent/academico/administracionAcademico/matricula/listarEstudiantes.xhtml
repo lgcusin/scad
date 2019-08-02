@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Procesos académicos / Reajuste de matrículas / Listar estudiantes " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+	<script language="JavaScript">
+		//<![CDATA[
+		    function nobackbutton(){
+		   		window.location.hash="no-back-button";
+		   		window.location.hash="Again-No-back-button" //chrome
+		   		window.onhashchange=function(){window.location.hash="no-back-button";}
+			}
+		 //]]> 
+	</script>
+	<h:form id="frmListarEstudiantes" enctype="multipart/form-data" acceptcharset="UTF-8" >
+		<!-- ******************** PANEL PARÁMETROS DE BÚSQUEDA************************ -->
+		<p:panel id="pnlBusqueda" header="Parámetros de búsqueda">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+			<!-- ******************** FILA NUMERO 1 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" ><!-- CARRERA -->
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPeriodoAcademico" for="slcPeriodoAcademico" value="Periodo académico"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+								<h:selectOneMenu id="slcPeriodoAcademico" value="#{administracionMatriculaForm.amfPeriodoAcademicoId}" style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"   itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionMatriculaForm.amfListPeriodoAcademicoDto}"
+										itemValue="#{item.pracId}" itemLabel="#{item.pracDescripcion}"/>
+									<p:ajax event="change" listener="#{administracionMatriculaForm.buscarCarreras()}"
+										update="lblPeriodoAcademico ,  slcPeriodoAcademico , lblCarrera , slcCarrera , lblNivel , slcNivel , lblIdentificacion , txtIdentificacion , pnlResultados" />
+								</h:selectOneMenu>	
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" ><!-- CARRERA -->
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcCarrera" value="#{administracionMatriculaForm.amfCarreraId}" style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionMatriculaForm.amfListCarrera}"
+										itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />
+									<p:ajax event="change" listener="#{administracionMatriculaForm.buscarNiveles()}"
+										update="lblPeriodoAcademico ,  slcPeriodoAcademico , lblCarrera , slcCarrera , lblNivel , slcNivel , lblIdentificacion , txtIdentificacion , pnlResultados" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	<!-- ******************** FILA NUMERO 2 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" ><!-- NIVEL -->
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblNivel" for="slcNivel" value="Nivel:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcNivel" value="#{administracionMatriculaForm.amfNivelId}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionMatriculaForm.amfListNivelDto}"
+												  itemLabel="#{item.nvlDescripcion}" itemValue="#{item.nvlId}" />
+									<p:ajax event="change"  listener="#{administracionMatriculaForm.establecerBusquedaPorNivel()}"
+										update="lblPeriodoAcademico ,  slcPeriodoAcademico , lblCarrera , slcCarrera , lblNivel , slcNivel , lblIdentificacion , txtIdentificacion , pnlResultados" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+				<!-- ******************** FILA NUMERO 3 ************************ --> 
+					<div class="row cells8">
+						<div class="cell colspan4"><!-- IDENTIFICACION -->
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacion" for="txtIdentificacion" value="Identificación: " />
+								</ui:define>
+								<ui:define name="valor" > 
+									<p:inputText id="txtIdentificacion" value="#{administracionMatriculaForm.amfIdentificacion}" style="width:98%">
+		       						<p:ajax event="keyup" listener="#{administracionMatriculaForm.establecerBusquedaPorIdentificacion()}" 
+										update="lblPeriodoAcademico ,  slcPeriodoAcademico , lblCarrera , slcCarrera , lblNivel , slcNivel , lblIdentificacion , txtIdentificacion , pnlResultados" />
+								</p:inputText>	
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+				</div>
+		</p:panel>
+		
+		<div>
+			<p:commandButton id="btnBuscar" value="Buscar" action="#{administracionMatriculaForm.buscarEstudiantesMatriculados()}"
+				update="pnlResultados" onclick="PF('dialogoTrabajando').show();" onsuccess="PF('dialogoTrabajando').hide();"/>
+			<p:commandButton id="btnLimpiar" value="Limpiar" action="#{administracionMatriculaForm.limpiarFormListarEstudiantes()}" 
+				update="pnlResultados , pnlBusqueda"  onclick="PF('dialogoTrabajando').show();" onsuccess="PF('dialogoTrabajando').hide();"/>	
+		</div>
+		
+		<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+			<p:dataTable id="tblEstudiantes" var="item" value="#{administracionMatriculaForm.amfListEstudiantesMatriculados}"
+				rows="10" paginator="true" paginatorPosition="bottom"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	            rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+	            style="text-align: center;"
+				rowIndexVar="rowIndex">
+					
+					<p:column headerText="#" style="width: 1em ! important; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					
+					<p:column headerText="Identificación" style="width: 4em ! important; text-align: center;">
+						<h:outputText value="#{item.prsIdentificacion}" />
+					</p:column>
+					<p:column headerText="Estudiante" style="width: 15em ! important; text-align: left;">
+						<h:outputText value="#{item.prsPrimerApellido} #{item.prsSegundoApellido!=null?item.prsSegundoApellido:''} #{item.prsNombres} " />
+					</p:column>
+					<p:column headerText="Nivel" style="width: 3em ! important;">
+						<h:outputText value="#{listasCombosForm.getListaNivelFichaMatricula(item.fcmtNivelUbicacion)}" />
+					</p:column>
+			        <p:column headerText="Fecha de Matricula" style="width: 8em ! important; text-align: center;">
+			            <h:outputText value="#{item.fcmtFechaMatricula}"/>
+			        </p:column>
+			        <p:column headerText="Opción" style="width: 4em ! important; text-align: center;"  >
+						<p:commandLink id="cmdlVerMatricula" value="Ver Matrícula" 
+							action="#{administracionMatriculaForm.irVerMatriculaEstudiante(item)}" 
+				        	onclick="PF('dialogoTrabajando').show();" 
+					        style="margin: 0px 5px; color: blue;"
+					        ajax="false" />
+			        </p:column>
+				</p:dataTable>
+		</p:panel>
+		<div>
+			<p:commandButton id="btnRegresar" value="Regresar" action="#{administracionMatriculaForm.irInicio()}" immediate="true" ajax="false" />
+		</div>
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

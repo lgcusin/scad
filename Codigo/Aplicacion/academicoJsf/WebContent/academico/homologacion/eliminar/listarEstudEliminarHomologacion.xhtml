@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Eliminar homologación / Buscar estudiante " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador';
+    	var varError = document.getElementById(idVarError);
+    	if(varError.value == 1){
+    		document.getElementById('frmBuscarEstudiante:btnModalEliminarHomologacion').click();
+        }
+
+	  }
+	  
+	 function nobackbutton(){
+	 		window.location.hash="no-back-button";
+	  		window.location.hash="Again-No-back-button" //chrome
+	   		window.onhashchange=function(){window.location.hash="no-back-button";}
+	      }
+
+
+ 	 $(document).ready(function() {
+ 		    $("form").keypress(function(e) {
+ 		        if (e.which == 13) {
+ 		            return false;
+ 		        }
+ 		    });
+ 		});	
+ //]]> 
+</script>
+
+<h:form id="frmBuscarEstudiante" enctype="multipart/form-data" acceptcharset="UTF-8">
+
+		<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+				
+				
+				 	<div class="row cells8">
+		     		<div class="cell colspan4" ><!-- Combo de Carreras -->
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcCarrera"   value="#{eliminarHomologacionForm.erhfCarreraDtoBuscar.crrId}" 
+		       								required="false" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccioneTodos}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+		       									 
+									<f:selectItems  var="item" value="#{eliminarHomologacionForm.erhfListCarreraDto}"
+												  itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgCarrera" for="slcCarrera" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div> <!-- Fin fila 2 -->
+				
+					<div class="row cells8"> 
+ 							<div class="cell colspan4" > <!--  Identificacion del estudiante -->
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml"> 
+ 									<ui:define name="etiqueta"> 
+									<p:outputLabel id="lblIdentificacion" for="txtIdentificacion" value="Identificación: " /> 
+								</ui:define> 
+ 									<ui:define name="valor"> 
+ 											<p:inputText id="txtIdentificacion" value="#{eliminarHomologacionForm.erhfPersonaDtoBuscar.prsIdentificacion}" required="false"
+															requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"   style="width: 100%;">
+ 											<p:ajax event="blur" update="lblIdentificacion , txtIdentificacion , msgIdentificacion " /> 
+ 										</p:inputText> 
+ 									</ui:define>
+									<ui:define name="etiquetaError"> 
+										<p:message id="msgIdentificacion" for="txtIdentificacion" /> 
+ 									</ui:define> 
+								</ui:decorate> 
+					 	   	</div> 
+ 					 </div> 
+				
+				
+		
+		    	
+		    	<!-- Fin fila 1 -->
+		    	
+		    	
+		    	<!-- ******************** FILA NUMERO 2 ************************ -->
+		      
+		    	
+				
+		    	
+		   	</div> 	
+		   		
+		</p:panel>
+		
+		
+		
+		<div >  <!--   boton buscar: ejecuta  llenar la lista de los paralelos -->
+			<p:commandButton id="btnBuscar" value="Buscar"  action="#{eliminarHomologacionForm.buscar()}"
+								update=":frmBuscarEstudiante:pnlResultados" onclick="PF('dialogoTrabajando').show();" 
+								oncomplete="PF('dialogoTrabajando').hide();"/> 
+								
+			<p:commandButton id="btnLimpiar" value="Limpiar" action="#{eliminarHomologacionForm.limpiar()}"
+			update=":frmBuscarEstudiante:pnlResultados , :frmBuscarEstudiante:pnlBusqueda" /> 
+		  	 
+		</div>
+		
+		
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda" >
+		  <!-- ****  Asigno la lista de paralelos apfListParaleloDto del Bean Manejado  administracionParaleloForm al dataTable*** -->
+			<p:dataTable id="dtsEstudiante" var="item" value="#{eliminarHomologacionForm.erhfListPersonas}"			
+			    		 		rows="10" paginator="true" paginatorPosition="bottom"			    		 		
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">			                         
+					        				       
+					        <p:column headerText="Identificación" style="width: 2em ! important;">
+					            <h:outputText value="#{item.prsIdentificacion}"/>
+					        </p:column>
+					        <p:column headerText="Primer Apellido" style="width: 5em ! important;">
+					            <h:outputText value="#{item.prsPrimerApellido}"/>
+					        </p:column>	
+					        <p:column headerText="Segundo Apellido" style="width: 5em ! important;">
+					            <h:outputText value="#{item.prsSegundoApellido}"/>
+					        </p:column>
+					        
+					        <p:column headerText="Nombres" style="width: 7em ! important;">
+					            <h:outputText value="#{item.prsNombres}"/>
+					        </p:column>
+					        
+					        <p:column headerText="Carrera" style="width: 12em ! important;">
+					            <h:outputText value="#{item.crrDetalle}"/>
+					        </p:column>
+					        
+					        <p:column headerText="Opción"  style="width: 6em ! important;">
+					        	<p:commandLink id="cmdlRegHistorico" value="Eliminar homologación" action="#{eliminarHomologacionForm.irVerificaEliminarHomologacion(item)}" style="margin-left:50px" ajax="false" />
+					        	
+					        </p:column>
+					        
+				</p:dataTable>
+		</p:panel>
+		
+		
+		
+		<div >
+			<p:commandButton id="btnSalir" value="Regresar" action="#{eliminarHomologacionForm.irInicio()}"  ajax="false" immediate="true"/>
+			
+					
+			<p:commandButton id="btnModalEliminarHomologacion" value="EjecutarModalEliminaHomologacion" style="visibility:hidden;">
+    				<p:ajax oncomplete="PF('dialogoEliminarHomologacion').show();" update=":frmModalEliminarHomologacion" />
+    		</p:commandButton>
+			
+		</div>
+		
+		
+	</h:form>
+	
+	<ui:include src="/academico/homologacion/eliminar/modalEliminarHomologacion.xhtml" />
+	
+	<h:form id="compOculto" style="visibility:hidden;">
+	 	<p:inputText id="txtValidador" value="#{eliminarHomologacionForm.erhfValidadorClic}" />
+	</h:form>		
+	
+</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"	value=" Matrícula / Verificación Matrícula " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+	<h:form id="frmConfirmacionMatricula" enctype="multipart/form-data" acceptcharset="UTF-8" >
+	
+	<p:panel id="pnlInformativo" header="Información general" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1  Identificacion************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4" style=" width: 35%;">
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblIdentificacion" for="identificacion" value="Identificación: " />
+							</ui:define>
+							
+							<ui:define name="valor">
+								<p:outputLabel id="identificacion" value="#{fichaGenerarMatriculaSuficienciasForm.fgmpgfFichaInscripcionDto.prsIdentificacion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+	                 <div class="cell colspan4" style=" width: 65%;"> 
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblFalcultad" for="falcultad" value="Facultad: " />
+							</ui:define>
+							
+							<ui:define name="valor">
+								<p:outputLabel id="falcultad" value="#{fichaGenerarMatriculaSuficienciasForm.fgmpgfDependenciaBuscar.dpnDescripcion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div>  
+				
+				<div class="row cells8"> 
+					<div class="cell colspan4" style=" width: 35%;">
+					<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta" >
+								<p:outputLabel id="lblNombre" for="nombre" value="Nombre: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="nombre" value="#{fichaGenerarMatriculaSuficienciasForm.fgmpgfFichaInscripcionDto.prsPrimerApellido.concat(' ').
+								concat(fichaGenerarMatriculaSuficienciasForm.fgmpgfFichaInscripcionDto.prsSegundoApellido).concat(' ').
+								concat(fichaGenerarMatriculaSuficienciasForm.fgmpgfFichaInscripcionDto.prsNombres) }" 
+								style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+						   </ui:define>
+						</ui:decorate>
+						
+					</div>
+	                 <div class="cell colspan4" style=" width: 65%;"> 
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta" >
+								<p:outputLabel id="lblCarrera" for="carrera" value="Carrera: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="carrera" value="#{fichaGenerarMatriculaSuficienciasForm.fgmpgfFichaInscripcionDto.crrDetalle}" 
+														style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+						   </ui:define>
+						</ui:decorate>
+					</div>
+				</div>  
+				
+				<div class="row cells8">
+					<div class="cell colspan4" style=" width: 35%;"> 
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta" >
+								<p:outputLabel id="lblSemestre" for="semestre" value="Semestre: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="semestre" value="#{listasCombosForm.getListaNivelFichaMatricula(fichaGenerarMatriculaSuficienciasForm.fgmpgfNivelUbicacion)}" 
+											style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+						   </ui:define>
+						</ui:decorate>
+					</div>
+					<div class="cell colspan4" style=" width: 65%;">
+					<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta" >
+								<p:outputLabel id="lblGratuidad" for="gratuidad" value="Gratuidad: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="gratuidad" value="#{fichaGenerarMatriculaSuficienciasForm.obtenerDescripcionGratuidad(fichaGenerarMatriculaSuficienciasForm.fgmpgfPerdidaGratuidadDefinitiva)}" 
+														style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+						   </ui:define>
+						</ui:decorate>
+					</div>
+				</div>
+			</div>
+		</p:panel>
+		
+		<p:panel id="pnlMaterias" header="Registro de Asignaturas">
+			<p:dataTable id="dtsMaterias" var="item" value="#{fichaGenerarMatriculaSuficienciasForm.fgmpgfMateriasMatriculadas}"
+		   		 		rows="10" paginator="false" paginatorPosition="bottom"
+	                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+	                         style="text-align: center;"
+							 rowIndexVar="rowIndex">
+					
+					<p:column headerText="#" style="width: 1em ! important; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					
+	                <p:column headerText="Asignatura" style="width: 60em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.mtrCodigo} - #{item.mtrDescripcion}"/>
+			        </p:column>
+			        <p:column headerText="Paralelo" style="width: 5em  ! important; text-align: center; ">
+			            <h:outputText value="#{item.prlCodigo}"/>
+			        </p:column>
+			        <p:column headerText="Matrícula" style="width: 4em  ! important; " >
+			            <h:outputText value="#{item.numMatricula}"/>
+			        </p:column> 
+			        <p:column headerText="#{fichaGenerarMatriculaSuficienciasForm.cabeceraCreditosHoras(fichaGenerarMatriculaSuficienciasForm.fgmpgfMateriasMatriculadas.get(fichaGenerarMatriculaSuficienciasForm.fgmpgfMateriasMatriculadas.size()-1).mtrCreditos, fichaGenerarMatriculaSuficienciasForm.fgmpgfMateriasMatriculadas.get(fichaGenerarMatriculaSuficienciasForm.fgmpgfMateriasMatriculadas.size()-1).mtrHoras)}" 
+			        	style="width: 5em  ! important; text-align: center; ">
+			            <h:outputText value="#{item.mtrCreditos != 0 ? item.mtrCreditos:item.mtrHoras}"/>
+			        </p:column>
+			        <p:column headerText="Valor" style="width: 5em  ! important; text-align: center; ">
+			            <h:outputText value="#{item.valorMatricula}">
+			            	<f:convertNumber currencySymbol="$" type="currency"/>
+			            </h:outputText>
+			        </p:column>
+				</p:dataTable>
+		</p:panel>
+		<p:panel id="pnlInformacion" header="Información" rendered="false">
+				<div  style="padding: 1em; font-weight: bold;">
+					<h:outputText value="* Se ha enviado el Registro de Matrícula a su correo institucional."  /><br />
+					<h:outputText value="* El número de orden de cobro se generará al hacer efectivo el paso con la entidad financiera."  /><br />
+					<h:outputText value="* Se notificará la validación de la orden de cobro a su correo institucional, para poder realizar el pago."  /><br />
+					<h:outputText value="* Para Reimprimir el Registro de Matrícula y Orden de Cobro, ingresar al apartado Reportes/Listar Matrículas en su perfil."  />
+				</div>
+			</p:panel>
+		<div>
+			<p:commandButton id="btnRegresar" value="Regresar" action="#{fichaGenerarMatriculaSuficienciasForm.irInicio()}" immediate="true" ajax="false" />
+		</div>
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

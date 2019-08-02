@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Matrícula / Materias " />
+		</ui:include>
+</ui:define>
+
+
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+    function nobackbutton(){
+    window.location.hash="no-back-button";
+    window.location.hash="Again-No-back-button" //chrome
+    window.onhashchange=function(){window.location.hash="no-back-button";}
+}
+    
+ //]]> 
+</script>
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+	    var idVarError = 'compOculto:txtValidador';
+		  var varError = document.getElementById(idVarError);
+		    if(varError.value == 1){
+		  document.getElementById('frmGenerarMatriculaSuficiencias:btnModal').click();
+	    }
+    }  
+//]]> 
+</script>
+
+	<h:form id="frmGenerarMatriculaSuficiencias" enctype="multipart/form-data" acceptcharset="UTF-8">
+	   
+	   <p:growl id="growl" showDetail="true" life="3000" sticky="sticky" />  
+	   
+		<p:panel id="pnlInformativo" header="Información general" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1  Identificacion************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4" style=" width: 35%;">
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblIdentificacion" for="identificacion" value="Identificación: " />
+							</ui:define>
+							
+							<ui:define name="valor">
+								<p:outputLabel id="identificacion" value="#{fichaGenerarMatriculaSuficienciasForm.fgmpgfFichaInscripcionDto.prsIdentificacion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+	                 <div class="cell colspan4" style=" width: 65%;"> 
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblFalcultad" for="falcultad" value="Facultad: " />
+							</ui:define>
+							
+							<ui:define name="valor">
+								<p:outputLabel id="falcultad" value="#{fichaGenerarMatriculaSuficienciasForm.fgmpgfDependenciaBuscar.dpnDescripcion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div>  
+				
+				<div class="row cells8"> 
+					<div class="cell colspan4" style=" width: 35%;">
+					<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta" >
+								<p:outputLabel id="lblNombre" for="nombre" value="Nombre: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="nombre" value="#{fichaGenerarMatriculaSuficienciasForm.fgmpgfFichaInscripcionDto.prsPrimerApellido.concat(' ').
+								concat(fichaGenerarMatriculaSuficienciasForm.fgmpgfFichaInscripcionDto.prsSegundoApellido).concat(' ').
+								concat(fichaGenerarMatriculaSuficienciasForm.fgmpgfFichaInscripcionDto.prsNombres) }" 
+														style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+						   </ui:define>
+						</ui:decorate>
+						
+					</div>
+	                 <div class="cell colspan4" style=" width: 65%;"> 
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta" >
+								<p:outputLabel id="lblCarrera" for="carrera" value="Carrera: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="carrera" value="#{fichaGenerarMatriculaSuficienciasForm.fgmpgfFichaInscripcionDto.crrDetalle}" 
+														style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+						   </ui:define>
+						</ui:decorate>
+					</div>
+				</div>  
+			</div>
+		</p:panel>
+
+			<p:panel id="pnlResultados" header="Asignaturas" >
+				<p:dataTable id="dtbMaterias" var="item" value="#{fichaGenerarMatriculaSuficienciasForm.fgmpgfListMateriasAmatricularMateriaDto}"
+					rows="20" paginator="true" 
+					paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15"
+					emptyMessage="NO SE ENCONTRARON DATOS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+					rowIndexVar="rowIndex">
+					
+					<p:column headerText="#" style="width: 1em ! important; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					
+					<p:column headerText="Asignatura" style="width: 28em !important;">
+					<div style="display:flex;">
+						<h:selectBooleanCheckbox id="idCheck" style="text-align:center; width:5%;" value="#{item.mtrCmbEstado}" >
+							<p:ajax event="change" listener="#{fichaGenerarMatriculaSuficienciasForm.resetComboParalelo(item)}" 
+								update="  idCheck , slcAcreedor, frmGenerarMatriculaSuficiencias"/>
+						</h:selectBooleanCheckbox>
+						<h:outputText value="#{item.mtrCodigo} - #{item.mtrDescripcion}" for="idCheck" style="width:95%"/>
+					</div>
+					</p:column>
+					 
+					<p:column headerText="Nivel" style="width: 3em ! important; text-align:center">
+						<h:outputText value="#{item.nvlDescripcion}" />
+					</p:column>
+					
+					<p:column headerText="Horas" style="width: 3em ! important; text-align:center">
+						<h:outputText value="#{item.mtrCreditos != 0 ? item.mtrCreditos:item.mtrHoras}" />
+					</p:column>
+					
+					<p:column headerText="Matrícula" style="width: 2em ! important; text-align:center">
+						<h:outputText value="#{item.numMatricula}" />
+					</p:column>
+					
+					<p:column headerText="Paralelo" style="width: 6em ! important; text-align:center; ">
+						<h:selectOneMenu id="slcAcreedor" value="#{item.prlId}" disabled="#{item.mtrCmbEstado=='false'?'true':'false'}" style="width: 90%; text-align:center  ">
+							<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}"/> 
+							<f:selectItems var="it" value="#{item.mtrListParalelo}" itemLabel="#{it.prlCodigo}" itemValue="#{it.prlId}" />
+							<p:ajax event="change" 
+								listener="#{fichaGenerarMatriculaSuficienciasForm.verificarClickDisponibilidadSuficiencias(item,item.mtrCmbEstado)}"
+								update="slcAcreedor, idCheck , frmGenerarMatriculaSuficiencias:pnlResultados, frmGenerarMatriculaSuficiencias:growl"/>
+						</h:selectOneMenu>
+					</p:column>
+					
+				</p:dataTable>
+			</p:panel>
+		
+			<div>
+				<p:commandButton id="btnRegresar" value="Regresar" action="#{fichaGenerarMatriculaSuficienciasForm.cancelarGenerarMatricula()}" ajax="false"/>
+				<p:commandButton id="btnGuardar" value="Generar matrícula"  >
+					<p:ajax oncomplete="PF('dialogoConfirmacion').show();" update="frmGenerarMatriculaSuficiencias" />
+				</p:commandButton>
+				
+				<p:commandButton id="btnModal" value="EjecutarModalAceptar" style="visibility:hidden;">
+        			<p:ajax oncomplete="PF('dialogoConfirmacion').show();"/>
+    			</p:commandButton>
+			</div>
+ 
+		</h:form>
+	
+	<h:form id="compOculto" style="visibility:hidden;">
+		<p:inputText id="txtValidador" value="#{fichaGenerarMatriculaSuficienciasForm.activarModalConfirmacion}" />
+	</h:form>		
+	<ui:include src="/academico/matriculaSuficiencias/modalConfirmacion.xhtml" />
+</ui:define>
+</ui:composition>     
+</html>

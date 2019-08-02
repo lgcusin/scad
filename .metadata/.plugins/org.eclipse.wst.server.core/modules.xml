@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <modules>
+  <module moduleId="org.eclipse.jst.jee.server:academicoJsf" serverId="WildFly 10.x1547129818892"/>
+  <module moduleId="org.eclipse.jst.jee.server:academicoEjb" serverId="WildFly 10.x1547129818892"/>
   <module moduleId="org.eclipse.jst.j2ee.server:BiometricoJpa" serverId="WildFly 10.x1547129818892"/>
+  <module moduleId="org.eclipse.jst.jee.server:academicoEar" serverId="WildFly 10.x1547129818892"/>
 </modules>

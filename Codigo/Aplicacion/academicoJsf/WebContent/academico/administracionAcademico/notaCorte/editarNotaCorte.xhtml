@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value=" Administración / Notas corte " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador';
+    	var varError = document.getElementById(idVarError);
+    	
+    	if(varError.value == 1){
+    		document.getElementById('frmEditarNotasCorte:btnGuardoValidarModal').click();
+        }
+
+
+    	if(varError.value == 2){
+    		document.getElementById('frmEditarNotasCorte:btnGuardoValidarModalDos').click();
+        }
+    } 
+
+ //]]> 
+</script>
+
+
+	<h:form  id="frmEditarNotasCorte" enctype="multipart/form-data" acceptcharset="UTF-8" action="IpClientServlet" method="post">
+			
+		<p:panel id="pnlResultados" header="Información" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->		
+				<div class="row cells9">
+					<div class="cell colspan8"><!-- CARRERA -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteBigGeneralDisplay.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPeriodo" for="txtPeriodo" value="Período de corte: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<p:outputLabel id="txtPeriodo" value="#{administracionNotaCorteForm.ancfPeriodoAcademicoCorte.pracDescripcion}" 
+		       									style="font-weight: Normal !important;"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>	
+
+			</div>
+			
+		</p:panel>
+		
+		<p:panel id="pnlIngresoNotas" header="#{notasPregradoForm.npfTextoOpcion}" >
+		<p:growl id="msgs" showDetail="true"/>
+			<p:dataTable id="panelEstudiantesMatriculados" var="carrera" value="#{administracionNotaCorteForm.ancfListCarreraNotaCorte}" editable="true" editMode="cell" widgetVar="cellEstudiante" rowIndexVar="rowIndex">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+				
+					<f:facet name="header">
+		           		Notas de Corte
+		       		</f:facet>
+		       		
+		       		<p:column headerText="#" style="width: 1em ! important; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+		       		<p:column headerText="Dependencia" style="width: 7em ! important;">
+		                 <h:outputText value="#{carrera.dpnDescripcion}" />
+		       		</p:column>
+		       		
+		       		<p:column headerText="Carrera" style="width: 7em ! important;">
+		                 <h:outputText value="#{carrera.crrDetalle}" />
+		       		</p:column>
+		       		
+		       		       		
+		       		<p:column headerText="Nota / 1000" style="width: 2em ! important; text-align:center">
+		           		 <p:cellEditor>
+		                 	<f:facet name="output">
+		                 		<h:outputText value="#{carrera.nocrNota}"  >
+		                 			<f:convertNumber pattern="#0.00" />
+		                 		</h:outputText>
+		                 	</f:facet>
+		                 
+		                 	<f:facet name="input">
+									
+									<p:inputNumber
+										id="txtNotaCorte"
+										value="#{carrera.nocrNota}"
+										thousandSeparator=""
+										minValue="0000"
+										maxValue="1000"
+									    decimalPlaces="2"
+										style="width:98%;"
+										required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}" 
+									
+										>
+										<p:ajax event="blur" update=" txtNotaCorte" />
+									</p:inputNumber>
+									
+
+							</f:facet>
+		            	</p:cellEditor>
+		       		</p:column>
+		       			       		
+				</div>
+			</p:dataTable>	
+		</p:panel>			
+		<div>
+			<p:commandButton id="btnRegresar" value="Regresar" action="#{administracionNotaCorteForm.irInicio()}" immediate="true" ajax="false" />
+			
+			<p:commandButton id="btnGuardar" value="Guardar" action="#{administracionNotaCorteForm.verificaEditarGuardar()}" immediate="true" ajax="false" />
+			
+			<p:commandButton id="btnGuardoValidarModal" value="EjecutarModalGuardarGenerar" style="visibility:hidden;">
+    				<p:ajax oncomplete="PF('dialogoGuardadoNota').show();" update=":frmModalGuardadoNota" />
+    		</p:commandButton>
+    		<p:commandButton id="btnGuardoValidarModalDos" value="EjecutarModalGuardarGenerar" style="visibility:hidden;">
+    				<p:ajax oncomplete="PF('dialogoGuardadoNotaDos').show();" update=":frmModalGuardadoNotaDos" />
+    		</p:commandButton>
+		</div>
+	</h:form>
+	<ui:include src="/academico/administracionAcademico/notaCorte/modalGuardadoNota.xhtml" />
+	<ui:include src="/academico/administracionAcademico/notaCorte/modalGuardadoNotaDos.xhtml" />
+	<h:form id="compOculto" style="visibility:hidden;">
+		<p:inputText id="txtValidador" value="#{administracionNotaCorteForm.ancfValidadorGuardarClick}" >
+		</p:inputText>	
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

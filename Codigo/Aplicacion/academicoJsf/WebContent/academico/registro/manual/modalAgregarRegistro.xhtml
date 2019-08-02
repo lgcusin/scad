@@ -1,0 +1,245 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      			xmlns:ui="http://java.sun.com/jsf/facelets"
+      			xmlns:f="http://java.sun.com/jsf/core"
+      			xmlns:h="http://java.sun.com/jsf/html"
+     			xmlns:p="http://primefaces.org/ui">
+	<h:form id="frmModalAgregarRegistro">
+		<p:dialog widgetVar="dialogoAgregarRegistro" modal="true" draggable="false" closable="false" 
+				  resizable="false" height="600" width="1000" styleClass="modal-sin-header" >
+			<p:outputLabel 
+				value="Agregar registro de movilidad"
+				style="font-size: 1.1em !important;" />
+				
+            <p:messages for="mensaje" autoUpdate="true" globalOnly="true" />
+					
+			<p:panel id="pnlResultados" header="Información">
+
+				<div class="grid condensed" >
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+				<div class="row cells8"> 
+						
+					<div class="cell colspan4" style="width: 40%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacionVer" for="identificacionVer"
+										value="Identificación: " 
+										/>
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="identificacionVer"
+										value="#{registroManualHomologacionForm.rmhfPersonaVer.prsIdentificacion}"
+										style="vertical-align: super;font-weight: Normal !important; width:100%"
+										 />
+								</ui:define>
+							</ui:decorate>
+						</div>   
+				</div> 
+			
+				<!-- ******************** FILA NUMERO 2 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4" style="width: 40%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNombre" for="nombre" value="Nombre: " 
+									rendered="#{registroManualHomologacionForm.rmhfRenderPanelInfo}"/>
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="nombre"
+										value="#{registroManualHomologacionForm.rmhfPersonaVer.prsPrimerApellido.concat(' ').
+								concat(registroManualHomologacionForm.rmhfPersonaVer.prsSegundoApellido).concat(' ').
+								concat(registroManualHomologacionForm.rmhfPersonaVer.prsNombres) }"
+										style="vertical-align: super;font-weight: Normal !important; width:100%"
+										 />
+								</ui:define>
+							</ui:decorate>
+						</div>
+				</div> 
+				
+					<!-- ******************** FILA NUMERO 3 ************************ -->
+				<div class="row cells8">
+					<div class="cell colspan4" >
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblTipoIngreso" for="slcTipoIngreso" value="Tipo de ingreso: " />
+									</ui:define>
+									<ui:define name="valor">
+										<h:selectOneMenu id="slcTipoIngreso" value="#{registroManualHomologacionForm.rmhfPersonaDtoAgregarRegistro.fcinTipoIngreso}" 
+										                style="width: 100%;" required="true"
+														requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"
+											              itemValue="#{generalesConstantesForm.appIdBase}" />
+										  	<f:selectItems value="#{listasCombosForm.listaTipoIngresoFichaInscripcion}" var="item"
+													itemLabel="#{item.label}" itemValue="#{item.value}" />  
+											<p:ajax event="change" 
+											listener="#{registroManualHomologacionForm.llenarDetalleTipoIngreso(registroManualHomologacionForm.rmhfPersonaDtoAgregarRegistro.fcinTipoIngreso)}"
+											update="lblTipoIngreso, msgTipoIngreso , lblDetalle, txtDetalle,lblDependencia , slcDependencia, lblCarrera , slcCarrera , lblNotaEnes , txtNotaEnes , msgNotaEnes, lblAplicaNotaEnes , chkAplicaNotaEnes , msgAplicaNotaEnes" />
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgTipoIngreso" for="slcTipoIngreso" />
+									</ui:define>
+							    </ui:decorate>
+						    </div>
+ 				</div>	
+ 				
+ 					
+ 			 	<div class="row cells8">
+					<div class="cell colspan4" >
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblDependencia" for="slcDependencia" value="Facultad: " />
+									</ui:define>
+									<ui:define name="valor">
+										<h:selectOneMenu id="slcDependencia" value="#{registroManualHomologacionForm.rmhfPersonaDtoAgregarRegistro.crrDependencia}" 
+										                style="width: 100%;" required="true"
+														requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"
+											              itemValue="#{generalesConstantesForm.appIdBase}" />
+										  	<f:selectItems value="#{registroManualHomologacionForm.rmhfListaDependencia}" var="item"
+													itemLabel="#{item.dpnDescripcion}" itemValue="#{item.dpnId}" />  
+											<p:ajax event="change" 
+											listener="#{registroManualHomologacionForm.llenarCarreras(registroManualHomologacionForm.rmhfPersonaDtoAgregarRegistro.crrDependencia)}"
+											update="lblDependencia, msgDependencia , lblCarrera, slcCarrera " />
+																																	
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgDependencia" for="slcDependencia" />
+									</ui:define>
+							    </ui:decorate>
+						    </div>
+ 				</div>					
+ 				
+ 			 	<div class="row cells8">
+					<div class="cell colspan4" >
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera: " />
+									</ui:define>
+									<ui:define name="valor">
+										<h:selectOneMenu id="slcCarrera" value="#{registroManualHomologacionForm.rmhfPersonaDtoAgregarRegistro.fcinCarreraSiiu}" 
+										                style="width: 100%;" required="true"
+														requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"
+											              itemValue="#{generalesConstantesForm.appIdBase}" />
+										  	<f:selectItems value="#{registroManualHomologacionForm.rmhfListaCarrera}" var="item"
+													itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />  
+											<p:ajax event="change" update="lblCarrera, msgCarrera" />
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgCarrera" for="slcCarrera" />
+									</ui:define>
+							    </ui:decorate>
+						    </div>
+ 				</div>					
+ 				
+ 						<div class="row cells8">
+ 								
+ 						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblAplicaNotaEnes" for="chkAplicaNotaEnes"
+										value="Aplica nota ENES:" disabled="#{registroManualHomologacionForm.rmhfDisabledAplicaEnes}" />
+								</ui:define>
+								<ui:define name="valor">
+					          <h:selectBooleanCheckbox  id="chkAplicaNotaEnes" 
+					          value="#{registroManualHomologacionForm.rmhfChkNotaEnes}" 
+					          disabled="#{registroManualHomologacionForm.rmhfDisabledAplicaEnes}"    >
+							
+						          	<p:ajax  event="change"  listener="#{registroManualHomologacionForm.aplicaNotaEnes(registroManualHomologacionForm.rmhfChkNotaEnes)}"
+								update="lblNotaEnes, txtNotaEnes" 		 />
+						         </h:selectBooleanCheckbox>
+					
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgAplicaNotaEnes" for="chkAplicaNotaEnes" />
+								</ui:define>
+							</ui:decorate>
+						</div>			
+ 								
+ 								
+ 									
+ 				<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNotaEnes" for="txtNotaEnes"
+										value="Nota ENES:" disabled="#{registroManualHomologacionForm.rmhfDisabledNotaEnes}" />
+								</ui:define>
+								<ui:define name="valor">
+								<p:inputNumber
+										id="txtNotaEnes"
+										value="#{registroManualHomologacionForm.rmhfPersonaDtoAgregarRegistro.fcinNotaEnes}"
+										thousandSeparator=""
+										decimalPlaces="2"
+										minValue="0000"
+										maxValue="1000"
+										style="width:98%;"
+										required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}" 
+										disabled="#{registroManualHomologacionForm.rmhfDisabledNotaEnes}"
+										>
+										<p:ajax event="change" update="lblNotaEnes , txtNotaEnes , msgNotaEnes " />
+									</p:inputNumber>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgNotaEnes" for="txtNotaEnes" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+                </div>	
+ 					  	
+			 </div>  <!-- Fin Grid Condensed --> 
+			</p:panel>
+     
+       <p:panel id="pnlInformacion"  header="Detalle tipo de ingreso seleccionado" rendered= "false">
+			<div class="row cells8">
+							<!-- codigo  -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEditv2.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblDetalle" for="txtDetalle" value="#{listasCombosForm.getLabelTipoIngresoFichaInscripcion(registroManualHomologacionForm.rmhfPersonaDtoAgregarRegistro.fcinTipoIngreso)}" />
+								</ui:define>
+								<ui:define name="valor">
+								<p:outputLabel id="txtDetalle"
+										value="#{registroManualHomologacionForm.rmhfDetalleTipoIngreso}"
+										style="vertical-align: super;font-weight: Normal !important; width:100%"
+										 />
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgDetalle" for="txtDetalle" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					
+	</p:panel>	 
+       
+     <div class="row cells8">
+      
+                 <p:commandButton 
+					id="btnCerrarModal" 
+					value="Cerrar"
+					action="#{registroManualHomologacionForm.CancelarAgregarRegistro()}"
+					oncomplete="PF('dialogoAgregarRegistro').hide();" 
+					update=":frmBuscarEstudiante, :frmBuscarEstudiante:outputPanel2, :frmBuscarEstudiante:outputPanel3"	  />
+					
+				<p:commandButton 
+					id="btnGuadarRegistro" 
+					value="Guardar registro"
+					disabled= "#{registroManualHomologacionForm.rmhfDisabledGuardarAgregar}"
+					action="#{registroManualHomologacionForm.agregarFichaInscripcion(registroManualHomologacionForm.rmhfPersonaDtoAgregarRegistro)}"
+					update=":frmBuscarEstudiante, :frmBuscarEstudiante:outputPanel2 ,:frmBuscarEstudiante:outputPanel3 , btnGuadarRegistro"
+				/>
+		
+		  
+				
+			
+		</div>
+			
+		</p:dialog> 
+	</h:form>
+</ui:composition>

@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+<html>
+  <head>
+	 <meta http-equiv="content-type" content="text/html; charset=utf-8">
+	 <title>UNIVERSIDAD CENTRAL DEL ECUADOR</title>
+  </head>
+  <body>
+    <p><strong>Estimado(a): ${estudiante} .-</strong></p>
+    <br/>
+	   <strong> REGISTRO DE MOVILIDAD ESTUDIANTIL </strong>.
+	   <br/>
+	   La Universidad Central del Ecuador le informa que su registro de ${tipoIngreso} ha sido realizado en el Sistema Integral de Informaci&#243;n Universitario, el proceso de autorizaci&#243;n est&#225; a cargo de la secretar&#237;a de la  carrera de ${carrera}  :
+	  <br/>
+	  <br/>
+	 ----------
+	  <br/>
+	  <br/>
+	   La registro autom&#225;tico se proces&#243; el ${fechaHora}.
+	  <br/>
+	  <br/>
+	  <br/>
+	  <br/>
+      <br/> 
+	  ...........................................................................................
+	  <br/>
+	  <strong>Informaci&#243;n del Correo: </strong> Mail generado autom&#225;ticamente. Por favor no responda a este mensaje.
+	  <br/>
+	  <br/>
+	  <br/>

@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Administración / Aula /Ver aula" />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+	<h:form id="frmVerAula" >
+		
+		<!--******************************PANEL DE INFORMACIÓN AULA*******************************-->	
+		<p:panel id="pnlDatosAula" header="Información del aula">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+				<div class="row cells8"> 
+				
+					    <div class="cell colspan4"><!--Dependencia del aula -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblDependencia" for="dependencia" value="Facultad: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="dependencia" value="#{administracionAulaForm.aafAulaDto.dpnDescripcion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						 </ui:decorate>
+					   </div>
+						<div class="cell colspan4"> <!--edificio del aula -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblEdificio" for="edificio" value="Edificio: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="edificio" value="#{administracionAulaForm.aafAulaDto.edfDescripcion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					    </div>
+				</div> <!-- Fin fila 1 -->
+				<!-- ******************** FILA NUMERO 2 ************************ -->
+					<div class="row cells8"> 
+						<div class="cell colspan4"> <!--Código del aula -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCodigo" for="codigo" value="Código: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="codigo" value="#{administracionAulaForm.aafAulaDto.alaCodigo}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					    </div>
+						<div class="cell colspan4">  <!-- Descripción del aula-->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblAulaDescripcion" for="aulaDescripcion" value="Descripción: " />
+							</ui:define>
+							<ui:define name="valor">
+							 	<p:outputLabel id="aulaDescripcion" value="#{administracionAulaForm.aafAulaDto.alaDescripcion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 2 -->
+
+				<!-- ******************** FILA NUMERO 3  ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- tipo de aula -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblTipo" for="tipo" value="Tipo: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="tipo" value="#{listasCombosForm.getLabelTipoAula(administracionAulaForm.aafAulaDto.alaTipo)}" 
+											style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+					<div class="cell colspan4"> <!-- capacidad del aula -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCapacidad" for="capacidad" value="Capacidad: " />
+							</ui:define>
+							<ui:define name="valor">
+							 	<p:outputLabel id="capacidad" value="#{administracionAulaForm.aafAulaDto.alaCapacidad}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 3 -->
+				
+				<!-- ******************** FILA NUMERO 4  ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- Piso -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblPiso" for="piso" value="Piso: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="piso" value="#{administracionAulaForm.aafAulaDto.alaPiso}" 
+											style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+					<div class="cell colspan4"> <!-- Piso -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblEstado" for="estado" value="Estado: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="estado" value="#{listasCombosForm.getLabelEstadoAula(administracionAulaForm.aafAulaDto.alaEstado)}" 
+											style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+							
+				</div> <!-- Fin fila 4 -->
+			</div><!-- Fin GRID-->
+		</p:panel>
+		<div >
+			<p:commandButton id="btnRegresar" value="Regresar" immediate="true" ajax="false" action="#{administracionAulaForm.irAdministracionAula(administracionAulaForm.aafUsuario)}" />
+			<p:commandButton id="btnEditar" value="Editar" immediate="true" ajax="false" action="#{administracionAulaForm.verDatosAula(administracionAulaForm.aafAulaDto,1)}" />
+		</div>
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

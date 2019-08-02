@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+<html>
+  <head>
+	 <meta http-equiv="content-type" content="text/html; charset=utf-8">
+	 <title>UNIVERSIDAD CENTRAL DEL ECUADOR</title>
+  </head>
+  <body>
+    <p><strong>Estimado(a): ${nombres} ${apellidos}.-</strong></p>
+    <br/>
+	  La Universidad Central del Ecuador le da la bienvenida al programa de posgrado correspondiente a: 
+	  <br/>
+	  	<p><strong>Programa: </strong>${carrera}</p> 
+	 	 <p><strong>Facultad: </strong>${facultad}</p>
+	  <br/>
+	  
+	  Para legalizar su matr&#237;cula en el programa de posgrado seleccionado, deber&#225; considerar lo siguiente:
+	  <br/> 
+	  <br/>
+	   A partir de la fecha de recepci&#243;n de este correo, usted tiene tres meses para realizar la cancelaci&#243;n total del valor del programa de posgrado.
+	   <br/>
+	   Una vez que usted cuente con la disponibilidad econ&#243;mica para realizar el pago, usted deber&#225;:
+	   <br/>
+	   <br/>
+	   1. Ingresar al sistema (siiu.uce.edu.ec).
+	   <br/>
+	   2. Seleccionar la opci&#243;n "Impresi&#243;n comprobante".
+	   <br/>
+	   3. Seleccionar el per&#237;odo acad&#233;mico.
+	   <br/>
+	   4. Dar clic en el bot&#243;n Ver comprobante e Imprimir.
+	   <br/>
+	   <br/>
+	   NOTAS: 
+	   <br/>
+	   Los comprobantes generados hasta las 15:30, podr&#225;n ser cancelados a partir del <strong>D&#205;A SIGUIENTE</strong>.
+	   <br/>
+	   Los comprobantes generados despu&#233;s de las 15:30, podr&#225;n ser cancelados <strong>A PARTIR DEL SEGUNDO D&#205;A DE SU EMISI&#211;N</strong>. 
+	   <br/>
+	   A partir de ese momento usted dispondr&#225; &#250;nicamente de <strong>5 D&#205;AS</strong> para realizar el pago de la totalidad del programa de posgrado en cualquier agencia de SERVIPAGOS a nivel nacional.
+	  <br/>
+	  <br/> 
+	  El proceso se realiz&#243; el ${fechaHora}
+	  <br/>	  
+	  <br/>
+	  ...........................................................................................
+	  <br/>
+	  <strong>Informaci&#243;n del Correo: </strong> Mail generado autom&#225;ticamente. Por favor no responda a este mensaje.
+	  <br/>
+	  <br/>
+	  <br/>

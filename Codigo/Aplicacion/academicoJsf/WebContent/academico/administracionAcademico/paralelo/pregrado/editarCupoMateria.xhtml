@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Administración pregrado / Paralelos / Asignatura - Editar Cupo   " />
+		</ui:include>
+	</ui:define>
+
+	<ui:define name="cuerpo">
+
+			<h:form id="frmEditarCupoMateria" enctype="multipart/form-data" acceptcharset="UTF-8">
+
+				<p:panel id="pnlDatos" header="Información de la Asignatura">
+					<div class="grid condensed">
+
+						<div class="row cells8">
+							<div class="cell colspan4">
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblMtrCodigo" for="txtMtrCodigo"	value="Código: " />
+									</ui:define>
+									<ui:define name="valor">
+										<p:outputLabel id="txtMtrCodigo"
+											value="#{administracionSuficienciaParaleloForm.apfMateriaDto.mtrCodigo}"
+											style="vertical-align: super;font-weight: Normal !important; width:100%" />
+									</ui:define>
+								</ui:decorate>
+							</div>
+							<div class="cell colspan4">
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblMateria" for="txtMateria" value="Asignatura: " />
+									</ui:define>
+									<ui:define name="valor">
+										<p:outputLabel id="txtMateria"
+											value="#{administracionSuficienciaParaleloForm.apfMateriaDto.mtrDescripcion}"
+											style="vertical-align: super;font-weight: Normal !important; width:100%" />
+									</ui:define>
+								</ui:decorate>
+							</div>
+						</div>
+
+						<div class="row cells8">
+							<div class="cell colspan4">
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblCupo" for="txtCupo" value="Cupo asignado: " />
+									</ui:define>
+									<ui:define name="valor">
+										<p:inputNumber id="txtCupo"  
+											value="#{administracionSuficienciaParaleloForm.apfMateriaDto.mlcrprCupo}"
+										 	decimalPlaces="0" 
+										 	size="50"
+											maxValue="#{administracionSuficienciaParaleloForm.apfAulaDto.alaCapacidad}" 
+											minValue="1"
+											thousandSeparator=""
+										 	style="width: 100%;"/>
+									</ui:define>
+								</ui:decorate>
+							</div>
+
+							<div class="cell colspan4">
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblCapacidadAulas" for="txtCapacidadAulas" value="Capacidad máxima: " />
+									</ui:define>
+									<ui:define name="valor">
+										<p:outputLabel id="txtCapacidadAulas"
+											value="#{administracionSuficienciaParaleloForm.apfAulaDto.alaCapacidad}"
+											style="width: 100%;"/>
+									</ui:define>
+								</ui:decorate>
+							</div>
+						</div>
+
+						<div class="row cells8">
+							<div class="cell colspan4">
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblInscritos" for="txtInscritos" value="Inscritos: " />
+									</ui:define>
+									<ui:define name="valor">
+										<p:outputLabel id="txtInscritos"
+											value="#{administracionSuficienciaParaleloForm.apfMateriaDto.mlcrprInscritos}"
+											style="width: 100%;"/>
+									</ui:define>
+								</ui:decorate>
+							</div>
+						</div>
+
+					</div>
+			</p:panel>
+				
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+				<p:dataTable id="tblAula" var="item"
+					value="#{administracionSuficienciaParaleloForm.apfListAulaDto}"
+					rowIndexVar="rowIndex"
+					rows="10" paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15"
+					emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+					<p:column headerText="#" style="width: 0.1em ! important; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column headerText="Aula" style="width: 2em !important;">
+						<h:outputText value="#{item.alaCodigo}" />
+					</p:column>
+					<p:column headerText="Tipo" style="width: 2em !important;">
+						<h:outputText value="#{administracionSuficienciaParaleloForm.etiquetarTipoAula(item.alaTipo)}" />
+					</p:column>
+					<p:column headerText="Capacidad" style="width: 2em ! important;">
+						<h:outputText value="#{item.alaCapacidad}" />
+					</p:column>
+					<p:column headerText="Estado" style="width: 1em ! important; text-align: center;">
+						<h:outputText value="#{administracionSuficienciaParaleloForm.etiquetarEstadoAula(item.alaEstado)}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+				
+				
+				<div>
+					<p:commandButton id="btnRegresar" value="Cancelar"
+						immediate="true"
+						ajax="false"
+						action="#{administracionSuficienciaParaleloForm.irVerParaleloPregrado()}" />
+					<p:commandButton id="btnEditarAula" value="Guardar cambios"
+						action="#{administracionSuficienciaParaleloForm.irGuardarCambiosCupoPorMateriaPregrado()}"
+						ajax="false" />
+				</div>
+			</h:form>
+	</ui:define>
+</ui:composition>
+</html>

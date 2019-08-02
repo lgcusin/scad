@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value=" Evaluación Pares / Áreas de Conocimiento / Actualización Grupo" />
+		</ui:include>
+	</ui:define>
+	
+	<ui:define name="cuerpo">
+
+		<h:form id="frmEditarParalelo" enctype="multipart/form-data" acceptcharset="UTF-8">
+			<p:panel id="pnlDatos" header="Información del grupo">
+
+				<div class="grid condensed">
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblDescripcion" for="txtDescripcion"	value="Descripcion: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:inputText id="txtDescripcion"
+										value="#{administracionEvaluacionDocenteForm.aefGrupo.grpDescripcion}"
+										style="width: 100%;"/>
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblEstado" for="slcEstado"	value="Estado: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcEstado"
+										value="#{administracionEvaluacionDocenteForm.aefGrupo.grpEstado}"
+										style="width: 100%;">
+										<f:selectItems var="item" value="#{administracionEvaluacionDocenteForm.aefListEstadoGrupo}"
+											itemLabel="#{item.label}" itemValue="#{item.value}" />
+										<p:ajax event="change" update="lblEstado, slcEstado" />
+									</h:selectOneMenu>
+								</ui:define>
+							</ui:decorate>
+						</div>
+
+					</div>
+
+				</div>
+				
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnRegresar" value="Regresar"
+					action="#{administracionEvaluacionDocenteForm.irListarGrupos()}"  
+					immediate="true"
+					ajax="false"/>
+				<p:commandButton id="btnGuardar" value="Guardar cambios"
+					action="#{administracionEvaluacionDocenteForm.irActualizarGrupo()}"  
+					ajax="false" />
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

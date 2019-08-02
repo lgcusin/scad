@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Director de Posgrado / Notas / Lista de paralelos " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+	    	
+    function abrirVentaReporte(formato, nombreReporte, tipo){
+    	var url = "/aplicacion/reportes";
+    	url = url + "?nombreJasper=" + nombreReporte;
+    	url = url + "&formato=" + formato;
+    	url = url + "&tipo=" + tipo;
+    	if(formato == 'vista'){
+    		var reportWindow = window.open(url, "reportWindow","menubar=0,resizable=0,status=0,width=800,height=600");
+    	}else{
+    		var reportWindow = window.open(url, "reportWindow","menubar=0,resizable=0,status=0,width=0,height=0");
+    	}
+    }
+
+    
+    
+ //]]> 
+</script>
+	<h:form id="frmListarNotasPregrado" enctype="multipart/form-data" acceptcharset="UTF-8">
+		<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="slcCarrera" value="Programa:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcCarrera" value="#{notasPosgradoForm.npfCrrId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%" disabled="true"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{notasPosgradoForm.npffListCarreraDocenteBusq}"
+												  itemLabel="#{item.crrDetalle}" itemValue="#{item.crrId}" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgCarrera" for="slcCarrera" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	<!-- ******************** FILA NUMERO 2 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblNivel" for="slcNivel" value="Nivel:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcNivel" value="#{notasPosgradoForm.npfParaleloDtoEditar.mlcrmtNvlId}"
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%" disabled="true"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{notasPosgradoForm.npffListNivel}"
+												  itemLabel="#{item.nvlDescripcion}" itemValue="#{item.nvlId}" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgNivel" for="slcNivel" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	   	<!-- ******************** FILA NUMERO 5 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblMateria" for="slcMateria" value="Asignatura:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcMateria" value="#{notasPosgradoForm.npfEstudianteBuscar.mtrId}"
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%" disabled="true"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{notasPosgradoForm.npfListMateriaBusq}"
+												  itemLabel="#{item.mtrDescripcion}" itemValue="#{item.mtrId}" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgMateria" for="slcMateria" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		 
+		   	</div> 		
+		</p:panel>
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda" >
+			<p:dataTable id="dtsEstudiante" var="item" value="#{notasPosgradoForm.npfListParaleloBusqIndividual}"
+			    		 		rows="10" paginator="true" paginatorPosition="bottom"
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+			                  <p:column headerText="Cohorte" style="width: 1em ! important; text-align:center">
+					            <h:outputText value="#{item.pracDescripcion}"/>
+					        </p:column>       
+					        <p:column headerText="Programa" style="width: 10em ! important;">
+					            <h:outputText value="#{item.crrDetalle}"/>
+					        </p:column>
+					        <p:column headerText="Asignatura" style="width: 5em ! important;">
+					            <h:outputText value="#{item.mtrDescripcion}"/>
+					        </p:column>
+					        <p:column headerText="Paralelo" style="width: 1em ! important; text-align:center">
+					            <h:outputText value="#{item.prlDescripcion}"/>
+					        </p:column>
+					        <p:column headerText="Opción" style="width: 5em ! important">
+					        	<p:commandLink id="cmdlEditar" value="Ingresar notas"  action="#{notasPosgradoForm.irIngresarNotasIndividual2(item)}" style="margin: 0px 45px;" update=":frmListarNotasPregrado"/>
+					        	<p:commandLink id="cmdlVerNotas" value="Ver notas"  action="#{notasPosgradoForm.irVerNotas2(item)}" update=":frmListarNotasPregrado"/>
+
+					        </p:column>
+					        
+				</p:dataTable>
+		</p:panel>
+		<div >
+			<p:commandButton id="btnSalir" value="Regresar" action="#{notasPosgradoForm.irAnotaPosgrado(sesionUsuarioForm.frmSuUsuario)}" />
+		</div>
+	</h:form>		
+</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Administración académico / Horarios / Listar " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+	<h:form id="frmHorario" enctype="multipart/form-data" acceptcharset="UTF-8" >
+		<p:panel id="pnlBusqueda" header="Horario académico">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPeriodo" for="slcPeriodo" value="Período académico:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<h:selectOneMenu id="slcPeriodo" value="#{administracionHorarioAcademicoForm.ahafHorarioAcademicoBusq.pracId}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionHorarioAcademicoForm.ahafListPeriodoAcademicoDtoBusq}"
+												  itemLabel="#{item.pracDescripcion}" itemValue="#{item.pracId}" />
+									<p:ajax event="change" listener="#{administracionHorarioAcademicoForm.cambiarCarrera(administracionHorarioAcademicoForm.ahafHorarioAcademicoBusq.pracId)}"
+											update="lblPeriodo , slcPeriodo , lblCarrera , slcCarrera , lblNivel , slcNivel , lblParalelo , slcParalelo ,  pnlResultados" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+				<!-- ******************** FILA NUMERO 2 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcCarrera" value="#{administracionHorarioAcademicoForm.ahafHorarioAcademicoBusq.crrId}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionHorarioAcademicoForm.ahafListCarreraDtoBusq}"
+												  itemLabel="#{item.crrDetalle}" itemValue="#{item.crrId}" />
+									<p:ajax event="change" listener="#{administracionHorarioAcademicoForm.cambiarNivel()}"
+											update="lblCarrera , slcCarrera , lblNivel , slcNivel , lblParalelo , slcParalelo , pnlResultados " />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	<!-- ******************** FILA NUMERO 3 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblNivel" for="slcNivel" value="Nivel:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcNivel" value="#{administracionHorarioAcademicoForm.ahafHorarioAcademicoBusq.nvlId}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionHorarioAcademicoForm.ahafListNivelBusq}"
+												  itemLabel="#{item.nvlDescripcion}" itemValue="#{item.nvlId}" />
+									<p:ajax event="change" listener="#{administracionHorarioAcademicoForm.cambiarParalelo()}"
+											update="lblNivel , slcNivel , lblParalelo , slcParalelo , pnlResultados  " />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	<!-- ******************** FILA NUMERO 4 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblParalelo" for="slcParalelo" value="Paralelo:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcParalelo" value="#{administracionHorarioAcademicoForm.ahafHorarioAcademicoBusq.prlId}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionHorarioAcademicoForm.ahafListParaleloDtoBusq}"
+												  itemLabel="#{item.prlDescripcion}" itemValue="#{item.prlId}" />
+									<p:ajax event="change" 
+											update="lblParalelo , slcParalelo , pnlResultados " />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		   	</div> 		
+		</p:panel>
+		<div >
+			<p:commandButton id="btnBuscar" value="Buscar"  action="#{administracionHorarioAcademicoForm.buscar()}"
+								update=":frmHorario:pnlResultados" onclick="PF('dialogoTrabajando').show();" 
+								oncomplete="PF('dialogoTrabajando').hide();"/> 
+			<p:commandButton id="btnLimpiar" value="Limpiar"  action="#{administracionHorarioAcademicoForm.limpiar()}" 
+								update=":frmHorario:pnlBusqueda , :frmHorario:pnlResultados" />  
+		</div>
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda" >
+			<p:dataTable id="dtsEstudiante" var="item" value="#{administracionHorarioAcademicoForm.ahafListMateriaDtoBusq}"
+			    		 		rows="10" paginator="true" paginatorPosition="bottom"
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+			                
+			                <p:column headerText="Código" style="width: 1em ! important;">
+					            <h:outputText value="#{item.mtrCodigo}"/>
+					        </p:column>         
+					        <p:column headerText="Asignatura" style="width: 4em ! important;">
+					            <h:outputText value="#{item.mtrDescripcion}"/>
+					        </p:column>
+					        <p:column headerText="#{ administracionHorarioAcademicoForm.ahafListMateriaDtoBusq.size() > 0 ? administracionHorarioAcademicoForm.cabeceraCreditosHoras(administracionHorarioAcademicoForm.ahafListMateriaDtoBusq.get(administracionHorarioAcademicoForm.ahafListMateriaDtoBusq.size()-1).mtrCreditos, administracionHorarioAcademicoForm.ahafListMateriaDtoBusq.get(administracionHorarioAcademicoForm.ahafListMateriaDtoBusq.size()-1).mtrHoras) : 'Horas/créditos'}" style="width: 1em ! important; text-align:center">
+					        	<h:outputText value="#{item.mtrHoras != 0 ? item.mtrHoras : item.mtrCreditos != 0 ? item.mtrCreditos : 0}"/>
+					        </p:column>
+					        <p:column headerText="Opción"  style="width: 1em ! important; text-align:center">
+					        <div style="display: flex;justify-content: space-around;">
+					        	<p:commandLink id="cmdlVer" value="Ver" action="#{administracionHorarioAcademicoForm.irVerHorario(item)}"  />
+					        	<p:commandLink id="cmdlHorario" value="Compartir"
+					        					disabled="#{administracionHorarioAcademicoForm.verificaHorario(item)}" 
+					        					action="#{administracionHorarioAcademicoForm.irVerCompartirHorario(item)}"  />
+					        </div>
+					        </p:column>
+				</p:dataTable>
+		</p:panel>
+		<div>
+			<p:commandButton id="btnRegresar" value="Regresar" action="#{administracionHorarioAcademicoForm.irInicio()}" immediate="true" ajax="false" />
+		</div>
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

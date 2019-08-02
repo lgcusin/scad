@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+      
+      
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Administración / Usuario / Editar " />
+		</ui:include>
+</ui:define>      
+<ui:define name="cuerpo">
+	<h:form id="frmEditar" enctype="multipart/form-data" acceptcharset="UTF-8" >
+		<p:panel id="pnlPersona" header="Información personal">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+			<!-- ******************** FILA NUMERO 1 ************************ -->
+				<div class="row cells8"> <!-- Tipo de documento -->
+					<div class="cell colspan4">
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblTipoDocumento" for="outlblTipoDocumento" value="Tipo identificación: " />
+							</ui:define>
+							<ui:define name="valor">
+								<h:outputLabel id="outlblTipoDocumento" value="#{listasCombosForm.getLabelTipoDocumento(nuevoUsuarioForm.nufUsuarioCreacionDtoCrear.prsTipoIdentificacion)}" />
+							</ui:define>
+						</ui:decorate>
+					</div>
+					<div class="cell colspan4"> <!-- numero de documento -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblIdentificacion" for="outlblIdentificacion" value="No. identificación: " />
+							</ui:define>
+							<ui:define name="valor">
+									<h:outputLabel id="outlblIdentificacion" value="#{nuevoUsuarioForm.nufUsuarioCreacionDtoCrear.prsIdentificacion}" />
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div>
+			</div><!-- Fin fila 1 -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 2 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"><!-- Nombres -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblNombres" for="outlblNombres" value="Nombres: " />
+							</ui:define>
+							<ui:define name="valor">
+									<h:outputLabel id="outlblNombres" value="#{nuevoUsuarioForm.nufUsuarioCreacionDtoCrear.prsPrimerApellido} #{nuevoUsuarioForm.nufUsuarioCreacionDtoCrear.prsSegundoApellido} #{nuevoUsuarioForm.nufUsuarioCreacionDtoCrear.prsNombres}" />
+							</ui:define>
+						</ui:decorate>
+					</div>
+					<div class="cell colspan4" ><!-- Mail personal -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblMailPersonal" for="outlblMailPersonal" value="Mail institucional: " />
+							</ui:define>
+							<ui:define name="valor">
+									<h:outputLabel id="outlblMailPersonal" value="#{nuevoUsuarioForm.nufUsuarioCreacionDtoCrear.prsMailInstitucional}" />
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div>
+			</div><!-- Fin fila 2 -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 4 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"><!-- Nick del usuario -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblUsuarioNick" for="outlblUsuarioNick" value="Nickname del usuario: " />
+							</ui:define>
+							<ui:define name="valor">
+									<h:outputLabel id="outlblUsuarioNick" value="#{nuevoUsuarioForm.nufUsuarioCreacionDtoCrear.usrNick}" />
+							</ui:define>
+						</ui:decorate>
+					</div>
+					
+				</div>
+			     		
+			</div><!-- Fin fila 4 -->
+			</p:panel>
+			<p:panel id="pnlResultadosRoles" header="Roles" >
+				<p:dataTable id="dtsRoles" var="item" value="#{nuevoUsuarioForm.nufListUsuarioXRol}"
+		    		 		rows="10" paginator="true"
+		                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON USUARIOS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+				         <p:column headerText="Rol" style="width: 4em ! important; text-align:center">
+				            <h:outputText value="#{listasCombosForm.getListaDescripcionXRolDescripcion(item.rolDescripcion)}"/>
+				        </p:column>
+				         <p:column headerText="Estado rol" style="width: 4em ! important; text-align:center">
+				            <h:outputText value="#{listasCombosForm.getLabelEstadoUsuario(item.usroEstado)}"/>
+				        </p:column>
+				        <p:column headerText="Opción" style="width: 4em ! important; text-align:center" >
+				        	<p:commandLink value="#{item.usroEstado==0?'Desactivar':'Activar'}" 
+				        	action="#{nuevoUsuarioForm.desactivarUsuarioRol(item)}" 
+				        	onclick="PF('dialogoTrabajando').show();" ajax="false" style="color:blue;" update="pnlResultados"/>
+				        </p:column>
+				</p:dataTable>
+			</p:panel>
+			<p:panel id="pnlCarrera" header="Asignación de rol a la Carrera">
+			<div class="grid condensed">
+				<div class="row cells8">
+					<div class="cell colspan4" >
+			       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+			       				<ui:define name="etiqueta">	
+			       					<p:outputLabel id="lblRol" for="slcRol" value="Rol: "/>
+			       				</ui:define>
+			       				<ui:define name="valor">	
+									<h:selectOneMenu id="slcRol" value="#{nuevoUsuarioForm.nufRol.rolId}"  style="width: 100%; opacity:.9;">
+			       							<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}" style="width: 100%; opacity:.9;"/>
+											<f:selectItems value="#{nuevoUsuarioForm.nufListRol}" var="item" itemLabel="#{listasCombosForm.getListaDescripcionXRolDescripcion(item.rolDescripcion)}" 
+											itemValue="#{item.rolId}" update="  btnCargar,slcCarrera"/>
+											<p:ajax listener="#{nuevoUsuarioForm.cambiarRol()}" update=" slcCarrera,slcFacultad,pnlResultados,slcRol,btnGuardar , lblNivel , slcNivel , pnlCarrera"/>
+									</h:selectOneMenu>
+			       				</ui:define>
+			       			</ui:decorate>
+			        </div>
+			        <div class="cell colspan4" >
+			       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+			       				<ui:define name="etiqueta">	
+			       					<p:outputLabel id="lblNivel" for="slcNivel" value="Nivel académico: " rendered="#{nuevoUsuarioForm.nufHabilitaNivelAcademico}"/>
+			       				</ui:define>
+			       				<ui:define name="valor">	
+									<h:selectOneMenu id="slcNivel" value="#{nuevoUsuarioForm.nufNivelAcadémico}"  style="width: 100%; opacity:.9;" rendered="#{nuevoUsuarioForm.nufHabilitaNivelAcademico}">
+			       							<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}" style="width: 100%; opacity:.9;"/>
+											<f:selectItems value="#{listasCombosForm.listaNivelAcademico}" var="item" itemLabel="#{item.label}" itemValue="#{item.value}" update=" btnCargar,slcCarrera " />
+											<p:ajax listener="#{nuevoUsuarioForm.cambiarNivel()}" update=" lblPeriodoPos, slcPeriodoPos , lblNivel , slcNivel , lblCarrera , slcCarrera , lblFacultad , slcFacultad , pnlResultados,slcRol,btnGuardar , pnlCarrera"/>
+									</h:selectOneMenu>
+			       				</ui:define>
+			       			</ui:decorate>
+			        </div>
+			    </div>
+				<div class="row cells8">
+			     		<div class="cell colspan4" >
+			       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+			       				<ui:define name="etiqueta">	
+			       					<p:outputLabel id="lblFacultad" for="slcFacultad" value="Facultad: "/>
+			       				</ui:define>
+			       				<ui:define name="valor">	
+									<h:selectOneMenu id="slcFacultad" value="#{nuevoUsuarioForm.nufFacultad.dpnId}" disabled="#{nuevoUsuarioForm.nufHabilitadorFacultad}" style="width: 100%; opacity:.9;">
+			       							<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}"/>
+											<f:selectItems value="#{nuevoUsuarioForm.nufListFacultad}" var="item" itemLabel="#{item.dpnDescripcion}" itemValue="#{item.dpnId}" />
+											<p:ajax listener="#{nuevoUsuarioForm.cambiarFacultad()}" update="lblPeriodoPos, slcPeriodoPos , slcCarrera,slcFacultad,pnlResultados,slcRol,btnGuardar , pnlCarrera"/>
+									</h:selectOneMenu>	
+			       				</ui:define>
+			       			</ui:decorate>
+			       	   </div>
+			       	   <div class="cell colspan4" >
+			       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+			       				<ui:define name="etiqueta">	
+			       					<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera: "/>
+			       				</ui:define>
+			       				<ui:define name="valor">	
+									<h:selectOneMenu id="slcCarrera" value="#{nuevoUsuarioForm.nufCarrera.crrId}" disabled="#{nuevoUsuarioForm.nufHabilitadorCarrera}" style="width: 100%; opacity:.9;">
+			       							<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}"/>
+											<f:selectItems value="#{nuevoUsuarioForm.nufListCarrera}" var="item" itemLabel="#{item.crrDescripcion}" 
+											itemValue="#{item.crrId}" update="  btnCargar,slcCarrera"/>
+											<p:ajax listener="#{nuevoUsuarioForm.cambiarCarrera()}" update="pnlResultados, slcRol , btnGuardar , pnlCarrera"/>
+									</h:selectOneMenu>	
+			       				</ui:define>
+			       			</ui:decorate>
+			           </div>
+			    </div>
+			   <div class="row cells8">
+					<div class="cell colspan4">
+			       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+			       				<ui:define name="etiqueta">	
+			       					<p:outputLabel id="lblPeriodoPos" for="slcPeriodoPos" value="Período académico: " rendered="#{nuevoUsuarioForm.nufHabilitaPeriodoPosgrado}"/>
+			       				</ui:define>
+			       				<ui:define name="valor">	
+									<h:selectOneMenu id="slcPeriodoPos" value="#{nuevoUsuarioForm.nufPeriodoAcademicoPosgrado.pracId}"  style="width: 100%; opacity:.9;" rendered="#{nuevoUsuarioForm.nufHabilitaPeriodoPosgrado}">
+			       							<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}" style="width: 100%; opacity:.9;"/>
+											<f:selectItems value="#{nuevoUsuarioForm.nufListPeriodoAcademicoPosgrado}" var="item" itemLabel="#{item.pracDescripcion}" itemValue="#{item.pracId}" />
+											<p:ajax  update=" lblNivel , slcNivel , lblCarrera , slcCarrera , lblFacultad , slcFacultad , pnlResultados,slcRol,btnGuardar, lblPeriodoPos , slcPeriodoPos"/>
+									</h:selectOneMenu>
+			       				</ui:define>
+			       			</ui:decorate>
+			        </div>
+			    </div>
+			    <div class="row cells8">
+			     		<div class="cell colspan4" >
+			       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+			       				<ui:define name="etiqueta">	
+			       					<p:outputLabel id="lblRelacionLab" for="slcRelacionLab" value="Relación laboral: " rendered="#{nuevoUsuarioForm.nufHabiltaPuesto}" />
+			       				</ui:define>
+			       				<ui:define name="valor">	
+									<h:selectOneMenu id="slcRelacionLab" value="#{nuevoUsuarioForm.nufRelacionLaboral.rllbId}"  style="width: 100%; opacity:.9;" rendered="#{nuevoUsuarioForm.nufHabiltaPuesto}">
+			       							<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}"/>
+											<f:selectItems value="#{nuevoUsuarioForm.nufListRelacionLaboral}" var="item" itemLabel="#{item.rllbDescripcion}" itemValue="#{item.rllbId}" />
+											<p:ajax listener="#{nuevoUsuarioForm.cambiarRelacionLaboral()}"  update="pnlResultados, slcRol , btnGuardar , pnlCarrera"/>
+									</h:selectOneMenu>	
+			       				</ui:define>
+			       			</ui:decorate>
+			       	   </div>
+			       	   <div class="cell colspan4" >
+			       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+			       				<ui:define name="etiqueta">	
+			       					<p:outputLabel id="lblCategoria" for="slcCategoria" value="Categoria: " rendered="#{nuevoUsuarioForm.nufHabiltaPuesto}"/>
+			       				</ui:define>
+			       				<ui:define name="valor">	
+									<h:selectOneMenu id="slcCategoria" value="#{nuevoUsuarioForm.nufCategoria}" disabled="#{nuevoUsuarioForm.nufHabilitaCategoria}" style="width: 100%; opacity:.9;"   rendered="#{nuevoUsuarioForm.nufHabiltaPuesto}">
+			       							<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}"/>
+											<f:selectItems value="#{listasCombosForm.listCategoria}" var="item" itemLabel="#{item.label}" 
+											itemValue="#{item.value}" update="  btnCargar,slcCarrera"/>
+											<p:ajax listener="#{nuevoUsuarioForm.cambiarCategoria()}" update=" pnlResultados, slcRol , btnGuardar , pnlCarrera "/>
+									</h:selectOneMenu>	
+			       				</ui:define>
+			       			</ui:decorate>
+			           </div>
+			     </div>
+			   <div class="row cells8">
+			       	<div class="cell colspan4" >
+			       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+			       				<ui:define name="etiqueta">	
+			       					<p:outputLabel id="lblRangoGradual" for="slcRangoGradual" value="Nivel: " rendered="#{nuevoUsuarioForm.nufHabiltaPuesto}"/>
+			       				</ui:define>
+			       				<ui:define name="valor">	
+									<h:selectOneMenu id="slcRangoGradual" value="#{nuevoUsuarioForm.nufRango}" disabled="#{nuevoUsuarioForm.nufHabilitaRango}" style="width: 100%; opacity:.9;" rendered="#{nuevoUsuarioForm.nufHabiltaPuesto}">
+			       							<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}"/>
+											<f:selectItems value="#{listasCombosForm.listaNivelRangoGradual}" var="item" itemLabel="#{item.label}" 
+											itemValue="#{item.value}" update="  btnCargar,slcCarrera"/>
+											<p:ajax listener="#{nuevoUsuarioForm.cambiarNivelRango()}" update=" pnlResultados, slcRol , btnGuardar , pnlCarrera "/>
+									</h:selectOneMenu>	
+			       				</ui:define>
+			       			</ui:decorate>
+			        </div>  
+					<div class="cell colspan4" >
+			       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+			       				<ui:define name="etiqueta">	
+			       					<p:outputLabel id="lblTiempoDed" for="slcTiempoDed" value="Tiempo de dedicación: " rendered="#{nuevoUsuarioForm.nufHabiltaPuesto}"/>
+			       				</ui:define>
+			       				<ui:define name="valor">	
+									<h:selectOneMenu id="slcTiempoDed" value="#{nuevoUsuarioForm.nufTiempoDedicacion.tmddId}" disabled="#{nuevoUsuarioForm.nufTiempo}"  style="width: 100%; opacity:.9;" rendered="#{nuevoUsuarioForm.nufHabiltaPuesto}">
+			       							<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}"/>
+											<f:selectItems value="#{nuevoUsuarioForm.nufListTiempoDedicacion}" var="item" itemLabel="#{item.tmddDescripcion}" 
+											itemValue="#{item.tmddId}" update="  btnCargar,slcCarrera"/>
+											<p:ajax  update=" pnlResultados, slcRol , btnGuardar , pnlCarrera "/>
+									</h:selectOneMenu>	
+			       				</ui:define>
+			       			</ui:decorate>
+			         </div>
+			    </div>
+			    	
+	    </div>
+		</p:panel>
+			
+		<p:panel id="pnlResultados" header="Carreras asignadas al rol" >
+			<p:dataTable id="dtsUsuario" var="item" value="#{nuevoUsuarioForm.nufListUsuariosXCarreraXRol}"
+		    		 		rows="10" paginator="true"
+		                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON USUARIOS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+				        <p:column headerText="Carrera"  style="width: 4em ! important; text-align:center" rendered="true">
+				            <h:outputText value="#{item.crrDescripcion}"/>
+				        </p:column>
+				         <p:column headerText="Rol asignado" style="width: 4em ! important; text-align:center">
+				            <h:outputText value="#{listasCombosForm.getListaDescripcionXRolDescripcion(item.rolDescripcion)}"/>
+				        </p:column>
+				         <p:column headerText="Estado rol en carrera" style="width: 4em ! important; text-align:center">
+				            <h:outputText value="#{listasCombosForm.getLabelEstadoUsuario(item.roflcrEstado)}"/>
+				        </p:column>
+				        <p:column headerText="Opción" style="width: 4em ! important; text-align:center" >
+				        	<p:commandLink value="#{item.roflcrEstado==0?'Desactivar carrera':'Activar carrera'}" 
+				        	action="#{nuevoUsuarioForm.desactivarUsuario(item)}" 
+				        	onclick="PF('dialogoTrabajando').show();" ajax="false" style="color:blue;" update="pnlResultados"/>
+				        </p:column>
+			</p:dataTable>
+		</p:panel>
+		<div >
+			<p:commandButton id="btnGuardar" value="Guardar" action="#{nuevoUsuarioForm.guardarUsuario()}" onclick="PF('dialogoTrabajando').show();"  
+			disabled="#{nuevoUsuarioForm.nufHabilitadorGuardar}" ajax="false"/>
+		</div>
+		
+		<p:panel id="pnlResultadosDetallePuesto" header="Información carrera, categoría y tiempo de dedicación - docente" >
+			<p:dataTable id="dtsDetallePuesto" var="item" value="#{nuevoUsuarioForm.nufListDetallePuestoDocente}"
+		    		 		rows="10" paginator="true"
+		                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON USUARIOS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+		                <p:column headerText="Facultad"  style="width: 4em ! important; text-align:center" rendered="true">
+				            <h:outputText value="#{item.dpnDescripcion}" />
+				        </p:column>
+				        <p:column headerText="Carrera"  style="width: 4em ! important; text-align:center" rendered="true">
+				            <h:outputText value="#{item.crrDescripcion}" />
+				        </p:column>
+				        <p:column headerText="Tipo"  style="width: 4em ! important; text-align:center" rendered="true">
+				            <h:outputText value="#{listasCombosForm.getLabelTipoCarrera(item.crrTipo)}" />
+				        </p:column>
+				         <p:column headerText="Relación laboral" style="width: 4em ! important; text-align:center">
+				            <h:outputText value="#{item.rllbDescripcion}" />
+				        </p:column>
+				         <p:column headerText="Categoria" style="width: 4em ! important; text-align:center">
+				            <h:outputText value="#{item.pstDenominacion}" />
+				        </p:column>
+				        <p:column headerText="Tiempo de dedicación" style="width: 4em ! important; text-align:center">
+				            <h:outputText value="#{item.tmddDescripcion}" />
+				        </p:column>
+				        <p:column headerText="Estado" style="width: 4em ! important; text-align:center">
+				            <h:outputText value="#{listasCombosForm.getLabelListaEstadoDetallePuesto(item.dtpsEstado)}" />
+				        </p:column>
+				        <p:column headerText="Período académico" style="width: 4em ! important; text-align:center">
+				            <h:outputText value="#{item.pracDescripcion}" />
+				        </p:column>
+				        <p:column headerText="Opción" style="width: 4em ! important; text-align:center" >
+				        	<p:commandLink  value="Editar" >
+				        		<p:ajax 
+									oncomplete="PF('dialogoBusquedaAvanzadaActualizacionDocente').show();"
+									update="frmModalBusquedaAvanzadaActualizacionDocente  " listener="#{nuevoUsuarioForm.irEditarDetallePuesto(item)}"/>
+							</p:commandLink>
+				        </p:column>
+			</p:dataTable>
+		</p:panel>
+		<div >
+			<p:commandButton id="btnCancelar" value="Cancelar" action="#{nuevoUsuarioForm.cancelarNuevo()}" immediate="true" ajax="false" />
+		</div>
+		
+	</h:form>	
+	<ui:include src="/academico/soporte/administracionRoles/modalDetallePuestoDocente.xhtml" />
+</ui:define>
+</ui:composition>
+</html>

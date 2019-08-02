@@ -1,0 +1,372 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Registro de movilidad estudiantil / Buscar estudiante " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador';
+    	var varError = document.getElementById(idVarError);
+    	if(varError.value == 1){
+    		document.getElementById('frmBuscarEstudiante:btnModalRegistroReingreso').click();
+        }
+
+    	if(varError.value == 2){
+    		document.getElementById('frmBuscarEstudiante:btnModalAgregarRegistro').click();
+        }
+
+
+    	var idVarEliminar = 'compOculto:txtValidador2';
+    	var varEliminar = document.getElementById(idVarEliminar);
+    	if(varEliminar.value == 1){
+    		document.getElementById('frmBuscarEstudiante:btnModalEliminar').click();
+        }
+    	
+	  }
+	  
+	 function nobackbutton(){
+	 		window.location.hash="no-back-button";
+	  		window.location.hash="Again-No-back-button" //chrome
+	   		window.onhashchange=function(){window.location.hash="no-back-button";}
+	      }
+
+
+ 	 $(document).ready(function() {
+ 		    $("form").keypress(function(e) {
+ 		        if (e.which == 13) {
+ 		            return false;
+ 		        }
+ 		    });
+ 		});	
+ //]]> 
+</script>
+
+<h:form id="frmBuscarEstudiante" enctype="multipart/form-data" acceptcharset="UTF-8">
+
+		<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+				
+			 	
+							
+					<div class="row cells8"> 
+ 							<div class="cell colspan4" > <!--  Identificacion del estudiante -->
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml"> 
+ 									<ui:define name="etiqueta"> 
+									<p:outputLabel id="lblIdentificacion" for="txtIdentificacion" value="Identificación: " /> 
+								</ui:define> 
+ 									<ui:define name="valor"> 
+ 											<p:inputText id="txtIdentificacion" value="#{registroManualHomologacionForm.rmhfPersonaDtoBuscar.prsIdentificacion}" required="false"
+															requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"   style="width: 100%;">
+ 											<p:ajax event="blur" update="lblIdentificacion , txtIdentificacion , msgIdentificacion " /> 
+ 										</p:inputText> 
+ 									</ui:define>
+									<ui:define name="etiquetaError"> 
+										<p:message id="msgIdentificacion" for="txtIdentificacion" /> 
+ 									</ui:define> 
+								</ui:decorate> 
+					 	   	</div> 
+ 					 </div> 
+ 					 
+ 					 	<!-- ******************** FILA NUMERO 2 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" ><!-- Combo de Carreras en pregrado o Areas en caso de Nivelacion -->
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera:"
+		       					rendered= "#{registroManualHomologacionForm.rmhfRenderCarreras}"  />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       				<!-- ****  Guardo el id de la carrera seleccionada en el combo dentro de  la variable del Bean Manejado (setCrrId), para luego usarlo al buscar el paralelo por periodo y carrera*** -->
+		       					<h:selectOneMenu id="slcCarrera"   value="#{registroManualHomologacionForm.rmhfCarreraDtoBuscar.crrId}" 
+		       								required="false" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"
+		       								rendered= "#{registroManualHomologacionForm.rmhfRenderCarreras}" > 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccioneTodos}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+		       									  <!-- ****  Asigno la lista de carreras del Bean Manejado al combo*** -->
+									<f:selectItems  var="item" value="#{registroManualHomologacionForm.rmhfListCarreraDto}"
+												  itemLabel="#{item.crrDescripcion}" 
+												  itemValue="#{item.crrId}"
+												   />
+									   <p:ajax event="change" update="slcCarrera , lblCarrera , msgCarrera " /> 
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgCarrera" for="slcCarrera" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div> <!-- Fin fila 2 -->
+				
+			    	
+		   	</div> 	
+		   		
+		  <div >  <!--   boton buscar: ejecuta  llenar la lista de los paralelos -->
+			<p:commandButton id="btnBuscar" value="Buscar"  action="#{registroManualHomologacionForm.buscar()}"
+								update=":frmBuscarEstudiante:pnlResultados, :frmBuscarEstudiante:outputPanel2,:frmBuscarEstudiante:outputPanel3, :frmBuscarEstudiante:outputPanel,:frmBuscarEstudiante:btnAgregar, :frmBuscarEstudiante:btnNuevo" onclick="PF('dialogoTrabajando').show();" 
+								oncomplete="PF('dialogoTrabajando').hide();"/> 
+								
+			<p:commandButton id="btnLimpiar" value="Limpiar" action="#{registroManualHomologacionForm.limpiar()}"
+		          update=":frmBuscarEstudiante:pnlBusqueda,:frmBuscarEstudiante:pnlResultados, :frmBuscarEstudiante:outputPanel2, :frmBuscarEstudiante:outputPanel3,:frmBuscarEstudiante:outputPanel,:frmBuscarEstudiante:btnAgregar, :frmBuscarEstudiante:btnNuevo"  /> 
+		  	 
+		   </div>
+		
+		
+		</p:panel>
+		
+
+	
+		
+				<!--******************************PANEL DE INFORMACIÓN PERSONAL*******************************-->	
+		 <p:outputPanel id="outputPanel">
+			<p:panel id="pnlDatosEstudiante" header="Información del estudiante" rendered ="#{registroManualHomologacionForm.rmhfRenderPanelInfo}">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+					<!-- ******************** FILA NUMERO 1  Identificacion************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4" style="width: 40%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacionVer" for="identificacionVer"
+										value="Identificación: " 
+										rendered ="#{registroManualHomologacionForm.rmhfRenderPanelInfo}"/>
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="identificacionVer"
+										value="#{registroManualHomologacionForm.rmhfPersonaVer.prsIdentificacion}"
+										style="vertical-align: super;font-weight: Normal !important; width:100%"
+										rendered ="#{registroManualHomologacionForm.rmhfRenderPanelInfo}" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4" style="width: 60%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNombre" for="nombre" value="Nombre: " 
+									rendered="#{registroManualHomologacionForm.rmhfRenderPanelInfo}"/>
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="nombre"
+										value="#{registroManualHomologacionForm.rmhfPersonaVer.prsPrimerApellido.concat(' ').
+								concat(registroManualHomologacionForm.rmhfPersonaVer.prsSegundoApellido).concat(' ').
+								concat(registroManualHomologacionForm.rmhfPersonaVer.prsNombres) }"
+										style="vertical-align: super;font-weight: Normal !important; width:100%"
+										rendered ="#{registroManualHomologacionForm.rmhfRenderPanelInfo}" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+				
+				<div class="row cells8"> 
+					<div class="cell colspan4" style="width: 40%;"> <!-- Mail Institucional-->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblMailInstitucional" for="mailInstitucional" value="Mail institucional: "
+								rendered ="#{registroManualHomologacionForm.rmhfRenderPanelInfo}" />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="mailInstitucional" value="#{registroManualHomologacionForm.rmhfPersonaVer.prsMailInstitucional}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"
+												rendered ="#{registroManualHomologacionForm.rmhfRenderPanelInfo}"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+					<div class="cell colspan4" style="width: 60%;"> <!-- Mail Personal -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblMailPersonal" for="mailPersonal" value="Mail personal: " 
+								rendered ="#{registroManualHomologacionForm.rmhfRenderPanelInfo}"/>
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="mailPersonal" value="#{registroManualHomologacionForm.rmhfPersonaVer.prsMailPersonal}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"
+												rendered ="#{registroManualHomologacionForm.rmhfRenderPanelInfo}"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 6 -->
+				
+								
+				</div>
+				<!-- Fin GRID-->
+			</p:panel>		
+		</p:outputPanel>
+		
+		<p:outputPanel id="outputPanel2">
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda" rendered="#{registroManualHomologacionForm.rmhfRenderPanelInfo}" >
+		  <!-- ****  Asigno la lista de paralelos apfListParaleloDto del Bean Manejado  administracionParaleloForm al dataTable*** -->
+			<p:dataTable id="dtsEstudiante" var="item" value="#{registroManualHomologacionForm.rmhfListFichasInscripcion}"			
+			    		 		rows="10" paginator="true" paginatorPosition="bottom"			    		 		
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+			                        >			                         
+					       				        
+					        <p:column headerText="Período" style="width: 2em ! important;">
+					            <h:outputText value="#{item.pracDescripcion}"/>
+					        </p:column>
+					        
+					        <p:column headerText="Carrera" style="width: 12em ! important;">
+					            <h:outputText value="#{item.crrDetalle}"/>
+					        </p:column>
+					         <p:column headerText="Tipo" style="width: 3em ! important;">
+					            <h:outputText value="#{listasCombosForm.getLabelTipoInscrito(item.fcinTipo)}"/>
+					        </p:column>
+					         <p:column headerText="Estado" style="width: 2em ! important;">
+					            <h:outputText value="#{listasCombosForm.getLabelEstadoFichaInscripcion(item.fcinEstado)}"/>
+					        </p:column>
+					        <p:column headerText="Vigencia" style="width: 2em ! important;">
+					            <h:outputText value="#{listasCombosForm.getLabelVigenciaFichaInscripcion(item.fcinVigente)}"/>
+					        </p:column>
+					        
+					        <p:column headerText="Tipo ingreso" style="width: 3em ! important;">
+					            <h:outputText value="#{listasCombosForm.getLabelTipoIngresoFichaInscripcion(item.fcinTipoIngreso)}"/>
+					        </p:column>
+					        
+					        <p:column headerText="Opción"  style="width: 7em ! important;">				        	
+					        <p:commandLink id="cmdlReingreso" 
+					        	value="Reingreso" 
+					        	action="#{registroManualHomologacionForm.irVerificaReingreso(item)}" 
+					        	disabled= "#{item.deshabilitaReingreso}"
+					        	style="margin-left:50px; color:blue;" ajax="false"  />
+					        	
+					        	<p:commandLink id="cmdlElimiar" 
+					        	value="Eliminar" 
+					        	action="#{registroManualHomologacionForm.irVerificaEliminar(item)}" 
+					        	disabled= "#{item.deshabilitaEliminar}"
+					        	style="margin-left:50px; color:blue;" ajax="false"  />
+					        	
+					        </p:column>
+					        
+				</p:dataTable>
+		</p:panel>
+		
+		</p:outputPanel>
+		
+		
+		
+		<div >
+			<p:commandButton id="btnSalir" value="Regresar" action="#{registroManualHomologacionForm.irInicio()}"  ajax="false" immediate="true"/>
+		
+    		
+			<p:commandButton id="btnAgregar" value="Agregar" action="#{registroManualHomologacionForm.habilitaModalAgregar(registroManualHomologacionForm.rmhfPersonaVer)}" 
+			 disabled ="#{registroManualHomologacionForm.rmhfDisabledAgregar}"  
+			 ajax="false" 
+			 immediate="true"/>
+			 
+			<p:commandButton id="btnNuevo" value="Nuevo" action="#{registroManualHomologacionForm.irCrearNuevoEstudiante(registroManualHomologacionForm.rmhfPersonaDtoBuscar.prsIdentificacion)}" 
+			disabled="#{registroManualHomologacionForm.rmhfDisabledNuevo}"
+			 ajax="false" 
+			 immediate="true"/>
+					
+		
+			<p:commandButton id="btnModalRegistroReingreso" value="EjecutarModalRegistroReingreso" style="visibility:hidden;">
+    				<p:ajax oncomplete="PF('dialogoRegistroReingreso').show();" update=":frmModalRegistroReingreso" />
+    		</p:commandButton>
+    		
+    		<p:commandButton id="btnModalEliminar" value="EjecutarModalEliminar" style="visibility:hidden;">
+    				<p:ajax oncomplete="PF('dialogoEliminar').show();" update=":frmModalEliminar" />
+    		</p:commandButton>
+    		
+    		<p:commandButton id="btnModalAgregarRegistro" value="EjecutarModalAgregarRegistro" style="visibility:hidden;">
+    				<p:ajax oncomplete="PF('dialogoAgregarRegistro').show();" update="frmModalAgregarRegistro" />
+    		</p:commandButton>
+			
+		</div>
+		
+		
+		
+	<p:outputPanel id="outputPanel3">
+		<p:panel id="pnlResultadosSau" header="Carreras registradas en el SAU/SIAC"  rendered="#{registroManualHomologacionForm.rmhfRenderCarrerasSau}" >
+	
+	
+					<div class="grid condensed">
+					<!-- ******************** FILA NUMERO 1  Identificacion************************ -->
+					<div class="row cells8">
+					<div class="cell colspan4" style="width: 60%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNombreSau" for="nombreSau" value="Nombre: " 
+									rendered="#{registroManualHomologacionForm.rmhfRenderCarrerasSau}"/>
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="nombreSau"
+										value="#{registroManualHomologacionForm.rmhfNombrePersonaSau}"
+										style="vertical-align: super;font-weight: Normal !important; width:100%"
+										rendered ="#{registroManualHomologacionForm.rmhfRenderCarrerasSau}" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					
+					<div class="row cells8">
+					<div class="cell colspan4" style="width: 60%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacioneSau" for="IdentificacionSau" value="Identificación: " 
+									rendered="#{registroManualHomologacionForm.rmhfRenderCarrerasSau}"/>
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="IdentificacionSau"
+										value="#{registroManualHomologacionForm.rmhfIdentificacionPersonaSau}"
+										style="vertical-align: super;font-weight: Normal !important; width:100%"
+										rendered ="#{registroManualHomologacionForm.rmhfRenderCarrerasSau}" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>	
+								
+				</div>
+	
+	
+			<p:dataTable id="dtsEstudianteSau" var="item" value="#{registroManualHomologacionForm.rmhfListCarreraDtoSau}"			
+			    		 		rows="10" paginator="true" paginatorPosition="bottom"			    		 		
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+			                        >			                         
+					       				        
+					    				        
+					         <p:column headerText="Carrera" style="width: 12em ! important;">
+					            <h:outputText value="#{item.crrDescripcion}"/>
+					        </p:column>
+					       
+					       
+					        
+				</p:dataTable>
+		</p:panel>
+		
+		</p:outputPanel>	
+		
+	</h:form>
+	
+	<ui:include src="/academico/registro/manual/modalRegistroReingreso.xhtml" />
+	<ui:include src="/academico/registro/manual/modalAgregarRegistro.xhtml" />
+	<ui:include src="/academico/registro/manual/modalEliminar.xhtml" />
+	
+	
+	<h:form id="compOculto" style="visibility:hidden;">
+	 	<p:inputText id="txtValidador" value="#{registroManualHomologacionForm.rmhfValidadorClic}" />
+	 	
+	 	<p:inputText id="txtValidador2" value="#{registroManualHomologacionForm.rmhfValidadorEliminarClic}" />
+	</h:form>		
+	
+</ui:define>
+</ui:composition>
+</html>

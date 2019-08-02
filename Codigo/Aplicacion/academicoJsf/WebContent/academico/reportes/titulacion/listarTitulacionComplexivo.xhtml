@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Reportes / Listar Materias por Docente " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+
+<script language="JavaScript">
+//<![CDATA[
+
+	function abrirVentaReporte(formato, nombreReporte, tipo){
+		var url = "/aplicacion/reportes";
+		url = url + "?nombreJasper=" + nombreReporte;
+		url = url + "&formato=" + formato;
+		url = url + "&tipo=" + tipo;
+		if(formato == 'vista'){
+			var reportWindow = window.open(url);
+			reportWindow.focus();
+		}else{
+			var reportWindow = window.open(url);
+		}
+    }  
+ //]]> 
+</script>
+
+
+
+	<h:form id="frmlistarTitulComplexivo" enctype="multipart/form-data" acceptcharset="UTF-8" >
+		<!-- ******************** PANEL PARÁMETROS DE BÚSQUEDA************************ -->
+		<p:panel id="pnlBusqueda" header="Parámetros de búsqueda">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				
+	<!-- ******************** FILA NUMERO 1 PERIODO************************ -->
+		
+		<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPeriodo" for="slcPeriodo" value="Periodo:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+      				
+		     				<h:selectOneMenu id="slcPeriodo" value="#{reporteTitulacionMecanismoForm.rpdfConvocatoria.cnvId}"
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"
+		       						itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{reporteTitulacionMecanismoForm.rpdfListConvocatoria}"     
+												  itemLabel="#{item.cnvDescripcion}" itemValue="#{item.cnvId}" />
+								<p:ajax event="change" listener="#{reporteTitulacionMecanismoForm.llenarDependencia()}" update= "lblPeriodo , slcPeriodo , pnlResultados , dtsDocente , slcDependencia , lblDependecia , btnExportar"/>
+												  
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		
+		 <!-- ******************** FILA NUMERO 3 DEPENDENCIA************************  -->
+		    <div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblDependecia" for="slcDependencia" value="Facultad:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcDependencia" value="#{reporteTitulacionMecanismoForm.rpdfDependencia.fclId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{reporteTitulacionMecanismoForm.rpdfListDependencia}"  
+												  itemLabel="#{item.fclDescripcion}" itemValue="#{item.fclId}" />
+												  
+								<p:ajax event="change" listener="#{reporteTitulacionMecanismoForm.llenarCarreras()}" update= " lblDependecia , slcDependencia , lblCarrera , slcCarrera , pnlResultados , dtsDocente , btnExportar"/>
+								
+								
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+
+	
+		<!-- ******************** FILA NUMERO 2 CARRERA************************ -->
+		<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcCarrera" value="#{reporteTitulacionMecanismoForm.rpdfCarrera.crrId}" style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccioneTodos}" itemValue="#{generalesConstantesForm.appIdBase}"/> 									  
+									<f:selectItems  var="item" value="#{reporteTitulacionMecanismoForm.rpdfListCarrera}"
+												  itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />
+								
+								
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				
+		       			</ui:decorate>
+		        	</div>
+		    	</div> 
+		    	      	    	
+		    	
+		</div>		
+		</p:panel>
+		<div>
+			<p:commandButton id="btnBuscar" value="Buscar" 
+			     action="#{reporteTitulacionMecanismoForm.buscarExamenComplexivo()}"
+				update="pnlResultados,btnExportar" onclick="PF('dialogoTrabajando').show();" onsuccess="PF('dialogoTrabajando').hide();"/>
+			<p:commandButton id="btnLimpiar" value="Limpiar" action="#{reporteTitulacionMecanismoForm.limpiar()}"
+				update="pnlResultados , pnlBusqueda ,btnExportar"  onclick="PF('dialogoTrabajando').show();" onsuccess="PF('dialogoTrabajando').hide();"/>	
+		</div>
+		
+		<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+			<p:dataTable id="dtsDocente" var="item" value="#{reporteTitulacionMecanismoForm.rpdfListNumeroExamenComplexivoBusq}"
+		   		 		rows="10" paginator="true" paginatorPosition="bottom"
+	                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+	                          style="text-align: center;">
+	 
+	 
+			        <p:column headerText="Numero de inscritos"  style="width: 4em  ! important; text-align: center;">
+			            <h:outputText value="#{item.numeroInscritos}"/>
+			        </p:column>
+			        <p:column headerText="Numero aprobados" style="width: 10em  ! important; text-align: left;">
+			            <h:outputText value="#{item.numeroAprobadosSinGracia}"/>
+			        </p:column>
+			        <p:column headerText="Numero aprobados con gracia" style="width: 10em  ! important; text-align: left;">
+			            <h:outputText value="#{item.numeroAprobadosGracia}"/>
+			        </p:column>
+			        <p:column headerText="Numero de reprobados" style="width: 10em  ! important; text-align: left;">
+			            <h:outputText value="#{item.numeroReprobados}"/>
+			        </p:column>
+			        
+				</p:dataTable>
+		</p:panel>
+		<div>
+			<p:commandButton id="btnRegresar" value="Regresar" action="#{reporteTitulacionMecanismoForm.irInicio()}" immediate="true" ajax="false" />
+			<p:commandButton id="btnExportar" value="Exportar a Excel" action="#{reporteTitulacionMecanismoForm.irInicio()}" disabled="#{reporteTitulacionMecanismoForm.rpdfHabilitarExportar}" >
+    	 			<p:ajax oncomplete="abrirVentaReporte('XLS','reporteTitulacionExamenComp','TITULACIONEXAMENCOMPLEXIVO');" />
+    	 	</p:commandButton>
+		</div>
+		
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

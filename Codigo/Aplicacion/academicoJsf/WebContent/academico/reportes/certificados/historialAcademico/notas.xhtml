@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Historial del estudiante / #{estudianteRecordAcademicoForm.erafTituloPorNivelPeriodo} / Notas" />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+
+	<p:panel id="pnlBusqueda" header="Información del general" >
+			<div class="grid condensed">
+			
+					<div class="row cells8">
+						<div class="cell colspan3">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayUpload.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacion" value="Identificación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel value="#{estudianteRecordAcademicoForm.erafPersona.prsIdentificacion}"/>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<div class="row cells8">
+						<div class="cell colspan3">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayUpload.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPseudonimo" value="Estudiante: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel value="#{estudianteRecordAcademicoForm.erafPersona.prsPrimerApellido}  #{estudianteRecordAcademicoForm.erafPersona.prsSegundoApellido}  #{estudianteRecordAcademicoForm.erafPersona.prsNombres}"/>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<div class="row cells8">
+						<div class="cell colspan3">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayUpload.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPeriodoAcademico" value="Período académico: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel value="#{estudianteRecordAcademicoForm.erafPeriodoAcademicoDto.rcesPeriodoAcademicoDto.pracDescripcion}"/>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+		    	
+		   	</div>
+	</p:panel>
+	
+	<h:form id="frmVerNotas" enctype="multipart/form-data" acceptcharset="UTF-8" >
+		<p:panel id="pnlMaterias"  header="Información de las asignaturas" >
+			<p:dataTable id="dtsMaterias" var="item" value="#{estudianteRecordAcademicoForm.erafListRecordEstudianteDtoMateriaDto}"
+		   		 		rows="20" paginator="true" paginatorPosition="bottom"
+	                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+	                          style="text-align: center; font-size: 12px;"  rowIndexVar="rowIndex">
+					
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column rowspan="2" headerText="#" style="width: 1em ! important; text-align: center;">
+							</p:column>
+							<p:column rowspan="2" headerText="Asignatura" style="width: 25em  ! important; " />
+							<p:column rowspan="2" headerText="Matrícula" style="width: 4em  ! important;  " />
+							<p:column colspan="2" headerText="1er Hemisemestre" />
+							<p:column colspan="2" headerText="2do Hemisemestre" />
+							<p:column rowspan="2" headerText="Asistencia" style="width: 5em  ! important;  " />
+							<p:column rowspan="2" headerText="Nota semestre" style="width: 3.5em  ! important;  " />
+							<p:column colspan="4" headerText="Recuperación" />
+							<p:column rowspan="2" headerText="Estado" style="width: 7em  ! important; " />
+						</p:row>
+						<p:row>
+							<p:column headerText="Nota" style="width: 2em  ! important; " />
+							<p:column headerText="Asistencia" style="width: 2.5em  ! important;  " />
+							<p:column headerText="Nota" style=" width: 2em  ! important;  " />
+							<p:column headerText="Asistencia" style="width: 2.5em  ! important;  " />
+							<p:column headerText="40%" style="width: 1.5em  ! important; "  />
+							<p:column headerText="Supletorio" style="width: 4em  ! important;  " />
+							<p:column headerText="60%" style="width: 1.5em  ! important;  " />
+							<p:column headerText="Nota final" style="width: 2em  ! important; " />
+						</p:row>
+					</p:columnGroup>
+
+					<p:column style="text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column style="text-align: left;">
+						<div style="display: flex;">
+							<h:outputText id="mtrCodigo" value="#{item.rcesMateriaDto.mtrCodigo}"  style="padding-right: 10px;" />
+							<h:outputText value="#{item.rcesMateriaDto.mtrDescripcion}" for="mtrCodigo" style="width:95%" />
+						</div>
+					</p:column>
+
+					<p:column tyle="width: 6em  ! important; text-align: left; " >
+			            <h:outputText value="#{item.rcesMateriaDto.numMatricula }"/>
+			           </p:column>
+			        
+			            <p:column style="width: 2em  ! important; text-align: right; " >
+			               <h:outputText value="#{estudianteRecordAcademicoForm.getBigDecimal(item.rcesCalificacionDto.clfNota1,1)}"/>
+			            </p:column>
+			     
+			            <p:column style="width: 2em  ! important; text-align: right;  " >
+			               <h:outputText value="#{estudianteRecordAcademicoForm.getBigDecimal(item.rcesCalificacionDto.clfAsistencia1,2)} / #{estudianteRecordAcademicoForm.getBigDecimal(item.rcesCalificacionDto.clfAsistenciaDocente1,2)}" />
+			           </p:column>
+                  
+			           <p:column  style=" width: 2em  ! important; text-align: right; ">
+			           	   <h:outputText value="#{estudianteRecordAcademicoForm.getBigDecimal(item.rcesCalificacionDto.clfNota2,1)}"/>
+			           </p:column>
+			        
+			           <p:column style="width: 2em  ! important; text-align: right; " >
+			               <h:outputText value="#{estudianteRecordAcademicoForm.getBigDecimal(item.rcesCalificacionDto.clfAsistencia2,2)} / #{estudianteRecordAcademicoForm.getBigDecimal(item.rcesCalificacionDto.clfAsistenciaDocente2,2)}" />
+			           </p:column>
+			        
+			           <p:column style="width: 5em  ! important;  text-align: right;">
+		                 	<h:outputText value="#{estudianteRecordAcademicoForm.getBigDecimal(item.rcesCalificacionDto.clfPorcentajeAsistencia,0)}"/>
+			           </p:column>
+			           
+			           <p:column style="width: 3.5em  ! important; text-align: right; " >
+			            	<h:outputText value="#{estudianteRecordAcademicoForm.getBigDecimal(item.rcesCalificacionDto.clfSumaNotas,1)}"/>
+			           </p:column>
+			        
+			           <p:column style="width: 1.5em  ! important; text-align: right; " >
+			            <h:outputText value="#{estudianteRecordAcademicoForm.getBigDecimal(item.rcesCalificacionDto.clfParamRecuperacion1,1)}"/>
+			           </p:column>
+			        
+			           <p:column style="width: 4em  ! important; text-align: right; " >
+			            <h:outputText value="#{estudianteRecordAcademicoForm.getBigDecimal(item.rcesCalificacionDto.clfSupletorio,1)}" />
+			           </p:column>
+			           <p:column style="width: 1.5em  ! important; text-align: right;" >
+			            <h:outputText value="#{estudianteRecordAcademicoForm.getBigDecimal(item.rcesCalificacionDto.clfParamRecuperacion2,1)}"/>
+			           </p:column>
+			      
+			           <p:column style="width: 2em  ! important; text-align: right; " >
+			            <h:outputText value="#{estudianteRecordAcademicoForm.getBigDecimal(item.rcesCalificacionDto.clfNotaFinalSemestre,1)}"/>
+			           </p:column>
+			        
+			           <p:column style="width: 7em  ! important; text-align: left;" >
+			            <h:outputText value="#{item.rcesMateriaDto.mtrEstadoLabel }"/>          
+			           </p:column>
+			        
+				</p:dataTable>
+		     </p:panel>
+	     	
+	     	<div>
+			   <p:commandButton id="btnRegresar" value="Regresar" action="#{estudianteRecordAcademicoForm.irPeriodosEstudiante()}" immediate="true" ajax="false" />
+			</div>
+			
+			
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value=" Registro automático homologación " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+	<h:form id="frmRegistroAutomatico" enctype="multipart/form-data" acceptcharset="UTF-8" >
+		<!-- ******************** PANEL PARÁMETROS DE BÚSQUEDA************************ -->
+		<p:panel id="pnlCargaArchivo" header="Carga de archivo">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+				<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPeriodo" for="slcPeriodo" value="Período Académico:" rendered="#{registroAutomaticoHomologacionForm.rahfTipoUsuario==12?'true':'false'}"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcPeriodo" value="#{registroAutomaticoHomologacionForm.rahfPracId}" 
+		       								required="#{registroAutomaticoHomologacionForm.rahfTipoUsuario==12?'true':'false'}" 
+		       								requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%" rendered="#{registroAutomaticoHomologacionForm.rahfTipoUsuario==12?'true':'false'}"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{registroAutomaticoHomologacionForm.rahfListaPeriodoAcademico}" 
+												  itemLabel="#{item.pracDescripcion}" itemValue="#{item.pracId}" 
+												  rendered="#{registroAutomaticoHomologacionForm.rahfTipoUsuario==12?'true':'false'}"/>
+									<p:ajax event="change" 
+											update="lblPeriodo , slcPeriodo , msgPeriodo " />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgPeriodo" for="slcPeriodo" 
+									rendered="#{registroAutomaticoHomologacionForm.rahfTipoUsuario==12?'true':'false'}"/>
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+				<div class="row cells8">
+					<div class="cell colspan4"><!-- Carga archivo -->
+						<p:fileUpload id="flupArchivoSubir" 
+							fileUploadListener="#{registroAutomaticoHomologacionForm.handleFileUpload}"  mode="advanced"
+							sizeLimit="1572864" allowTypes="/(\.|\/)(xlsx)$/"
+							fileLimit="5" update="pnlOpciones , flupArchivoSubir"
+							fileLimitMessage="Máximo 5 intentos válidos"
+							invalidSizeMessage="Tamaño de archivo excedido! máximo 1.5 Mb"
+							uploadLabel="Cargar" cancelLabel="Cancelar" 
+							label="Buscar archivo" invalidFileMessage="Tipo de archivo no válido! solo formato XLSX"
+							dragDropSupport="false"
+							style="width:100%"  disabled="#{registroAutomaticoHomologacionForm.rahfValidarArchivo == 1 ? 'true': registroAutomaticoHomologacionForm.rahfValidarArchivo == 2 ?'true':'false' }" />												
+					</div>
+				</div>
+			</div>
+		</p:panel>
+				<!-- ******************** PANEL PARÁMETROS DE BÚSQUEDA************************ -->
+		<p:panel id="pnlOpciones">
+			<div>
+				<p:commandButton id="btnValidar" value="Validar" action="#{registroAutomaticoHomologacionForm.validarArchivo()}" 
+								disabled="#{registroAutomaticoHomologacionForm.rahfValidarArchivo == 1 ? 'false': 'true'}" ajax="false"
+								onclick="PF('dialogoTrabajando').show();" oncomplete="PF('dialogoGenerarMatricula').hide();"
+								update="pnlOpciones" />
+				<p:commandButton id="btnCambiarArchivo" value="Cambiar archivo"  action="#{registroAutomaticoHomologacionForm.cambiarArchivo()}" rendered="#{registroAutomaticoHomologacionForm.rahfValidarArchivo == 1 ? 'true': registroAutomaticoHomologacionForm.rahfValidarArchivo == 2 ? 'true': 'false'}" ajax="false" />
+				
+				<p:commandButton id="btnGuardar" value="Guardar"  action="#{registroAutomaticoHomologacionForm.generarRegistro()}" 
+								 onclick="PF('dialogoTrabajando').show();" oncomplete="PF('dialogoGenerarMatricula').hide();"
+								  rendered="#{registroAutomaticoHomologacionForm.rahfValidarArchivo == 2 ? 'true': 'false'}" ajax="false"  />
+				
+				<p:commandButton id="btnRegresar" value="Regresar"  action="#{registroAutomaticoHomologacionForm.irInicio()}" ajax="false"  />
+			</div>
+		</p:panel>
+		</h:form>
+</ui:define>
+</ui:composition>
+</html>

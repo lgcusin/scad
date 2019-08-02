@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Secretaría / Suficiencia Idiomas / Listar estudiantes " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+	<script language="JavaScript">
+		//<![CDATA[
+		    function nobackbutton(){
+		   		window.location.hash="no-back-button";
+		   		window.location.hash="Again-No-back-button" //chrome
+		   		window.onhashchange=function(){window.location.hash="no-back-button";}
+			}
+		 //]]> 
+	</script>
+	<script language="JavaScript">
+		//<![CDATA[
+		    function verificarErrores(){
+		        var idVarAgregar = 'compOculto:txtValidador';
+		     	var varAgregar = document.getElementById(idVarAgregar);
+			    	if(varAgregar.value == 1){
+			  			document.getElementById('frmListarEstudiantes:cmdlModalReporte').click();
+			 	    }
+		  	    }
+		 //]]> 
+		</script>
+	<script language="JavaScript">
+	//<![CDATA[
+		function abrirVentaReporte(formato, nombreReporte, tipo){
+			var url = "/aplicacion/reportes";
+			url = url + "?nombreJasper=" + nombreReporte;
+			url = url + "&formato=" + formato;
+			url = url + "&tipo=" + tipo;
+			if(formato == 'vista'){
+				var reportWindow = window.open(url);
+				reportWindow.focus();
+			}else{
+				var reportWindow = window.open(url);
+			}
+	    } 
+	 //]]> 
+	</script>
+	
+	<h:form id="frmListarEstudiantes" enctype="multipart/form-data" acceptcharset="UTF-8" >
+		<p:panel id="pnlBusqueda" header="Parámetros de búsqueda">
+			<div class="grid condensed">
+			
+				<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPeriodo" for="slcPeriodo" value="Período académico: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+								<h:selectOneMenu id="slcPeriodo" value="#{estudianteSuficienciaForm.esfPeriodoId}" style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"   itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{estudianteSuficienciaForm.esfListPeriodoAcademicoDto}"
+										itemValue="#{item.pracId}" itemLabel="#{item.pracDescripcion}"/>
+									<p:ajax event="change" listener="#{estudianteSuficienciaForm.buscarCarreras()}"
+										update="pnlBusqueda , pnlResultados" />
+								</h:selectOneMenu>	
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcCarrera" value="#{estudianteSuficienciaForm.esfCarreraId}" style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{estudianteSuficienciaForm.esfListCarrera}"
+										itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />
+									<p:ajax event="change" listener="#{estudianteSuficienciaForm.establecerBusquedaPorCombos()}"
+										update="pnlBusqueda , pnlResultados" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+
+				<div class="row cells8">
+					<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacion" for="txtIdentificacion" value="Identificación: " />
+								</ui:define>
+								<ui:define name="valor" > 
+									<p:inputText id="txtIdentificacion" value="#{estudianteSuficienciaForm.esfIdentificacion}" style="width:98%">
+		       						<p:ajax event="keyup" listener="#{estudianteSuficienciaForm.establecerBusquedaPorIdentificacion()}" 
+										update="pnlBusqueda, pnlResultados" />
+								</p:inputText>	
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+				</div>
+		</p:panel>
+		
+		<div>
+			<p:commandButton id="btnBuscar" value="Buscar" action="#{estudianteSuficienciaForm.buscarEstudiantesAprobados()}"
+				update="pnlResultados" onclick="PF('dialogoTrabajando').show();" onsuccess="PF('dialogoTrabajando').hide();"/>
+			<p:commandButton id="btnLimpiar" value="Limpiar" action="#{estudianteSuficienciaForm.limpiarFormListarEstudiantes()}" 
+				update="pnlResultados , pnlBusqueda"  onclick="PF('dialogoTrabajando').show();" onsuccess="PF('dialogoTrabajando').hide();"/>	
+		</div>
+		
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+			<p:dataTable id="tblEstudiantes" var="item" value="#{estudianteSuficienciaForm.esfListEstudianteAprobado}"
+				rows="10" paginator="true" paginatorPosition="bottom"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	            rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+	            style="text-align: center;"
+				rowIndexVar="rowIndex">
+					
+					<p:column headerText="#" style="width: 1em ! important; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column headerText="Carrera" style="width: 10em ! important;">
+						<h:outputText value="#{item.crrDescripcion}" />
+					</p:column>
+					<p:column headerText="Idioma" style="width: 3em ! important;">
+						<h:outputText value="#{item.crrDetalle}" />
+					</p:column>
+					<p:column headerText="Identificación" style="width: 4em ! important; text-align: center;">
+						<h:outputText value="#{item.prsIdentificacion}" />
+					</p:column>
+					<p:column headerText="Estudiante" style="width: 10em ! important; text-align: left;">
+						<h:outputText value="#{item.prsPrimerApellido} #{item.prsSegundoApellido!=null?item.prsSegundoApellido:''} #{item.prsNombres} " />
+					</p:column>
+					
+			        <p:column rendered="false" headerText="Opción" style="width: 4em ! important; text-align: center;"  >
+						<p:commandLink id="cmdlVerMatricula" value="Ver Matrícula" 
+							action="#{estudianteSuficienciaForm.irVerRecordEstudianteIdioma(item)}" 
+				        	onclick="PF('dialogoTrabajando').show();" 
+					        style="margin: 0px 5px; color: blue;"
+					        ajax="false" />
+			        </p:column>
+				</p:dataTable>
+		</p:panel>
+		
+		<div>
+			<p:commandButton id="btnRegresar" value="Regresar" action="#{estudianteSuficienciaForm.irInicio()}" immediate="true" ajax="false" />
+			<p:commandButton id="btnExportar" value="Exportar a Excel" action="#{estudianteSuficienciaForm.verificarClickExportarExcel()}"
+	    		onclick="PF('dialogoTrabajando').show();" 
+	    		oncomplete="PF('dialogoTrabajando').hide();" 
+	    		ajax="false" />
+			<p:commandButton id="cmdlModalReporte" value="Imprimir reporte" style="visibility:hidden;">
+				<p:ajax oncomplete="abrirVentaReporte('XLS','aprobacion','SUFICIENCIA_IDIOMAS_APROBADOS_XLS');" />
+			</p:commandButton>
+		</div>
+	</h:form>
+	
+	<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador" value="#{estudianteSuficienciaForm.esfActivarReporte}" />
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

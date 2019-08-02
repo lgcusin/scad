@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition	template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Certificado suficiencias / Notas" />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+
+	<script language="JavaScript">
+		//<![CDATA[
+		    function verificarErrores(){
+		        var idVarAgregar = 'compOculto:txtValidador';
+		     	var varAgregar = document.getElementById(idVarAgregar);
+			    	if(varAgregar.value == 1){
+			  		document.getElementById('frmVerNotas:cmdlModalReporte').click();
+			 	    }
+		  	    }
+		 //]]> 
+	</script>
+	<script language="JavaScript">
+	//<![CDATA[
+		function abrirVentaReporte(formato, nombreReporte, tipo){
+			var url = "/aplicacion/reportes";
+			url = url + "?nombreJasper=" + nombreReporte;
+			url = url + "&formato=" + formato;
+			url = url + "&tipo=" + tipo;
+			if(formato == 'vista'){
+				var reportWindow = window.open(url);
+				reportWindow.focus();
+			}else{
+				var reportWindow = window.open(url);
+			}
+	    } 
+	 //]]> 
+	</script>
+	
+	<h:form id="frmVerNotas" enctype="multipart/form-data" acceptcharset="UTF-8" >
+	
+		<p:panel id="pnlMaterias"  header="Información de las asignaturas" >
+			<p:dataTable id="dtsMaterias" var="item" value="#{aprobacionSuficienciasForm.asfListRecordEstudianteDto}"
+		   		 		rows="20" paginator="true" paginatorPosition="bottom"
+	                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+	                          style="text-align: center; font-size: 12px;"  rowIndexVar="rowIndex">
+					
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column rowspan="1" headerText="#" style="width: 1em ! important; text-align: center;"/>
+							<p:column rowspan="1" headerText="Asignatura" style="width: 25em  ! important; " />
+							<p:column rowspan="1" headerText="Asistencia" style="width: 5em  ! important;  " />
+							<p:column rowspan="1" headerText="Nota final" style="width: 5em  ! important;  " />
+							<p:column rowspan="1" headerText="Estado" style="width: 5em  ! important; " />
+						</p:row>
+					</p:columnGroup>
+
+						<p:column style="text-align: center;">
+							<h:outputText value="#{rowIndex+1}" />
+						</p:column>
+						
+					    <p:column style="width: 25em  ! important; text-align: left;">
+							<div style="display: flex;">
+								<h:outputText id="mtrCodigo" value="#{item.rcesMateriaDto.mtrCodigo}"  style="padding-right: 10px;" />
+								<h:outputText value="#{item.rcesMateriaDto.mtrDescripcion}" for="mtrCodigo" style="width:95%" />
+							</div>
+					   </p:column>
+			           <p:column style="width: 5em  ! important;  text-align: right;">
+		                 	<h:outputText value="#{aprobacionSuficienciasForm.getBigDecimal(item.rcesCalificacionDto.clfPorcentajeAsistencia,0)}"/>
+			           </p:column>
+			           <p:column style="width: 5em  ! important; text-align: right; " >
+			            <h:outputText value="#{aprobacionSuficienciasForm.getBigDecimal(item.rcesCalificacionDto.clfNotaFinalSemestre,1)}"/>
+			           </p:column>
+			        
+			           <p:column style="width: 5em  ! important; text-align: left;" >
+			            <h:outputText value="#{item.rcesMateriaDto.mtrEstadoLabel }"/>          
+			           </p:column>
+			        
+				</p:dataTable>
+		     </p:panel>
+	     	
+	     	<div>
+			   <p:commandButton id="btnRegresar" value="Regresar" action="#{aprobacionSuficienciasForm.irEstudiantes()}" immediate="true" ajax="false" />
+				<p:commandButton id="cmdlCertificado" value="Imprimir certificado"
+					onclick="PF('dialogoTrabajando').show();"
+					oncomplete="PF('dialogoTrabajando').hide();"
+					action="#{aprobacionSuficienciasForm.generarReporteCertificado()}" ajax="false">
+				</p:commandButton>
+				<p:commandButton id="cmdlModalReporte" value="Imprimir reporte" style="visibility:hidden;">
+					<p:ajax oncomplete="abrirVentaReporte('PDF','#{aprobacionSuficienciasForm.asfNombreArchivo}','#{aprobacionSuficienciasForm.asfNombreReporte}');" />
+				</p:commandButton>
+			
+			</div>
+			
+	</h:form>
+	
+		<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador" value="#{aprobacionSuficienciasForm.asfActivarReporte}" />
+		</h:form>
+</ui:define>
+</ui:composition>
+</html>

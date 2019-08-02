@@ -1,0 +1,61 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      			xmlns:ui="http://java.sun.com/jsf/facelets"
+      			xmlns:f="http://java.sun.com/jsf/core"
+      			xmlns:h="http://java.sun.com/jsf/html"
+     			xmlns:p="http://primefaces.org/ui"> 
+	<h:form id="frmModalAgregarMateria">
+		<p:dialog widgetVar="dialogoAgregarMateria" modal="true" draggable="false" closable="false" 
+				  resizable="false" height="500" width="1000" styleClass="modal-sin-header">
+		<p:outputLabel value="Agregar asignaturas"  style="font-size: 1.1em !important;" />
+		<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		       	<div class="row cells8">  
+		     		<div class="cell colspan5" >
+		       		   <ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblDescripcion" for="txtDescripcion" value="Descripción:"/>
+		       				</ui:define>
+		       				<ui:define name="valor">	
+								<p:inputText id="txtDescripcion" value="#{administracionMallaMateriaForm.ammfMateriaBusq.mtrDescripcion}" >
+								</p:inputText>
+		       				</ui:define>
+		       			</ui:decorate> 
+		        	</div>
+		    	</div>  
+		    	<!-- Fin fila 1 -->
+		   	</div> 	
+		</p:panel>
+		<div >  
+			<p:commandButton id="btnBuscar" value="Buscar"  action="#{administracionMallaMateriaForm.buscarMateria()}"
+							update=":frmModalAgregarMateria:pnlResultados"/> 
+								
+			<p:commandButton id="btnLimpiar" value="Limpiar" action="#{administracionMallaMateriaForm.limpiarModal()}"
+			update=":frmModalAgregarMateria:pnlResultados , :frmModalAgregarMateria:pnlBusqueda" /> 
+		</div>
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda" > 
+				<p:dataTable id="dtsFuncion" var="item" value="#{administracionMallaMateriaForm.ammfListMateriaBusq}"
+		    		 		rows="4" paginator="true" style=""
+		                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON DATOS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS" paginatorPosition="bottom">
+				        
+				        <p:column headerText="Tipo" style="width: 2em ! important;">
+				            <h:outputText value="#{item.tpmtDescripcion}"/>
+				        </p:column>
+				        <p:column headerText="Asignatura" style="width: 10em ! important;">
+				            <h:outputText value="#{item.mtrDescripcion}"/>
+				        </p:column>
+				        <p:column headerText="Opción" style="width: 2em ! important;text-align:center">
+				        	<p:commandLink value="Agregar " action="#{administracionMallaMateriaForm.agregarMateria(item)}" onclick="PF('dialogoTrabajando').show();" ajax="false"  immediate="true" />
+				        </p:column>
+				</p:dataTable>
+			</p:panel>
+		     <div >
+		 	  <p:commandButton id="btnCerrarModal" value="Regresar" action="#{administracionMallaMateriaForm.actualizaBusquedaMateria()}" update=":frmModalAgregarMateria:pnlResultados" oncomplete="PF('dialogoAgregarMateria').hide();"/>
+			</div>
+		</p:dialog> 
+	</h:form>
+</ui:composition>

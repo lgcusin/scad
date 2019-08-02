@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Administración Cronograma / Cronograma / Proceso" />
+		</ui:include>
+</ui:define>
+
+
+<ui:define name="cuerpo">
+
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador';
+    	var varError = document.getElementById(idVarError);
+    	if(varError.value == 1){
+    		document.getElementById('frmEditarPeriodoAcademico:btnGenerarNuevoPeriodoAcademicoValidarModal').click();
+        }
+    	if(varError.value == 2){
+    		document.getElementById('frmEditarPeriodoAcademico:btnEditarPeriodoAcademicoValidarModal').click();
+        }
+    } 
+    function nobackbutton(){
+   		window.location.hash="no-back-button";
+   		window.location.hash="Again-No-back-button" //chrome
+   		window.onhashchange=function(){window.location.hash="no-back-button";}
+	}
+    
+ //]]> 
+</script>
+
+	<h:form id="frmEditarCronograma" enctype="multipart/form-data" acceptcharset="UTF-8">
+	
+		<p:panel id="pnlDatos" header="Información del Proceso" >
+			<div class="grid condensed">
+				   <div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate	template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblProceso" for="txtProceso"	value="Proceso:" />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtProceso"	
+										value="#{administracionCronogramaForm.acfCronogramaEditar.prflDescripcion}" 
+										style="vertical-align: super;font-weight: Normal !important; width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4"><!-- FECHA FIN  -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+			       					<p:outputLabel id="lblEstado" for="slcEstado" value="Estado:" />	
+			       				</ui:define>
+			       				<ui:define name="valor">	
+			       					<h:selectOneMenu id="slcEstado" value="#{administracionCronogramaForm.acfCronogramaEditar.plcrEstado}" 
+			       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+			       								style="width:49%"> 
+			       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+			       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+										<f:selectItems  var="item" value="#{listasCombosForm.listaEstadoPlanificacionCronograma}" 
+													  itemLabel="#{item.label}" itemValue="#{item.value}" />
+									</h:selectOneMenu>	
+			       				</ui:define>
+			       				<ui:define name="etiquetaError">
+										<p:message id="msgEstado" for="slcEstado" />
+								</ui:define>
+		       			</ui:decorate>
+						</div>
+				</div>	
+		    	
+		    	<div class="row cells8">
+					<div class="cell colspan4"><!-- FECHA INICIO -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblFechaInicio" for="txtFechaInicio" value="Fecha de inicio: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<p:calendar id="txtFechaInicio" value="#{administracionCronogramaForm.acfCronogramaEditar.plcrFechaInicio}"
+											navigator="false" showOn="none" locale="es"
+											pattern="dd-MM-yyyy HH:mm" 
+											placeholder="dd-mm-aaaa hh:mm"
+											mask="true"
+											disabled="false"
+											required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}" 
+											converterMessage="La fecha ingresada no es válida. (dd-mm-aaaa HH:mm) Ejemplo: 01-06-2016 00:00" >
+											<p:ajax event="blur" update=" lblFechaInicio , msgFechaInicio ,  txtFechaInicio" />
+								</p:calendar>
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">	
+		       					<p:message id="msgFechaInicio" for="txtFechaInicio"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+					<div class="cell colspan4"><!-- FECHA FIN  -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblFechaFin" for="txtFechaFin" value="Fecha de finalización:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<p:calendar id="txtFechaFin" value="#{administracionCronogramaForm.acfCronogramaEditar.plcrFechaFin}"
+											navigator="false" showOn="none" locale="es"
+											pattern="dd-MM-yyyy HH:mm" 
+											placeholder="dd-mm-aaaa hh:mm"
+											mask="true"
+											required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}" 
+											converterMessage="La fecha ingresada no es válida. (dd-mm-aaaa HH:mm) Ejemplo: 01-06-2016 00:00" >
+											<p:ajax event="blur" update=" lblFechaFin , msgFechaFin ,  txtFechaFin" />
+								</p:calendar>
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">	
+		       					<p:message id="msgFechaFin" for="txtFechaFin"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>
+				
+		    </div>
+		</p:panel>
+		
+		
+		<div >
+		<p:commandButton id="btnCancelar" action="#{administracionCronogramaForm.cancelar()}" value="Cancelar" immediate="true" ajax="false"/>
+		<p:commandButton id="btnEditarCronograma" value="Guardar">
+			<p:ajax oncomplete="PF('dialogoEditar').show();" update=":frmModalEditar" />
+		</p:commandButton>
+		</div>
+		
+	</h:form>
+	
+	<ui:include src="/academico/administracionAcademico/cronograma/modalEditar.xhtml" />
+	
+</ui:define>
+</ui:composition>     
+</html>

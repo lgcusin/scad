@@ -1,0 +1,60 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      			xmlns:ui="http://java.sun.com/jsf/facelets"
+      			xmlns:f="http://java.sun.com/jsf/core"
+      			xmlns:h="http://java.sun.com/jsf/html"
+     			xmlns:p="http://primefaces.org/ui">
+	
+	<h:form id="frmModalConfirmacion">
+	
+		<p:dialog widgetVar="dialogoConfirmacion" modal="true" draggable="false" closable="false" 
+				  resizable="false" height="200" width="450" styleClass="modal-sin-header" >
+				  
+			<p:outputLabel value="Confirmación de Registro de Matrícula" style="font-size: 1.2em !important;"/>	  
+			
+			<table style="margin: 0 auto;">
+				<tr>
+					<td>
+					<br />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div style="width: 25px; padding: 2px; display: inline-block; margin-right: 7px;">	
+							<h:graphicImage value="/img/Alerta.png" alt="U.C.E" style="width: 100%; "/>
+						</div>
+						
+					</td>
+					<td>
+						<p:outputLabel value="Está seguro de generar la matrícula, no se podrá alterar el registro después de este proceso." />
+					</td>
+				</tr>
+				<tr>
+					<td>
+					<br />
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="2">
+						<h:panelGrid column="3" style="text-align: center">
+							<p:row>
+								<p:column>
+									<p:commandButton id="btnRegistrar"	value="Registrar" 
+										action="#{fichaGenerarMatriculaSuficienciasForm.generarMatricula()}"
+										ajax="false"/>
+								</p:column>
+								<p:column>
+									<p:commandButton id="btnCancelar" value="Cancelar" 
+				        				oncomplete="PF('dialogoConfirmacion').hide();"  
+				        				style="margin-left: 5px;"/>								
+								</p:column>
+							</p:row>	
+						</h:panelGrid>
+					</td>
+				</tr>
+			</table>
+			
+		</p:dialog> 
+	</h:form>
+</ui:composition>

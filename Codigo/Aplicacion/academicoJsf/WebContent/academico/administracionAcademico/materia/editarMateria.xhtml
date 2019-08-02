@@ -1,0 +1,423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+			value="Administración académico / Asignatura / Editar " />
+				
+		</ui:include>
+	</ui:define>
+	<ui:define name="cuerpo">
+	<script language="JavaScript">
+    //<![CDATA[
+	      function verificarErrores(){
+           // var idVarError = 'compOculto:txtValidador';
+         	//var varError = document.getElementById(idVarError);
+           	var idVarEditar = 'compOculto:txtValidador2';
+         	var varEditar = document.getElementById(idVarEditar);
+	        /*  if(varError.value == 1){
+    	  		document.getElementById('frmEditarMateria:btnAgregarSubmateriaValidarModal').click();
+    	 	    }
+    	 	    */
+    	    	if(varEditar.value == 1){
+        	  		document.getElementById('frmEditarMateria:btnModalEditar').click();
+        	 	    }
+	       }    
+	     function nobackbutton(){
+	 		window.location.hash="no-back-button";
+	  		window.location.hash="Again-No-back-button" //chrome
+	   		window.onhashchange=function(){window.location.hash="no-back-button";}
+	      }
+ //]]> 
+</script>
+
+		<h:form id="frmEditarMateria" enctype="multipart/form-data" 	acceptcharset="UTF-8">
+			<!-- *************************************************************************************************** -->
+			<!-- **********************************PANEL IDENTIFICACION DE LA MATERIA********************************** -->
+			<p:panel id="pnlDatos" header="Datos de identificación de la asignatura">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed" >
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+				<div class="row cells8"> 
+						    <div class="cell colspan4"><!--Dependencia de la materia -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblDependencia" for="dependencia" value="Facultad: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="dependencia" value="#{administracionMateriaForm.amfMateriaDtoEditar.dpnDescripcion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						 </ui:decorate>
+					   </div>
+						<div class="cell colspan4"> <!--carrera de la materia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCarrera" for="carrera" value="Carrera: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="carrera" value="#{administracionMateriaForm.amfMateriaDtoEditar.crrDescripcion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:98%"/>
+							</ui:define>
+						</ui:decorate>
+					    </div>
+				</div> <!-- Fin fila 1 -->
+					<!-- ******************** FILA NUMERO 2 ************************ -->
+				   <div class="row cells8"> 
+				   			<div class="cell colspan4" > <!-- codigo del aula a editar -->
+							 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml"> 
+ 									<ui:define name="etiqueta"> 
+									 <p:outputLabel id="lblCodigo" for="txtCodigo" value="Código: " /> 
+								    </ui:define> 
+ 									<ui:define name="valor"> 
+ 											<p:inputText id="txtCodigo" value="#{administracionMateriaForm.amfMateriaDtoEditar.mtrCodigo}" required="true"
+															requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"   style="width: 98%;">
+ 											<p:ajax event="blur" update="lblCodigo , txtCodigo , msgCodigo " /> 
+ 										    </p:inputText> 
+ 									</ui:define>
+									<ui:define name="etiquetaError"> 
+										<p:message id="msgCodigo" for="txtCodigo" /> 
+ 									</ui:define> 
+							 </ui:decorate> 
+					 	   	</div>
+					 	   	<div class="cell colspan4" > <!--  Descripcion de la materia a editar -->
+							 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml"> 
+ 									<ui:define name="etiqueta"> 
+									   <p:outputLabel id="lblMateriaDescripcion" for="txtMateriaDescripcion" value="Descripción: " /> 
+								    </ui:define> 
+ 									<ui:define name="valor"> 
+ 											<p:inputTextarea id="txtMateriaDescripcion" value="#{administracionMateriaForm.amfMateriaDtoEditar.mtrDescripcion}" 
+ 											               required="true"
+															requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"   style="width: 97%;">
+ 											    <p:ajax event="blur" update="lblMateriaDescripcion , txtMateriaDescripcion , msgMateriaDescripcion " /> 
+ 										    </p:inputTextarea> 
+ 									</ui:define>
+ 									<ui:define name="etiquetaError"> 
+										<p:message id="msgMateriaDescripcion" for="txtMateriaDescripcion" /> 
+ 									</ui:define> 
+								</ui:decorate> 
+					 	   	</div>  
+						 </div> 
+ 					 <!-- ******************** FILA NUMERO 3 ************************ -->
+ 					 <div class="row cells8"> 
+ 						 	<div class="cell colspan4" ><!--  Estado de la materia a editar-->
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblEstado" for="slcEstado" value="Estado: " />
+									</ui:define>
+									<ui:define name="valor">
+										<h:selectOneMenu id="slcEstado" value="#{administracionMateriaForm.amfMateriaDtoEditar.mtrEstado}" 
+										                style="width: 100%;" required="true"
+										                
+														requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"
+											              itemValue="#{generalesConstantesForm.appIdBase}" />
+										  	<f:selectItems value="#{listasCombosForm.listaEstadoMateria}" var="item"
+													itemLabel="#{item.label}" itemValue="#{item.value}" />  
+											<p:ajax event="change" update="lblEstado, msgEstado" />
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgEstado" for="slcEstado" />
+									</ui:define>
+							    </ui:decorate>
+						    </div>
+						    <div class="cell colspan4" ><!--  Tipo de la materia a editar-->
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblTipoMateria" for="slcTipoMateria" value="Tipo: " />
+									</ui:define>
+									<ui:define name="valor">
+										<h:selectOneMenu id="slcTipoMateria" value="#{administracionMateriaForm.amfMateriaDtoEditar.tpmtId}" 
+														style="width: 100%;" required="true"
+														requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+											            itemValue="#{generalesConstantesForm.appIdBase}"/>
+										  	<f:selectItems value="#{administracionMateriaForm.amfListTipoMateria}" var="item"
+													itemLabel="#{item.timtDescripcion}" itemValue="#{item.timtId}" />  
+											<p:ajax event="change" update="lblTipoMateria, msgTipoMateria" />
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgTipoMateria" for="slcTipoMateria" />
+									</ui:define>
+							    </ui:decorate>
+						    </div>
+ 					 </div> 
+ 			</div> 
+ 		</p:panel>	
+ 		<p:panel id="pnlDatosHoras" header="Horas de asignación">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed" >
+ 					  	   	<!-- ******************** FILA NUMERO 5 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4"><!--  Unidad de medida a editar-->
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblUnidadMedida" for="slcUnidadMedida" value="Unidad de medida: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcUnidadMedida" value="#{administracionMateriaForm.amfMateriaDtoEditar.mtrUnidadMedida}" style="width: 100%;" 
+										required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">
+										<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item" value="#{listasCombosForm.listaUnidadMedida}" itemLabel="#{item.label}" itemValue="#{item.value}" />
+										<p:ajax event="change" listener="#{administracionMateriaForm.renderUnidadMedida(administracionMateriaForm.amfMateriaDtoEditar)}" 
+												update="lblUnidadMedida slcUnidadMedida msgUnidadMedida txtCantidadHoras txtCantidadCreditos" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgUnidadMedida" for="slcUnidadMedida" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4"> <!--  CAMPOS CREDITOS-->
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCantidadCreditos" for="txtCantidadCreditos"
+										value="Créditos:" />
+								</ui:define>
+								<ui:define name="valor">
+								<p:inputNumber
+										id="txtCantidadCreditos"
+										value="#{administracionMateriaForm.amfMateriaDtoEditar.mtrCreditos}"
+										thousandSeparator=""
+										minValue="0000"
+										maxValue="9999"
+										style="width:98%;"
+										disabled="#{administracionMateriaForm.amfRenderCreditos}"
+										required="true"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">
+										<p:ajax event="blur" update="lblCantidadCreditos , txtCantidadCreditos , msgCantidadCreditos " />
+									</p:inputNumber>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgCantidadCreditos" for="txtCantidadCreditos" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					  <!-- ******************** FILA NUMERO 6 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4"><!-- HORAS-->
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCantidadHoras" for="txtCantidadHoras" value="Horas de Docencia semanal: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:inputNumber
+										id="txtCantidadHoras"
+										value="#{administracionMateriaForm.amfMateriaDtoEditar.mtrHoras}"
+										thousandSeparator=""
+										minValue="0000"
+										maxValue="9999"
+										style="width:98%;"
+										disabled="#{administracionMateriaForm.amfRenderHoras}"
+										required="true"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">
+										<p:ajax event="blur" update="lblCantidadHoras , txtCantidadHoras , msgCantidadHoras , txtHorasSemestre " 
+												listener="#{administracionMateriaForm.calcularHorasTeoricasSemestral()}" />
+									</p:inputNumber>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgCantidadHoras" for="txtCantidadHoras" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4"><!--  Horas semestre a editar-->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblHorasSemestre" for="txtHorasSemestre"
+										value="Horas de Docencia semestral: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtHorasSemestre" value="#{administracionMateriaForm.amfMateriaDtoEditar.mtrHorasCien}" 
+											style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+								</ui:define>
+								<ui:define name="etiquetaError">
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					
+				<!-- ******************** FILA NUMERO 5  ************************ -->
+				<div class="row cells8"> 
+				     <div class="cell colspan4"> <!-- horas docente de la materia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblHorasPracticasSem" for="txtHorasPracticasSem" value="Horas PAE semanal: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:inputNumber
+										id="txtHorasPracticasSem"
+										value="#{administracionMateriaForm.amfMateriaDtoEditar.mtrHorasPracSema}"
+										thousandSeparator=""
+										minValue="0000"
+										maxValue="9999"
+										style="width:98%;">
+										<p:ajax event="blur" update="lblHorasPracticasSem , txtHorasPracticasSem , txtHorasPracticas " 
+												listener="#{administracionMateriaForm.calcularHorasPracticasSemestral()}"/>
+								</p:inputNumber>
+							</ui:define>
+							<ui:define name="etiquetaError">
+							</ui:define>
+						</ui:decorate>
+				     </div> 
+				     <div class="cell colspan4"> <!-- horas docente de la materia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblHorasPracticas" for="txtHorasPracticas" value="Horas PAE semestral: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="txtHorasPracticas" value="#{administracionMateriaForm.amfMateriaDtoEditar.mtrHorasPracticas}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+							<ui:define name="etiquetaError">
+							</ui:define>
+						</ui:decorate>
+				     </div>
+				</div>
+				
+				<!-- ******************** FILA NUMERO 5  ************************ -->
+				<div class="row cells8"> 
+				     <div class="cell colspan4"> <!-- creditos de la materia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblHorasAutonomoSem" for="txtHorasAutonomoSem" value="Horas trabajo autónomo semanal: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:inputNumber
+										id="txtHorasAutonomoSem"
+										value="#{administracionMateriaForm.amfMateriaDtoEditar.mtrHorasAutonoSema}"
+										required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										minValue="0"
+										maxValue="99"
+										decimalPlaces="2"
+										style="width:98%;">
+										<p:ajax event="blur" update="lblHorasAutonomoSem , txtHorasAutonomoSem , txtHorasAutonomo " 
+												listener="#{administracionMateriaForm.calcularHorasTrabAutonomoSemestral()}"/>
+								</p:inputNumber>
+							</ui:define>
+							<ui:define name="etiquetaError">
+							</ui:define>
+						</ui:decorate>
+				     </div> 
+				     <div class="cell colspan4"> <!-- creditos de la materia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblHorasAutonomo" for="txtHorasAutonomo" value="Horas trabajo autónomo semestral: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="txtHorasAutonomo" value="#{administracionMateriaForm.amfMateriaDtoEditar.mtrHorasTrabAutonomo}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+							<ui:define name="etiquetaError">
+							</ui:define>
+						</ui:decorate>
+				     </div> 
+				</div>
+			</div>
+			</p:panel>
+				
+			<p:panel id="pnlDatosCaracteristica" header="Características">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed" >
+ 					
+ 					  <!-- ******************** FILA NUMERO 4 ************************ -->
+ 					 <div class="row cells8"> 
+					 	   	  <div class="cell colspan4" ><!-- Relación de trabajo materia a editar-->
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblRelacionTrabajo" for="slcRelacionTrabajo" value="Relación de trabajo: " />
+									</ui:define>
+									<ui:define name="valor">
+										<h:selectOneMenu id="slcRelacionTrabajo" value="#{administracionMateriaForm.amfMateriaDtoEditar.mtrRelacionTrabajo}" 
+										         style="width: 100%;" required="true"
+														requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+											               itemValue="#{generalesConstantesForm.appIdBase}"/>
+										  	<f:selectItems value="#{listasCombosForm.listaRelacionTrabajoMateria}" var="item"
+													itemLabel="#{item.label}" itemValue="#{item.value}" />  
+											<p:ajax event="change" update="lblRelacionTrabajo, msgRelacionTrabajo" />
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgRelacionTrabajo" for="slcRelacionTrabajo" />
+									</ui:define>
+							    </ui:decorate>
+						    </div>	
+			                 <div class="cell colspan4" ><!--  Campo de formación a editar-->
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblCampoformacion" for="slcCampoformacion" value="Campo de formación " />
+									</ui:define>
+									<ui:define name="valor">
+										<h:selectOneMenu id="slcCampoformacion" value="#{administracionMateriaForm.amfMateriaDtoEditar.cmfrId}" 
+										                style="width: 100%;" required="true"
+														requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+											               itemValue="#{generalesConstantesForm.appIdBase}"/>
+										  	<f:selectItems value="#{administracionMateriaForm.amfListCampoFormacion}" var="item"
+													itemLabel="#{item.cmfrDescripcion}" itemValue="#{item.cmfrId}" />  
+											<p:ajax event="change" update="lblCampoformacion, msgCampoFormacion" />
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgCampoFormacion" for="slcCampoformacion" />
+									</ui:define>
+							    </ui:decorate>
+						    </div>
+ 					 </div>
+ 					  	   <!-- ******************** FILA NUMERO 7 ************************ -->
+ 					  <div class="row cells8"> 
+ 					           <div class="cell colspan4" ><!--  Núcleo Problemico-->
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblNucleoProblemico" for="slcNucleoProblemico" value="Núcleo Problémico " />
+									</ui:define>
+									<ui:define name="valor">
+										<h:selectOneMenu id="slcNucleoProblemico" value="#{administracionMateriaForm.amfMateriaDtoEditar.ncprCrrId}" style="width: 100%;" required="true"
+														disabled="#{administracionMateriaForm.amfListNucleoProblemicoDto.size() == 0}"
+														requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"
+											               itemValue="#{generalesConstantesForm.appIdBase}" />
+										  	<f:selectItems value="#{administracionMateriaForm.amfListNucleoProblemicoDto}" var="item"
+													itemLabel="#{item.ncprDescripcion}" itemValue="#{item.ncprcrId}" />  
+											<p:ajax event="change" update="lblNucleoProblemico, msgNucleoProblemico" />
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgNucleoProblemico" for="slcNucleoProblemico" />
+									</ui:define>
+						  	    </ui:decorate>
+						      </div>  
+					 	   		
+ 					 </div>
+			 </div>  <!-- Fin Grid Condensed --> 
+				
+		</p:panel>	 
+			
+			 <div>
+				 <p:commandButton id="btnRegresar" value="Cancelar" immediate="true" ajax="false" action="#{administracionMateriaForm.irRegresarVerMateria()}" />
+			    <p:commandButton id="btnGuardaMateria" value="Guardar cambios" action="#{administracionMateriaForm.VerificaModalModificar()}" ajax="false"/>
+			        <p:commandButton id="btnModalEditar" value="EjecutarModalEditar" style="visibility:hidden;">
+					<p:ajax oncomplete="PF('dialogoEditar').show();" update=":frmModalEditar" />
+				    </p:commandButton>  
+			</div>
+		</h:form>
+		     <ui:include src="/academico/administracionAcademico/materia/modalEditar.xhtml" />   
+		    <h:form id="compOculto" style="visibility:hidden;">  
+		 	     <p:inputText id="txtValidador2" value="#{administracionMateriaForm.amfClickModalModificar}">
+			   </p:inputText>
+	    	</h:form>
+		
+	</ui:define>
+</ui:composition>
+</html>

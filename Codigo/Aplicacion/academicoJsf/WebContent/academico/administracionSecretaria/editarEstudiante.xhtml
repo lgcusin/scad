@@ -1,0 +1,1052 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Secretaría / Estudiantes / Lista de estudiantes / Editar datos estudiante" />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+
+<script language="JavaScript">
+    //<![CDATA[
+	      function verificarErrores(){
+           // var idVarError = 'compOculto:txtValidador';
+         	//var varError = document.getElementById(idVarError);
+           	var idVarEditar = 'compOculto:txtValidador';
+         	var varEditar = document.getElementById(idVarEditar);
+	        /*  if(varError.value == 1){
+    	  		document.getElementById('frmEditarMateria:btnAgregarSubmateriaValidarModal').click();
+    	 	    }
+    	 	    */
+    	    	if(varEditar.value == 1){
+        	  		document.getElementById('frmEditarEstudiante:btnModalEditarEstudiante').click();
+        	 	    }
+	       }    
+	     function nobackbutton(){
+	 		window.location.hash="no-back-button";
+	  		window.location.hash="Again-No-back-button" //chrome
+	   		window.onhashchange=function(){window.location.hash="no-back-button";}
+	      }
+ //]]> 
+</script>
+	<h:form id="frmEditarEstudiante" >
+		
+		<!--******************************PANEL DE INFORMACIÓN PERSONAL*******************************-->	
+		<p:panel id="pnlDatosPersonales" header="Información personal">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- Tipo de documento -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblTipoDocumento" for="tipoDocumento" value="Tipo de identificación: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="tipoDocumento" value="#{estudianteListaForm.elfEstudianteEditar.prsTipoIdentificacionSt}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+					
+					<div class="cell colspan4"> <!-- numero de documento -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblIdentificacion" for="identificacion" value="No. identificación: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="identificacion" value="#{estudianteListaForm.elfEstudianteEditar.prsIdentificacion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 1 -->
+
+				<!-- ******************** FILA NUMERO 2 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!--Nombre -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblNombres" for="txtNombres" value="Nombres: " />
+							</ui:define>
+						
+							<ui:define name="valor"> 
+ 							<p:inputText id="txtNombres" value="#{estudianteListaForm.elfEstudianteEditar.prsNombres}" required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"  
+									validator="sinCaracteresEspecialesValidator" maxlength="32"     style="width: 100%;">
+ 									<p:ajax event="blur" update="lblNombres , txtNombres , msgNombres " /> 
+ 							 </p:inputText> 
+ 							</ui:define>
+						    <ui:define name="etiquetaError"> 
+										<p:message id="msgNombres" for="txtNombres" /> 
+ 							</ui:define> 
+						</ui:decorate>
+					</div>
+					
+					<div class="cell colspan4"><!--Primer apellido -->
+					     <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblPrimerApellido" for="txtPrimerApellido" value="Primer apellido: " />
+							</ui:define>
+							
+							<ui:define name="valor"> 
+ 							<p:inputText id="txtPrimerApellido" value="#{estudianteListaForm.elfEstudianteEditar.prsPrimerApellido}" required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"  
+									validator="sinCaracteresEspecialesValidator" maxlength="32"  style="width: 100%;">
+ 									<p:ajax event="blur" update="lblPrimerApellido , txtPrimerApellido , msgPrimerApellido " /> 
+ 							 </p:inputText> 
+ 							</ui:define>
+						    <ui:define name="etiquetaError"> 
+										<p:message id="msgPrimerApellido" for="txtPrimerApellido" /> 
+ 							</ui:define> 
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 2 -->
+
+				<!-- ******************** FILA NUMERO 3 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- Segundo apellido -->
+					     <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblSegundoApellido" for="txtSegundoApellido" value="Segundo Apellido: " />
+							</ui:define>
+							
+							<ui:define name="valor"> 
+ 							<p:inputText id="txtSegundoApellido" value="#{estudianteListaForm.elfEstudianteEditar.prsSegundoApellido}" required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"  
+									validator="sinCaracteresEspecialesValidator" maxlength="32"  style="width: 100%;">
+ 									<p:ajax event="blur" update="lblSegundoApellido , txtSegundoApellido , msgSegundoApellido " /> 
+ 							 </p:inputText> 
+ 							</ui:define>
+						    <ui:define name="etiquetaError"> 
+										<p:message id="msgSegundoApellido" for="txtSegundoApellido" /> 
+ 							</ui:define> 
+					</ui:decorate>
+					</div>		
+											
+					<div class="cell colspan4"><!--Fecha Nacimiento -->
+					     <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblFechaNacimiento" for="calFechaNacimiento" value="Fecha de nacimiento(aaaa-mm-dd): " />
+							</ui:define>
+													
+						            	<ui:define name="valor">
+											<p:calendar id="calFechaNacimiento"
+												value="#{estudianteListaForm.elfEstudianteEditar.prsFechaNacimiento}"
+												 navigator="false"
+												showOn="none" locale="es" pattern="yyyy-MM-dd" mask="true" 
+												required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+												converterMessage="Ingresar una fecha válida">
+												<p:ajax event="blur"
+													update=" lblFechaNacimiento, calFechaNacimiento,  msgtxtFechaNacimiento" />
+											</p:calendar>
+										</ui:define>
+									 <ui:define name="etiquetaError">
+											<p:message id="msgtxtFechaNacimiento" for="calFechaNacimiento" />
+										</ui:define>
+								
+							
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 3 -->
+			
+				<!-- ******************** FILA NUMERO 4 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- Etnia -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblEtnia" for="slcEtnia" value="Etnia: " />
+							</ui:define>
+							
+									<ui:define name="valor">
+										<h:selectOneMenu id="slcEtnia" value="#{estudianteListaForm.elfEstudianteEditar.etnId}" 
+										                style="width: 100%;" required="true"
+										                requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"
+											              itemValue="#{generalesConstantesForm.appIdBase}" />
+										  	<f:selectItems value="#{estudianteListaForm.elfListaEtnias}" var="item"
+													itemLabel="#{item.etnDescripcion}" itemValue="#{item.etnId}" />  
+											<p:ajax event="change" update="lblEtnia, msgEtnia" />
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgEtnia" for="slcEtnia" />
+									</ui:define>
+						</ui:decorate>
+					</div>
+					
+					<div class="cell colspan4"> <!-- sexo -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblSexo" for="slcSexo" value="Sexo: " />
+							</ui:define>
+							
+							
+							<ui:define name="valor">
+										<h:selectOneMenu id="slcSexo" value="#{estudianteListaForm.elfEstudianteEditar.prsSexo}" 
+										                style="width: 100%;" required="true"
+										                requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"
+											              itemValue="#{generalesConstantesForm.appIdBase}" />
+										  	<f:selectItems value="#{listasCombosForm.listaSexo}" var="item"
+													itemLabel="#{item.label}" itemValue="#{item.value}" />  
+											<p:ajax event="change" update="lblSexo, msgSexo" />
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgSexo" for="slcSexo" />
+									</ui:define>
+						
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 4 -->
+				
+				<!-- ******************** FILA NUMERO 5 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- Convencional -->
+					     <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblTelefono" for="txtTelefono" value="Teléfono: " />
+							</ui:define>
+							
+							<ui:define name="valor"> 
+ 							<p:inputText id="txtTelefono" value="#{estudianteListaForm.elfEstudianteEditar.prsTelefono}" required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"   
+									 maxlength="10" validatorMessage="Ingrese sólo números, min 7 max 10." style="width: 100%;">
+ 									<f:validateRegex pattern="^[0-9]{7,10}$" for="txtTelefono" />
+ 									<p:ajax event="blur" update="lblTelefono , txtTelefono , msgTelefono " /> 
+ 							 </p:inputText> 
+ 							</ui:define>
+						    <ui:define name="etiquetaError"> 
+										<p:message id="msgTelefono" for="txtTelefono" /> 
+ 							</ui:define> 
+						</ui:decorate>
+					</div>
+					
+					<div class="cell colspan4"> <!-- Celular -->
+					     <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCelular" for="txtCelular" value="Celular: " />
+							</ui:define>
+							
+							
+							<ui:define name="valor"> 
+ 							<p:inputText id="txtCelular" value="#{estudianteListaForm.elfEstudianteEditar.prsCelular}" required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}" 
+									maxlength="10" validatorMessage="Ingrese en formato celular. Ejm.0999999999 mín. dígitos"  style="width: 100%;">
+ 									<f:validateRegex pattern="^[0-9\-\+]{10}$" for="txtCelular" />
+ 									<p:ajax event="blur" update="lblCelular , txtCelular , msgCelular " /> 
+ 							 </p:inputText> 
+ 							</ui:define>
+						    <ui:define name="etiquetaError"> 
+										<p:message id="msgCelular" for="txtCelular" /> 
+ 							</ui:define> 
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 5 -->
+				
+				
+				<!-- ******************** FILA NUMERO 6 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- Mail Institucional-->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblMailInstitucional" for="MailInstitucional" value="Mail institucional: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="MailInstitucional" value="#{estudianteListaForm.elfEstudianteEditar.prsMailInstitucional}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%" />
+							</ui:define>
+						</ui:decorate>
+					</div>
+					<div class="cell colspan4"> <!-- Mail Personal -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblMailPersonal" for="txtMailPersonal" value="Mail personal: " />
+							</ui:define>
+							
+							<ui:define name="valor"> 
+ 							<p:inputText id="txtMailPersonal" value="#{estudianteListaForm.elfEstudianteEditar.prsMailPersonal}" required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"   style="width: 100%;" maxlength="50">
+									<f:validator validatorId="mailValidator" />
+ 									<p:ajax event="blur" update="lblMailPersonal , txtMailPersonal , msgMailPersonal " /> 
+ 							 </p:inputText> 
+ 							</ui:define>
+						    <ui:define name="etiquetaError"> 
+										<p:message id="msgMailPersonal" for="txtMailPersonal" /> 
+ 							</ui:define> 
+							
+							
+						</ui:decorate>
+					</div>
+										
+				</div> <!-- Fin fila 6 -->
+				
+				
+				
+				<!-- ******************** FILA NUMERO 7 ************************ -->
+				<div class="row cells8"> 
+					
+					<div class="cell colspan4"> <!-- Estado civil-->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblEstadoCivil" for="slcEstadoCivil" value="Estado Civil: " />
+							</ui:define>
+							
+								<ui:define name="valor">
+										<h:selectOneMenu id="slcEstadoCivil" value="#{estudianteListaForm.elfEstudianteEditar.prsEstadoCivil}" 
+										                style="width: 100%;" required="true"
+										                requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"
+											              itemValue="#{generalesConstantesForm.appIdBase}" />
+										  	<f:selectItems value="#{listasCombosForm.listaEstadoCivil}" var="item"
+													itemLabel="#{item.label}" itemValue="#{item.value}" />  
+											<p:ajax event="change" update="lblEstadoCivil, msgEstadoCivil" />
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgEstadoCivil" for="slcEstadoCivil" />
+									</ui:define>
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 7 -->
+				
+
+				<!-- ******************** FILA NUMERO 8 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- pais nacionalidad -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblPaisNacionalidad" for="slcPaisNacionalidad" value="País nacimiento: " />
+							</ui:define>
+							
+							<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcPaisNacionalidad" value="#{estudianteListaForm.elfPaisNacimientoEditar.ubcId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="itemPaisNac" value="#{estudianteListaForm.elfListaPaisesNac}" 
+												  itemLabel="#{itemPaisNac.ubcDescripcion}" itemValue="#{itemPaisNac.ubcId}" />
+									<p:ajax event="change" 
+									          listener="#{estudianteListaForm.llenarProvinciasNacEditar(estudianteListaForm.elfPaisNacimientoEditar.ubcId)}"
+									     		update="lblPaisNacionalidad , slcPaisNacionalidad , msgPaisNacionalidad, lblNacionalidad, nacionalidad ,
+                                                        lblProvinciaNacionalidad , slcProvinciaNacionalidad, lblCantonNacionalidad , slcCantonNacionalidad" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgPaisNacionalidad" for="slcPaisNacionalidad" />
+							</ui:define>
+					
+						</ui:decorate>
+					</div>
+					
+					<div class="cell colspan4"> <!-- nacionalidad -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblNacionalidad" for="nacionalidad" value="Nacionalidad: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="nacionalidad" value="#{estudianteListaForm.elfPaisNacimientoEditar.ubcGentilicio}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+					
+				</div> <!-- Fin fila 8 -->
+				
+				
+				<!-- ******************** FILA NUMERO 9 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- provincia nacionalidad -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblProvinciaNacionalidad" for="slcProvinciaNacionalidad" value="Provincia nacimiento: " />
+							</ui:define>
+							
+							<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcProvinciaNacionalidad" value="#{estudianteListaForm.elfProvinciaNacimientoEditar.ubcId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%" disabled="#{estudianteListaForm.elfDesactivarUbicacionNac}"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  value="#{estudianteListaForm.elfListaProvinciasNac}" var="item2" 
+												  itemLabel="#{item2.ubcDescripcion}" itemValue="#{item2.ubcId}" />
+									<p:ajax event="change" 
+									  listener="#{estudianteListaForm.llenarCantonesNacEditar(estudianteListaForm.elfProvinciaNacimientoEditar.ubcId)}"
+									         update="lblProvinciaNacionalidad , slcProvinciaNacionalidad, msgProvinciaNacionalidad, lblCantonNacionalidad, slcCantonNacionalidad " />
+								</h:selectOneMenu>	
+											
+		       				</ui:define>
+		       				
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgProvinciaNacionalidad" for="slcProvinciaNacionalidad" />
+							</ui:define>
+													
+						</ui:decorate>
+					</div>
+					
+					<div class="cell colspan4"> <!-- Canton nacionalidad -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCantonNacionalidad" for="slcCantonNacionalidad" value="Cantón nacimiento: " />
+							</ui:define>
+							
+							<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcCantonNacionalidad" value="#{estudianteListaForm.elfCantonNacimientoEditar.ubcId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%" disabled="#{estudianteListaForm.elfDesactivarUbicacionNac}"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems   value="#{estudianteListaForm.elfListaCantonesNac}" var="item3"
+												  itemLabel="#{item3.ubcDescripcion}" itemValue="#{item3.ubcId}" />
+									<p:ajax event="change" 
+											 update="lblCantonNacionalidad , slcCantonNacionalidad, msgCantonNacionalidad  " />
+								</h:selectOneMenu>	
+											
+		       				</ui:define>
+		       				
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgCantonNacionalidad" for="slcCantonNacionalidad" />
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 9 -->
+				
+				<!-- ******************** FILA NUMERO 10 ************************ -->
+<!-- 				<div class="row cells8">  -->
+<!-- 						<div class="cell colspan4"> -->
+<!-- 					     <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml"> -->
+<!-- 							<ui:define name="etiqueta"> -->
+<!-- 								<p:outputLabel id="lblFechaInicio" for="calFechaInicio" value="Fecha inicio de estudios(aaaa-mm-dd): " /> -->
+<!-- 							</ui:define> -->
+													
+<!-- 						            	<ui:define name="valor"> -->
+<!-- 											<p:calendar id="calFechaInicio" -->
+<!-- 												value="#{estudianteListaForm.elfEstudianteEditar.fcesFechaInicio}" -->
+<!-- 												 navigator="false" -->
+<!-- 												showOn="none" locale="es" pattern="yyyy-MM-dd" mask="true"  -->
+<!-- 												required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}" -->
+<!-- 												converterMessage="Ingresar una fecha válida"> -->
+<!-- 												<p:ajax event="blur" -->
+<!-- 													update=" lblFechaInicio , calFechaInicio,  msgtxtFechaInicio" /> -->
+<!-- 											</p:calendar>  -->
+<!-- 										</ui:define> -->
+<!-- 									 <ui:define name="etiquetaError"> -->
+<!-- 											<p:message id="msgtxtFechaInicio" for="calFechaInicio" /> -->
+<!-- 										</ui:define> -->
+								
+							
+<!-- 						</ui:decorate> -->
+<!-- 					</div> -->
+										
+<!-- 				</div> Fin fila 10 -->
+				
+		</div><!-- Fin GRID-->
+		</p:panel>
+				
+		<p:panel id="pnlDiscapacidad" header="Información de discapacidad">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				
+				<!-- ******************** FILA NUMERO 11 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- Discapacidad -->
+					     <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblDiscapacidad" for="slcDiscapacidad" value=" Tiene discapacidad: " />
+							</ui:define>
+							
+							         <ui:define name="valor">
+										<h:selectOneMenu id="slcDiscapacidad" value="#{estudianteListaForm.elfEstudianteEditar.prsDiscapacidad}" 
+										                style="width: 100%;" required="true"
+										                requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"
+											              itemValue="#{generalesConstantesForm.appIdBase}" />
+										  	<f:selectItems value="#{listasCombosForm.listaPresentaDiscapacidad}" var="item"
+													itemLabel="#{item.label}" itemValue="#{item.value}" />  
+											<p:ajax event="change" 
+											listener="#{estudianteListaForm.desactivarDiscapacidad(estudianteListaForm.elfEstudianteEditar.prsDiscapacidad)}"
+											update="lblDiscapacidad, slcDiscapacidad, msgDiscapacidad ,lblTipoDiscapacidad, slcTipoDiscapacidad, lblCarnetConadis ,
+											 slcCarnetConadis , lblNumCarnetConadis , txtNumCarnetConadis , lblPorceDiscapacidad, txtPorceDiscapacidad , sldPorcentaje  " />
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgDiscapacidad" for="slcDiscapacidad" />
+									</ui:define>
+													
+						</ui:decorate>
+					</div>
+					
+					<div class="cell colspan4"><!-- Tienen Carnet Conadis -->
+					     <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCarnetConadis" for="slcCarnetConadis" value="Tiene carnet de discapacidad: " />
+							</ui:define>
+							
+							<ui:define name="valor">
+										<h:selectOneMenu id="slcCarnetConadis" value="#{estudianteListaForm.elfEstudianteEditar.prsCarnetConadis}" 
+										                style="width: 100%;" required="true"
+										                requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"  disabled="#{estudianteListaForm.elfDesactivarCarnetDiscap}">		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"
+											              itemValue="#{generalesConstantesForm.appIdBase}" />
+										  	<f:selectItems value="#{listasCombosForm.listaTieneCarnetConadis}" var="item"
+													itemLabel="#{item.label}" itemValue="#{item.value}" />  
+											<p:ajax event="change" 
+											listener="#{estudianteListaForm.desactivarDiscapacidadSinCarnet(estudianteListaForm.elfEstudianteEditar.prsCarnetConadis)}"
+											update="lblCarnetConadis , slcCarnetConadis , msgCarnetConadis, lblTipoDiscapacidad, slcTipoDiscapacidad, 
+											  lblNumCarnetConadis , txtNumCarnetConadis , lblPorceDiscapacidad, txtPorceDiscapacidad , sldPorcentaje " />
+										</h:selectOneMenu>
+							</ui:define>
+							<ui:define name="etiquetaError">
+										<p:message id="msgCarnetConadis" for="slcCarnetConadis" />
+							</ui:define>
+							
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila11-->
+				
+				<!-- ******************** FILA NUMERO 12 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"><!-- Tipo discapacidad -->
+					     <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblTipoDiscapacidad" for="slcTipoDiscapacidad" value="Tipo de discapacidad: " />
+							</ui:define>
+							
+							<ui:define name="valor">
+										<h:selectOneMenu id="slcTipoDiscapacidad" value="#{estudianteListaForm.elfEstudianteEditar.prsTipoDiscapacidad}" 
+										                style="width: 100%;" required="true"
+										                requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"   disabled="#{estudianteListaForm.elfDesactivarDiscapacidad}" >		
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"
+											              itemValue="#{generalesConstantesForm.appIdBase}" />
+										  	<f:selectItems value="#{listasCombosForm.listaTipoDiscapacidad}" var="item"
+													itemLabel="#{item.label}" itemValue="#{item.value}" />  
+											<p:ajax event="change" update="lblTipoDiscapacidad, slcTipoDiscapacidad , msgTipoDiscapacidad" />
+										</h:selectOneMenu>
+							</ui:define>
+							<ui:define name="etiquetaError">
+										<p:message id="msgTipoDiscapacidad" for="slcTipoDiscapacidad" />
+							</ui:define>
+							
+							
+						</ui:decorate>
+					</div>
+						<div class="cell colspan4"><!-- Numero de carnet CONADIS -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblNumCarnetConadis" for="txtNumCarnetConadis" value="No. carnet: " />
+							</ui:define>
+							
+                          <ui:define name="valor"> 
+ 							<p:inputText id="txtNumCarnetConadis" value="#{estudianteListaForm.elfEstudianteEditar.prsNumCarnetConadis}" required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"  maxlength="10" style="width: 100%;"  disabled="#{estudianteListaForm.elfDesactivarDiscapacidad}">
+ 									<p:ajax event="blur" update="lblNumCarnetConadis , txtNumCarnetConadis , msgNumCarnetConadis " /> 
+ 							 </p:inputText> 
+ 							</ui:define>
+						    <ui:define name="etiquetaError"> 
+										<p:message id="msgNumCarnetConadis" for="txtNumCarnetConadis" /> 
+ 							</ui:define> 							
+							
+						</ui:decorate>
+					</div>
+					
+				</div> <!-- Fin fila 12-->
+				
+				<!-- ******************** FILA NUMERO 13 ************************ -->
+				<div class="row cells8"> 
+				
+					
+					<div class="cell colspan4"> <!-- Porcentaje de discapacidad -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblPorceDiscapacidad" for="txtPorceDiscapacidad" 
+								value="Porcentaje: %#{estudianteListaForm.elfEstudianteEditar.prsPorceDiscapacidad} "  />
+							</ui:define>
+							
+                              <ui:define name="valor">
+        						<h:inputHidden id="txtPorceDiscapacidad" 
+        						value="#{estudianteListaForm.elfEstudianteEditar.prsPorceDiscapacidad}" />
+        						<p:slider id="sldPorcentaje" for="txtPorceDiscapacidad" 
+        						display="lblPorceDiscapacidad" 
+        						style="width: 330px" 
+        						displayTemplate="Porcentaje %{value}" 
+        						required="true" 
+        						requiredMessage="#{generalesConstantesForm.msgCampoRequerido}" 
+        						disabled="#{estudianteListaForm.elfDesactivarDiscapacidad}"/>
+							</ui:define>
+
+						    <ui:define name="etiquetaError"> 
+										<p:message id="msgPorceDiscapacidad" for="txtPorceDiscapacidad" /> 
+ 							</ui:define> 							
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 13-->
+				
+			</div><!-- Fin GRID-->
+			
+			
+		</p:panel>
+				
+				<p:panel id="pnlResidencia" header="Información de residencia">
+                 <div class="grid condensed">
+				<!-- ******************** FILA NUMERO 14 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"> <!-- pais residencia -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblPaisResidencia" for="slcPaisResidencia" value="País: " />
+							</ui:define>
+							
+					       <ui:define name="valor">	
+		       					<h:selectOneMenu id="slcPaisResidencia" value="#{estudianteListaForm.elfPaisResidenciaEditar.ubcId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="itemPaisRes" value="#{estudianteListaForm.elfListaPaisesRes}" 
+												  itemLabel="#{itemPaisRes.ubcDescripcion}" itemValue="#{itemPaisRes.ubcId}" />
+									<p:ajax event="change" 
+									          listener="#{estudianteListaForm.llenarProvinciasResEditar(estudianteListaForm.elfPaisResidenciaEditar.ubcId)}"
+									     		update="lblPaisResidencia , slcPaisResidencia , msgPaisResidencia,
+                                                        lblProvinciaResidencia , slcProvinciaResidencia, lblCantonResidencia , slcCantonResidencia, 
+                                                        lblParroquiaResidencia, slcParroquiaResidencia" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgPaisResidencia" for="slcPaisResidencia" />
+							</ui:define>		
+						</ui:decorate>
+					</div>
+					
+					<div class="cell colspan4"> <!-- prov residencia -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblProvinciaResidencia" for="slcProvinciaResidencia" value="Provincia: " />
+							</ui:define>
+							
+							 <ui:define name="valor">	
+		       					<h:selectOneMenu id="slcProvinciaResidencia" value="#{estudianteListaForm.elfProvinciaResidenciaEditar.ubcId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%" disabled="#{estudianteListaForm.elfDesactivarUbicacionRes}" > 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems   value="#{estudianteListaForm.elfListaProvinciasRes}" var="itemProvRes"
+												  itemLabel="#{itemProvRes.ubcDescripcion}" itemValue="#{itemProvRes.ubcId}" />
+									<p:ajax event="change" 
+									          listener="#{estudianteListaForm.llenarCantonesResEditar(estudianteListaForm.elfProvinciaResidenciaEditar.ubcId)}"
+									     		update="lblProvinciaResidencia , slcProvinciaResidencia , msgProvinciaResidencia,
+                                                        lblCantonResidencia , slcCantonResidencia, lblParroquiaResidencia, slcParroquiaResidencia" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgProvinciaResidencia" for="slcProvinciaResidencia" />
+							</ui:define>	
+						</ui:decorate>
+					</div>
+				</div><!-- Fin fila 14-->
+				
+				<!-- ******************** FILA NUMERO 15 ************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4"><!-- canton residencia -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCantonResidencia" for="slcCantonResidencia" value="Cantón: " />
+							</ui:define>
+							
+				        <ui:define name="valor">	
+		       					<h:selectOneMenu id="slcCantonResidencia" value="#{estudianteListaForm.elfCantonResidenciaEditar.ubcId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%" disabled="#{estudianteListaForm.elfDesactivarUbicacionRes}"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="itemCantonRes" value="#{estudianteListaForm.elfListaCantonesRes}" 
+												  itemLabel="#{itemCantonRes.ubcDescripcion}" itemValue="#{itemCantonRes.ubcId}" />
+									<p:ajax event="change" 
+									          listener="#{estudianteListaForm.llenarParroquiasResEditar(estudianteListaForm.elfCantonResidenciaEditar.ubcId)}"
+									     		update=" lblCantonResidencia , slcCantonResidencia, msgCantonResidencia, lblParroquiaResidencia, slcParroquiaResidencia" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgCantonResidencia" for="slcCantonResidencia" />
+							</ui:define>				
+							
+						</ui:decorate>
+					</div>
+					
+					
+					<div class="cell colspan4"><!-- parroquia residencia -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblParroquiaResidencia" for="slcParroquiaResidencia" value="Parroquia: " />
+							</ui:define>
+						
+							<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcParroquiaResidencia" value="#{estudianteListaForm.elfParroquiaResidenciaEditar.ubcId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%" disabled="#{estudianteListaForm.elfDesactivarUbicacionRes}"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="itemParroquiaRes" value="#{estudianteListaForm.elfListaParroquiasRes}" 
+												  itemLabel="#{itemParroquiaRes.ubcDescripcion}" itemValue="#{itemParroquiaRes.ubcId}" />
+									<p:ajax event="change" 
+									        update=" lblParroquiaResidencia , slcParroquiaResidencia , msgParroquiaResidencia" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgParroquiaResidencia" for="slcParroquiaResidencia" />
+							</ui:define>			
+							
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 15-->
+				
+				
+				<!-- ******************** FILA NUMERO 16 ************************ -->
+				<div class="row cells8"> 
+					
+						<div class="cell colspan4"> <!-- Calle principal -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCallePrincipal" for="txtCallePrincipal" value=" Calle principal: " />
+							</ui:define>
+							
+							<ui:define name="valor"> 
+ 							<p:inputText id="txtCallePrincipal" value="#{estudianteListaForm.elfEstudianteEditar.prsCallePrincipal}" required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"   style="width: 100%;" maxlength="255">
+ 									<p:ajax event="blur" update="lblCallePrincipal , txtCallePrincipal , msgCallePrincipal " /> 
+ 							 </p:inputText> 
+ 							</ui:define>
+						    <ui:define name="etiquetaError"> 
+										<p:message id="msgCallePrincipal" for="txtCallePrincipal" /> 
+ 							</ui:define> 	
+							
+						</ui:decorate>
+					</div>
+
+					<div class="cell colspan4"> <!-- Calle secundaria -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCalleSecundaria" for="txtCalleSecundaria" value=" Calle secundaria: " />
+							</ui:define>
+							<ui:define name="valor"> 
+ 							<p:inputText id="txtCalleSecundaria" value="#{estudianteListaForm.elfEstudianteEditar.prsCalleSecundaria}" required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"   style="width: 100%;" maxlength="255">
+ 									<p:ajax event="blur" update="lblCalleSecundaria , txtCalleSecundaria , msgCalleSecundaria " /> 
+ 							 </p:inputText> 
+ 							</ui:define>
+						    <ui:define name="etiquetaError"> 
+										<p:message id="msgCalleSecundaria" for="txtCalleSecundaria" /> 
+ 							</ui:define> 	
+						</ui:decorate>
+					</div>
+					
+					</div> <!-- Fin fila 16-->
+					
+					<!-- ******************** FILA NUMERO 17 ************************ -->
+				<div class="row cells8"> 
+					
+					<div class="cell colspan4"> <!-- Número de casa -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblNumeroCasa" for="txtNumeroCasa" value=" No. de Casa: " />
+							</ui:define>
+							
+							<ui:define name="valor"> 
+ 							<p:inputText id="txtNumeroCasa" value="#{estudianteListaForm.elfEstudianteEditar.prsNumeroCasa}" required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"   style="width: 100%;" maxlength="10">
+ 									<p:ajax event="blur" update="lblNumeroCasa , txtNumeroCasa , msgNumeroCasa " /> 
+ 							 </p:inputText> 
+ 							</ui:define>
+						    <ui:define name="etiquetaError"> 
+										<p:message id="msgNumeroCasa" for="txtNumeroCasa" /> 
+ 							</ui:define> 
+							
+						</ui:decorate>
+					</div>
+					
+					<div class="cell colspan4"> <!-- Referencia Domicilio -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblReferenciaDomicilio" for="txtReferenciaDomicilio" value=" Referencia del domicilio: " />
+							</ui:define>
+							
+							<ui:define name="valor"> 
+ 							<p:inputText id="txtReferenciaDomicilio" value="#{estudianteListaForm.elfEstudianteEditar.prsReferenciaDomicilio}" required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"   style="width: 100%;" maxlength="255">
+ 									<p:ajax event="blur" update="lblReferenciaDomicilio , txtReferenciaDomicilio , msgReferenciaDomicilio " /> 
+ 							 </p:inputText> 
+ 							</ui:define>
+						    <ui:define name="etiquetaError"> 
+										<p:message id="msgReferenciaDomicilio" for="txtReferenciaDomicilio" /> 
+ 							</ui:define> 
+						</ui:decorate>
+					</div>
+					
+				</div> <!-- Fin fila 17-->
+				
+				
+<!-- 				******************** FILA NUMERO 18 ************************ -->
+<!-- 				<div class="row cells8">  -->
+<!-- 					<div class="cell colspan4"> Sector Domicilio -->
+<!-- 						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml"> -->
+<!-- 							<ui:define name="etiqueta"> -->
+<!-- 								<p:outputLabel id="lblSectorDomicilio" for="txtSectorDomicilio" value=" Sector del domicilio: " /> -->
+<!-- 							</ui:define> -->
+							
+<!-- 							<ui:define name="valor">  -->
+<!--  							<p:inputText id="txtSectorDomicilio" value="#{estudianteListaForm.elfEstudianteEditar.prsSectorDomicilio}" required="true" -->
+<!-- 									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"   style="width: 100%;"> -->
+<!--  									<p:ajax event="blur" update="lblSectorDomicilio , txtSectorDomicilio , msgSectorDomicilio " />  -->
+<!--  							 </p:inputText>  -->
+<!--  							</ui:define> -->
+<!-- 						    <ui:define name="etiquetaError">  -->
+<!-- 										<p:message id="msgSectorDomicilio" for="txtSectorDomicilio" />  -->
+<!--  							</ui:define>  -->
+<!-- 						</ui:decorate> -->
+<!-- 					</div> -->
+<!-- 					</div> Fin fila 18 -->
+				</div><!-- Fin GRID-->
+				</p:panel>
+		
+		
+		
+		<p:panel id="pnlProcedencia" header="Información del colegio de procedencia">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 19 ************************ -->
+				<div class="row cells8">
+	
+					<div class="cell colspan4"><!-- País de colegio -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblPaisInac" for="slcPaisInac" value="País: " />
+							</ui:define>
+							
+							<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcPaisInac" value="#{estudianteListaForm.elfPaisInacEditar.ubcId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="itemPaisInac" value="#{estudianteListaForm.elfListaPaisesInac}" 
+												  itemLabel="#{itemPaisInac.ubcDescripcion}" itemValue="#{itemPaisInac.ubcId}" />
+									<p:ajax event="change" 
+									          listener="#{estudianteListaForm.llenarProvinciasInacEditar(estudianteListaForm.elfPaisInacEditar.ubcId)}"
+									     		update="lblPaisInac , slcPaisInac , msgPaisInac , lblProvinciaInac , slcProvinciaInac, , lblCantonInac , slcCantonInac, lblTipoInac , 
+									     		slcTipoInac, lblInacNombre , slcInacNombre, lblTituloInac , slcTituloInac, lblNotaGradoInac , txtNotaGradoInac" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgPaisInac" for="slcPaisInac" />
+							</ui:define>		
+							
+							
+						</ui:decorate>
+					</div>
+					
+				<div class="cell colspan4"> <!-- Prov de colegio -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblProvinciaInac" for="slcProvinciaInac" value="Provincia: " />
+							</ui:define>
+							
+							<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcProvinciaInac" value="#{estudianteListaForm.elfProvinciaInacEditar.ubcId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%" disabled="#{estudianteListaForm.elfDesactivarUbicacionInac}"  > 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="itemProvinciaInac" value="#{estudianteListaForm.elfListaProvinciasInac}" 
+												  itemLabel="#{itemProvinciaInac.ubcDescripcion}" itemValue="#{itemProvinciaInac.ubcId}" />
+									<p:ajax event="change" 
+									          listener="#{estudianteListaForm.llenarCantonesInacEditar(estudianteListaForm.elfProvinciaInacEditar.ubcId)}"
+									     		update="lblProvinciaInac , slcProvinciaInac , msgProvinciaInac, lblCantonInac , slcCantonInac ,lblTipoInac , 
+									     		slcTipoInac, lblInacNombre , slcInacNombre  " />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgProvinciaInac" for="slcProvinciaInac" />
+							</ui:define>		
+							
+							
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 19-->
+				
+				
+				<!-- ******************** FILA NUMERO 20 ************************ -->
+				<div class="row cells8">
+				
+				<div class="cell colspan4"> <!-- Cantón colegio -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCantonInac" for="slcCantonInac" value="Cantón: " />
+							</ui:define>
+							
+							<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcCantonInac" value="#{estudianteListaForm.elfCantonInacEditar.ubcId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%" disabled="#{estudianteListaForm.elfDesactivarUbicacionInac}"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="itemCantonInac" value="#{estudianteListaForm.elfListaCantonesInac}" 
+												  itemLabel="#{itemCantonInac.ubcDescripcion}" itemValue="#{itemCantonInac.ubcId}" />
+									<p:ajax event="change" 
+									    listener="#{estudianteListaForm.limpiarTipoNombreInacEditar()}"
+									       	update="lblCantonInac , slcCantonInac , msgCantonInac , lblTipoInac , slcTipoInac, lblInacNombre , slcInacNombre " />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgCantonInac" for="slcCantonInac" />
+							</ui:define>		
+						</ui:decorate>
+					</div>
+					
+			<div class="cell colspan4" > <!-- tipo de colegio-->
+			       			<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+			       				<ui:define name="etiqueta">	
+			       					<p:outputLabel id="lblTipoInac" for="slcTipoInac" value="Tipo de institución:"/>	
+			       				</ui:define>
+			       				
+			       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcTipoInac" value="#{estudianteListaForm.elfEstudianteEditar.inacTipo}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%" disabled="#{estudianteListaForm.elfDesactivarUbicacionInac}"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="itemTipoInac" value="#{listasCombosForm.listaTipoInstitucionAcademica}" 
+												  itemLabel="#{itemTipoInac.label}" itemValue="#{itemTipoInac.value}" />
+									<p:ajax event="change" 
+							                listener="#{estudianteListaForm.llenarListaInacEditar(estudianteListaForm.elfCantonInacEditar.ubcId,estudianteListaForm.elfEstudianteEditar.inacTipo)}"
+									       	update="lblTipoInac , slcTipoInac , msgTipoInac ,lblInacNombre , slcInacNombre " />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgTipoInac" for="slcTipoInac" />
+							</ui:define>		
+			       			</ui:decorate>
+			        </div>				
+				
+				</div> <!-- Fin fila 20-->
+				
+				<!-- ******************** FILA NUMERO 21 ************************ -->
+				<div class="row cells8">
+							
+					<div class="cell colspan4">  <!-- Nombre del colegio-->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblInacNombre" for="slcInacNombre" value="Institución : " />
+							</ui:define>
+							
+							<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcInacNombre" value="#{estudianteListaForm.elfEstudianteEditar.fcesColegioId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"  disabled="#{estudianteListaForm.elfDesactivarUbicacionInac}"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="itemInac" value="#{estudianteListaForm.elfListaInstitucionesAcademicasDto}" 
+												  itemLabel="#{itemInac.inacDescripcion}" itemValue="#{itemInac.inacId}" />
+									<p:ajax event="change" 
+									       	update="lblInacNombre , slcInacNombre , msgInacNombre " />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgInacNombre" for="slcInacNombre" />
+							</ui:define>		
+			       		
+						</ui:decorate>
+					</div>
+					
+				<div class="cell colspan4"> <!-- Titulo de colegio -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblTituloInac" for="slcTituloInac" value="Titulo Bachiller: " />
+							</ui:define>
+							
+							<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcTituloInac" value="#{estudianteListaForm.elfEstudianteEditar.ttlId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"  disabled="#{estudianteListaForm.elfDesactivarUbicacionInac}" > 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="itemTtl" value="#{estudianteListaForm.elfListaTitulosDto}" 
+												  itemLabel="#{itemTtl.ttlDescripcion}" itemValue="#{itemTtl.ttlId}" />
+									<p:ajax event="change" 
+									       	update="lblTituloInac , slcTituloInac , msgTituloInac " />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgTituloInac" for="slcTituloInac" />
+							</ui:define>		
+						</ui:decorate>
+					</div>
+					
+					
+				</div> <!-- Fin fila 21-->
+				
+				
+				
+				<!-- ******************** FILA NUMERO 22 ************************ -->
+				<div class="row cells8">
+						
+					<div class="cell colspan4">  <!--Nota de grado colegio -->
+						 <ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblNotaGradoInac" for="txtNotaGradoInac" value="Nota de grado : " />
+							</ui:define>
+							<ui:define name="valor"> 
+                                 
+                            <p:inputNumber
+										id="txtNotaGradoInac"
+										value="#{estudianteListaForm.elfEstudianteEditar.fcesNotaGradoSecundaria}"
+										thousandSeparator=""
+										minValue="00"
+										maxValue="20"
+										decimalPlaces="2"
+										style="width:98%;"
+										required="true"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">     
+                                 
+                                 
+ 									 <p:ajax event="blur" update="lblNotaGradoInac , txtNotaGradoInac , msgNotaGradoInac " /> 
+ 									</p:inputNumber>
+
+ 							</ui:define>
+						    <ui:define name="etiquetaError"> 
+										<p:message id="msgNotaGradoInac" for="txtNotaGradoInac" /> 
+ 							</ui:define> 
+							
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 22-->
+			</div>
+		</p:panel>
+		
+		
+		<div >
+			<p:commandButton id="btnCancelar" value="Regresar" immediate="true" ajax="false" action="#{estudianteListaForm.regresaAlistarEstudiante(estudianteListaForm.elfUsuario)}" />
+			
+		     <p:commandButton id="btnGuardar" value="Guardar cambios" action="#{estudianteListaForm.VerificaModalEditarEstudiante()}" ajax="false"/>
+			        <p:commandButton id="btnModalEditarEstudiante" value="EjecutarModalEditarEstudiante" style="visibility:hidden;">
+					    <p:ajax oncomplete="PF('dialogoEditarEstudiante').show();" update=":frmModalEditarEstudiante" />
+				    </p:commandButton>  
+		</div>
+	</h:form>
+	 <ui:include src="/academico/administracionSecretaria/modalEditarEstudiante.xhtml" />   
+		    <h:form id="compOculto" style="visibility:hidden;">  
+		 	     <p:inputText id="txtValidador" value="#{estudianteListaForm.elfClickModalEditarEstudiante}">
+			   </p:inputText>
+	    	</h:form>
+	    	
+</ui:define>
+</ui:composition>
+</html>

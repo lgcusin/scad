@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value=" Solicitudes / Resolver solicitud retiro fortuito / Listar estudiantes / Solicitudes realizadas " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador';
+    	var varError = document.getElementById(idVarError);
+    	if(varError.value == 1){
+    		document.getElementById('frmVerAsignatura:btnResolverRetiroFortuito').click();
+        }
+
+    	var idVarGuardarDoc = 'compOculto:txtValidador2';
+    	var varGuardarDoc = document.getElementById(idVarGuardarDoc);
+    	if(varGuardarDoc.value == 1){
+    		document.getElementById('frmVerAsignatura:btnModalGuardarResolucion').click();
+        }
+
+     	var idVarVentana = 'compOculto:txtValidador4';
+     	var varVentana = document.getElementById(idVarVentana);
+	    	if(varVentana.value == 1){
+		    	document.getElementById('frmVerAsignatura:cmdlModalReporte').click();
+	 	    }
+        
+    } 
+    
+	 
+
+ //]]> 
+</script>
+
+
+
+<script language="JavaScript">
+	//<![CDATA[
+		function abrirVentaReporte(formato, nombreReporte, tipo){
+			var url = "/aplicacion/reportes";
+			url = url + "?nombreJasper=" + nombreReporte;
+			url = url + "&formato=" + formato;
+			url = url + "&tipo=" + tipo;
+			if(formato == 'vista'){
+				var reportWindow = window.open(url);
+				reportWindow.focus();
+			}else{
+				var reportWindow = window.open(url);
+			}
+	    } 
+	 //]]> 
+</script>
+
+	<h:form id="frmVerAsignatura" enctype="multipart/form-data" acceptcharset="UTF-8" >
+	
+		<p:panel id="pnlDatosEstudiante" header="Información del estudiante">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1  Identificacion************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4" style=" width: 40%;">
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblIdentificacion" for="identificacion" value="Identificación: " />
+							</ui:define>
+							
+							<ui:define name="valor">
+								<p:outputLabel id="identificacion" value="#{aprobacionSolicitudRetiroFortuitoForm.asrffPersonaSeleccionadaVer.prsIdentificacion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+	                 <div class="cell colspan4" style=" width: 60%;"> 
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta" >
+								<p:outputLabel id="lblNombre" for="nombre" value="Nombre: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="nombre" value="#{aprobacionSolicitudRetiroFortuitoForm.asrffPersonaSeleccionadaVer.prsPrimerApellido.concat(' ').
+								concat(aprobacionSolicitudRetiroFortuitoForm.asrffPersonaSeleccionadaVer.prsSegundoApellido).concat(' ').
+								concat(aprobacionSolicitudRetiroFortuitoForm.asrffPersonaSeleccionadaVer.prsNombres) }" 
+														style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+						   </ui:define>
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 1 -->
+				
+					<!-- ******************** FILA NUMERO 2 Periodo Academico************************ -->
+	        	<div class="row cells8"> 
+				
+					<div class="cell colspan4" style=" width: 40%;"> 
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCarrera" for="carrera" value="Carrera/Área: " />
+							</ui:define>
+							<ui:define name="valor" > 
+								<p:outputLabel id="carrera" value="#{aprobacionSolicitudRetiroFortuitoForm.asrffCarreraVer.crrDescripcion }" 
+														style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div>
+		 <!-- Fin fila 2 -->
+			</div><!-- Fin GRID-->
+	</p:panel>
+		<p:panel id="pnlMaterias" header="Asignaturas con solicitudes de retiro por situaciones fortuitas">
+		
+		 <div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		      	<div class="row cells11">
+		      		<div class="cell colspan10" >
+		       			<p:outputLabel id="asd" value=""/>
+		        	</div>
+		        
+		    	</div>
+		    </div>
+		    
+			<p:dataTable id="dtsMaterias" var="item" value="#{aprobacionSolicitudRetiroFortuitoForm.asrffListaMateriasSolicitadasDto}"
+		   		 		rows="20" paginator="false" paginatorPosition="bottom"
+	                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+	                          style="text-align: center;">
+	     
+			        <p:column headerText="Código" style="width: 4em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.mtrCodigo}"/>
+			        </p:column>
+	                <p:column headerText="Asignatura" style="width: 15em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.mtrDescripcion}"/>
+			        </p:column>
+
+			      <p:column headerText="Estado de la solicitud" style="width: 4em  ! important; text-align: left; ">
+			            <h:outputText value="#{listasCombosForm.getLabelEstadoDetalleMatricula(item.dtmtEstadoSolicitud)}"/>
+			        </p:column>
+			        
+	                 <p:column headerText="Causal" style="width: 10em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.cslDescripcion}"/>
+			        </p:column>
+	
+	              <p:column headerText="Evidencia" style="width: 4em  ! important; ">
+						<p:commandLink id="lnkDescarga" value="descargar"  
+						    ajax="false" >
+							<p:fileDownload	value="#{aprobacionSolicitudRetiroFortuitoForm.descargaArchivo(item)}"  />
+						</p:commandLink>	
+			        </p:column>	
+	
+					 
+					   <p:column headerText="Aprobada/Negada" style="width: 4em  ! important; ">
+					
+						<h:selectOneMenu id="slcResuelve" value="#{item.estadoSolicitudRetiro}" 
+										style="width:100%">
+										<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"  value="#{listasCombosForm.listaEstadoSolicitudRetiro}"
+											itemLabel="#{itemEstado.label}" itemValue="#{itemEstado.value}" />
+						</h:selectOneMenu>	
+			        </p:column>
+					 
+				<p:column headerText="Subir Resolución"
+						style="width: 3em ! important; text-align:center">
+
+						<p:commandLink id="btnSubirResolucion" value="Subir resolución"
+							action="#{aprobacionSolicitudRetiroFortuitoForm.activaModalCargarSolicitud(item)}"
+							ajax="false" style="color:blue;" />
+				</p:column>
+				
+				<p:column headerText="Resolución" style="width: 3em  ! important; ">
+						<h:outputText value="#{item.dtmtArchivoRespuesta}" />
+					</p:column>
+					
+				</p:dataTable>
+		</p:panel>
+		
+		<p:panel id="pnlObservacion" >
+			<div class="row cells8">
+							<!-- codigo  -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEditv2.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblObservacion" for="txtObservacion" value="Observación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:inputTextarea id="txtObservacion"
+										value="#{aprobacionSolicitudRetiroFortuitoForm.asrffObservacionFinal}"
+										style="width: 98%;"
+										maxlength="500"
+										row="10" column="50">
+										<p:ajax event="blur"
+											update="lblObservacion , txtObservacion , msgObservacion " />
+									</p:inputTextarea>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgObservacion" for="txtObservacion" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					
+	</p:panel>	 
+		<div>
+    		
+    		<p:commandButton id="btnRegresar" 
+    		value="Cancelar" 
+    		action="#{aprobacionSolicitudRetiroFortuitoForm.irListarEstudiantesResolvRetiroFortuito(aprobacionSolicitudRetiroFortuitoForm.asrffUsuario)}" 
+    		immediate="true" 
+    		ajax="false" />
+    	
+    		<p:commandButton id="btnResolver" 
+    		value="Finalizar"  
+    		action="#{aprobacionSolicitudRetiroFortuitoForm.controlarClickGuardarResolver()}" 
+    		ajax="false"
+    		disabled="#{aprobacionSolicitudRetiroFortuitoForm.asrffDesactivaBotonGuardar}"
+    		   		
+    		/>
+    		
+    		
+    		<p:commandButton id="btnResolverRetiroFortuito" value="EjecutarModalResolver" 
+    		        style="visibility:hidden;">
+    				<p:ajax oncomplete="PF('dialogoResolverSolicitud').show();" 
+    				update=":frmModalResolverSolicitud" 
+    				/> 
+    		</p:commandButton>
+    		
+    		<p:commandButton id="btnExportar" value="Exportar a PDF" 
+			action="#{aprobacionSolicitudRetiroFortuitoForm.llamarReporte()}"
+               onclick="PF('dialogoTrabajando').show();"
+				oncomplete="PF('dialogoTrabajando').hide();" ajax="false" 
+			  update=":frmVerAsignatura" 
+			   disabled="#{aprobacionSolicitudRetiroFortuitoForm.asrffDesactivaBotonReporte}"
+			   />
+			
+			<p:commandButton 
+			id="btnModalGuardarResolucion"
+			 value="EjecutarCargarResolucion" 
+			 style="visibility:hidden;">
+    		<p:ajax oncomplete="PF('dialogoModalSubirArchivo').show();" update=":frmModalSubirArchivo" />
+    		</p:commandButton>
+    		
+    		<p:commandButton id="cmdlModalReporte" value="Imprimir reporte"  style="visibility:hidden;">
+			<p:ajax oncomplete ="abrirVentaReporte('PDF','reporteSecreAbogado','APROBACION_RETIRO_FORTUITO');" />
+			</p:commandButton>
+    		
+    				
+		</div>
+	</h:form>
+	
+	<ui:include src="/academico/reajusteMatricula/retiroFortuito/resolver/modalResolverSolicitud.xhtml" />
+	<ui:include src="/academico/reajusteMatricula/retiroFortuito/resolver/modalSubirArchivo.xhtml" />
+	
+	
+	<h:form id="compOculto" style="visibility:hidden;">
+	 	<p:inputText id="txtValidador" value="#{aprobacionSolicitudRetiroFortuitoForm.asrffClickGuardarResolver}" >
+		</p:inputText>	
+		
+		<p:inputText id="txtValidador2" value="#{aprobacionSolicitudRetiroFortuitoForm.asrffActivaModalCargarResolucion}" >
+		</p:inputText>	
+		
+		<p:inputText id="txtValidador4" value="#{aprobacionSolicitudRetiroFortuitoForm.asrffActivaReporteFinal}" >
+		</p:inputText>	
+	</h:form>
+	
+</ui:define>
+</ui:composition>
+</html>

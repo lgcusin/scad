@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Procesos académicos / Reajuste de matrículas / Cambio de Paralelo " />
+		</ui:include>
+	</ui:define>
+
+
+	<ui:define name="cuerpo">
+
+		<script language="JavaScript">
+		//<![CDATA[
+			function verificarErrores(){
+		    	var idVarError = 'compOculto:txtValidador';
+		    	var varError = document.getElementById(idVarError);
+		    	
+		    	if(varError.value == 1){
+		    		document.getElementById('frmCambiarParalelo:btnGuardarCambiosValidarModal').click();
+		    		                                           
+		        }
+		    } 
+		    function nobackbutton(){
+		   		window.location.hash="no-back-button";
+		   		window.location.hash="Again-No-back-button" //chrome
+		   		window.onhashchange=function(){window.location.hash="no-back-button";}
+			}
+		 //]]> 
+		</script>
+
+		<h:form id="frmCambiarParalelo" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<p:panel id="pnlBusqueda" header="Información de la Asignatura">
+
+				<div class="grid condensed">
+
+					<div class="row cells8">
+						
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPeriodoAcademico" for="lblPeriodoAcademicoSt" value="Período académico: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="lblPeriodoAcademicoSt" value="#{administracionMatriculaForm.amfMateriaParaModificacion.pracDescripcion}" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCarrera" for="txtCarrera" value="Carrera: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtCarrera" value="#{administracionMatriculaForm.amfMateriaParaModificacion.crrDescripcion}" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblApellidoPaterno" for="txtApellidoPaterno"
+										value="Nombres:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtApellidoPaterno"
+										value="#{administracionMatriculaForm.amfMateriaParaModificacion.prsPrimerApellido} #{administracionMatriculaForm.amfMateriaParaModificacion.prsSegundoApellido!=null?administracionMatriculaForm.amfMateriaParaModificacion.prsSegundoApellido:''} #{administracionMatriculaForm.amfMateriaParaModificacion.prsNombres} "
+										style="width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacion" for="txtIdentificacion"
+										value="Identificación:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtIdentificacion"
+										value="#{administracionMatriculaForm.amfMateriaParaModificacion.prsIdentificacion}"
+										style="width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblMateria" for="txtMateria"
+										value="Asignatura:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtMateria"
+										value="#{administracionMatriculaForm.amfMateriaParaModificacion.mtrDescripcion}"
+										style="width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblParalelo1" for="txtParalelo1"
+										value="Paralelo actual:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtParalelo1"
+										value="#{administracionMatriculaForm.amfMateriaParaModificacion.prlDescripcion}"
+										style="width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+				</div>
+			</p:panel>
+
+			<p:panel id="pnlResultados" header="Información del Paralelo">
+				<div class="grid condensed">
+
+					<div class="row cells8">
+					
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblParalelo" for="slcParalelo" value="Paralelo: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcParalelo" value="#{administracionMatriculaForm.amfParaleloId}" style="width: 70%; text-align:left; ">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{administracionMatriculaForm.amfListParalelosParaCambio}"
+											itemLabel="#{item.prlCodigo}" itemValue="#{item.prlId}" />
+										<p:ajax event="change"
+											listener="#{administracionMatriculaForm.verificarDisponibilidadCupo()}"
+											update="lblParalelo , slcParalelo , msgParalelo , lblInscritos , lblInscritosVl , lblCupo , lblCupoVl , btnGuardar" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgParalelo" for="slcParalelo" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblInscritos" for="lblInscritosVl"
+										value="Inscritos: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="lblInscritosVl"
+										value="#{administracionMatriculaForm.amfMallaCurricularParaleloEdit.mlcrprInscritos}"
+										style="width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCupo" for="lblCupoVl" value="Cupo: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="lblCupoVl"
+										value="#{administracionMatriculaForm.amfMallaCurricularParaleloEdit.mlcrprCupo}"
+										style="width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+				</div>
+
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnCancelar" value="Cancelar"
+					action="#{administracionMatriculaForm.irVerMateriaMatricula()}"
+					immediate="true" ajax="false" />
+				<p:commandButton id="btnGuardar" value="Guardar cambios"
+					disabled="#{administracionMatriculaForm.amfDisableParaleloNuevo}"
+					action="#{administracionMatriculaForm.verificarClickGuardarEdicion()}"
+					ajax="false" />
+				<p:commandButton id="btnGuardarCambiosValidarModal"
+					value="EjecutarModalGuardarCambios" style="visibility:hidden;">
+					<p:ajax oncomplete="PF('dialogoGuardarCambiosParalelo').show();"
+						update=":frmModalGuardarCambiosParalelo" />
+				</p:commandButton>
+			</div>
+		</h:form>
+
+		<ui:include src="/academico/administracionAcademico/matricula/modalCambioParalelo.xhtml" />
+
+		<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador" value="#{administracionMatriculaForm.amfValidadorClic}"/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

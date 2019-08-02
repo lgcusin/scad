@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"	value="Administración cronograma / Cronograma " />
+		</ui:include>
+</ui:define>
+
+<ui:define name="cuerpo">
+
+	<h:form id="frmAdminCronograma" enctype="multipart/form-data" acceptcharset="UTF-8">
+		<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		         <div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPeriodo" for="slcPeriodo" value="Período Académico:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcPeriodo" value="#{administracionCronogramaForm.acfPeriodoId}"
+		       						style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionCronogramaForm.acfListPeriodoAcademico}" 
+										itemLabel="#{item.pracDescripcion}" itemValue="#{item.pracId}" />
+									<p:ajax event="change"  update="pnlBusqueda, pnlResultados" listener="#{administracionCronogramaForm.buscar(administracionCronogramaForm.acfPeriodoId,administracionCronogramaForm.acfCronogramaId)}" />         
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	
+		    	<!-- ******************** FILA NUMERO 2 ************************ -->
+		         <div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblTipo" for="slcTipo" value="Cronograma: " />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcTipo" value="#{administracionCronogramaForm.acfCronogramaId}"  style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionCronogramaForm.acfListaCombos}" 
+												  itemLabel="#{item.label}" itemValue="#{item.value}" />
+									<p:ajax event="change"  update="pnlBusqueda, pnlResultados" listener="#{administracionCronogramaForm.buscar(administracionCronogramaForm.acfPeriodoId,administracionCronogramaForm.acfCronogramaId)}" />         
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	
+		    	
+		    </div>
+		</p:panel>
+		
+		<div>	
+		<p:commandButton id="btnLimpiar" value="Limpiar"   
+			action="#{administracionCronogramaForm.limpiar()}" 
+			update=":frmAdminCronograma:pnlResultados , :frmAdminCronograma:pnlBusqueda" /> 
+		</div>
+		
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda" >
+			<p:dataTable id="dtsCronograma" var="item" value="#{administracionCronogramaForm.acfListCronograma}"
+		    		 		rows="10" paginator="true"
+		    		 		rowIndexVar="rowIndex"
+		                    paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                    rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON DATOS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+				       <p:column headerText="#"	style="width: 0.5em ! important; text-align:center">
+						<h:outputText value="#{rowIndex+1}"/>
+						</p:column>
+				        <p:column headerText="Período" 	style="width: 1em ! important; text-align:left">
+				            <h:outputText value="#{item.pracDescripcion}"/>
+				        </p:column>
+				        <p:column headerText="Proceso" 	style="width: 4em ! important; text-align:left">
+				        	<h:outputText value="#{item.prflDescripcion}" />
+				        </p:column>
+				        <p:column headerText="Inicio" style="width: 1em ! important; text-align:center">
+				        	<h:outputText value="#{item.plcrFechaInicio}" />
+				        </p:column>
+				        <p:column headerText="Fin" style="width: 1em ! important; text-align:center">
+				        	<h:outputText value="#{item.plcrFechaFin}" />
+				        </p:column>
+				        <p:column headerText="Estado" style="width: 1em ! important; text-align:center">
+				        	<h:outputText value="#{item.plcrEstado == 0? 'ACTIVO':'INACTIVO'}" />
+				        </p:column>
+				        <p:column headerText="Opción" style="width: 1em ! important; text-align:center">
+				        	<p:commandLink value="Editar" 
+				        		action="#{administracionCronogramaForm.irVerCronograma(item)}" 
+				        		onclick="PF('dialogoTrabajando').show();" 
+					        	immediate="true" 
+					        	ajax="false"/>
+				        </p:column>
+			</p:dataTable>
+		</p:panel>
+		
+		<div >
+		<p:commandButton id="btnRegresar" action="#{administracionCronogramaForm.irInicio()}" value="Regresar" immediate="true" ajax="false"/>
+		</div>
+		
+	</h:form>
+	
+	
+	<h:form id="compOculto" style="visibility:hidden;">
+	 	<p:inputText id="txtValidador" value="#{administracionPeriodoAcademicoForm.apafValidadorClick}" >
+		</p:inputText>	
+	</h:form>
+	
+</ui:define>
+</ui:composition>     
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Administración suficiencia / Aprobación estudiantes " />
+		</ui:include>
+	</ui:define>
+	
+	<ui:define name="cuerpo">
+	
+<script language="JavaScript">
+		//<![CDATA[
+		    function verificarErrores(){
+		        var idVarAgregar = 'compOculto:txtValidador';
+		     	var varAgregar = document.getElementById(idVarAgregar);
+			    	if(varAgregar.value == 1){
+			  		document.getElementById('frmListarRegistroEstudiante:cmdlModalReporte').click();
+			 	    }
+		  	    }
+		 //]]> 
+</script>
+
+		<h:form id="frmListarRegistroEstudiante" enctype="multipart/form-data" acceptcharset="UTF-8">
+			<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar">
+				<div class="grid condensed">
+
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacion" for="txtIdentificacion"
+										value="Identificación:" />
+								</ui:define>
+								<ui:define name="valor">
+									<p:inputText id="txtIdentificacion"
+										value="#{suficienciaAprobacionForm.safIdentificacionId}"
+										style="width:100%">
+									</p:inputText>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+					<!-- ******************** FILA NUMERO 2 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblApellidos" for="txtApellidos"
+										value="Apellidos:" />
+								</ui:define>
+								<ui:define name="valor">
+									<p:inputText id="txtApellidos"
+										value="#{suficienciaAprobacionForm.safEstudianteDto.prsPrimerApellido} #{suficienciaAprobacionForm.safEstudianteDto.prsSegundoApellido}"
+										style="width:100%">
+									</p:inputText>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FILA NUMERO 2 ************************ -->
+					<!-- ******************** FILA NUMERO 3 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNombres" for="txtNombres"
+										value="Nombres:" />
+								</ui:define>
+								<ui:define name="valor">
+									<p:inputText id="txtNombres"
+										value="#{suficienciaAprobacionForm.safEstudianteDto.prsNombres}"
+										style="width:100%">
+									</p:inputText>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FILA NUMERO 3 ************************ -->
+					
+				</div>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnBuscar" value="Buscar"
+					actionListener="#{suficienciaAprobacionForm.buscarEstudiante(suficienciaAprobacionForm.safIdentificacionId)}"
+					update=":frmListarRegistroEstudiante"
+					onclick="PF('dialogoTrabajando').show();"
+					oncomplete="PF('dialogoTrabajando').hide();" />
+				<p:commandButton id="btnLimpiar" value="Limpiar"
+					action="#{estudianteListaForm.limpiar()}"
+					update=":frmListarRegistroEstudiante" />
+			</div>
+
+
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+				<p:dataTable id="dtsEstudiante" var="item"	rows="10"
+					value="#{suficienciaAprobacionForm.safListEstudianteDto}"
+					paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15"
+					emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+
+					<p:column headerText="Identificación"
+						style="width: 2em ! important;">
+						<h:outputText value="#{item.prsIdentificacion}" />
+					</p:column>
+					<p:column headerText="Apellidos" style="width: 7em ! important;">
+						<h:outputText
+							value="#{item.prsPrimerApellido} #{item.prsSegundoApellido!=null?item.prsSegundoApellido:''} " />
+					</p:column>
+					<p:column headerText="Nombres" style="width: 6em ! important;">
+						<h:outputText value="#{item.prsNombres}" />
+					</p:column>
+					<p:column headerText="Carrera" style="width: 12em ! important;">
+						<h:outputText value="#{item.crrDescripcion}" />
+					</p:column>
+					<p:column headerText="Nivel" style="width: 2em ! important;">
+						<h:outputText value="#{item.nvlDescripcion}" />
+					</p:column>
+					<p:column headerText="Opción" style="width: 2em ! important;">
+						<p:commandLink id="cmdlEditar" value="Ver"
+							style="margin-left:50px"
+							action="#{estudianteListaForm.verDatosEstudiante(item)}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			
+			<div>
+				<p:commandButton id="btnRegresar" value="Regresar"	action="#{suficienciaAprobacionForm.irPrincipal()}" />
+			</div>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value=" Reportes / Reimpresión resolucion de solicitudes Tercera Matrícula / listar estudiantes /Apelaciones realizadas " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarAgregar = 'compOculto:txtValidador3';
+     	var varAgregar = document.getElementById(idVarAgregar);
+	    	if(varAgregar.value == 1){
+	  		document.getElementById('frmVerApelacion:cmdlModalReporte').click();
+	 	    }
+        
+    } 
+    
+	 function nobackbutton(){
+	 		window.location.hash="no-back-button";
+	  		window.location.hash="Again-No-back-button" //chrome
+	   		window.onhashchange=function(){window.location.hash="no-back-button";}
+		  
+	      }
+
+ //]]> 
+</script>
+
+<script language="JavaScript">
+	//<![CDATA[
+		function abrirVentaReporte(formato, nombreReporte, tipo){
+			var url = "/aplicacion/reportes";
+			url = url + "?nombreJasper=" + nombreReporte;
+			url = url + "&formato=" + formato;
+			url = url + "&tipo=" + tipo;
+			if(formato == 'vista'){
+				var reportWindow = window.open(url);
+				reportWindow.focus();
+			}else{
+				var reportWindow = window.open(url);
+			}
+	    } 
+	 //]]> 
+</script>
+
+	<h:form id="frmVerApelacion" enctype="multipart/form-data" acceptcharset="UTF-8" >
+	
+		<p:panel id="pnlDatosEstudiante" header="Información del estudiante">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1  Identificacion************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4" style=" width: 40%;">
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblIdentificacion" for="identificacion" value="Identificación: " />
+							</ui:define>
+							
+							<ui:define name="valor">
+								<p:outputLabel id="identificacion" value="#{reimpresionAprobacionApelacionTerceraMatriculaForm.raatmfPersonaSeleccionadaVer.prsIdentificacion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+	                 <div class="cell colspan4" style=" width: 60%;"> 
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta" >
+								<p:outputLabel id="lblNombre" for="nombre" value="Nombre: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="nombre" value="#{reimpresionAprobacionApelacionTerceraMatriculaForm.raatmfPersonaSeleccionadaVer.prsPrimerApellido.concat(' ').
+								concat(reimpresionAprobacionApelacionTerceraMatriculaForm.raatmfPersonaSeleccionadaVer.prsSegundoApellido).concat(' ').
+								concat(reimpresionAprobacionApelacionTerceraMatriculaForm.raatmfPersonaSeleccionadaVer.prsNombres) }" 
+														style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+						   </ui:define>
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 1 -->
+				
+					<!-- ******************** FILA NUMERO 2 Periodo Academico************************ -->
+	        	<div class="row cells8"> 
+				
+					<div class="cell colspan4" style=" width: 40%;"> 
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCarrera" for="carrera" value="Carrera/Área: " />
+							</ui:define>
+							<ui:define name="valor" > 
+								<p:outputLabel id="carrera" value="#{reimpresionAprobacionApelacionTerceraMatriculaForm.raatmfCarreraVer.crrDescripcion }" 
+														style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div>
+		 <!-- Fin fila 2 -->
+			</div><!-- Fin GRID-->
+	</p:panel>
+		<p:panel id="pnlMaterias" header="Materias que solicitó tercera matrícula">
+		
+		 <div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		      	<div class="row cells11">
+		      		<div class="cell colspan10" >
+		       			<p:outputLabel id="asd" value=""/>
+		        	</div>
+		        
+		    	</div>
+		    </div>
+		    
+			<p:dataTable id="dtsMaterias" var="item" value="#{reimpresionAprobacionApelacionTerceraMatriculaForm.raatmfListaMateriasSolicitadasDto}"
+		   		 		rows="20" paginator="false" paginatorPosition="bottom"
+	                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+	                          style="text-align: center;">
+	     
+			        <p:column headerText="Código" style="width: 4em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.mtrCodigo}"/>
+			        </p:column>
+	                <p:column headerText="Asignatura" style="width: 15em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.mtrDescripcion}"/>
+			        </p:column>
+
+			         <p:column headerText="Estado de la solicitud" style="width: 4em  ! important; text-align: left; ">
+			            <h:outputText value="#{listasCombosForm.getLabelListaEstadoSolicitudTerceraMatriSltrmt(item.sltrmtEstado)}"/>
+			        </p:column>
+			        
+	                 <p:column headerText="Causal" style="width: 10em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.cslDescripcion}"/>
+			        </p:column>
+	
+	              <p:column headerText="Evidencia" style="width: 4em  ! important; ">
+						<p:commandLink id="lnkDescarga" value="descargar"  
+						    ajax="false" >
+							<p:fileDownload	value="#{reimpresionAprobacionApelacionTerceraMatriculaForm.descargaArchivo(item)}"  />
+						</p:commandLink>	
+			        </p:column>	
+				
+<!-- 				<p:column headerText="Resolución" style="width: 3em  ! important; "> -->
+<!-- 						<h:outputText value="#{item.sltrmtDocumentoResolucion}" /> -->
+<!-- 					</p:column> -->
+					
+				</p:dataTable>
+		</p:panel>
+	
+		<div>
+			<p:commandButton id="btnRegresar" value="Cancelar" 
+			action="#{reimpresionAprobacionApelacionTerceraMatriculaForm.regresarListarEstudiantes()}"
+			 immediate="true" ajax="false" />
+    		
+    		<p:commandButton id="btnExportar" value="Exportar a PDF" 
+			action="#{reimpresionAprobacionApelacionTerceraMatriculaForm.llamarReporte()}"
+               onclick="PF('dialogoTrabajando').show();"
+				oncomplete="PF('dialogoTrabajando').hide();" ajax="false" 
+			  update=":frmVerApelacion" 
+			  
+			   />
+    				    		
+    		<p:commandButton id="cmdlModalReporte" value="Imprimir reporte" style="visibility:hidden;">
+			<p:ajax oncomplete="abrirVentaReporte('PDF','reporteSecreAbogado','REPORTE_APROBACION_APELACION_TERCERA');" />
+			</p:commandButton>
+    				
+		</div>
+	</h:form>
+	
+	<h:form id="compOculto" style="visibility:hidden;">
+	 	<p:inputText id="txtValidador" value="#{reimpresionAprobacionApelacionTerceraMatriculaForm.raatmfClickGuardarResolver}" >
+		</p:inputText>	
+		
+		<p:inputText id="txtValidador2" value="#{reimpresionAprobacionApelacionTerceraMatriculaForm.raatmfActivaModalCargarResolucion}" >
+		</p:inputText>	
+		
+		<p:inputText id="txtValidador3"
+				value="#{reimpresionAprobacionApelacionTerceraMatriculaForm.raatmfActivaReportePDF}" />
+	</h:form>
+	
+</ui:define>
+</ui:composition>
+</html>

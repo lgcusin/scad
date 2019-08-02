@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Reportes / Historial Estudiante " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+
+
+<script language="JavaScript">
+	//<![CDATA[
+	    function abrirVentaReporte(formato, nombreReporte, tipo){
+				var url = "/aplicacion/reportes";
+				url = url + "?nombreJasper=" + nombreReporte;
+				url = url + "&formato=" + formato;
+				url = url + "&tipo=" + tipo;
+				if(formato == 'vista'){
+					var reportWindow = window.open(url);
+					reportWindow.focus();
+				}else{
+					var reportWindow = window.open(url);
+				}
+		   } 
+	 //]]> 
+</script>
+	<h:form id="frmReporteMatriculadosNivel" enctype="multipart/form-data" acceptcharset="UTF-8">
+		<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		       	
+		    	
+		    	
+		    	
+		    	<!-- ******************** FILA NUMERO 2 Facultad ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblFacultad" for="slcFacultad" value="Facultad:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcFacultad" value="#{reporteSemestresPeriodosForm.rspfDependenciaDto.dpnId}"
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{reporteSemestresPeriodosForm.rspfListDependencia}"
+												  itemLabel="#{item.dpnDescripcion}" itemValue="#{item.dpnId}" />
+												  <p:ajax event="change" listener= "#{reporteSemestresPeriodosForm.llenarCarreras()}" update="slcCarrera"/>
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgFacultad" for="slcFacultad" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	
+		    	   	<!-- ******************** FILA NUMERO 5 Carrera ************************ -->
+		       	<div class="row cells8">
+		       	
+		       	
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcCarrera" value="#{reporteSemestresPeriodosForm.rspfCarreraDto.crrId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{reporteSemestresPeriodosForm.rspfListCarreraDto}"
+												  itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}"/>
+												 <p:ajax event="change" listener= "#{reporteSemestresPeriodosForm.llenarCarrerasSAU}" update="slcPeriodo"/>
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgCarrera" for="slcCarrera" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	
+		    	
+		    	<!-- ******************** FILA NUMERO 2 Periodo ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPeriodo" for="slcPeriodo" value="Periodo:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcPeriodo" value="#{reporteSemestresPeriodosForm.rspfPeriodoAcademico.pracId}"
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{reporteSemestresPeriodosForm.rspfListPeriodoAcademico}"
+												  itemLabel="#{item.pracDescripcion}" itemValue="#{item.pracId}" />
+												  <p:ajax event="change"  update="slcPeriodo"/>
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgPeriodo" for="slcPeriodo" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		 
+		 	   	<!-- ******************** FILA NUMERO 5 Nivel-Semestre ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblNivel" for="slcNivel" value="Nivel" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcNivel" value="#{reporteSemestresPeriodosForm.rspfNivelDto.nvlId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+<!-- 		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"  -->
+<!-- 		       									  itemValue="#{generalesConstantesForm.appIdBase}"/>  -->
+										<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccioneTodos}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+
+									<f:selectItems  var="item" value="#{reporteSemestresPeriodosForm.rspfListNivel}"
+												  itemLabel="#{item.nvlDescripcion}" itemValue="#{item.nvlId}" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgNivel" for="slcNivel" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		 
+		  	   	<!-- ******************** FILA NUMERO 5 Estado Matricula ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblEstado" for="slcNivel" value="Estado Matricula" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcEstado" value="#{reporteSemestresPeriodosForm.rspfEstado}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+<!-- 		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"  -->
+<!-- 		       									  itemValue="#{generalesConstantesForm.appIdBase}"/>  -->
+										<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccioneTodos}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+
+									<f:selectItems  var="item" value="#{listasCombosForm.listaEstadosMatriculaSAU}"
+												  itemLabel="#{item.label}" itemValue="#{item.value}" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgEstado" for="slcEstado" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	
+		    		  	   	<!-- ******************** FILA NUMERO 5 Numero cedula ************************ -->
+		<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacion" for="txtIdentificacion"
+										value="Identificación:" />
+								</ui:define>
+								<ui:define name="valor">
+									<p:inputText id="txtIdentificacion"
+										value="#{reporteSemestresPeriodosForm.rspfIdentificacion}"
+										style="width:100%">
+									</p:inputText>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+		    	
+		    		<!-- ******************** FILA NUMERO Boton buscar ************************ -->
+		    	
+		    		<div >
+			<p:commandButton id="btnBuscar" value="Buscar"  action="#{reporteSemestresPeriodosForm.buscarHistorialEstudiante()}"
+								update="pnlResultados" onclick="PF('dialogoTrabajando').show();" 
+								oncomplete="PF('dialogoTrabajando').hide();"/> 
+			<p:commandButton id="btnLimpiar" value="Limpiar" action="#{reporteSemestresPeriodosForm.limpiarReporte()}"
+								update=":frmReporteMatriculadosNivel" /> 
+								
+			<p:commandButton id="btnImprimir" value="Imprimir" action="#{reporteSemestresPeriodosForm.verificarClickImprimir()}"
+    		  onclick="PF('dialogoTrabajando').show();" oncomplete="PF('dialogoTrabajando').hide();" ajax="false" disabled="#{reporteSemestresPeriodosForm.rpfHabilitarBoton == 0}" />
+    		  <p:commandButton id="btnImprimir2" value="Imprimir Xls" action="#{reporteParaleloForm.verificarClickImprimir2()}"
+    		  onclick="PF('dialogoTrabajando').show();" oncomplete="PF('dialogoTrabajando').hide();" ajax="false" disabled="#{reporteSemestresPeriodosForm.rpfHabilitarBoton == 0}" />
+    		  
+    		<p:commandButton id="cmdlModalReporte" value="Imprimir reporte" style="visibility:hidden;">
+				<p:ajax oncomplete="abrirVentaReporte('PDF','reporteParalelos','REPORTE_MATRICULADOS');" />
+			</p:commandButton>
+				
+		 
+		</div>
+		   	</div> 		
+		</p:panel>
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda" >
+			<p:dataTable id="dtsEstudiante" var="item" value="#{reporteSemestresPeriodosForm.rspfListHistorialEstudiantes}"
+			    		 		rows="10" paginator="true" paginatorPosition="bottom"
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+			              
+					        <p:column headerText="Identificacion" style="width: 4em ! important;">
+					            <h:outputText value="#{item.prsIdentificacion}"/>
+					        </p:column>       
+					        <p:column headerText="Apellidos" style="width: 4em ! important;">
+					            <h:outputText value="#{item.prsPrimerApellido} #{item.prsSegundoApellido}"/>
+					        </p:column>
+					        <p:column headerText="Nombres" style="width: 4em ! important;">
+					            <h:outputText value="#{item.prsNombres}"/>
+					        </p:column>
+					         <p:column headerText="Facultad" style="width: 4em ! important;">
+					            <h:outputText value="#{item.dpnDescripcion}"/>
+					        </p:column>
+					        <p:column headerText="Carrera" style="width: 4em ! important;">
+					            <h:outputText value="#{item.crrDescripcion}"/>
+					        </p:column>
+					         <p:column headerText="Semestre" style="width: 4em ! important;">
+					            <h:outputText value="#{item.nvlDescripcion}"/>
+					        </p:column>
+					       <p:column headerText="Periodo" style="width: 4em ! important;">
+					            <h:outputText value="#{item.pracDescripcion}"/>
+					        </p:column>
+<!-- 					        <p:column headerText="Total Inscritos" style="width: 15% ! important;"> -->
+<!-- 					            <h:outputText value="#{item.rcesNumeroMatriculados}"/> -->
+<!-- 					        </p:column> -->
+				</p:dataTable>
+		</p:panel>
+		
+		
+		
+		<div >
+			<p:commandButton id="btnSalir" value="Regresar" action="#{reporteSemestresPeriodosForm.irInicio()}" />
+			
+		</div>
+	</h:form>		
+</ui:define>
+</ui:composition>
+</html>

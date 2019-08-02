@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Administración pregrado / Paralelos / Editar paralelo  " />
+		</ui:include>
+	</ui:define>
+	
+	<ui:define name="cuerpo">
+
+		<h:form id="frmEditarParalelo" enctype="multipart/form-data" acceptcharset="UTF-8">
+			<p:panel id="pnlDatos" header="Información del paralelo">
+
+				<div class="grid condensed">
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPeriodoAcademico" for="periodoAcademico" value="Período Académico: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="periodoAcademico"
+										value="#{administracionSuficienciaParaleloForm.apfParaleloDto.pracDescripcion}"
+										style="vertical-align: super;font-weight: Normal !important; width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCarrera" for="carrera" value="Carrera: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="carrera"
+										value="#{administracionSuficienciaParaleloForm.apfParaleloDto.crrDescripcion}"
+										style="vertical-align: super;font-weight: Normal !important; width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCodigo" for="txtCodigo" value="Código: " />
+								</ui:define>
+
+								<ui:define name="valor">
+									<h:outputLabel id="txtCodigo"
+										value="#{administracionSuficienciaParaleloForm.apfParaleloDto.prlCodigo}">
+									</h:outputLabel>
+								</ui:define>
+
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblModalidad" for="slcModalidad"	value="Descripción: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="slcModalidad"
+										value="#{administracionSuficienciaParaleloForm.apfParaleloDto.prlDescripcion}"
+										style="width: 100%;"/>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNivel" for="txtNivel" value="Nivel: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtNivel" value="#{administracionSuficienciaParaleloForm.apfParaleloDto.nvlDescripcion}" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblEstado" for="slcEstado"	value="Estado: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcEstado"
+										value="#{administracionSuficienciaParaleloForm.apfEstadoId}"
+										style="width: 100%;">
+										<f:selectItems var="item" value="#{administracionSuficienciaParaleloForm.apfListEstados}"
+											itemLabel="#{item.label}" itemValue="#{item.value}" />
+										<p:ajax event="change" update="lblEstado, slcEstado" />
+									</h:selectOneMenu>
+								</ui:define>
+							</ui:decorate>
+						</div>
+
+					</div>
+
+				</div>
+				
+				<div>
+					<p:commandButton id="btnGuardar" value="Guardar cambios"
+						action="#{administracionSuficienciaParaleloForm.irGuardarCambiosParaleloPregrado()}"  
+						ajax="false" />
+				</div>
+			
+			</p:panel>
+
+			
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+
+				<p:dataTable id="dtsParalelo" var="item"
+					value="#{administracionSuficienciaParaleloForm.apfListNivelCompletoMateriaDto}"
+					rowIndexVar="rowIndex"
+					rows="15" paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15"
+					emptyMessage="EL PARALELO SELECCIONADO NO POSEE MATERIAS ASIGNADAS">
+					
+					<p:column headerText="#" style="width: 0.1em ! important; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column headerText="Asignatura" style="width: 10em ! important;">
+						<h:outputText value="#{item.mtrCodigo} - #{item.mtrDescripcion}" />
+					</p:column>
+					<p:column headerText="Tipo" style="width: 2em !important;">
+						<h:outputText value="#{administracionSuficienciaParaleloForm.etiquetarTipoMateria(item.mtrTpmtId)}" />
+					</p:column>
+					<p:column headerText="Opción" style="width: 1em ! important; text-align:center">
+						<p:commandLink id="btnEliminar" value="Eliminar"
+							action="#{administracionSuficienciaParaleloForm.eliminarMateriaDelParaleloPregrado(item)}"
+							rendered="#{item.mtrCmbEstado}"
+							update="pnlResultados, dtsParalelo"
+							style="color:red;" 
+							ajax="false" />
+						<p:commandLink id="btnAgregar" value="Agregar"
+							action="#{administracionSuficienciaParaleloForm.agregarMateriaAlParaleloPregrado(item)}"
+							rendered="#{!item.mtrCmbEstado}"
+							update="pnlResultados, dtsParalelo"
+							style="color:blue;" 
+							ajax="false" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			
+			<div>
+				<p:commandButton id="btnRegresar" value="Regresar"
+					action="#{administracionSuficienciaParaleloForm.irVerParaleloPregrado()}"  
+					immediate="true"
+					ajax="false"/>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

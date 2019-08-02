@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Reportes / Evaluación Estudiantes" />
+		</ui:include>
+	</ui:define>
+	<ui:define name="cuerpo">
+<script language="JavaScript">
+    //<![CDATA[
+	     function nobackbutton(){
+	 		window.location.hash="no-back-button";
+	  		window.location.hash="Again-No-back-button" //chrome
+	   		window.onhashchange=function(){window.location.hash="no-back-button";}
+	      }
+ //]]> 
+</script>
+
+<script language="JavaScript">
+		//<![CDATA[
+		    function verificarErrores(){
+		        var idVarAgregar = 'compOculto:txtValidador';
+		     	var varAgregar = document.getElementById(idVarAgregar);
+			    	if(varAgregar.value == 1){
+			  			document.getElementById('frmListarEvaluacionEstudiantes:cmdlModalReporte').click();
+			 	    }
+		  	    }
+		 //]]> 
+		</script>
+	<script language="JavaScript">
+	//<![CDATA[
+		function abrirVentaReporte(formato, nombreReporte, tipo){
+			var url = "/aplicacion/reportes";
+			url = url + "?nombreJasper=" + nombreReporte;
+			url = url + "&formato=" + formato;
+			url = url + "&tipo=" + tipo;
+			if(formato == 'vista'){
+				var reportWindow = window.open(url);
+				reportWindow.focus();
+			}else{
+				var reportWindow = window.open(url);
+			}
+	    } 
+	 //]]> 
+	</script>
+
+		<h:form id="frmListarEvaluacionEstudiantes" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+					
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+			         <div class="row cells8">
+			     		<div class="cell colspan4" >
+			       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+			       				<ui:define name="etiqueta">	
+			       					<p:outputLabel id="lblPeriodo" for="slcPeriodo" value="Período Académico:" />	
+			       				</ui:define>
+			       				<ui:define name="valor">	
+			       					<h:selectOneMenu id="slcPeriodo" value="#{administracionEvaluacionEstudianteForm.aeefPeriodoAcademicoBuscar.pracId}" 
+			       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+			       								style="width:100%"> 
+			       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+			       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+										<f:selectItems  var="item" value="#{administracionEvaluacionEstudianteForm.aeefListPeriodoAcademico}" 
+													  itemLabel="#{item.pracDescripcion}" itemValue="#{item.pracId}" />
+													  <p:ajax event="change" listener="#{administracionEvaluacionEstudianteForm.cambiarPeriodo()}" 
+													  			update="lblPeriodo, slcPeriodo, msgPeriodo, slcFacultad , lblFacultad , msgFacultad , slcCarrera , lblCarrera , msgCarrera , pnlResultados , frmListarEvaluacionEstudiantes " />
+									</h:selectOneMenu>	
+			       				</ui:define>
+			       				<ui:define name="etiquetaError">
+										<p:message id="msgPeriodo" for="slcPeriodo" />
+								</ui:define>
+			       			</ui:decorate>
+			        	</div>
+			    	</div>
+				
+					<!-- ******************** FILA NUMERO 2 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- Combo de Dependencias -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblFacultad" for="slcFacultad" value="Facultad:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcFacultad" value="#{administracionEvaluacionEstudianteForm.aeefFacultadBuscar.dpnId}" required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}" style="width:100%">
+										<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{administracionEvaluacionEstudianteForm.aeefListDependencia}"
+											itemLabel="#{item.dpnDescripcion}" itemValue="#{item.dpnId}" />
+										<p:ajax event="change" listener="#{administracionEvaluacionEstudianteForm.llenarCarrera(administracionEvaluacionEstudianteForm.aeefFacultadBuscar.dpnId)}"
+											update=":frmListarEvaluacionEstudiantes:pnlBusqueda,:frmListarEvaluacionEstudiantes:pnlResultados" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgFacultad" for="slcFacultad" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+					<!-- Fin fila 1 -->
+
+
+<!-- 					******************** FILA NUMERO 3 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcCarrera" value="#{administracionEvaluacionEstudianteForm.aeefCarreraBuscar.crrId}" required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%">
+										<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccioneTodos}" itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item" value="#{administracionEvaluacionEstudianteForm.aeefListCarrera}"
+											itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />
+											<p:ajax event="change" listener="#{administracionEvaluacionEstudianteForm.cambiarCarrera()}" update="lblCarrera, slcCarrera ,msgCarrera, pnlResultados , dtsMateria ,  frmListarEvaluacionEstudiantes " />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgCarrera" for="slcCarrera" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+<!-- 					Fin fila 2 -->
+
+				</div>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnBuscar" value="Buscar" action="#{administracionEvaluacionEstudianteForm.buscar(administracionEvaluacionEstudianteForm.aeefPeriodoAcademicoBuscar, administracionEvaluacionEstudianteForm.aeefFacultadBuscar, administracionEvaluacionEstudianteForm.aeefCarreraBuscar)}" 
+				    update=":frmListarEvaluacionEstudiantes:pnlResultados" onclick="PF('dialogoTrabajando').show();" ajax="false"
+					oncomplete="PF('dialogoTrabajando').hide();" />
+
+				<p:commandButton id="btnLimpiar" value="Limpiar" action="#{administracionEvaluacionEstudianteForm.limpiar()}"
+					update=":frmListarEvaluacionEstudiantes:pnlResultados , :frmListarEvaluacionEstudiantes:pnlBusqueda" />
+			</div>
+
+
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+				<!-- ****  Asigno la lista de Materias del Bean Manejado al dataTable*** -->
+				<p:dataTable id="dtsMateria" var="item" value="#{administracionEvaluacionEstudianteForm.aeefListMateria}" rows="10"
+					paginator="true" paginatorPosition="bottom"
+					rowIndexVar="rowIndex"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15"
+					emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+					<p:column headerText="#" style="width: 0.1em ! important; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column headerText="Carrera" style="width: 4em ! important;">
+						<h:outputText value="#{item.crrDescripcion}" />
+					</p:column>
+					<p:column headerText="Estudiante" style="width: 4em! important;">
+						<h:outputText value="#{item.prsPrimerApellido.concat(' ').concat(item.prsSegundoApellido).concat(' ').concat(item.prsNombres)}" />
+					</p:column>
+					<p:column headerText="Asignatura" style="width: 4em ! important;">
+						<h:outputText value="#{item.mtrDescripcion}" />
+					</p:column>
+					<p:column headerText="Docente" style="width: 4em ! important;">
+						<h:outputText value="#{item.mtrPersonaDto.prsPrimerApellido.concat(' ').concat(item.mtrPersonaDto.prsSegundoApellido).concat(' ').concat(item.mtrPersonaDto.prsNombres)}" />
+					</p:column>
+					<p:column headerText="Estado" style="width: 1em ! important; text-align:center;">
+						<h:outputText value="#{item.mtrEstadoLabel}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			
+			<div>
+		  		<p:commandButton id="btnRegresar" value="Regresar" action="#{administracionEvaluacionEstudianteForm.cancelar()}" /> 
+		  		
+		  		<p:commandButton id="btnExportar" value="Imprimir" action="#{administracionEvaluacionEstudianteForm.verificarClickImprimir()}"
+	    		onclick="PF('dialogoTrabajando').show();" 
+	    		oncomplete="PF('dialogoTrabajando').hide();" 
+	    		ajax="false" />
+	    	
+	    		
+			<p:commandButton id="cmdlModalReporte" value="Imprimir reporte" style="visibility:hidden;">
+				<p:ajax oncomplete="abrirVentaReporte('XLS','generalEvaluacion','EVALUACION_GENERAL');" />
+			</p:commandButton>
+			
+			
+			</div>
+
+		</h:form>
+
+		<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador" value="#{administracionEvaluacionEstudianteForm.aeefValidadorClic}" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:H="http://xmlns.jcp.org/jsf/html">
+
+	<h:form id="frmModalParaleloEspecial">
+
+		<p:dialog id="dlgParaleloEspecial"
+			widgetVar="dlgModalParaleloEspecial" modal="true" draggable="false"
+			closable="false" resizable="false" height="300" width="800"
+			styleClass="modal-sin-header">
+
+			<p:outputLabel value="Paralelo Especial"
+				style="font-size: 1.1em !important;" />
+
+			<p:messages autoUpdate="true" globalOnly="true" />
+
+			<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar">
+				<div class="grid condensed">
+					<div class="row cells8">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblDependencia" for="slcDependencia" value="Dependencia: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcDependencia" value="#{administracionSuficienciaParaleloForm.apfDependenciaParaleloEspecialId}" style="width:100%">
+										<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item" value="#{administracionSuficienciaParaleloForm.apfListDependenciaParaleloEspecial}"
+											itemLabel="#{item.dpnDescripcion}" 
+											itemValue="#{item.dpnId}" />
+										<p:ajax event="change"
+											listener="#{administracionSuficienciaParaleloForm.buscarCarrerasParaleloEspecial()}"
+											update="lblDependencia , slcDependencia" />
+									</h:selectOneMenu>
+								</ui:define>
+							</ui:decorate>
+					</div>
+						
+					<div class="row cells8">
+							<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+			       				<ui:define name="etiqueta">	
+			       					<p:outputLabel id="lblFechaInicio" for="txtFechaInicio" value="Inicio:"/>	
+			       				</ui:define>
+			       				<ui:define name="valor">	
+									<p:calendar  id="txtFechaInicio" value="#{administracionSuficienciaParaleloForm.apfFechaIncioParaleloEspecial}" 
+			       						effect="fold"
+										readonlyInput="true"
+										pattern="dd-MM-yyyy">
+										<p:ajax event="dateSelect" update="pnlBusqueda" />
+									</p:calendar>
+			       				</ui:define>
+			       			</ui:decorate>
+					</div>
+					
+					<div class="row cells8">
+							<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+			       				<ui:define name="etiqueta">	
+			       					<p:outputLabel id="lblFechaFin" for="txtFechaFin" value="Fin:"/>	
+			       				</ui:define>
+			       				<ui:define name="valor">	
+			       					<p:calendar  id="txtFechaFin" value="#{administracionSuficienciaParaleloForm.apfFechaFinParaleloEspecial}" 
+			       						effect="fold"
+										readonlyInput="true"
+										pattern="dd-MM-yyyy">
+										<p:ajax event="dateSelect"
+											listener="#{administracionSuficienciaParaleloForm.verificarFechasParaleloEspecial()}" 
+											update="pnlBusqueda" />
+									</p:calendar>
+			       				</ui:define>
+			       			</ui:decorate>
+					</div>
+
+				</div>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnCancelar" value="Cancelar"
+					action="#{administracionSuficienciaParaleloForm.vaciarModalParaleloEspecial()}"
+					onclick="PF('dlgParaleloEspecial').hide();" />
+				<p:commandButton id="btnAsignar" value="Asignar"
+					action="#{administracionSuficienciaParaleloForm.asignarAtributosParaleloEspecial()}" 
+					onclick="PF('dlgParaleloEspecial').hide();" />
+			</div>
+
+		</p:dialog>
+	</h:form>
+</ui:composition>

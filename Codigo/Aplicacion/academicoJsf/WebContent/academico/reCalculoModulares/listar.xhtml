@@ -1,0 +1,414 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Informático Facultad #{recalculoModularForm.rmfDependencia.dpnDescripcion} / Recálculo de materias modulares " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+	    	
+    function abrirVentaReporte(formato, nombreReporte, tipo){
+    	var url = "/aplicacion/reportes";
+    	url = url + "?nombreJasper=" + nombreReporte;
+    	url = url + "&formato=" + formato;
+    	url = url + "&tipo=" + tipo;
+    	if(formato == 'vista'){
+    		var reportWindow = window.open(url, "reportWindow","menubar=0,resizable=0,status=0,width=800,height=600");
+    	}else{
+    		var reportWindow = window.open(url, "reportWindow","menubar=0,resizable=0,status=0,width=0,height=0");
+    	}
+    }
+
+    
+    
+ //]]> 
+</script>
+	<h:form id="frmListarModulares" enctype="multipart/form-data" acceptcharset="UTF-8">
+		<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+				<div class="row cells8">
+					<div class="cell colspan4"><!-- PERIODO ACADEMICO -->
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblPeriodoAcademico" for="slcPeriodoAcademico" value="Período Académico: " />
+							</ui:define>
+							<ui:define name="valor">
+								<h:selectOneMenu id="slcPeriodoAcademico" value="#{recalculoModularForm.rmfPeriodoAcademicoBuscar.pracId}"
+									required="false" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+									style="width:100%">
+									<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}" />
+									<f:selectItems var="item"  value="#{recalculoModularForm.rmfListaPeriodoAcademico}"
+										itemLabel="#{item.pracDescripcion}" itemValue="#{item.pracId}" />
+								</h:selectOneMenu>
+							</ui:define>
+							<ui:define name="etiquetaError">
+								<p:message id="msgPeriodoAcademico" for="slcPeriodoAcademico" />
+							</ui:define>
+						</ui:decorate>
+					</div>
+				<!-- ******************** FIN FILA NUMERO 1 ************************ --> 
+				</div><!-- ******************** FILA NUMERO 2 ************************ --> 
+				
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblMateria" for="slcMateria" value="Materia modular:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcMateria" value="#{recalculoModularForm.rmfMateriaConsultar.mtrId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{recalculoModularForm.rmfListMateria}"
+												  itemLabel="#{item.mtrDescripcion}" itemValue="#{item.mtrId}" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgMateria" for="slcMateria" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	<div class="row cells8">
+		       		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblIdentificacion" for="txtIdentificacion" value="Identificación: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<p:inputText id="txtIdentificacion" value="#{recalculoModularForm.rmfPrsIdentificacion}">
+		       					</p:inputText>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgIdentificacion" for="txtIdentificacion" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	<!-- ******************** FILA NUMERO 2 ************************ -->
+		    	   	<!-- ******************** FILA NUMERO 5 ************************ -->
+		 
+		   	</div> 		
+		</p:panel>
+		<div >
+			<p:commandButton id="btnBuscar" value="Buscar"  action="#{recalculoModularForm.buscar()}"
+								update=":frmListarModulares , pnlDatosEstudiante , btnRecalculo" onclick="PF('dialogoTrabajando').show();" 
+								oncomplete="PF('dialogoTrabajando').hide();"/> 
+			<p:commandButton id="btnLimpiar" value="Limpiar" action="#{recalculoModularForm.limpiar()}"
+								update=":frmListarModulares" />  
+		</div>
+		<p:panel id="pnlDatosEstudiante" header="Datos del estudiante #{recalculoModularForm.rmfNombreEstudiante}" >
+			<p:dataTable id="dtsMateriaModular" var="item" value="#{recalculoModularForm.rmfListMateriasModular}"
+			    		 		rows="1" paginator="false" 
+	                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                          emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+	                          style="text-align: center; font-size: 12px;"  rowIndexVar="rowIndex">
+			                         
+					 <p:columnGroup type="header">
+						<p:row>
+							<p:column rowspan="2" headerText="#"
+								style="width: 1em ! important; text-align: center;">
+							</p:column>
+							<p:column rowspan="2" headerText="Asignatura"
+								style="width: 20em  ! important; " />
+							<p:column rowspan="2" headerText="Matrícula"
+								style="width: 6em  ! important;  "  />
+							<p:column rowspan="2" headerText="Paralelo"
+								style="width: 6em  ! important;  " />
+							<p:column colspan="2" headerText="1er Hemisemestre" />
+							<p:column colspan="2" headerText="2do Hemisemestre" />
+							<p:column rowspan="2" headerText="Asistencia  (%)"
+								style="width: 5em  ! important;  " />
+							<p:column rowspan="2" headerText="Nota semestre"
+								style="width: 4em  ! important;  " />
+							<p:column rowspan="2" headerText="Estado"
+								style="width: 7em  ! important; " />
+						</p:row>
+						<p:row>
+							<p:column headerText="Nota" style="width: 2em  ! important; " />
+							<p:column headerText="Asistencia"
+								style="width: 2.5em  ! important;  " />
+							<p:column headerText="Nota" style=" width: 2em  ! important;  " />
+							<p:column headerText="Asistencia"
+								style="width: 2.5em  ! important;  " />
+						</p:row>
+					</p:columnGroup>
+
+					<p:column style="text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column style="text-align: left;">
+						
+						<div style="display: flex;">
+						<h:outputText id="mtrCodigo" value="#{item.mtrCodigo}"  style="padding-right: 10px;" />
+						
+							<h:outputText value="#{item.mtrDescripcion}"
+								for="mtrCodigo" style="width:95%" />
+						</div>
+					</p:column>
+
+					<p:column tyle="width: 6em  ! important; text-align: left; "  >
+			            <h:outputText value="#{item.dtmtNumero }"/>
+			           </p:column>
+			        
+			           <p:column style="width: 6em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.prlDescripcion}"/>
+			           </p:column>
+			        
+			            <p:column style="width: 2em  ! important; text-align: right; " >
+			               <h:outputText value="#{item.clfNota1}">
+			                     <f:convertNumber type="number"
+                                 maxIntegerDigits="2"
+                                 minFractionDigits="2"
+                                 maxFractionDigits="2"
+                                 groupingUsed="false"
+                                 />
+                            </h:outputText> 
+                                 
+			            </p:column>
+			     
+			            <p:column style="width: 2em  ! important; text-align: right;  " >
+			               <h:outputText value="#{item.clfAsistencia1} / #{item.clfAsistenciaDocente1}" />
+			           </p:column>
+                  
+			           <p:column  style=" width: 2em  ! important; text-align: right; ">
+			            <h:outputText value="#{item.clfNota2}">
+			              <f:convertNumber type="number"
+                                 maxIntegerDigits="2"
+                                 minFractionDigits="2"
+                                 maxFractionDigits="2"
+                                 groupingUsed="false"
+                                 />
+                       </h:outputText> 
+			           </p:column>
+			        
+			           <p:column style="width: 2em  ! important; text-align: right; " >
+			            <h:outputText value="#{item.clfAsistencia2} / #{item.clfAsistenciaDocente2}"/>
+			           </p:column>
+			        
+			           <p:column style="width: 4em  ! important; ">
+		                 	<h:outputText value="#{item.clfPromedioAsistencia}">
+		                      <f:convertNumber type="number"
+                                 maxIntegerDigits="3"
+                                 minFractionDigits="2"
+                                 maxFractionDigits="2"
+                                 groupingUsed="false"
+                                 />
+                                
+		                 	
+		                 	</h:outputText>
+			           </p:column>
+			           
+			        
+			        
+			      
+			           <p:column style="width: 2em  ! important; text-align: right; " >
+			            <h:outputText value="#{item.clfNotaFinalSemestre}">
+			                <f:convertNumber type="number"
+                                 maxIntegerDigits="2"
+                                 minFractionDigits="2"
+                                 maxFractionDigits="2"
+                                 groupingUsed="false"
+                                 />
+                       </h:outputText> 
+			            
+			           </p:column>
+			        
+			           <p:column style="width: 7em  ! important; text-align: left;" >
+			            <h:outputText value="#{item.rcesEstado != null ? listasCombosForm.getListaEstadoRecorAcademico(item.rcesEstado):item.cmfrDescripcion }"/>          
+			           </p:column>
+			        
+				</p:dataTable>		
+		</p:panel>
+		
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda" >
+			<p:dataTable id="dtsEstudiante" var="item" value="#{recalculoModularForm.rmfListMateriasModulos}"
+			    		 		
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+			                           style="text-align: center; font-size: 12px;"  rowIndexVar="rowIndex">
+			                         
+					        <p:columnGroup type="header">
+						<p:row>
+							<p:column rowspan="2" headerText="#"
+								style="width: 1em ! important; text-align: center;">
+							</p:column>
+							<p:column rowspan="2" headerText="Asignatura"
+								style="width: 20em  ! important; " />
+							<p:column rowspan="2" headerText="Paralelo"
+								style="width: 6em  ! important;  " />
+							<p:column colspan="2" headerText="1er Hemisemestre" />
+							<p:column colspan="2" headerText="2do Hemisemestre" />
+							<p:column rowspan="2" headerText="Asist.  (%)"
+								style="width: 4em  ! important;  " />
+							<p:column rowspan="2" headerText="Nota semest."
+								style="width: 3.5em  ! important;  " />
+							<p:column colspan="4" headerText="Recuperación" />
+							<p:column rowspan="2" headerText="Estado"
+								style="width: 7em  ! important; " />
+						</p:row>
+						<p:row>
+							<p:column headerText="Nota" style="width: 2em  ! important; " />
+							<p:column headerText="Asistencia"
+								style="width: 2.5em  ! important;  " />
+							<p:column headerText="Nota" style=" width: 2em  ! important;  " />
+							<p:column headerText="Asistencia"
+								style="width: 2.5em  ! important;  " />
+							<p:column headerText="40%" style="width: 1.5em  ! important; "  />
+							<p:column headerText="Supletorio"
+								style="width: 4em  ! important;  " />
+							<p:column headerText="60%" style="width: 1.5em  ! important;  " />
+							<p:column headerText="Nota final"
+								style="width: 2em  ! important; " />
+						</p:row>
+					</p:columnGroup>
+
+					<p:column style="text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column style="text-align: left;">
+						
+						<div style="display: flex;">
+						<h:outputText id="mtrCodigo" value="#{item.mtrCodigo}"  style="padding-right: 10px;" />
+						
+							<h:outputText value="#{item.mtrDescripcion}"
+								for="mtrCodigo" style="width:95%" />
+						</div>
+					</p:column>
+
+			        
+			           <p:column style="width: 6em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.prlDescripcion}"/>
+			           </p:column>
+			        
+			            <p:column style="width: 2em  ! important; text-align: right; " >
+			               <h:outputText value="#{item.clfNota1}">
+			                     <f:convertNumber type="number"
+                                 maxIntegerDigits="2"
+                                 minFractionDigits="2"
+                                 maxFractionDigits="2"
+                                 groupingUsed="false"
+                                 />
+                            </h:outputText> 
+                                 
+			            </p:column>
+			     
+			            <p:column style="width: 2em  ! important; text-align: right;  " >
+			               <h:outputText value="#{item.clfAsistencia1} / #{item.clfAsistenciaDocente1}" />
+			           </p:column>
+                  
+			           <p:column  style=" width: 2em  ! important; text-align: right; ">
+			            <h:outputText value="#{item.clfNota2}">
+			              <f:convertNumber type="number"
+                                 maxIntegerDigits="2"
+                                 minFractionDigits="2"
+                                 maxFractionDigits="2"
+                                 groupingUsed="false"
+                                 />
+                       </h:outputText> 
+			           </p:column>
+			        
+			           <p:column style="width: 2em  ! important; text-align: right; " >
+			            <h:outputText value="#{item.clfAsistencia2} / #{item.clfAsistenciaDocente2}"/>
+			           </p:column>
+			        
+			           <p:column style="width: 4em  ! important; ">
+		                 	<h:outputText value="#{item.clfPromedioAsistencia}">
+		                      <f:convertNumber type="number"
+                                 maxIntegerDigits="3"
+                                 minFractionDigits="2"
+                                 maxFractionDigits="2"
+                                 groupingUsed="false"
+                                 />
+                                
+		                 	
+		                 	</h:outputText>
+			           </p:column>
+			           
+			           <p:column style="width: 3.5em  ! important; text-align: right; " >
+			            <h:outputText value="#{item.clfSumaP1P2}">
+			            <f:convertNumber type="number"
+                                 maxIntegerDigits="2"
+                                 minFractionDigits="2"
+                                 maxFractionDigits="2"
+                                 groupingUsed="false"
+                                 />
+                       </h:outputText> 
+			           </p:column>
+			        
+			           <p:column style="width: 1.5em  ! important; text-align: right; " >
+			            <h:outputText value="#{item.clfParamRecuperacion1}">
+			            <f:convertNumber type="number"
+                                 maxIntegerDigits="2"
+                                 minFractionDigits="2"
+                                 maxFractionDigits="2"
+                                 groupingUsed="false"
+                                 />
+                       </h:outputText> 
+			           </p:column>
+			        
+			           <p:column style="width: 4em  ! important; text-align: right; " >
+			            <h:outputText value="#{item.clfSupletorio}" >
+			            <f:convertNumber type="number"
+                                 maxIntegerDigits="2"
+                                 minFractionDigits="2"
+                                 maxFractionDigits="2"
+                                 groupingUsed="false"
+                                 />
+                       </h:outputText> 
+			           </p:column>
+			     
+			     
+			           <p:column style="width: 1.5em  ! important; text-align: right;" >
+			            <h:outputText value="#{item.clfParamRecuperacion2}">
+			            <f:convertNumber type="number"
+                                 maxIntegerDigits="2"
+                                 minFractionDigits="2"
+                                 maxFractionDigits="2"
+                                 groupingUsed="false"
+                                 />
+                       </h:outputText> 
+			           </p:column>
+			        
+			      
+			           <p:column style="width: 2em  ! important; text-align: right; " >
+			            <h:outputText value="#{item.clfNotaFinalSemestre}">
+			                <f:convertNumber type="number"
+                                 maxIntegerDigits="2"
+                                 minFractionDigits="2"
+                                 maxFractionDigits="2"
+                                 groupingUsed="false"
+                                 />
+                       </h:outputText> 
+			            
+			           </p:column>
+			        
+			           <p:column style="width: 7em  ! important; text-align: left;" >
+			            <h:outputText value="#{item.clfSupletorio!=null?item.clfNotaFinalSemestre>27.5?'APROBADO':'REPROBADO': item.clfNotaFinalSemestre>27.5?'APROBADO':item.clfNotaFinalSemestre>8.8?'RECUPERACION':'REPROBADO'}"/>          
+			           </p:column>
+				</p:dataTable>
+		</p:panel>
+		<div >
+			<p:commandButton id="btnSalir" value="Regresar" action="#{recalculoModularForm.irInicio()}" />
+			<p:commandButton id="btnRecalculo" value="Calcular" action="#{recalculoModularForm.irRecalculo()}" update="pnlDatosEstudiante , btnGuardar"
+			rendered="#{recalculoModularForm.rmfValidadorCalcular==1?'true':'false'}"/>
+			<p:commandButton id="btnGuardar" value="Guardar" action="#{recalculoModularForm.guardar()}" update="pnlDatosEstudiante"
+			disabled="#{recalculoModularForm.rmfValidadorGuardar==1?'false':'true'}"/>
+		</div>
+	</h:form>		
+</ui:define>
+</ui:composition>
+</html>

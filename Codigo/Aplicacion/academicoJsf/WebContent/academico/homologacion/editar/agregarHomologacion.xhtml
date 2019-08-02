@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Editar homologación / Buscar estudiante/Agregar homologación" />
+		</ui:include>
+</ui:define>
+
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador';
+    	var varError = document.getElementById(idVarError);
+    	if(varError.value == 1){
+    		document.getElementById('frmAgregarMaterias:btnModalAgregarHomologacion').click();
+        }
+   	
+
+	  }
+	  
+    	 function nobackbutton(){
+ 	 		window.location.hash="no-back-button";
+ 	  		window.location.hash="Again-No-back-button" //chrome
+ 	   		window.onhashchange=function(){window.location.hash="no-back-button";}
+ 	      }
+
+
+    	 $(document).ready(function() {
+    		    $("form").keypress(function(e) {
+    		        if (e.which == 13) {
+    		            return false;
+    		        }
+    		    });
+    		});
+
+ //]]> 
+</script>
+
+<script language="JavaScript">
+	//<![CDATA[
+		function abrirVentaReporte(formato, nombreReporte, tipo){
+			var url = "/aplicacion/reportes";
+			url = url + "?nombreJasper=" + nombreReporte;
+			url = url + "&formato=" + formato;
+			url = url + "&tipo=" + tipo;
+			if(formato == 'vista'){
+				var reportWindow = window.open(url);
+				reportWindow.focus();
+			}else{
+				var reportWindow = window.open(url);
+			}
+	    } 
+	 //]]> 
+</script>
+	<h:form id="frmAgregarMaterias" enctype="multipart/form-data" acceptcharset="UTF-8" >
+			<p:panel id="pnlDatosEstudiante" header="Información Estudiante">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+					<!-- ******************** FILA NUMERO 1  Identificacion************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4" style="width: 40%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacion" for="identificacion"
+										value="Identificación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="identificacion"
+										value="#{editarHomologacionForm.ehfPersonaDtoAgregar.prsIdentificacion}"
+										style="vertical-align: super;font-weight: Normal !important; width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4" style="width: 60%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNombre" for="nombre" value="Nombre: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="nombre"
+										value="#{editarHomologacionForm.ehfPersonaDtoAgregar.prsPrimerApellido.concat(' ').
+								concat(editarHomologacionForm.ehfPersonaDtoAgregar.prsSegundoApellido).concat(' ').
+								concat(editarHomologacionForm.ehfPersonaDtoAgregar.prsNombres) }"
+										style="vertical-align: super;font-weight: Normal !important; width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- Fin fila 1 -->
+					<!-- ******************** FILA NUMERO 2 Periodo Academico************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4" style="width: 40%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPeriodo" for="periodo"
+										value="Periodo Académico de registro: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="periodo"
+										value="#{editarHomologacionForm.ehfPeriodoAcademicoInscripcion.pracDescripcion }"
+										style="vertical-align: super;font-weight: Normal !important; width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4" style="width: 60%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCarrera" for="carrera"
+										value="Carrera/Área: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="carrera"
+										value="#{editarHomologacionForm.ehfPersonaDtoAgregar.crrDetalle}"
+										style="vertical-align: super;font-weight: Normal !important; width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- Fin fila 2 -->
+					
+					
+					<div class="row cells8">
+						<div class="cell colspan4" style="width: 40%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblTipoIngreso" for="tipoIngreso"
+										value="Tipo de ingreso: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="tipoIngreso"
+										value="#{listasCombosForm.getLabelTipoIngresoHomologacion(editarHomologacionForm.ehfPersonaDtoAgregar.fcinTipoIngreso) }"
+										style="vertical-align: super;font-weight: Normal !important; width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+				
+						<div class="cell colspan4" style="width: 60%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblEstadoIngreso" for="estadoIngreso"
+										value="Estado de ingreso: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="estadoIngreso"
+										value="#{listasCombosForm.getLabelEstadoIngresoHomologacion(editarHomologacionForm.ehfPersonaDtoAgregar.fcinEstadoIngreso) }"
+										style="vertical-align: super;font-weight: Normal !important; width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+				
+					
+						
+					</div>
+					<!-- Fin fila 2 -->
+					
+					
+										
+				
+								
+				</div>
+				<!-- Fin GRID-->
+			</p:panel>
+	
+	<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+		<p:panel id="pnlResultados" header="Asignaturas disponibles para registrar"     >
+			<p:dataTable id="dtsMateria" var="itemMateria" value="#{editarHomologacionForm.ehfListMateriaDto}"
+		   		 		rows="120" paginator="false" paginatorPosition="bottom"
+	                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+	                          style="text-align: center;" rowIndexVar="rowIndex"    >
+	                          
+	                          
+	                          
+	                <p:column  headerText="#" style="width: 0.5em  ! important;text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>  
+					          
+	                <p:column headerText="Código"  style="width: 1em  ! important; text-align: left; ">
+			            <h:outputText value="#{itemMateria.mtrCodigo}"/>
+			        </p:column>
+	                <p:column headerText="Asignatura"  style="width: 9em  ! important; text-align: left; ">
+			            <h:outputText value="#{itemMateria.mtrDescripcion}"/>
+			        </p:column>
+			        <p:column headerText="Nivel"  style="width: 1em  ! important;">
+			            <h:outputText value="#{itemMateria.nvlDescripcion}"/>
+			        </p:column>
+
+					<p:column headerText="Homologado" style="width: 1em  ! important;" >
+
+						<h:selectBooleanCheckbox  value="#{itemMateria.esHomologado}" >
+							<p:ajax  event="change" listener="#{editarHomologacionForm.setearCampos(itemMateria)}" 
+								update="txtNotaUno, txtNotaDos, txtNotaTotal, slcNumMatricula, txtEstadoHomologacion" />
+						</h:selectBooleanCheckbox>
+
+					</p:column>
+
+
+					<p:column headerText="Nota 1" style="width: 2em  ! important;  " >
+				 		<p:inputNumber id="txtNotaUno" value="#{itemMateria.notaUno}"  disabled="#{!itemMateria.esHomologado}"
+							minValue="0" maxValue="20" decimalPlaces="2"  decimalSeparator="," thousandSeparator="." >
+							
+							<p:ajax event="change" listener="#{editarHomologacionForm.calcularPromedio(itemMateria)}"   
+							update="txtNotaTotal, slcNumMatricula, txtEstadoHomologacion" /> 
+ 						</p:inputNumber> 
+			        </p:column>
+			        
+			        
+			         <p:column headerText="Nota 2" style="width: 2em  ! important;  " >
+				 		<p:inputNumber id="txtNotaDos" value="#{itemMateria.notaDos}" disabled="#{!itemMateria.esHomologado}"
+							minValue="0" maxValue="20" decimalPlaces="2" decimalSeparator="," thousandSeparator="." >
+						
+							<p:ajax event="change" listener="#{editarHomologacionForm.calcularPromedio(itemMateria)}"  
+							update="txtNotaTotal, slcNumMatricula, txtEstadoHomologacion" /> 
+ 						</p:inputNumber> 
+			        </p:column>
+			        
+			        <p:column headerText="Nota Total" style="width: 2em  ! important;  " >
+				 		<p:inputNumber id="txtNotaTotal" value="#{itemMateria.notaSuma}" disabled="true"
+							minValue="0" maxValue="100" decimalPlaces="2" decimalSeparator="," thousandSeparator=".">
+							
+ 						</p:inputNumber> 
+			        </p:column>
+			        
+					<p:column headerText="Número de matrícula"	style="width: 2em  ! important;"  >
+						<h:selectOneMenu id="slcNumMatricula"
+							value="#{itemMateria.numMatricula}"
+							disabled="#{itemMateria.mtrCmbEstado}"
+							style="width:100%">
+							<f:selectItem	itemLabel="#{generalesConstantesForm.appSeleccione}"
+								            itemValue="#{generalesConstantesForm.appIdBase}" />
+							<f:selectItems var="item" value="#{listasCombosForm.listaNumeroMatriculaHomologacion}"
+								itemLabel="#{item.label}"
+								itemValue="#{item.value}" />
+							
+						</h:selectOneMenu>
+					</p:column>
+				
+					<p:column id="lblEstado" for="txtEstadoHomologacion"  headerText="Estado" style="width: 2em  ! important;  " >
+					<h:outputText id="txtEstadoHomologacion" value="#{listasCombosForm.getListaEstadoRecorAcademico(itemMateria.estadoHomologacion)}"/>
+<!-- 				 		 <h:outputText id="txtEstadoHomologacion" value="#{itemMateria.estadoHomologacion == 8 ? 'HOMOLOGADO' : itemMateria.estadoHomologacion == 2 ? 'REPROBADO' : ''}"/> -->
+			        </p:column>
+				</p:dataTable>
+		</p:panel>
+		
+		<div >
+			<p:commandButton id="btnCancelar" value="Cancelar" action="#{editarHomologacionForm.cancelarAgregar()}"  ajax="false" immediate="true"/>
+			
+			<p:commandButton id="btnAgregarHomologacionVerificar" action="#{editarHomologacionForm.verificarClickAgregar()}" value="Finalizar"  ajax="false" />
+			
+			<p:commandButton id="cmdlModalReporte" value="Imprimir reporte" style="visibility:hidden;">
+				<p:ajax oncomplete="abrirVentaReporte('PDF','reporteHomologacion','REPORTE_HOMOLOGACION');" />
+			</p:commandButton>
+			
+			<p:commandButton id="btnModalAgregarHomologacion" value="EjecutarModalAgregarHomologacion" style="visibility:hidden;">
+    				<p:ajax oncomplete="PF('dialogoAgregarHomologacion').show();" update=":frmModalAgregarHomologacion" />
+    		</p:commandButton>
+    
+    		
+		</div>
+		
+	</h:form>
+	<ui:include src="/academico/homologacion/editar/modalAgregarHomologacion.xhtml" />
+	
+	<h:form id="compOculto" style="visibility:hidden;">
+	 	<p:inputText id="txtValidador" value="#{editarHomologacionForm.ehfValidadorClic}" />
+	</h:form>
+	
+	
+	
+</ui:define>
+</ui:composition>
+</html>

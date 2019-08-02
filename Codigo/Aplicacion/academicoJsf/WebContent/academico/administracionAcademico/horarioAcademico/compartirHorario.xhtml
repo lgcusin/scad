@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Administración académico / Horarios / Listar / Compartir horario " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador';
+    	var varError = document.getElementById(idVarError);
+    	if(varError.value == 6){
+    		document.getElementById('frmCompartirHorario:btnCompartirValidarModal').click();
+        }
+        
+    } 
+
+ //]]> 
+</script>
+	<h:form id="frmCompartirHorario" enctype="multipart/form-data" acceptcharset="UTF-8" >
+		<p:panel id="pnlInfGeneral" header="Información general a ser compartida">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		         <div class="row cells8">
+		     		<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPeriodo1" for="slcPeriodo1" value="Periodo:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">
+			       				<h:outputLabel id="slcPeriodo1" value="#{administracionHorarioAcademicoForm.ahafMateriaCompartir.pracDescripcion}" />
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		        	<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera1" for="slcCarrera1" value="Carrera:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">
+			       				<h:outputLabel id="slcCarrera1" value="#{administracionHorarioAcademicoForm.ahafMateriaCompartir.crrDescripcion}" />
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		        </div>
+				<!-- ******************** FILA NUMERO 2 ************************ -->		
+				<div class="row cells8">
+		        	<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblNivel1" for="slcNivel1" value="Nivel:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">
+			       				<h:outputLabel id="slcNivel1" value="#{administracionHorarioAcademicoForm.ahafMateriaCompartir.nvlDescripcion}" />
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		        	<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblParalelo1" for="slcParalelo1" value="Paralelo:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">
+			       				<h:outputLabel id="slcParalelo1" value="#{administracionHorarioAcademicoForm.ahafMateriaCompartir.prlDescripcion}" />
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		        </div>
+				<!-- ******************** FILA NUMERO 3 ************************ -->		
+				<div class="row cells8">
+		        	<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblMateria1" for="slcMateria1" value="Asignatura:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">
+			       				<h:outputLabel id="slcMateria1" value="#{administracionHorarioAcademicoForm.ahafMateriaCompartir.mtrDescripcion}" />
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		        	<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCupo1" for="slcCupo1" value="Cupo paralelo:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">
+			       				<h:outputLabel id="slcCupo1" value="#{administracionHorarioAcademicoForm.ahafMateriaCompartir.mlcrprCupo}" />
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		       </div>
+			</div>
+		</p:panel>
+		<p:panel id="pnlInfDocente" header="Información docente a ser compartida">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+		       <!-- ******************** FILA NUMERO 4 ************************ -->		
+				<div class="row cells8">
+		        	<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblIdentificacion1" for="slcIdentificacion1" value="Identificación:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">
+			       				<h:outputLabel id="slcIdentificacion1" value="#{administracionHorarioAcademicoForm.ahafDocenteJdbcDtoComp.prsIdentificacion}" />
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		        	<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblApellido1" for="slcApellido1" value="Primer apellido:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">
+			       				<h:outputLabel id="slcApellido1" value="#{administracionHorarioAcademicoForm.ahafDocenteJdbcDtoComp.prsPrimerApellido} #{administracionHorarioAcademicoForm.ahafDocenteJdbcDtoComp.prsSegundoApellido} #{administracionHorarioAcademicoForm.ahafDocenteJdbcDtoComp.prsNombres} " />
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		       </div>
+			</div>
+		</p:panel>
+		<p:panel id="pnlResultados" header="Información del horario académico a ser compartido" >
+			<p:dataTable id="dtsHorario" var="item" value="#{administracionHorarioAcademicoForm.ahafListHorarioAcademicoCompartir}"
+			    		 		rows="10" paginator="true" paginatorPosition="bottom"
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+			                
+			                <p:column headerText="Aula" style="width: 2em ! important;">
+					            <h:outputText value="#{item.alaDescripcion}" />
+					        </p:column>         
+					        <p:column headerText="Capacidad" style="width: 2em ! important; text-align:center">
+					            <h:outputText value="#{item.alaCapacidad}" />
+					        </p:column>
+					        <p:column headerText="Día" style="width: 2em ! important; text-align:center">
+					        	<h:outputText value="#{listasCombosForm.getLabelDiaHorarioAcademico(item.hracDia)}" />
+					        </p:column>
+					        <p:column headerText="Hora inicio - fin" style="width: 2em ! important; text-align:center">
+					        	<h:outputText value="#{item.hoclDescripcion}" />
+					        </p:column>
+				</p:dataTable>
+		</p:panel>
+		<p:panel id="pnlBusqueda" header="Horario académico">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPeriodo" for="slcPeriodo" value="Período académico:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<h:selectOneMenu id="slcPeriodo" value="#{administracionHorarioAcademicoForm.ahafHorarioAcademicoCompBusq.pracId}"
+		       								style="width:100%" > 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionHorarioAcademicoForm.ahafListPeriodoAcademicoDtoCompBusq}"
+												  itemLabel="#{item.pracDescripcion}" itemValue="#{item.pracId}" />
+									<p:ajax event="change" listener="#{administracionHorarioAcademicoForm.cambiarCarreraCompartir(administracionHorarioAcademicoForm.ahafHorarioAcademicoCompBusq.pracId)}"
+											update="lblPeriodo , slcPeriodo , lblCarrera , slcCarrera , lblNivel , slcNivel , lblParalelo , slcParalelo , lblAsignatura , slcAsignatura , pnlResultados" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		        	<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcCarrera" value="#{administracionHorarioAcademicoForm.ahafHorarioAcademicoCompBusq.crrId}"
+		       								style="width:100%" disabled="#{administracionHorarioAcademicoForm.ahafHorarioAcademicoCompBusq.pracId == generalesConstantesForm.appIdBase}"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionHorarioAcademicoForm.ahafListCarreraDtoCompBusq}"
+												  itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />
+									<p:ajax event="change" listener="#{administracionHorarioAcademicoForm.cambiarNivelCompartir()}"
+											update="lblCarrera , slcCarrera , lblNivel , slcNivel , lblParalelo , slcParalelo , lblAsignatura , slcAsignatura ,  pnlResultados " />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	<!-- ******************** FILA NUMERO 2 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblNivel" for="slcNivel" value="Nivel:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcNivel" value="#{administracionHorarioAcademicoForm.ahafHorarioAcademicoCompBusq.nvlId}"
+		       								style="width:100%" disabled="#{administracionHorarioAcademicoForm.ahafHorarioAcademicoCompBusq.crrId == generalesConstantesForm.appIdBase}"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionHorarioAcademicoForm.ahafListNivelCompBusq}"
+												  itemLabel="#{item.nvlDescripcion}" itemValue="#{item.nvlId}" />
+									<p:ajax event="change" listener="#{administracionHorarioAcademicoForm.cambiarParaleloCompartir()}"
+											update="lblNivel , slcNivel , lblParalelo , slcParalelo  , lblAsignatura , slcAsignatura , pnlResultados  " />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		        	<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblParalelo" for="slcParalelo" value="Paralelo:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcParalelo" value="#{administracionHorarioAcademicoForm.ahafHorarioAcademicoCompBusq.prlId}"
+		       								style="width:100%" disabled="#{administracionHorarioAcademicoForm.ahafHorarioAcademicoCompBusq.nvlId == generalesConstantesForm.appIdBase}"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionHorarioAcademicoForm.ahafListParaleloDtoCompBusq}"
+												  itemLabel="#{item.prlDescripcion}" itemValue="#{item.prlId}" />
+									<p:ajax event="change" listener="#{administracionHorarioAcademicoForm.cambiarAsignatura()}"
+											update="lblParalelo , slcParalelo , lblAsignatura , slcAsignatura , pnlResultados " />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	<!-- ******************** FILA NUMERO 3 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblAsignatura" for="slcAsignatura" value="Asignatura:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcAsignatura" value="#{administracionHorarioAcademicoForm.ahafHorarioAcademicoCompBusq.mtrId}"
+		       								style="width:100%" disabled="#{administracionHorarioAcademicoForm.ahafHorarioAcademicoCompBusq.prlId == generalesConstantesForm.appIdBase}"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionHorarioAcademicoForm.ahafListMateriaDtoCompBusq}"
+												  itemLabel="#{item.mtrDescripcion}" itemValue="#{item.mtrId}"/>
+									<p:ajax event="change" listener="#{administracionHorarioAcademicoForm.consultaHorario()}"
+											update="lblAsignatura , slcAsignatura , pnlResultados , :frmCompartirHorario " />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		   	</div> 		
+		</p:panel>
+		
+		
+		<div>
+			<p:commandButton id="btnRegresar" value="Regresar" action="#{administracionHorarioAcademicoForm.irListarHorarioAcademico()}" immediate="true" ajax="false" />
+			<p:commandButton id="btnCompartir" value="Compartir" action="#{administracionHorarioAcademicoForm.verificarClickGuardarCompartir()}"  immediate="true" ajax="false" />
+			
+			<p:commandButton id="btnCompartirValidarModal" value="EjecutarModalCompartir" style="visibility:hidden;">
+    				<p:ajax oncomplete="PF('dialogoGuardarCompartir').show();" update=":frmModalCompartirHorario" />
+    		</p:commandButton>
+		</div>
+	</h:form>
+	
+	<ui:include src="/academico/administracionAcademico/horarioAcademico/modalCompartir.xhtml" />
+	
+	<h:form id="compOculto" style="visibility:hidden;">
+	 	<p:inputText id="txtValidador" value="#{administracionHorarioAcademicoForm.ahafValidadorClic}">
+		</p:inputText>	
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

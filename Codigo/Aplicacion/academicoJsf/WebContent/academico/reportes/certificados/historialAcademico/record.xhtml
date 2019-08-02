@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition	template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Reportes / Historial académico / Récord " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+		//<![CDATA[
+		    function verificarErrores(){
+		        var idVarAgregar = 'compOculto:txtValidador';
+		     	var varAgregar = document.getElementById(idVarAgregar);
+			    	if(varAgregar.value == 1){
+			  		document.getElementById('frmRecordAcademico:cmdlModalReporte').click();
+			 	    }
+		  	    }
+		 //]]> 
+		</script>
+			<script language="JavaScript">
+	//<![CDATA[
+		function abrirVentaReporte(formato, nombreReporte, tipo){
+			var url = "/aplicacion/reportes";
+			url = url + "?nombreJasper=" + nombreReporte;
+			url = url + "&formato=" + formato;
+			url = url + "&tipo=" + tipo;
+			if(formato == 'vista'){
+				var reportWindow = window.open(url);
+				reportWindow.focus();
+			}else{
+				var reportWindow = window.open(url);
+			}
+	    } 
+	 //]]> 
+	</script>
+	
+	<h:form id="frmRecordAcademico" enctype="multipart/form-data" acceptcharset="UTF-8">
+		<p:panel id="pnlBusqueda" header="Información del estudiante">
+				<div class="grid condensed">
+
+					<div class="row cells8">
+						<div class="cell colspan3">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayUpload.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacion" value="Identificación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel value="#{estudianteRecordAcademicoForm.erafPersona.prsIdentificacion}"/>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<div class="row cells8">
+						<div class="cell colspan3">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayUpload.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPseudonimo" value="Estudiante: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel value="#{estudianteRecordAcademicoForm.erafPersona.prsPrimerApellido}  #{estudianteRecordAcademicoForm.erafPersona.prsSegundoApellido}  #{estudianteRecordAcademicoForm.erafPersona.prsNombres}"/>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+				</div>
+			</p:panel>
+			
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+				<p:dataTable id="dtsEstudiante" var="item"
+					value="#{estudianteRecordAcademicoForm.erafListRecordEstudianteDtoSeleccion}"
+					rowIndexVar="rowIndex"
+					emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+
+					<p:column headerText="#" style="width: 1em ! important; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column headerText="#{estudianteRecordAcademicoForm.erafTituloPorNivelPeriodo}" style="width: 2em ! important;  text-align: center;">
+						<h:outputText value="#{item.rcesPeriodoAcademicoDto.pracDescripcion}" />
+					</p:column>
+					<p:column headerText="#{estudianteRecordAcademicoForm.erafTituloPorNivelCarrera}" style="width: 5em ! important; text-align: left;">
+						<h:outputText value="#{item.rcesCarreraDto.crrDescripcion}" />
+					</p:column>
+					<p:column headerText="Materia" style="width: 5em ! important; text-align: left;">
+						<h:outputText value="#{item.rcesMateriaDto.mtrDescripcion} " />
+					</p:column>
+					<p:column headerText="# Matr." style="width: 1em ! important; text-align: center;">
+						<h:outputText value="#{item.rcesMateriaDto.numMatricula} " />
+					</p:column>
+					<p:column headerText="Nota final" style="width: 1em ! important; text-align: center;">
+						<h:outputText value="#{estudianteRecordAcademicoForm.getBigDecimal(item.rcesCalificacionDto.clfNotaFinalSemestre,1)} " />
+					</p:column>
+					<p:column headerText="Estado" style="width: 2em ! important; text-align: center;">
+						<h:outputText value="#{item.rcesMateriaDto.mtrEstadoLabel} " />
+					</p:column>
+					<p:columnGroup type="footer">
+		                <p:row>
+		                    <p:column footerText="Promedio general: " style="font-weight: Bold !important; text-align:right" colspan="6"/>
+		                    <p:column footerText="#{estudianteRecordAcademicoForm.getBigDecimal(estudianteRecordAcademicoForm.erafPromedioGeneral,1)}"  style="font-weight: Bold !important; text-align:center" colspan="1"/>
+		                </p:row>
+		            </p:columnGroup>
+				</p:dataTable>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnSalir" value="Regresar"
+					action="#{estudianteRecordAcademicoForm.irRecordAcademicoCarreras()}" ajax="false"
+					immediate="true" />
+					
+				<p:commandButton id="cmdlReportes" value="Generar reporte"
+					action="#{estudianteRecordAcademicoForm.setearTipoReporte()}"
+					oncomplete="PF('dialogoReporte').show();"
+	 				onclick="PF('dialogoTrabajando').show();"
+		 			update="frmRecordAcademico , :frmModalImprimir" >
+		 		</p:commandButton>
+				
+				<p:commandButton id="cmdlModalReporte" value="Imprimir reporte" style="visibility:hidden;">
+					<p:ajax oncomplete="abrirVentaReporte('PDF','#{estudianteRecordAcademicoForm.erafNombreArchivo}','#{estudianteRecordAcademicoForm.erafNombreReporte}');" />
+				</p:commandButton>
+			</div>
+
+		</h:form>
+
+		<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador" value="#{estudianteRecordAcademicoForm.ecnfActivarReporte}" />
+		</h:form>
+		
+		<ui:include	src="/academico/reportes/certificados/historialAcademico/modalReportes.xhtml" />
+		
+	</ui:define>
+	
+</ui:composition>
+</html>

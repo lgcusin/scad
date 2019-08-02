@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value=" Administarción / Edificio / Nuevo" />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador';
+    	var varError = document.getElementById(idVarError);
+    	if(varError.value == 2){
+    		document.getElementById('frmNuevoEdificio:btnGuardarValidarModal').click();
+        }
+    } 
+
+ //]]> 
+</script>
+	<h:form id="frmNuevoEdificio" enctype="multipart/form-data" acceptcharset="UTF-8" >
+		<p:panel id="pnlInfoEdificio" header="Información de edificio" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		         <div class="row cells8">
+		     		<div class="cell colspan3" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblFacultad" for="slcFacultad" value="Facultad:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">
+			       				<h:selectOneMenu id="slcFacultad" value="#{administracionEdificioForm.aefEdificioNuevo.dpnId}" 
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{administracionEdificioForm.aefListaDependenciaDto}"
+												  itemLabel="#{item.dpnDescripcion}" itemValue="#{item.dpnId}" />
+								</h:selectOneMenu>
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+								<p:message id="msgFacultad" for="slcFacultad" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+				<!-- ******************** FILA NUMERO 2 ************************ -->		
+				<div class="row cells8">
+					<div class="cell colspan3"><!-- DESCRIPCION -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblDescripcion" for="slcDescripcion" value="Descripción: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<p:inputText id="slcDescripcion" value="#{administracionEdificioForm.aefEdificioNuevo.edfDescripcion}" maxlength="60"
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}" style="width:100%" >
+		       					</p:inputText>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+								<p:message id="msgDescripcion" for="slcDescripcion" />
+							</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>
+				<!-- ******************** FILA NUMERO 3 ************************ -->		
+				<div class="row cells8">
+					<div class="cell colspan3"><!-- ESTADO -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblEstado" for="sclEstado" value="Estado: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="sclEstado" value="#{administracionEdificioForm.aefEdificioNuevo.edfEstado}"
+		       									required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}" style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{listasCombosForm.listaEstadoEdificio}"
+												  itemLabel="#{item.label}" itemValue="#{item.value}" />
+									<p:ajax event="change" update="lblEstado , sclEstado , msgEstado " />
+								</h:selectOneMenu>
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+								<p:message id="msgEstado" for="sclEstado" />
+							</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>	
+			</div>
+		</p:panel>
+		<div>
+			<p:commandButton id="btnCancelar" value="Cancelar" action="#{administracionEdificioForm.irListarEdificio()}" immediate="true" ajax="false" />
+			<p:commandButton id="btnGuardar" value="Guardar" action="#{administracionEdificioForm.verificarClickGuardarNuevo()}"  ajax="false"/>
+			
+			<p:commandButton id="btnGuardarValidarModal" value="EjecutarModalGuardar" style="visibility:hidden;">
+    				<p:ajax oncomplete="PF('dialogoGuardarEdificio').show();" update=":frmModalGuardarEdificio" />
+    		</p:commandButton>
+    		
+		</div>
+	</h:form>
+	 
+	<ui:include src="/academico/administracionAcademico/edificio/modalNuevo.xhtml" />
+	
+	<h:form id="compOculto" style="visibility:hidden;">
+	 	<p:inputText id="txtValidador" value="#{administracionEdificioForm.aefValidadorClic}" >
+		</p:inputText>	
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

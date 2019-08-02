@@ -1,0 +1,49 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      			xmlns:ui="http://java.sun.com/jsf/facelets"
+      			xmlns:f="http://java.sun.com/jsf/core"
+      			xmlns:h="http://java.sun.com/jsf/html"
+     			xmlns:p="http://primefaces.org/ui">
+	<h:form id="frmModalAsignarCupo">
+		<p:dialog widgetVar="dlgModalAsignarCupo" modal="true" draggable="false" closable="false" 
+				  resizable="false" height="150" width="330" styleClass="modal-sin-header" >
+			<p:outputLabel value="Edición de Cupo" style="font-size: 1.2em !important;"/>	  
+			<table>
+				<tr>
+					<td>
+						<div style="width: 25px; padding: 2px; display: inline-block; margin-right: 7px;">	
+							<h:graphicImage value="/img/Alerta.png" alt="U.C.E" style="width: 100%; "/>
+						</div>
+					</td>
+					<td>
+						<p:outputLabel value="Ingrese el nuevo cupo del paralelo" />
+						<p:inputNumber id="txtNuevoCupo"  
+										value="#{administracionSuficienciaExoneracionForm.asefCupo}"
+										 	decimalPlaces="0" 
+										 	size="20"
+											maxValue="50" 
+											minValue="1"
+											thousandSeparator=""
+										 	style="width: 93%;">
+						<p:ajax event="blur" update="txtNuevoCupo"></p:ajax>
+						</p:inputNumber>
+					</td>
+				
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td align="center" colspan="2">
+						<h:panelGroup>
+							<p:commandButton value="Guardar" action="#{administracionSuficienciaExoneracionForm.guardarNuevoCupoParaleloExoneraciones()}" onclick="PF('dialogoTrabajando').show();" 
+		    							oncomplete="PF('dialogoEditarCupo').hide();" update="frmModalEditarCupo , :frmVerParalelo:pnlResultados" ajax="false" />
+		        			<p:commandButton value="Cancelar"
+		        			oncomplete="PF('dialogoEditarCupo').hide();"  style="margin-left: 5px;" ajax="false"/>
+						</h:panelGroup>
+					</td>
+				</tr>
+			</table>
+		</p:dialog> 
+	</h:form>
+</ui:composition>

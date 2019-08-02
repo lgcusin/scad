@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Evaluación académica / Suficiencia informática / Paralelos " />
+		</ui:include>
+</ui:define>
+
+	<ui:define name="cuerpo">
+	<script language="JavaScript">
+		//<![CDATA[
+		    function verificarErrores(){
+		        var idVarAgregar = 'compOculto:txtValidador';
+		     	var varAgregar = document.getElementById(idVarAgregar);
+			    	if(varAgregar.value == 1){
+			  		document.getElementById('frmParalelos:cmdlModalReporte').click();
+			 	    }
+		  	    }
+		 //]]> 
+	</script>
+	<script language="JavaScript">
+	//<![CDATA[
+		function abrirVentaReporte(formato, nombreReporte, tipo){
+			var url = "/aplicacion/reportes";
+			url = url + "?nombreJasper=" + nombreReporte;
+			url = url + "&formato=" + formato;
+			url = url + "&tipo=" + tipo;
+			if(formato == 'vista'){
+				var reportWindow = window.open(url);
+				reportWindow.focus();
+			}else{
+				var reportWindow = window.open(url);
+			}
+	    } 
+	 //]]> 
+	</script>
+	
+		<h:form id="frmParalelos" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar">
+
+				<div class="grid condensed">
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCarrera" for="slcCarrera"
+										value="Carrera:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcCarrera"
+										value="#{notasInformaticaForm.nifCarreraId}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{notasInformaticaForm.nifListCarrera}"
+											itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />
+										<p:ajax event="change" update="pnlBusqueda, pnlResultados" />
+									</h:selectOneMenu>
+								</ui:define>
+							</ui:decorate>
+
+						</div>
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblMateria" for="slcMateria"
+										value="Asignatura:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcMateria"
+										value="#{notasInformaticaForm.nifAsignaturaId}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{notasInformaticaForm.nifListMateriaDto}"
+											itemLabel="#{item.mtrDescripcion}" itemValue="#{item.mtrId}" />
+										<p:ajax event="change" update="pnlBusqueda, pnlResultados" />
+									</h:selectOneMenu>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+				</div>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnBuscar" value="Buscar"
+					action="#{notasInformaticaForm.buscarParalelos()}"
+					update=":frmParalelos"
+					onclick="PF('dialogoTrabajando').show();"
+					oncomplete="PF('dialogoTrabajando').hide();" />
+				<p:commandButton id="btnLimpiar" value="Limpiar"
+					action="#{notasInformaticaForm.limpiarFormParalelos()}"
+					update=":frmParalelos" />
+			</div>
+
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+
+				<p:dataTable id="dtbParalelo" var="item"
+					value="#{notasInformaticaForm.nifListParaleloDto}" rows="10"
+					paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15"
+					emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+
+					<p:column headerText="Período académico"
+						style="width: 4em ! important;">
+						<h:outputText
+							value="#{item.prlPeriodoAcademicoDto.pracDescripcion}" />
+					</p:column>
+					<p:column headerText="Estado" style="width: 2em ! important;">
+						<h:outputText
+							value="#{listasCombosForm.getLabelEstadoPeriodoAcademico(item.prlPeriodoAcademicoDto.pracEstado)}" />
+					</p:column>
+					<p:column headerText="Asignatura" style="width: 8em ! important;">
+						<h:outputText value="#{item.prlMateriaDto.mtrDescripcion}" />
+					</p:column>
+					<p:column headerText="Paralelo"
+						style="width: 3em ! important; text-align:center">
+						<h:outputText value="#{item.prlDescripcion}" />
+					</p:column>
+					<p:column headerText="Opciones"
+						style="width: 4em ! important;text-align:center"
+						class="border-none">
+						<p:panelGrid>
+							<p:row>
+								<p:column>
+									<p:commandLink id="cmdlRegistroNotas" value="Ver estudiantes"
+										action="#{notasInformaticaForm.irEstudiantes(item)}"
+										onclick="PF('dialogoTrabajando').show();" ajax="false" />
+								</p:column>
+								<p:column>
+									<p:commandLink id="cmdlReportes" value="Imprimir"
+										action="#{notasInformaticaForm.asignarParalelo(item)}"
+										oncomplete="PF('dialogoReporte').show();"
+	 									onclick="PF('dialogoTrabajando').show();"
+		 								update="frmParalelos , :frmModalImprimir" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</p:column>
+				</p:dataTable>
+
+			</p:panel>
+			<div>
+				<p:commandButton id="btnSalir" value="Regresar"
+					action="#{notasInformaticaForm.irInicio()}" />
+				<p:commandButton id="cmdlModalReporte" value="Imprimir reporte" style="visibility:hidden;">
+					<p:ajax oncomplete="abrirVentaReporte('#{notasInformaticaForm.nifTipoArchivo}','#{notasInformaticaForm.nifNombreJasper}','#{notasInformaticaForm.nifTokenServlet}');" />
+				</p:commandButton>
+			</div>
+		</h:form>
+
+		<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador" value="#{notasInformaticaForm.nifActivarReporte}" />
+		</h:form>
+		
+		<ui:include	src="/academico/evaluacionAcademica/notasSuficienciaInformatica/modalReportes.xhtml" />
+		
+	</ui:define>
+</ui:composition>
+</html>

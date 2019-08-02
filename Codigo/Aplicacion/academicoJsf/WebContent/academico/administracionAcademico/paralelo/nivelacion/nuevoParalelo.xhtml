@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition	template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Administración nivelación / Paralelos / Nuevo paralelo  " />
+		</ui:include>
+	</ui:define>
+
+	<ui:define name="cuerpo">
+
+	<script language="JavaScript">
+	//<![CDATA[
+		function verificarErrores(){
+	    	var idVarError = 'compOculto:txtValidador';
+	    	var varError = document.getElementById(idVarError);
+	    	if(varError.value == 1){
+	    		document.getElementById('frmNuevoParalelo:btnGenerarNuevoParaleloValidarModal').click();
+	    	}
+	    	
+	    } 
+	    
+	    function nobackbutton(){
+	   		window.location.hash="no-back-button";
+	   		window.location.hash="Again-No-back-button" //chrome
+	   		window.onhashchange=function(){window.location.hash="no-back-button";}
+		}
+	    
+	 //]]> 
+	</script>
+
+		<h:form id="frmNuevoParalelo" enctype="multipart/form-data" acceptcharset="UTF-8">
+			<p:panel id="pnlDatos" header="Identificación del paralelo">
+				<div class="grid condensed">
+				
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPeriodo" for="slcPeriodo"
+										value="Período Académico:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcPeriodo"
+										value="#{administracionSuficienciaParaleloForm.apfPeriodoId}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{administracionSuficienciaParaleloForm.apfListPeriodoAcademicoDto}"
+											itemLabel="#{item.pracDescripcion}"
+											itemValue="#{item.pracId}" />
+										<p:ajax event="change"
+											listener="#{administracionSuficienciaParaleloForm.buscarAreasNivelacion()}"
+											update="lblPeriodo , slcPeriodo , msgPeriodo ,  frmNuevoParalelo,slcCarrera, pnlResultados, lblCarrera , slcCarrera , msgCarrera , dtsMaterias , lblNivel , slcNivel , msgNivel " />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgPeriodo" for="slcPeriodo" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblArea" for="slcArea" value="Área:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcArea"
+										value="#{administracionSuficienciaParaleloForm.apfAreaId}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{administracionSuficienciaParaleloForm.apfListArea}"
+											itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />
+										<p:ajax event="change"
+											listener="#{administracionSuficienciaParaleloForm.buscarCarrerasPorArea()}"
+											update="lblArea , slcArea  ,  frmNuevoParalelo, pnlResultados, dtsMaterias , lblNivel , slcNivel , msgNivel " />
+									</h:selectOneMenu>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcCarrera"
+										value="#{administracionSuficienciaParaleloForm.apfCarreraId}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{administracionSuficienciaParaleloForm.apfListCarreraDto}"
+											itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />
+										<p:ajax event="change"
+											listener="#{administracionSuficienciaParaleloForm.buscarNivelesNivelacion()}"
+											update="lblCarrera , slcCarrera , msgCarrera ,  frmNuevoParalelo, pnlResultados, dtsMaterias , lblNivel , slcNivel , msgNivel " />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgCarrera" for="slcCarrera" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNivel" for="slcNivel" value="Nivel:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcNivel"
+										value="#{administracionSuficienciaParaleloForm.apfNivelId}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{administracionSuficienciaParaleloForm.apfListNivelDto}"
+											itemLabel="#{item.nvlDescripcion}" itemValue="#{item.nvlId}" />
+										<p:ajax event="change"
+											listener="#{administracionSuficienciaParaleloForm.buscarMateriasNivelacion()}"
+											update="lblNivel , slcNivel , msgNivel ,  frmNuevoParalelo, pnlResultados, dtsMaterias" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgNivel" for="slcNivel" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					
+				</div>
+			</p:panel>
+
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+
+				<p:dataTable id="dtsMaterias" var="item" value="#{administracionSuficienciaParaleloForm.apfListMateriaDto}"
+					rowIndexVar="rowIndex"
+					rows="15" paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15"
+					emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+					
+					<p:column headerText="#" style="width: 0.1em ! important; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					
+					<p:column headerText="Asignatura" style="width: 28em !important;">
+						<div style="display: flex;">
+							<h:selectBooleanCheckbox id="idCheck" value="#{item.mtrCmbEstado}"
+								style="text-align:center; width:5%;">
+								<p:ajax event="change"
+									listener="#{administracionSuficienciaParaleloForm.resetComboMateria(item)}"
+									update="idCheck" />
+							</h:selectBooleanCheckbox>
+							<h:outputText value="#{item.mtrCodigo} - #{item.mtrDescripcion}" for="idCheck" style="width:95%" />
+						</div>
+					</p:column>
+				</p:dataTable>
+
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnRegresar" value="Cancelar" immediate="true"
+					ajax="false"
+					action="#{administracionSuficienciaParaleloForm.irFormParalelosNivelacion()}" />
+				<p:commandButton id="btnGuardarNuevoParalelo" value="Guardar"
+					action="#{administracionSuficienciaParaleloForm.irGuardarParaleloNivelacion()}"
+					onclick="PF('dialogoTrabajando').show();" 
+	    			oncomplete="PF('dialogoTrabajando').hide();" 	
+					ajax="false" />
+			</div>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value=" Evaluación Docente / Evaluación / Administración " />
+		</ui:include>
+	</ui:define>
+	<ui:define name="cuerpo">
+		<h:form id="frmEvaluacionDocente" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+
+			<p:panel id="pnlDatos" header="Información de Evaluación">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- PERIODO -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPeriodo" for="slcPeriodo"
+										value="Período: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcPeriodo"
+										value="#{evaluacionDocenteForm.edfPeriodoAcademicoBuscar}"
+										required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%;">
+										<f:selectItems var="item"
+											value="#{evaluacionDocenteForm.edfListaTodosPeriodosAcademicos}"
+											itemLabel="#{item.pracDescripcion}"
+											itemValue="#{item.pracId}" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgPeriodo" for="slcPeriodo" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 1 ************************ -->
+					
+					<!-- ******************** FILA NUMERO 2 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- TIPO EVALUACION -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblTipoEvaluacion" for="slcTipoEvaluacion"
+										value="Tipo Evaluación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcTipoEvaluacion"
+										value="#{evaluacionDocenteForm.edfTipoEvaluacionBuscar}"
+										required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%;">
+										<f:selectItems var="item"
+											value="#{evaluacionDocenteForm.edfListaTipoEvaluaciones}"
+											itemLabel="#{item.tpevDescripcion}"
+											itemValue="#{item.tpevId}" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgTipoEvaluacion" for="slcTipoEvaluacion" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 2 ************************ -->
+
+					<!-- ******************** FILA NUMERO 3 ************************ -->
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- ESTADO -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblEstado" for="slcEstado" value="Estado:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcEstado"
+										value="#{evaluacionDocenteForm.edfEstadoEvaluacion}"
+										required="true"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%">
+										<f:selectItems var="item"
+											value="#{listasCombosForm.listaEstadoEvaluacion}"
+											itemLabel="#{item.label}" itemValue="#{item.value}" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgEstado" for="slcEstado" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 3 ************************ -->
+
+					<!-- ******************** FILA NUMERO 4 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- FECHA INICIO -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblFechaInicio" for="txtFechaInicio"
+										value="Fecha de inicio: (dd/mm/aaaa)" />
+								</ui:define>
+								<ui:define name="valor">
+									<p:calendar id="txtFechaInicio"
+										value="#{evaluacionDocenteForm.edfFechaInicioEvaluacion}"
+										maxdate="#{generalesConstantesForm.fechaDelSistema}"
+										navigator="false" showOn="none" locale="es"
+										pattern="dd-MM-yyyy" mask="true" required="true"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										validator="fechaCreacionMallaCurricularValidador"
+										converterMessage="La fecha ingresada no es válida. (dd-mm-aaaa) Ejemplo: 01-06-2016">
+										<p:ajax event="blur"
+											update=" lblFechaInicio , msgFechaInicio ,  txtFechaInicio" />
+									</p:calendar>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgFechaInicio" for="txtFechaInicio" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4">
+							<!-- FECHA FIN  -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblFechaFin" for="txtFechaFin"
+										value="Fecha de finalización: (dd/mm/aaaa)" />
+								</ui:define>
+								<ui:define name="valor">
+									<p:calendar id="txtFechaFin"
+										value="#{evaluacionDocenteForm.edfFechaFinEvaluacion}"
+										navigator="false" showOn="none" locale="es"
+										pattern="dd-MM-yyyy" mask="true" required="true"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										validator="fechaCreacionMallaCurricularValidador"
+										converterMessage="La fecha ingresada no es válida. (dd-mm-aaaa) Ejemplo: 01-06-2016">
+										<p:ajax event="blur"
+											update=" lblFechaFin , msgFechaFin ,  txtFechaFin" />
+									</p:calendar>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgFechaFin" for="txtFechaFin" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 4 ************************ -->
+				</div>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnCancelar"
+					action="#{evaluacionDocenteForm.irRegresar()}" value="Cancelar"
+					immediate="true" />
+				<p:commandButton id="btnGuardar" value="Guardar"
+					rendered="#{evaluacionDocenteForm.edfEstadoNuevoEditar == 1 ? 'false':'true'}"
+					action="#{evaluacionDocenteForm.guardar()}" ajax="false"
+					update="pnlCronograma , pnlCronogramaNivelacion , growl" />
+				<p:commandButton id="btnEditar"
+					rendered="#{evaluacionDocenteForm.edfEstadoNuevoEditar == 0 ? 'false':'true'}"
+					value="Guardar cambios"
+					action="#{evaluacionDocenteForm.guardarCambios()}" ajax="false" />
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+<html>
+  <head>
+	 <meta http-equiv="content-type" content="text/html; charset=utf-8">
+	 <title>UNIVERSIDAD CENTRAL DEL ECUADOR</title>
+  </head>
+  <body>
+    <p><strong>Estimado(a): ${nombres} ${apellidos}.-</strong></p>
+    <br/>
+	  La Universidad Central del Ecuador le da la bienvenida al programa de posgrado correspondiente a: 
+	  <br/>
+	  	<p><strong>Programa: </strong>${carrera}</p> 
+	 	 <p><strong>Facultad: </strong>${facultad}</p>
+	  <br/>
+	  
+	  Como usted es financiado/a por instituciones externas, su matr&#237;cula se legalizar&#225; de forma autom&#225;tica.
+	  <br/>
+	  <br/> 
+	  El proceso se realiz&#243; el ${fechaHora}
+	  <br/>	  
+	  <br/>
+	  ...........................................................................................
+	  <br/>
+	  <strong>Informaci&#243;n del Correo: </strong> Mail generado autom&#225;ticamente. Por favor no responda a este mensaje.
+	  <br/>
+	  <br/>
+	  <br/>

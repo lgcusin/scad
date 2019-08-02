@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Docente / Rectificación / Lista de paralelos " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+	    	
+    function abrirVentaReporte(formato, nombreReporte, tipo){
+    	var url = "/aplicacion/reportes";
+    	url = url + "?nombreJasper=" + nombreReporte;
+    	url = url + "&formato=" + formato;
+    	url = url + "&tipo=" + tipo;
+    	if(formato == 'vista'){
+    		var reportWindow = window.open(url, "reportWindow","menubar=0,resizable=0,status=0,width=800,height=600");
+    	}else{
+    		var reportWindow = window.open(url, "reportWindow","menubar=0,resizable=0,status=0,width=0,height=0");
+    	}
+    }
+
+    
+    
+ //]]> 
+</script>
+	<h:form id="frmListarNotaRectificacion" enctype="multipart/form-data" acceptcharset="UTF-8">
+		<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		       	<div class="row cells8" >
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPeriodo" for="slcPeriodo" value="Período académido:" rendered="#{notasRectificacionForm.permisoEdicionPeridoAnterior}"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcPeriodo" value="#{notasRectificacionForm.nrctfEstudianteBuscar.pracId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%" rendered="#{notasRectificacionForm.permisoEdicionPeridoAnterior}"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{notasRectificacionForm.nrctfListPeriodoAcademico}"
+												  itemLabel="#{item.pracDescripcion}" itemValue="#{item.pracId}" />
+									<p:ajax event="change" listener="#{notasRectificacionForm.llenarCarreraEdicionPeriodosAnteriores()}"
+											update="slcPeriodo , msgPeriodo , lblPeriodo , lblCarrera , slcCarrera , msgCarrera , lblNivel , slcNivel , msgNivel , lblMateria , slcMateria , msgMateria , pnlBusqueda ,:frmListarNotaRectificacion" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgPeriodo" for="slcPeriodo" rendered="#{notasRectificacionForm.permisoEdicionPeridoAnterior}"/>
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcCarrera" value="#{notasRectificacionForm.nrctfEstudianteBuscar.crrId}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{notasRectificacionForm.nrctfListCarreraDocenteBusq}"
+												  itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />
+									<p:ajax event="change" listener="#{notasRectificacionForm.llenarNivel(notasRectificacionForm.nrctfEstudianteBuscar.crrId)}"
+											update="lblCarrera , slcCarrera , msgCarrera , lblNivel , slcNivel , msgNivel , lblMateria , slcMateria , msgMateria , pnlBusqueda ,:frmListarNotaRectificacion" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgCarrera" for="slcCarrera" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	<!-- ******************** FILA NUMERO 2 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblNivel" for="slcNivel" value="Nivel:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcNivel" value="#{notasRectificacionForm.nrctfEstudianteBuscar.nvlId}"
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{notasRectificacionForm.nrctfListNivelxCarreraDocenteBusq}"
+												  itemLabel="#{item.nvlDescripcion}" itemValue="#{item.nvlId}" />
+									<p:ajax event="change" listener="#{notasRectificacionForm.llenarMateria(notasRectificacionForm.nrctfEstudianteBuscar.nvlId,notasRectificacionForm.nrctfEstudianteBuscar.crrId)}"
+											update=" lblCarrera , slcCarrera , msgCarrera , lblNivel , slcNivel , msgNivel , lblMateria , slcMateria , msgMateria, pnlBusqueda, :frmListarNotaRectificacion" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgNivel" for="slcNivel" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	   	<!-- ******************** FILA NUMERO 5 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblMateria" for="slcMateria" value="Asignatura:"/>	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcMateria" value="#{notasRectificacionForm.nrctfEstudianteBuscar.mtrId}"
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{notasRectificacionForm.nrctfListMateriasxCarreraDocenteBusq}"
+												  itemLabel="#{item.mtrDescripcion}" itemValue="#{item.mtrId}" />
+									<p:ajax event="change" update=" lblCarrera , slcCarrera , msgCarrera , lblNivel , slcNivel , msgNivel , lblMateria , slcMateria , msgMateria , pnlBusqueda, :frmListarNotaRectificacion" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgMateria" for="slcMateria" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		 
+		   	</div> 		
+		</p:panel>
+		<div >
+			<p:commandButton id="btnBuscar" value="Buscar"  action="#{notasRectificacionForm.buscar()}"
+								update=":frmListarNotaRectificacion" onclick="PF('dialogoTrabajando').show();" 
+								oncomplete="PF('dialogoTrabajando').hide();"/> 
+			<p:commandButton id="btnLimpiar" value="Limpiar" action="#{notasRectificacionForm.limpiar()}"
+								update=":frmListarNotaRectificacion" />  
+		</div>
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda" >
+			<p:dataTable id="dtsEstudiante" var="item" value="#{notasRectificacionForm.nrctfListParaleloBusq}"
+			    		 		rows="10" paginator="true" paginatorPosition="bottom"
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+			                         
+					        <p:column headerText="Carrera" style="width: 10em ! important;">
+					            <h:outputText value="#{item.crrDetalle}"/>
+					        </p:column>
+					        <p:column headerText="Asignatura" style="width: 5em ! important;">
+					            <h:outputText value="#{item.mtrDescripcion}"/>
+					        </p:column>
+					        <p:column headerText="Paralelo" style="width: 1em ! important; text-align:center">
+					            <h:outputText value="#{item.prlDescripcion}"/>
+					        </p:column>
+					        <p:column headerText="Rectificar" style="width: 6em ! important; " >
+					        	<table style="width:100%; border-color: #dddd">
+					        		<tr>
+									    <td style="width: 3em ! important; text-align:center"><p:commandLink id="cmdlEditar1parcial" value="1er Hemisemestre"  action="#{notasRectificacionForm.irRectificar1Parcial(item)}" style="margin: 0px 1px;" update=":frmListarNotaRectificacion"
+									    onclick="PF('dialogoTrabajando').show();" oncomplete="PF('dialogoTrabajando').hide();" ajax="false" inmediate="true"/></td>
+									    <td style="width: 3em ! important; text-align:center"><p:commandLink id="cmdlEditar2parcial" value="2do Hemisemestre" action="#{notasRectificacionForm.irRectificar2Parcial(item)}" style="margin: 0px 1px;" update=":frmListarNotaRectificacion"
+									    onclick="PF('dialogoTrabajando').show();" oncomplete="PF('dialogoTrabajando').hide();" ajax="false" inmediate="true"/></td>
+									    <td style="width: 3em ! important; text-align:center"><p:commandLink id="cmdlEditarRecuperacion" value="Recuperación" action="#{notasRectificacionForm.irRectificarRecuperacion(item)}"  style="margin: 0px 1px;" update=":frmListarNotaRectificacion"
+									    onclick="PF('dialogoTrabajando').show();" oncomplete="PF('dialogoTrabajando').hide();" ajax="false" inmediate="true"/></td>
+									   
+									 </tr>
+					        	</table>
+					        </p:column>
+				</p:dataTable>
+		</p:panel>
+		<div >
+			<p:commandButton id="btnSalir" value="Regresar" action="#{notasRectificacionForm.irInicio()}" />
+		</div>
+	</h:form>		
+</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value=" Docente / Notas / 2do Hemisemestre " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador';
+    	var varError = document.getElementById(idVarError);
+    	if(varError.value == 1){
+    		document.getElementById('frmEditarNotasPregrado:btnGuardoTemporalValidarModal').click();
+        }
+    	if(varError.value == 2){
+    		document.getElementById('frmEditarNotasPregrado:btnGuardoValidarModal').click();
+        }
+    } 
+	document.onkeydown = function (e) {
+     	if (e.keyCode == 13) {
+	 	 		return false;
+		 	}
+     	if (e.keyCode == 188) {
+ 	 		return false;
+	 	}
+	};
+ //]]> 
+</script>
+
+
+	<h:form  id="frmEditarNotasPregrado" enctype="multipart/form-data" acceptcharset="UTF-8" action="IpClientServlet" method="post">
+			
+		<p:panel id="pnlResultados" header="Información del paralelo" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->		
+				<div class="row cells9">
+					<div class="cell colspan8"><!-- CARRERA -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteBigGeneralDisplay.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="txtCarrera" value="Carrera / Área: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<p:outputLabel id="txtCarrera" value="#{notasPregradoForm.npfParaleloDtoEditar.crrDetalle}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       									style="font-weight: Normal !important;"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>	
+				<div class="row cells9">
+					<div class="cell colspan8"><!-- MATERIA -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteBigGeneralDisplay.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblMateria" for="txtMateria" value="Asignatura: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<p:outputLabel id="txtMateria" value="#{notasPregradoForm.npfParaleloDtoEditar.mtrDescripcion}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       									style="font-weight: Normal !important;"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>	
+				<div class="row cells9">
+					<div class="cell colspan8"><!-- PARALELO -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteBigGeneralDisplay.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblParalelo" for="txtParalelo" value="Paralelo: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<p:outputLabel id="txtParalelo" value="#{notasPregradoForm.npfParaleloDtoEditar.prlDescripcion}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       									style="font-weight: Normal !important;"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>	
+				<div class="row cells12">
+					<div class="cell colspan7"><!-- PARALELO -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblAsistenciaDocente" for="txtAsistenciaDocente" value="Horas clase 2do hemisemestre: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor"> 
+ 								<p:inputNumber id="txtAsistenciaDocente" 
+										value="#{notasPregradoForm.npfAsistenciaDocente2}" required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										minValue="1" maxValue="224" decimalPlaces="0"  >
+										<p:ajax event="blur" update="lblAsistenciaDocente , txtAsistenciaDocente , msgAsistenciaDocente " /> 
+								</p:inputNumber>
+ 							</ui:define>
+		       				<ui:define name="etiquetaError"> 
+										<p:message id="msgAsistenciaDocente" for="txtAsistenciaDocente" /> 
+ 									</ui:define> 
+		       			</ui:decorate>
+					</div>
+				</div>	
+			</div>
+		</p:panel>
+		<p:panel id="pnlIngresoNotas" header="Segundo hemi-semestre" >
+		<p:growl id="msgs" showDetail="true"/>
+			<p:dataTable id="panelEstudiantesMatriculados" var="estudiante" value="#{notasPregradoForm.npfListEstudianteBusq}" editable="true" editMode="cell" widgetVar="cellEstudiante">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+				
+					<f:facet name="header">
+		           		Registro de notas
+		       		</f:facet>
+		       		
+		       		<!-- <p:ajax event="cellEdit" listener="#{notasPregradoForm.onCellEdit}"  update=":frmEditarNotasPregrado:msgs" />  -->
+						<!-- ******************** FILA NUMERO 1 ************************ -->	
+					<p:column headerText="Identificación" style="width: 2em ! important; text-align:center">
+		                 <h:outputText value="#{estudiante.prsIdentificacion}"/>
+		       		</p:column>
+		       		<p:column headerText="Nombre" style="width: 7em ! important;">
+		                 <h:outputText value="#{estudiante.prsPrimerApellido} #{estudiante.prsSegundoApellido == null ? '':estudiante.prsSegundoApellido} #{estudiante.prsNombres}" />
+		       		</p:column>
+		       		<p:column headerText="# Matrícula" style="width: 2em ! important; text-align:center">
+		                 <h:outputText value="#{listasCombosForm.getListaNumeroMatriculaDetalleMatricula(estudiante.dtmtNumero)}" />
+		       		</p:column>
+		       		<p:column headerText="Nota" style="width: 6em ! important; text-align:center">
+		           		 <p:cellEditor>
+		                 	<f:facet name="output">
+		                 		<h:outputText value="#{estudiante.clfNota2}"  >
+		                 			<f:convertNumber pattern="#0.00" />
+		                 		</h:outputText>
+		                 	</f:facet>
+		                 	<f:facet name="input">
+									<p:inputText id="txtNota"
+										value="#{estudiante.clfNota2}" required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										validator="sinCaracteresEspecialesSoloNumerosFloatValidator" >
+										<p:ajax event="blur" update="txtNota"></p:ajax>
+									</p:inputText>
+							</f:facet>
+		            	</p:cellEditor>
+		       		</p:column>
+		       		<p:column headerText="Asistencia" style="width: 6em ! important;  text-align:center ">
+		           		 <p:cellEditor>
+		                 	<f:facet name="output">
+		                 		<h:outputText value="#{estudiante.clfAsistenciaEstudiante2}"  />
+		                 	</f:facet>
+		                 	<f:facet name="input">
+		                 		<p:inputNumber id="txtAsistencia1"
+										value="#{estudiante.clfAsistenciaEstudiante2}" required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										minValue="0" maxValue="224" decimalPlaces="0"  >
+										<p:ajax event="blur" update="txtAsistencia1"></p:ajax>
+								</p:inputNumber>
+							</f:facet>
+		            	</p:cellEditor>
+		       		</p:column>
+	       		
+				</div>
+			</p:dataTable>	
+		</p:panel>			
+		<div>
+			<p:commandButton id="btnRegresar" value="Regresar" action="#{notasPregradoForm.irCancelar()}" immediate="true" ajax="false" />
+			
+			<p:commandButton id="btnGuardar" value="Guardar" action="#{notasPregradoForm.verificarClicGuardadoFinal2()}" immediate="true" ajax="false" />
+			
+			<p:commandButton id="btnGuardoValidarModal" value="EjecutarModalGuardarGenerar" style="visibility:hidden;">
+    				<p:ajax oncomplete="PF('dialogoGuardadoNota').show();" update=":frmModalGuardadoNota" />
+    		</p:commandButton>
+		</div>
+	</h:form>
+	<ui:include src="/academico/evaluacionAcademica/notasPregrado/segundoParcial/modalGuardadoNota.xhtml" />
+	<h:form id="compOculto" style="visibility:hidden;">
+		<p:inputText id="txtValidador" value="#{notasPregradoForm.npfValidadorClic}" >
+		</p:inputText>	
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

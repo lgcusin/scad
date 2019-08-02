@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value=" Director de carrera / Recalificación / Ver asignaturas " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+
+
+	<h:form  id="frmEditarNotasRectificacion1Parcial" enctype="multipart/form-data" acceptcharset="UTF-8" action="IpClientServlet" method="post">
+			
+		<p:panel id="pnlResultados" header="Información del paralelo" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->		
+				<div class="row cells9">
+					<div class="cell colspan8"><!-- CARRERA -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteBigGeneralDisplay.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="txtCarrera" value="Carrera / Área: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<p:outputLabel id="txtCarrera" value="#{recalificacionNotasForm.rnfCarreraVer.crrDetalle}" 
+		       									style="font-weight: Normal !important;"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>	
+				<div class="row cells9">
+					<div class="cell colspan8"><!-- PARALELO -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteBigGeneralDisplay.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPrimerApellido" for="txtPrimerApellido" value="Primer apellido: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<p:outputLabel id="txtPrimerApellido" value="#{recalificacionNotasForm.rnfPersonaSeleccionadaVer.prsPrimerApellido}" 
+		       									style="font-weight: Normal !important;"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>
+				<div class="row cells9">
+					<div class="cell colspan8"><!-- PARALELO -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteBigGeneralDisplay.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblSegundoApellido" for="txtSegundoApellido" value="Primer apellido: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<p:outputLabel id="txtSegundoApellido" value="#{recalificacionNotasForm.rnfPersonaSeleccionadaVer.prsSegundoApellido}" 
+		       									style="font-weight: Normal !important;"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>	
+				<div class="row cells9">
+					<div class="cell colspan8"><!-- PARALELO -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteBigGeneralDisplay.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblNombres" for="txtNombres" value="Nombres: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<p:outputLabel id="txtNombres" value="#{recalificacionNotasForm.rnfPersonaSeleccionadaVer.prsNombres}" 
+		       									style="font-weight: Normal !important;"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>		
+			</div>
+		</p:panel>
+		<p:panel id="pnlIngresoNotas" header="Recalificación de notas" >
+		<p:growl id="msgs" showDetail="true"/>
+			<p:dataTable id="panelEstudiantesMatriculados" var="estudiante" value="#{recalificacionNotasForm.rnfListaEstudiantesRecalificacionEdicion}" editable="true" editMode="cell" widgetVar="cellEstudiante">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+					<f:facet name="header">
+		           		Recalificación de notas
+		       		</f:facet>
+		       		
+		       		<!-- <p:ajax event="cellEdit" listener="#{notasRectificacionForm.nrctfParaleloDtoEditar.onCellEdit}"  update=":frmEditarNotasRectificacion1Parcial:msgs" />  -->
+						<!-- ******************** FILA NUMERO 1 ************************ -->	
+					<p:column headerText="Asignatura" style="width: 3em ! important; text-align:center">
+		                 <h:outputText value="#{estudiante.mtrDescripcion}"/>
+		       		</p:column>
+		       		<p:column headerText="1er hemisemestre" style="width: 3em ! important; text-align:center">
+		           		 <p:cellEditor>
+		                 	<f:facet name="output">
+		                 		<h:outputText value="#{estudiante.clfNota1}"  >
+		                 			<f:convertNumber pattern="#0.00" />
+		                 		</h:outputText>
+		                 	</f:facet>
+		                 	<f:facet name="input">
+									<p:inputNumber id="txtNota1"
+										value="#{estudiante.clfNota1}" required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										minValue="0" maxValue="20" decimalPlaces="2"  >
+										<p:ajax event="blur" update = "txtNota1"></p:ajax>
+									</p:inputNumber>
+							</f:facet>
+		            	</p:cellEditor>
+		       		</p:column>
+		       		<p:column headerText="Asistencia 1er Hemisemestre" style="width: 3em ! important;  text-align:center ">
+		           		 <p:cellEditor>
+		                 	<f:facet name="output">
+		                 		<h:outputText value="#{estudiante.clfAsistencia1}"  />
+		                 	</f:facet>
+		                 	<f:facet name="input">
+		                 		<p:inputNumber id="txtAsistencia1"
+										value="#{estudiante.clfAsistencia1}" required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										minValue="0" maxValue="#{estudiante.clfAsistenciaDocente1}" decimalPlaces="0" >
+										<p:ajax event="blur" update = "txtAsistencia1"></p:ajax>
+								</p:inputNumber>
+							</f:facet>
+		            	</p:cellEditor>
+		       		</p:column>
+		       		<p:column headerText="Asistencia 1 docente" style="width: 3em ! important; text-align:center">
+		                 <h:outputText value="#{estudiante.clfAsistenciaDocente1}"/>
+		       		</p:column>
+		       		<p:column headerText="2do hemisemestre" style="width: 3em ! important; text-align:center">
+		           		 <p:cellEditor>
+		                 	<f:facet name="output">
+		                 		<h:outputText value="#{estudiante.clfNota2}"  >
+		                 			<f:convertNumber pattern="#0.00" />
+		                 		</h:outputText>
+		                 	</f:facet>
+		                 	<f:facet name="input">
+									<p:inputNumber id="txtNota2"
+										value="#{estudiante.clfNota2}" required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										minValue="0" maxValue="20" decimalPlaces="2"  >
+										<p:ajax event="blur" update = "txtNota2"></p:ajax>
+									</p:inputNumber>
+							</f:facet>
+		            	</p:cellEditor>
+		       		</p:column>
+		       		<p:column headerText="Asistencia 2do Hemisemestre" style="width: 3em ! important;  text-align:center ">
+		           		 <p:cellEditor>
+		                 	<f:facet name="output">
+		                 		<h:outputText value="#{estudiante.clfAsistencia2}"  />
+		                 	</f:facet>
+		                 	<f:facet name="input">
+		                 		<p:inputNumber id="txtAsistencia2"
+										value="#{estudiante.clfAsistencia2}" required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										minValue="0" maxValue="#{estudiante.clfAsistenciaDocente2}" decimalPlaces="0" >
+										<p:ajax event="blur" update = "txtAsistencia2"></p:ajax>
+								</p:inputNumber>
+							</f:facet>
+		            	</p:cellEditor>
+		       		</p:column>
+		       		<p:column headerText="Asistencia 2 docente" style="width: 3em ! important; text-align:center">
+		                 <h:outputText value="#{estudiante.clfAsistenciaDocente2}"/>
+		       		</p:column>
+		       		<p:column headerText="Sumatoria" style="width: 3em ! important; text-align:center">
+		                 <h:outputText value="#{estudiante.clfSumaP1P2}"/>
+		       		</p:column>
+		       		<p:column headerText="Parámetro 1" style="width: 3em ! important; text-align:center">
+		                 <h:outputText value="#{estudiante.clfParamRecuperacion1}"/>
+		       		</p:column>
+		       		<p:column headerText="Supletorio" style="width: 3em ! important; text-align:center">
+		           		 <p:cellEditor>
+		                 	<f:facet name="output">
+		                 		<h:outputText value="#{estudiante.clfSupletorio}"  >
+		                 			<f:convertNumber pattern="#0.00" />
+		                 		</h:outputText>
+		                 	</f:facet>
+		                 	<f:facet name="input">
+									<p:inputNumber id="txtNotaSupletorio"
+										value="#{estudiante.clfSupletorio}" required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										minValue="0" maxValue="20" decimalPlaces="2"  >
+										<p:ajax event="blur" update = "txtNotaSupletorio"></p:ajax>
+									</p:inputNumber>
+							</f:facet>
+		            	</p:cellEditor>
+		       		</p:column>
+		       		<p:column headerText="Parámetro 2" style="width: 3em ! important; text-align:center">
+		                 <h:outputText value="#{estudiante.clfParamRecuperacion2}"/>
+		       		</p:column>
+		       		<p:column headerText="Nota final" style="width: 2em ! important; text-align:center">
+		                 <h:outputText value="#{estudiante.clfNotaFinalSemestre}"/>
+		       		</p:column>
+				</div>
+			</p:dataTable>	
+		</p:panel>			
+		<div>
+			<p:commandButton id="btnRegresar" value="Cancelar" action="#{recalificacionNotasForm.irCancelar()}" immediate="true" ajax="false" />
+			
+			<p:commandButton id="btnGuardar" value="Guardar" action="#{recalificacionNotasForm.guardar()}" immediate="true" ajax="false" />
+			
+		</div>
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

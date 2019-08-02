@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value=" Reportes / Detalle individual del registro de notas " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+ 
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+          
+        var data = google.visualization.arrayToDataTable([
+          ['Nota', 'Distribución'],
+          #{reporteDocenteNotasForm.chartData}
+        ]);
+
+        var options = {
+          title: 'Campana de Gauss Jordan 1er Hemisemestre',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+           chart.draw(data, options);
+
+
+           
+           var data2 = google.visualization.arrayToDataTable([
+               ['Nota', 'Distribución'],
+               #{reporteDocenteNotasForm.chartData2}
+             ]);
+
+             var options2 = {
+               title: 'Campana de Gauss Jordan 2do Hemisemestre',
+               curveType: 'function',
+               legend: { position: 'bottom' }
+             };
+
+             var chart2 = new google.visualization.LineChart(document.getElementById('curve_chart2'));
+                chart2.draw(data2, options2);
+          
+      }
+
+
+    </script>
+
+
+
+
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	
+    	var idVarAgregar = 'compOculto:txtValidador3';
+     	var varAgregar = document.getElementById(idVarAgregar);
+	    	if(varAgregar.value == 1){
+	  		document.getElementById('frmVerSolicitud:cmdlModalReporte').click();
+	 	    }
+
+	  	    	
+    } 
+
+
+	 function nobackbutton(){
+	 		window.location.hash="no-back-button";
+	  		window.location.hash="Again-No-back-button" //chrome
+	   		window.onhashchange=function(){window.location.hash="no-back-button";}
+		  
+	      }
+
+ //]]> 
+</script>
+
+<script language="JavaScript">
+	//<![CDATA[
+		function abrirVentaReporte(formato, nombreReporte, tipo){
+			var url = "/aplicacion/reportes";
+			url = url + "?nombreJasper=" + nombreReporte;
+			url = url + "&formato=" + formato;
+			url = url + "&tipo=" + tipo;
+			if(formato == 'vista'){
+				var reportWindow = window.open(url);
+				reportWindow.focus();
+			}else{
+				var reportWindow = window.open(url);
+			}
+	    } 
+	 //]]> 
+</script>
+
+	<h:form id="frmVerSolicitud" enctype="multipart/form-data" acceptcharset="UTF-8" >
+	
+		<p:panel id="pnlDatosEstudiante" header="Información del estudiante">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1  Identificacion************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4" style=" width: 40%;">
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblIdentificacion" for="identificacion" value="Identificación: " />
+							</ui:define>
+							
+							<ui:define name="valor">
+								<p:outputLabel id="identificacion" value="#{reporteDocenteNotasForm.arndfParaleloDtoEditar.prsIdentificacion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+	                 <div class="cell colspan4" style=" width: 60%;"> 
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta" >
+								<p:outputLabel id="lblNombre" for="nombre" value="Nombre: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="nombre" value="#{reporteDocenteNotasForm.arndfParaleloDtoEditar.prsPrimerAPellido.concat(' ').
+								concat(reporteDocenteNotasForm.arndfParaleloDtoEditar.prsSegundoApellido).concat(' ').
+								concat(reporteDocenteNotasForm.arndfParaleloDtoEditar.prsNombres) }" 
+														style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+						   </ui:define>
+						</ui:decorate>
+					</div>
+					 
+				</div> <!-- Fin fila 1 -->
+				
+					<!-- ******************** FILA NUMERO 2 Periodo Academico************************ -->
+	        	<div class="row cells8"> 
+				
+					<div class="cell colspan4" style=" width: 40%;"> 
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCarrera" for="carrera" value="Carrera/Área: " />
+							</ui:define>
+							<ui:define name="valor" > 
+								<p:outputLabel id="carrera" value="#{reporteDocenteNotasForm.arndfParaleloDtoEditar.crrDescripcion }" 
+														style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+					<div class="cell colspan4" style=" width: 60%;"> 
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta" >
+								<p:outputLabel id="lblPeriodo" for="periodo" value="Período: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="periodo" value="#{reporteDocenteNotasForm.arndfPeriodoAcademicoBusq.pracDescripcion }" 
+														style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+						   </ui:define>
+						</ui:decorate>
+					</div>
+				</div>
+		 <!-- Fin fila 2 -->
+			</div><!-- Fin GRID-->
+	</p:panel>
+		<p:panel id="pnlMaterias" header="Resultado del registro de notas">
+			<p:dataTable id="dtsMaterias" var="item" value="#{reporteDocenteNotasForm.listaEstadisticas}"
+		   		 		rows="20" paginator="false" paginatorPosition="bottom"
+	                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+	                          style="text-align: center;">
+			        <p:column headerText="Asignatura" style="width: 4em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.mtrDescripcion}"/>
+			        </p:column>
+	                <p:column headerText="Paralelo" style="width: 2em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.prlCodigo}"/>
+			        </p:column>
+			         <p:column headerText="Inscritos" style="width: 2em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.numEstudiantesInscritos}"/>
+			        </p:column>
+	                <p:column headerText="Matriculados" style="width: 2em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.numEstudiantesMatriculados}"/>
+			        </p:column>
+					<p:column headerText="Con 1er registro de notas" style="width: 2em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.numEstudianteConNota1}"/>
+			        </p:column>
+			        <p:column headerText="Sin 1er registro de notas" style="width: 2em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.numEstudiantesSinNota1}"/>
+			        </p:column>
+			        <p:column headerText="Con 2do registro de notas" style="width: 2em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.numEstudianteConNota2}"/>
+			        </p:column>
+			        <p:column headerText="Sin 2do registro de notas" style="width: 2em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.numEstudiantesSinNota2}"/>
+			        </p:column>
+			        <p:column headerText="Media 1er Hemisemestre" style="width: 2em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.media1}"/>
+			        </p:column>
+			        <p:column headerText="Media 2do Hemisemestre" style="width: 2em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.media2}"/>
+			        </p:column>
+			        <p:column headerText="DS 1er Hemisemestre" style="width: 2em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.desviacionEstandar1}"/>
+			        </p:column>
+			        <p:column headerText="DS 2do Hemisemestre" style="width: 2em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.desviacionEstandar2}"/>
+			        </p:column>
+				</p:dataTable>
+		</p:panel >
+		<p:panel rendered="#{reporteDocenteNotasForm.activadorGrafico}">
+			<div id="curve_chart" style="width: 800px; height: 500px;" ></div>
+		</p:panel>
+		<p:panel rendered="#{reporteDocenteNotasForm.activadorGrafico2}">
+			<div id="curve_chart2" style="width: 800px; height: 500px;" ></div>
+		</p:panel>
+
+		<div>
+		
+			<p:commandButton id="btnRegresar" value="Cancelar" action="#{reporteDocenteNotasForm.irListar()}" immediate="true" ajax="false" />
+			<script src="https://www.gstatic.com/charts/loader.js"></script>
+    				   
+    		<p:commandButton id="cmdlModalReporte" value="Imprimir reporte" style="visibility:hidden;">
+			<p:ajax oncomplete="abrirVentaReporte('PDF','reporteDirCarrera','REPORTE_APROBACION_SOLICITUD_TERCERA');" />
+			</p:commandButton>
+			
+    				
+		</div>
+	</h:form>
+	
+		
+	<h:form id="compOculto" style="visibility:hidden;">
+	 		<p:inputText id="txtValidador3"
+				value="#{reimpresionAprobacionSolicitudTerceraMatriculaForm.rastmfActivaReportePDF}" />
+		
+				
+	</h:form>
+	
+</ui:define>
+</ui:composition>
+</html>

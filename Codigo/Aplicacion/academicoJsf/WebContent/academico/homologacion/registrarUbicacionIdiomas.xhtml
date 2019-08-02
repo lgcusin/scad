@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Homologación / Listar estudiantes/Registrar ubicación" />
+		</ui:include>
+</ui:define>
+
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador2';
+    	var varError = document.getElementById(idVarError);
+    	if(varError.value == 2){
+    		document.getElementById('frmMaterias:btnModalRegistrarUbicacion').click();
+        }
+
+	  }
+	  
+    	 function nobackbutton(){
+ 	 		window.location.hash="no-back-button";
+ 	  		window.location.hash="Again-No-back-button" //chrome
+ 	   		window.onhashchange=function(){window.location.hash="no-back-button";}
+ 	      }
+
+
+    	 $(document).ready(function() {
+    		    $("form").keypress(function(e) {
+    		        if (e.which == 13) {
+    		            return false;
+    		        }
+    		    });
+    		});
+
+ //]]> 
+</script>
+	<h:form id="frmMaterias" enctype="multipart/form-data" acceptcharset="UTF-8" >
+			<p:panel id="pnlDatosEstudiante" header="Información del estudiante">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+					<!-- ******************** FILA NUMERO 1  Identificacion************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4" style="width: 40%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacion" for="identificacion"
+										value="Identificación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="identificacion"
+										value="#{registroHomologacionForm.rhfPersonaDtoEditar.prsIdentificacion}"
+										style="vertical-align: super;font-weight: Normal !important; width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4" style="width: 60%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNombre" for="nombre" value="Nombre: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="nombre"
+										value="#{registroHomologacionForm.rhfPersonaDtoEditar.prsPrimerApellido.concat(' ').
+								concat(registroHomologacionForm.rhfPersonaDtoEditar.prsSegundoApellido).concat(' ').
+								concat(registroHomologacionForm.rhfPersonaDtoEditar.prsNombres) }"
+										style="vertical-align: super;font-weight: Normal !important; width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- Fin fila 1 -->
+					<!-- ******************** FILA NUMERO 2 Periodo Academico************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4" style="width: 40%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPeriodo" for="periodo"
+										value="Periodo Académico: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="periodo"
+										value="#{registroHomologacionForm.rhfPeriodoAcademicoInscripcion.pracDescripcion }"
+										style="vertical-align: super;font-weight: Normal !important; width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4" style="width: 60%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCarrera" for="carrera"
+										value="Carrera: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="carrera"
+										value="#{registroHomologacionForm.rhfPersonaDtoEditar.crrDetalle}"
+										style="vertical-align: super;font-weight: Normal !important; width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- Fin fila 2 -->
+					
+					
+					<div class="row cells8">
+						<div class="cell colspan4" style="width: 40%;">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblTipoIngreso" for="tipoIngreso"
+										value="Tipo de ingreso: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="tipoIngreso"
+										value="#{listasCombosForm.getLabelTipoIngresoHomologacion(registroHomologacionForm.rhfPersonaDtoEditar.fcinTipoIngreso) }"
+										style="vertical-align: super;font-weight: Normal !important; width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						
+					</div>
+					
+					
+				<div class="row cells8">
+					<div class="cell colspan4" ><!-- -->
+								<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+									<ui:define name="etiqueta">
+										<p:outputLabel id="lblHomologacion" for="slcHomologacion" value="Estado de ingreso: " />
+									</ui:define>
+									<ui:define name="valor">
+										<h:selectOneMenu id="slcHomologacion" value="#{registroHomologacionForm.rhfPersonaDtoEditar.fcinEstadoIngreso}" 
+										                style="width: 100%;" required="true"
+										                  disabled="#{registroHomologacionForm.rhfBloqueaEstadoIngreso}"
+														requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">	
+											<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}"
+											              itemValue="#{generalesConstantesForm.appIdBase}" />
+										  	<f:selectItems value="#{listasCombosForm.listaEstadoIngresoHomologacion}" var="item"
+													itemLabel="#{item.label}" itemValue="#{item.value}" />  
+											<p:ajax event="change" listener="#{registroHomologacionForm.bloqueaUbicacionIdiomas() }" 
+											update=":frmMaterias:pnlResultados , slcHomologacion, lblHomologacion, msgHomologacion "  />
+										</h:selectOneMenu>
+									</ui:define>
+									<ui:define name="etiquetaError">
+										<p:message id="msgHomologacion" for="slcHomologacion" />
+									</ui:define>
+							    </ui:decorate>
+						    </div>
+						    										
+					</div>
+									
+				<div class="grid condensed">
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblArchivo" for="txtArchivo"
+										value="Seleccione el informe aprobatorio de ingreso del estudiante: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtArchivo"
+										value="#{registroHomologacionForm.rhfNombreArchivoAuxiliar}"
+										style="font-weight: Normal !important;">
+									</p:outputLabel>
+									<p:fileUpload id="flupArchivoSubir"
+										fileUploadListener="#{registroHomologacionForm.handleFileUpload}"
+										auto="true" sizeLimit="524288" allowTypes="/(\.|\/)(pdf)$/"
+										update="txtArchivo" cancelLabel="Cancelar"
+										fileLimitMessage="Ya ha seleccionado un archivo"
+										invalidSizeMessage="Tamaño de archivo excedido! máximo 500kb"
+										label="Buscar"
+										invalidFileMessage="Tipo de archivo no válido! solo formato pdf"
+										uploadLabel="Cargar"
+										style="width:100%" required="true"
+										requiredMessage="Campo requerido">
+									</p:fileUpload>
+									
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+				</div>
+		
+				
+				</div>
+				<!-- Fin GRID-->
+			</p:panel>
+	
+	<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+		<p:panel id="pnlResultados" header="Niveles disponibles para registrar">
+			<p:dataTable id="dtsMateria" var="itemMateria" value="#{registroHomologacionForm.rhfListMateriaDto}"
+		   		 		rows="120" paginator="false" paginatorPosition="bottom"
+	                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+	                          style="text-align: center; ">
+	                          
+	                <p:column headerText="Código"  style="width: 1em  ! important; text-align: left; ">
+			            <h:outputText value="#{itemMateria.mtrCodigo}"/>
+			        </p:column>
+	                <p:column headerText="Asignatura"  style="width: 9em  ! important; text-align: left; ">
+			            <h:outputText value="#{itemMateria.mtrDescripcion}"/>
+			        </p:column>
+			        <p:column headerText="Nivel"  style="width: 1em  ! important;">
+			            <h:outputText value="#{itemMateria.nvlDescripcion}"/>
+			        </p:column>
+
+					<p:column headerText="Homologado" style="width: 1em  ! important;" rendered="#{registroHomologacionForm.rhfBloqueaUbicacionIngles}" >
+
+						<h:selectBooleanCheckbox  value="#{itemMateria.esHomologado}" >
+							<p:ajax  event="change" listener="#{registroHomologacionForm.setearCamposIdiomas(itemMateria)}" 
+								update="slcEstadoHomologacion" 
+								
+								 />
+						</h:selectBooleanCheckbox>
+
+					</p:column>
+
+					
+					 <p:column headerText="Estado" style="width: 2em  ! important; text-align: center; "  rendered="#{registroHomologacionForm.rhfBloqueaUbicacionIngles}">
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+							<ui:define name="valor">
+									<h:selectOneMenu id="slcEstadoHomologacion" value="#{itemMateria.estadoHomologacion}" style="width:100%" disabled="#{itemMateria.mtrCmbEstado}" >
+										
+										<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+										              itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems 
+										var="item2"  
+										value="#{listasCombosForm.listaRecordAcademicoIdiomas}"
+										itemLabel="#{item2.label}" itemValue="#{item2.value}" />
+									</h:selectOneMenu>
+								</ui:define>
+							</ui:decorate>
+					</p:column>
+			        
+				</p:dataTable>
+		</p:panel>
+		
+		<div >
+			<p:commandButton id="btnCancelar" value="Cancelar" action="#{registroHomologacionForm.cancelarHistorico()}"  ajax="false" immediate="true"/>
+			
+			<p:commandButton id="btnRegistrarUbicacionVerificar" action="#{registroHomologacionForm.verificarClickRegistrarUbicacion()}" value="Finalizar" disabled= "#{registroHomologacionForm.rhfBloqueaBotonFinalizar}" ajax="false" />
+			
+			<p:commandButton id="btnModalRegistrarUbicacion" value="EjecutarModalUbicacion" style="visibility:hidden;">
+    				<p:ajax oncomplete="PF('dialogoRegistrarUbicacion').show();" update=":frmModalRegistrarUbicacion" />
+    		</p:commandButton>
+		</div>
+		
+	</h:form>
+	<ui:include src="/academico/homologacion/modalGuardarUbicacionIdiomas.xhtml" />
+	
+	<h:form id="compOculto" style="visibility:hidden;">
+	 	<p:inputText id="txtValidador2" value="#{registroHomologacionForm.rhfValidadorClic}" />
+	</h:form>
+	
+	
+	
+</ui:define>
+</ui:composition>
+</html>

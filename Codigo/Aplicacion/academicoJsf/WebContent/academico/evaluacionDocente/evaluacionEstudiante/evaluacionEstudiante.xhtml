@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value=" Evaluación Docente / Estudiante " />
+		</ui:include>
+	</ui:define>
+	<ui:define name="cuerpo">
+		<h:form id="frmEvaluacionDirectivo"
+			enctype="multipart/form-data" acceptcharset="UTF-8">
+			
+			<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+
+			<p:panel id="pnlDocente" header="Información Estudiante">
+
+				<div class="grid condensed">
+
+					<!-- ******************** FILA NUMERO 0 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- Nombre -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNombre" for="txtNombre" value="Nombre: " />
+								</ui:define>
+
+								<ui:define name="valor">
+									<p:outputLabel id="txtNombre"
+										value="#{evaluacionEstudianteForm.eefMatriculaEstudiante.prsPrimerApellido} #{evaluacionEstudianteForm.eefMatriculaEstudiante.prsSegundoApellido} #{evaluacionEstudianteForm.eefMatriculaEstudiante.prsNombres}">
+									</p:outputLabel>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgNombre" for="txtNombre" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+						<!-- ******************** FIN FILA NUMERO 0 ************************ -->
+
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- IDENTIFICACION -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacionView"
+										for="txtIdentificacionView" value="Identificación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtIdentificacionView"
+										value="#{evaluacionEstudianteForm.eefMatriculaEstudiante.prsIdentificacion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+
+						<!-- ******************** FIN FILA NUMERO 1 ************************ -->
+
+						<!-- ******************** FILA NUMERO 2 ************************ -->
+
+						<div class="cell colspan4">
+							<!-- CARRERA -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblTiempoDedicacion"
+										for="txtCarrera" value="Carrera: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtCarrera"
+										value="#{evaluacionEstudianteForm.eefMatriculaEstudiante.crrDescripcion}"
+										style="width:100%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 2 ************************ -->
+				</div>
+			</p:panel>
+			
+			<!-- ******************** PANEL PARÁMETROS DE BÚSQUEDA************************ -->
+
+			<p:panel id="pnlBusqueda" header="Parámetros de búsqueda" 
+				rendered="#{evaluacionEstudianteForm.eefListaMatriculasEstudiante.size() == 1 ? 'false':'true'}">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+
+					<!-- ******************** FILA NUMERO 0 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- CARRERA -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCarreras" for="slcCarreras"
+										value="Carrera: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcCarreras"
+										value="#{evaluacionEstudianteForm.eefMatriculaEstudiante.fcmtId}"
+										style="width:100%"> 
+										<f:selectItems var="item"
+											noSelectionOption="true"
+											value="#{evaluacionEstudianteForm.eefListaMatriculasEstudiante}"
+											itemLabel="#{item.crrDescripcion}" itemValue="#{item.fcmtId}" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgCarreras" for="slcCarreras" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div> 
+					<!-- ******************** FIN FILA NUMERO 0 ************************ -->
+ 
+				</div>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnBuscar" value="Buscar"
+					rendered="#{evaluacionEstudianteForm.eefListaMatriculasEstudiante.size() == 1 ? 'false':'true'}"
+					action="#{evaluacionEstudianteForm.buscar()}"
+					update=":frmEvaluacionDirectivo:pnlResultados"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+
+				<p:commandButton id="btnLimpiar" value="Limpiar"
+					rendered="#{evaluacionEstudianteForm.eefListaMatriculasEstudiante.size() == 1 ? 'false':'true'}"
+					action="#{evaluacionEstudianteForm.limpiar()}"
+					update="frmEvaluacionDirectivo"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+			</div>
+ 
+			<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+
+			<p:panel id="pnlResultados" header="Materias">
+				<p:dataTable id="dtsMatricula" var="item"
+					value="#{evaluacionEstudianteForm.eefListMateriaEstudiante}" rows="20"
+					paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" rowIndexVar="rowIndex"
+					emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+					>
+					<p:column headerText="#" style="width:5%; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column headerText="Paralelo" style="width:10%; text-align: center;">
+						<h:outputText value="#{item.prlDescripcion} #{item.mtrEstado}" />
+					</p:column>
+					<p:column headerText="Descripción">
+						<h:outputText value="#{item.mtrDescripcion}" />
+					</p:column>
+					<p:column headerText="Estado" style="width:10%; text-align: center;">
+						<h:outputText value="#{listasCombosForm.getListaEstadoRecorAcademico(item.rcesEstado)}" />
+					</p:column>
+					<p:column headerText="Opciones" style="width:6em; text-align: center;">
+						<p:commandLink id="cmdlEvaluar" value="Evaluar"
+							rendered="#{evaluacionEstudianteForm.verificarEvaluacion(evaluacionEstudianteForm.eefEvaluacionActiva, item, 1) ? 'true':'false'}"
+							action = "#{evaluacionEstudianteForm.irEvaluarDirectivo(item)}"
+							onclick="PF('dialogoTrabajando').show();" ajax="false"
+							style="margin: 0px 5px; color:blue" />
+							
+						<h:outputText value="Evaluado"
+							rendered="#{evaluacionEstudianteForm.verificarEvaluacion(evaluacionEstudianteForm.eefEvaluacionActiva, item, 1) ? 'false':'true'}"/>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnRegresar" value="Regresar"
+					action="#{evaluacionEstudianteForm.irInicio()}" immediate="true"
+					ajax="false" onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+			</div>
+
+		</h:form>
+ 
+	</ui:define>
+</ui:composition>
+</html>

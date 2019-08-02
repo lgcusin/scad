@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Evaluacion" pageWidth="1000" pageHeight="595" orientation="Landscape" columnWidth="960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d20b988e-2233-4eb0-83d1-36d532dbdcd3">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="evaluacion" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="identificacion" class="java.lang.String"/>
+	<field name="estudiante" class="java.lang.String"/>
+	<field name="idioma" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="carrera" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="86" splitType="Stretch">
+			<textField>
+				<reportElement x="67" y="34" width="913" height="17" uuid="60075de9-2065-496b-adf5-4d29068f2c5c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  "+$P{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-11" y="0" width="991" height="17" uuid="46aa64bc-8e24-44d8-a7bd-b68befc89c0f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["SISTEMA INTEGRAL DE INFORMACIÓN UNIVERSITARIA"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="429" y="58" width="78" height="28" backcolor="#9C9B9B" uuid="54216472-697d-4abe-a1b5-610618295f68"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IDENTIFICACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="507" y="58" width="273" height="28" backcolor="#9C9B9B" uuid="37edd3dd-7c23-4f7b-b416-510659c55552"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTUDIANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="780" y="58" width="120" height="28" backcolor="#9C9B9B" uuid="a2dd1278-cd20-4c2a-9ac5-1496b8305b84"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EMAIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="218" y="58" width="211" height="28" backcolor="#9C9B9B" uuid="f105904f-9ca0-4e54-9ae4-aeffbc7907dd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IDIOMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="-11" y="58" width="229" height="28" backcolor="#9C9B9B" uuid="232b0e6a-1e86-436e-b66d-0a02d2d2ca4e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CARRERA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="900" y="58" width="80" height="28" backcolor="#9C9B9B" uuid="fe708767-5adc-4792-ad70-778e357c0519"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="-11" y="34" width="78" height="17" forecolor="#000000" backcolor="#FFFFFF" uuid="77a80d5f-116a-45d3-919f-57635e5e4226"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="-12" y="17" width="991" height="17" uuid="d25e34e6-d64a-4be9-ade9-1579e17e384e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["SUFICIENCIA EN IDIOMAS"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="429" y="0" width="78" height="20" uuid="b2316d61-36a7-4d9f-b82d-71d1821bcd89"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{identificacion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="507" y="0" width="273" height="20" uuid="9c176630-6d36-4547-95d1-bfdb0e3b353c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estudiante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="780" y="0" width="120" height="20" uuid="f6000aae-dfdc-4440-affd-0e447a549285"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="218" y="0" width="211" height="20" uuid="bf6959c2-814f-4ff7-baae-ff79a0ec14e8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idioma}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="900" y="0" width="80" height="20" uuid="544b326a-4a30-42a4-9154-a4d53bf92410"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-10" y="0" width="228" height="20" uuid="a3b810ae-8916-4043-b484-8a15291a94ba"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{carrera}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

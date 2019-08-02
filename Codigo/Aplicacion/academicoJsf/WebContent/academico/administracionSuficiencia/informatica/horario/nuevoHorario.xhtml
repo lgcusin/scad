@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Administración académico / Horarios / Horario de Clases " />
+		</ui:include>
+	</ui:define>
+	<ui:define name="cuerpo">
+		<script language="JavaScript">
+		//<![CDATA[
+		    function verificarErrores(){
+		        var idVarAgregar = 'compOculto:txtValidador';
+		     	var varAgregar = document.getElementById(idVarAgregar);
+			    	if(varAgregar.value == 1){
+			  		document.getElementById('frmHorarioClases:cmdlModalReporte').click();
+			 	    }
+		  	    }
+		 //]]> 
+	</script>
+		<h:form id="frmHorarioClases" enctype="multipart/form-data" acceptcharset="UTF-8">
+			<p:panel id="pnlInfGeneral" header="Información general">
+				<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 3 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblMateria" for="slcMateria"
+										value="Asignatura:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="slcMateria"
+										value="#{administracionSuficienciaHorarioAcademicoForm.ashafMateriaDto.mtrDescripcion}" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCupo" for="slcCupo"
+										value="Cupo paralelo:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="slcCupo"
+										value="#{administracionSuficienciaHorarioAcademicoForm.ashafMateriaDto.mlcrprCupo}" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPeriodo" for="slcPeriodo"
+										value="Periodo:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="slcPeriodo"
+										value="#{administracionSuficienciaHorarioAcademicoForm.ashafMateriaDto.pracDescripcion}" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCarrera" for="slcCarrera"
+										value="Carrera:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="slcCarrera"
+										value="#{administracionSuficienciaHorarioAcademicoForm.ashafMateriaDto.crrDescripcion}" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FILA NUMERO 2 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNivel" for="slcNivel" value="Nivel:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="slcNivel"
+										value="#{administracionSuficienciaHorarioAcademicoForm.ashafMateriaDto.nvlDescripcion}" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblParalelo" for="slcParalelo"
+										value="Paralelo:" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="slcParalelo"
+										value="#{administracionSuficienciaHorarioAcademicoForm.ashafMateriaDto.prlDescripcion}" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					
+				</div>
+			</p:panel>
+
+			<p:panel id="pnlDocente" header="Información Docente">
+
+				<div class="grid condensed">
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacionView"
+										for="txtIdentificacionView" value="Identificación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtIdentificacionView"
+										value="#{administracionSuficienciaHorarioAcademicoForm.ashafMateriaDto.prsIdentificacion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNombre" for="txtNombre" value="Docente: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtNombre"
+										value="#{administracionSuficienciaHorarioAcademicoForm.ashafMateriaDto.prsPrimerApellido} #{administracionSuficienciaHorarioAcademicoForm.ashafMateriaDto.prsSegundoApellido} #{administracionSuficienciaHorarioAcademicoForm.ashafMateriaDto.prsNombres}">
+									</p:outputLabel>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgNombre" for="txtNombre" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<p:commandButton id="btnAgregarDocente" value="Asignar"
+						rendered="#{!administracionSuficienciaHorarioAcademicoForm.ashafDocenteAsignado}"
+						oncomplete="PF('dlgModalAgregarDocente').show();"
+						update="frmModalAgregarDocente"/>
+					<p:commandButton id="btnQuitarDocente" value="Quitar"
+							rendered="#{administracionSuficienciaHorarioAcademicoForm.ashafDocenteAsignado}"
+							onclick="PF('dialogoTrabajando').show();"
+							oncomplete="PF('dialogoTrabajando').hide();"
+							update="frmHorarioClases"
+							action="#{administracionSuficienciaHorarioAcademicoForm.desactivarCargaHoraria()}"
+							ajax="false" />
+				</div>
+			</p:panel>
+
+			<p:panel id="pnlHorarioClases" header="Asignación de Aulas" >
+				<p:dataTable id="dtsEstudiante" 
+					var="item"
+					value="#{administracionSuficienciaHorarioAcademicoForm.ashafListHoraClaseDto}"
+					rows="25" paginator="false" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="15,30,45"
+					emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+					<p:column headerText="Hora" style="width: 1em ! important; text-align: center">
+						<h:outputText value="#{item.hoclDescripcion}" />
+					</p:column>
+					<p:column id="colLunes" headerText="Lunes" style="width: 3em ! important; text-align: center">
+						<p:panelGrid>
+							<p:row>
+								<p:column id="col1Lunes" style="text-align:center;">
+									<h:selectBooleanCheckbox id="comp1Lunes" style="text-align:left;" disabled="true" value="#{item.hoclLunesHoraClaseDto.hoclCheckBox}" />
+								</p:column>
+								<p:column id="col2Lunes" style="text-align:center;">
+									<i class="fa fa-fw fa-bank" title="Aula asignada: #{item.hoclLunesHoraClaseDto.alaCodigo}"/>
+								</p:column>
+							    <p:column id="col3Lunes" style="text-align:center;">
+									<p:commandLink id="comp3Lunes" value="Aula" rendered="#{!item.hoclLunesHoraClaseDto.hoclCheckBox}" style="text-align:right;color:blue;" 
+										action="#{administracionSuficienciaHorarioAcademicoForm.buscarAula(item,0,item.hoclLunesHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+									<p:commandLink id="comp4Lunes" value="Quitar"  rendered="#{item.hoclLunesHoraClaseDto.hoclCheckBox}" style="text-align:right;color:red;" 
+										action="#{administracionSuficienciaHorarioAcademicoForm.quitarAula(item.hoclLunesHoraClaseDto,0,item.hoclLunesHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</p:column>
+					<p:column id="colMartes" headerText="Martes" style="width: 3em ! important; text-align: center">
+						<p:panelGrid>
+							<p:row>
+								<p:column id="col1Martes" style="text-align:center;">
+									<h:selectBooleanCheckbox id="comp1Martes" style="text-align:left;" disabled="true" value="#{item.hoclMartesHoraClaseDto.hoclCheckBox}"/>
+								</p:column>
+								<p:column id="col2Martes"  style="text-align:center;">
+									<i class="fa fa-fw fa-bank" title="Aula asignada: #{item.hoclMartesHoraClaseDto.alaCodigo}"/>
+								</p:column>
+								<p:column id="col3Martes" style="text-align:center;">
+									<p:commandLink id="comp3Martes" value="Aula" rendered="#{!item.hoclMartesHoraClaseDto.hoclCheckBox}" style="text-align:right;color:blue;" 
+										action="#{administracionSuficienciaHorarioAcademicoForm.buscarAula(item,1,item.hoclMartesHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+									<p:commandLink id="comp4Martes" value="Quitar"  rendered="#{item.hoclMartesHoraClaseDto.hoclCheckBox}" style="text-align:right;color:red;" 
+										action="#{administracionSuficienciaHorarioAcademicoForm.quitarAula(item.hoclMartesHoraClaseDto,1,item.hoclMartesHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</p:column>
+					<p:column id="colMiercoles" headerText="Miercóles" style="width: 3em ! important; text-align: center">
+						<p:panelGrid>
+							<p:row>
+								<p:column id="col1Miercoles" style="text-align:center;">
+									<h:selectBooleanCheckbox id="comp1Miercoles" style="text-align:left;" disabled="true" value="#{item.hoclMiercolesHoraClaseDto.hoclCheckBox}"/>
+								</p:column>
+								<p:column id="col2Miercoles" style="text-align:center;">
+									<i class="fa fa-fw fa-bank" title="Aula asignada: #{item.hoclMiercolesHoraClaseDto.alaCodigo}"/>
+								</p:column>
+								<p:column id="col3Miercoles"  style="text-align:center;">
+									<p:commandLink id="comp3Miercoles" value="Aula" rendered="#{!item.hoclMiercolesHoraClaseDto.hoclCheckBox}" style="text-align:right;color:blue;" 
+										action="#{administracionSuficienciaHorarioAcademicoForm.buscarAula(item,2,item.hoclMiercolesHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+									<p:commandLink id="comp4Miercoles" value="Quitar"  rendered="#{item.hoclMiercolesHoraClaseDto.hoclCheckBox}" style="text-align:right;color:red;" 
+										action="#{administracionSuficienciaHorarioAcademicoForm.quitarAula(item.hoclMiercolesHoraClaseDto,2,item.hoclMiercolesHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</p:column>
+					<p:column id="colJueves" headerText="Jueves" style="width: 3em ! important; text-align: center">
+						<p:panelGrid>
+							<p:row>
+								<p:column id="col1Jueves" style="text-align:center;">
+									<h:selectBooleanCheckbox id="comp1Jueves" style="text-align:left;" disabled="true" value="#{item.hoclJuevesHoraClaseDto.hoclCheckBox}"/>
+								</p:column>
+								<p:column id="col2Jueves" style="text-align:center;">
+									<i class="fa fa-fw fa-bank" title="Aula asignada: #{item.hoclJuevesHoraClaseDto.alaCodigo}"/>
+								</p:column>
+								<p:column id="col3Jueves" style="text-align:center;">
+									<p:commandLink id="comp3Jueves" value="Aula" rendered="#{!item.hoclJuevesHoraClaseDto.hoclCheckBox}" style="text-align:right;color:blue;" 
+										action="#{administracionSuficienciaHorarioAcademicoForm.buscarAula(item,3,item.hoclJuevesHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+									<p:commandLink id="comp4Jueves" value="Quitar"  rendered="#{item.hoclJuevesHoraClaseDto.hoclCheckBox}" style="text-align:right;color:red;" 
+										action="#{administracionSuficienciaHorarioAcademicoForm.quitarAula(item.hoclJuevesHoraClaseDto,3,item.hoclJuevesHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</p:column>
+					<p:column id="colViernes" headerText="Viernes" style="width: 3em ! important; text-align: center">
+						<p:panelGrid>
+							<p:row>
+								<p:column id="col1Viernes" style="text-align:center;">
+									<h:selectBooleanCheckbox id="comp1Viernes" style="text-align:left;" disabled="true" value="#{item.hoclViernesHoraClaseDto.hoclCheckBox}"/>
+								</p:column>
+								<p:column id="col2Viernes" style="text-align:center;">
+									<i class="fa fa-fw fa-bank" title="Aula asignada: #{item.hoclViernesHoraClaseDto.alaCodigo}"/>
+								</p:column>
+								<p:column id="col3Viernes"  style="text-align:center;">
+									<p:commandLink id="comp3Viernes" value="Aula"  rendered="#{!item.hoclViernesHoraClaseDto.hoclCheckBox}" style="text-align:right;color:blue;" 
+										action="#{administracionSuficienciaHorarioAcademicoForm.buscarAula(item,4,item.hoclViernesHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+									<p:commandLink id="comp4Viernes" value="Quitar"  rendered="#{item.hoclViernesHoraClaseDto.hoclCheckBox}" style="text-align:right;color:red;" 
+										action="#{administracionSuficienciaHorarioAcademicoForm.quitarAula(item.hoclViernesHoraClaseDto,4,item.hoclViernesHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</p:column>
+					<p:column id="colSabado" headerText="Sábado" style="width: 3em ! important; text-align: center">
+						<p:panelGrid>
+							<p:row>
+								<p:column id="col1Sabado" style="text-align:center;">
+									<h:selectBooleanCheckbox id="comp1Sabado" style="text-align:left;" disabled="true" value="#{item.hoclSabadoHoraClaseDto.hoclCheckBox}"/>
+								</p:column>
+								<p:column id="col2Sabado" style="text-align:center;">
+									<i class="fa fa-fw fa-bank" title="Aula asignada: #{item.hoclSabadoHoraClaseDto.alaCodigo}"/>
+								</p:column>
+								<p:column id="col3Sabado" style="text-align:center;">
+									<p:commandLink id="comp3Sabado" value="Aula" rendered="#{!item.hoclSabadoHoraClaseDto.hoclCheckBox}" style="text-align:right;color:blue;" 
+										action="#{administracionSuficienciaHorarioAcademicoForm.buscarAula(item,5,item.hoclSabadoHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+									<p:commandLink id="comp4Sabado" value="Quitar"  rendered="#{item.hoclSabadoHoraClaseDto.hoclCheckBox}" style="text-align:right;color:red;" 
+										action="#{administracionSuficienciaHorarioAcademicoForm.quitarAula(item.hoclSabadoHoraClaseDto,5,item.hoclSabadoHoraClaseDto.hoclHoraInicio)}" ajax="false"/>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			<div>
+				<p:commandButton id="btnCancelar" value="Regresar"
+					action="#{administracionSuficienciaHorarioAcademicoForm.irMateriasSuficiencias()}"
+					immediate="true" ajax="false" />
+				<p:commandButton id="cmdlModalReporte" value="Activar Modal" style="visibility:hidden;">
+					<p:ajax oncomplete="PF('dlgAgregarAula').show();" onclick="PF('dialogoTrabajando').show();" update=":frmModalAgregarAula" />
+				</p:commandButton>
+			</div>
+		</h:form>
+
+		<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador" value="#{administracionSuficienciaHorarioAcademicoForm.ashafActivarModal}" />
+		</h:form>
+		<ui:include	src="/academico/administracionSuficiencia/informatica/horario/modalAgregarDocente.xhtml" />
+		<ui:include	src="/academico/administracionSuficiencia/informatica/horario/modalAgregarAula.xhtml" />
+
+	</ui:define>
+</ui:composition>
+</html>

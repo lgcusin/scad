@@ -1,0 +1,662 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value=" Carga Horaria / Doctorados " />
+		</ui:include>
+	</ui:define>
+	<ui:define name="cuerpo">
+	<script language="JavaScript">
+		//<![CDATA[
+		    function verificarErrores(){
+		        var idVarAgregar = 'compOculto:txtValidador';
+		     	var varAgregar = document.getElementById(idVarAgregar);
+			    	if(varAgregar.value == 1){
+			  		document.getElementById('frmCargaHorariaDoctorado:cmdlModalReporte').click();
+			 	    }
+		  	    }
+		 //]]> 
+	</script>
+	<script language="JavaScript">
+		//<![CDATA[
+			function abrirVentaReporte(formato, nombreReporte, tipo){
+				var url = "/aplicacion/reportes";
+				url = url + "?nombreJasper=" + nombreReporte;
+				url = url + "&formato=" + formato;
+				url = url + "&tipo=" + tipo;
+				if(formato == 'vista'){
+					var reportWindow = window.open(url);
+					reportWindow.focus();
+				}else{
+					var reportWindow = window.open(url);
+				}
+		    } 
+		 //]]> 
+	</script>
+		<h:form id="frmCargaHorariaDoctorado" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<!-- ******************** PANEL PARÁMETROS DE BÚSQUEDA************************ -->
+
+			<p:panel id="pnlBusqueda" header="Parámetros de búsqueda">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+
+					<!-- ******************** FILA NUMERO 0 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- PERIODOS -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPeriodos" for="slcPeriodos"
+										value="Período: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcPeriodos"
+										value="#{doctoradosForm.dfPeriodoAcademicoBuscar}"
+										required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%">
+										<f:selectItems var="item"
+											value="#{doctoradosForm.dfListaPeriodosAcademicos}"
+											itemLabel="#{item.pracDescripcion}"
+											itemValue="#{item.pracId}" />
+										<p:ajax event="change"
+											listener="#{doctoradosForm.seleccionarPeriodo()}"
+											update="slcFacultades, slcCarreras, slcDocentes, pnlDocente, pnlFuncion, pnlPreFuncion, frmCargaHorariaDoctorado" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgPeriodos" for="slcPeriodos" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 0 ************************ -->
+
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- FACULTAD -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblFacultades" for="slcFacultades"
+										value="Facultad: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcFacultades"
+										value="#{doctoradosForm.dfFacultadBuscar}" required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{doctoradosForm.dfListaFacultades}"
+											itemLabel="#{item.dpnDescripcion}" itemValue="#{item.dpnId}" />
+										<p:ajax event="change"
+											listener="#{doctoradosForm.listarCarreras()}"
+											update="slcCarreras, slcDocentes, pnlDocente, pnlFuncion, pnlPreFuncion, frmCargaHorariaDoctorado" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgFacultades" for="slcFacultades" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 1 ************************ -->
+
+					<!-- ******************** FILA NUMERO 2 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- CARRERA -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCarreras" for="slcCarreras"
+										value="Carrera: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcCarreras"
+										value="#{doctoradosForm.dfCarreraBuscar}" required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccioneTodos}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{doctoradosForm.dfListaCarreras}"
+											itemLabel="#{item.crrDetalle}" itemValue="#{item.crrId}" />
+										<p:ajax event="change"
+											listener="#{doctoradosForm.listarDocentesPorCarrera()}"
+											update="slcDocentes, pnlDocente, pnlFuncion, pnlPreFuncion, frmCargaHorariaDoctorado" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgCarreras" for="slcCarreras" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+					<!-- ******************** FIN FILA NUMERO 2 ************************ -->
+
+
+					<!-- ******************** FILA NUMERO 3 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- DOCENTE -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblDocentes" for="slcDocentes"
+										value="Docente: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcDocentes"
+										value="#{doctoradosForm.dfDocenteBuscar}" required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{doctoradosForm.dfListaDocentes}"
+											itemLabel="#{item.prsPrimerApellido} #{item.prsSegundoApellido} #{item.prsNombres}"
+											itemValue="#{item.prsId}" />
+										<p:ajax event="change"
+											listener="#{doctoradosForm.limpiarInfoDocente()}"
+											update="pnlDocente, pnlFuncion, pnlPreFuncion, frmCargaHorariaDoctorado" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgDocentes" for="slcDocentes" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+					<!-- ******************** FIN FILA NUMERO 3 ************************ -->
+
+					<!-- ******************** FILA NUMERO 4 **************************** -->
+					<p:commandButton id="btnBusquedaAvanzada" value="Búsqueda avanzada">
+						<p:ajax
+							oncomplete="PF('dialogoBusquedaAvanzadaDoctorados').show();"
+							update="frmModalBusquedaAvanzadaDoctorados" />
+					</p:commandButton>
+					<!-- ******************** FIN FILA NUMERO 4 ************************ -->
+
+				</div>
+			</p:panel>
+			<div>
+				<p:commandButton id="btnBuscar" value="Buscar"
+					action="#{doctoradosForm.buscar()}"
+					update="pnlDocente, pnlFuncion, pnlPreFuncion, frmCargaHorariaDoctorado"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+
+				<p:commandButton id="btnLimpiar" value="Limpiar"
+					action="#{doctoradosForm.limpiar()}"
+					update="pnlBusqueda, pnlDocente, pnlFuncion, pnlPreFuncion, frmCargaHorariaDoctorado"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+			</div>
+
+			<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+
+			<p:panel id="pnlDocente" header="Información Docente">
+
+				<div class="grid condensed">
+
+					<!-- ******************** FILA NUMERO 0 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- Nombre -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNombre" for="txtNombre" value="Nombre: " />
+								</ui:define>
+
+								<ui:define name="valor">
+									<p:outputLabel id="txtNombre"
+										value="#{doctoradosForm.dfDocente.prsPrimerApellido} #{doctoradosForm.dfDocente.prsSegundoApellido} #{doctoradosForm.dfDocente.prsNombres}">
+									</p:outputLabel>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgNombre" for="txtNombre" />
+								</ui:define>
+							</ui:decorate>
+						</div> 
+					<!-- ******************** FIN FILA NUMERO 0 ************************ -->
+					
+					<!-- ******************** FILA NUMERO 0.1 ************************ -->
+					</div>
+					<!-- ******************** FIN FILA NUMERO 0.1 ************************ -->
+
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- IDENTIFICACION -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacionView"
+										for="txtIdentificacionView" value="Identificación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtIdentificacionView"
+										value="#{doctoradosForm.dfDocente.prsIdentificacion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+
+						<!-- ******************** FIN FILA NUMERO 1 ************************ -->
+
+						<!-- ******************** FILA NUMERO 2 ************************ -->
+
+						<div class="cell colspan4">
+							<!-- TIEMPO DE DEDICACION -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblTiempoDedicacion"
+										for="txtTiempoDedicacion" value="Tiempo de Dedicación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtTiempoDedicacion"
+										value="#{doctoradosForm.dfDocente.tmddDescripcion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 2 ************************ -->
+
+					 
+
+				</div>
+				
+				<p:commandButton id="btnImprimir" value="Ver Carga Horaria"
+						action="#{doctoradosForm.generarReporteCargaHorariaDocente()}"
+						rendered="#{doctoradosForm.verificarDocente()}"
+						onclick="PF('dialogoTrabajando').show();"
+						onsuccess="PF('dialogoTrabajando').hide();" 
+						ajax="false"/>
+						
+			</p:panel>
+
+
+			<!-- ******************** PANEL DOCTORADO INVESTIGACION************************ -->
+			<p:panel id="pnlFuncion" header="Doctorado fase de Investigación">
+				<div class="grid condensed">
+
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+					<div class="row cells8">
+						<!-- INVESTIGACION-->
+						<ui:decorate
+							template="/componentesGenerales/plantillas/pltComponenteGeneralTriple.xhtml">
+							<ui:define class="cell colspan4" name="etiqueta">
+								<h:selectManyCheckbox
+									disabled="#{doctoradosForm.dfActivarTipoDoctorado}"
+									value="#{doctoradosForm.dfFuncionInvestigacionSeleccion}"
+									layout="pageDirection">
+									<f:selectItem itemValue="101"
+										itemLabel="Doctorado fase de Investigación" />
+									<p:ajax event="change"
+										listener="#{doctoradosForm.calcularHoras()}"
+										update=" pnlFuncion, pnlPreFuncion" />
+								</h:selectManyCheckbox>
+							</ui:define>
+						</ui:decorate>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 1 ************************ -->
+
+					<!-- ******************** FILA NUMERO 3 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- UNIVERSIDAD-->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblUniversidad" for="txtUniversidad"
+										value="Universidad: " ajax="false" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:inputText id="txtUniversidad"
+										disabled="#{doctoradosForm.dfActivarTipoDoctorado}"
+										value="#{doctoradosForm.dfUniversidad}" style="width:100%"
+										ajax="false" />
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgUniversidad" for="txtUniversidad" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 3 ************************ -->
+
+					<!-- ******************** FILA NUMERO 4 ************************ -->
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- TITULO DE DOCTORADO-->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblTituloDoctorado" for="txtTituloDoctorado"
+										value="Título de Doctorado: " ajax="false" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:inputText id="txtTituloDoctorado"
+										disabled="#{doctoradosForm.dfActivarTipoDoctorado}"
+										value="#{doctoradosForm.dfTitDoct}" style="width:100%"
+										ajax="false" />
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgTituloDoctorado" for="txtTituloDoctorado" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 4 ************************ -->
+
+					<!-- ******************** FILA NUMERO 5 ************************ -->
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- FECHA DE INICIO-->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblFechaInicio" for="calFechaInicio"
+										value="Fecha Inicio(yyyy-MM-dd):" />
+								</ui:define>
+								<ui:define name="valor">
+									<p:calendar id="calFechaInicio"
+										disabled="#{doctoradosForm.dfActivarTipoDoctorado}"
+										value="#{doctoradosForm.dfFechaInicio}" navigator="false"
+										showOn="none" locale="es" pattern="yyyy-MM-dd" mask="true"
+										required="true"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										converterMessage="Ingresar una fecha válida">
+										<p:ajax event="blur"
+											update=" lblFechaInicio, calFechaInicio,  msgtxtFechaInicio" />
+									</p:calendar>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgtxtFechaInicio" for="calFechaInicio" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+
+						<!-- ******************** FIN FILA NUMERO 5 ************************ -->
+
+						<!-- ******************** FILA NUMERO 6 ************************ -->
+
+						<div class="cell colspan4">
+							<!-- FECHA DE FINALIZACION-->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblFechaFin" for="calFechaFin"
+										value="Fecha Fin(yyyy-MM-dd):" />
+								</ui:define>
+								<ui:define name="valor">
+									<p:calendar id="calFechaFin"
+										disabled="#{doctoradosForm.dfActivarTipoDoctorado}"
+										value="#{doctoradosForm.dfFechaFin}" navigator="false"
+										showOn="none" locale="es" pattern="yyyy-MM-dd" mask="true"
+										required="true"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										converterMessage="Ingresar una fecha válida">
+										<p:ajax event="blur"
+											update=" lblFechaFin, calFechaFin,  msgtxtFechaFin" />
+									</p:calendar>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgtxtFechaFin" for="calFechaFin" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 6 ************************ -->
+
+					<!-- ******************** FILA NUMERO 7 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- HORAS SEMANALES -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblHorasSemanales" for="txtHorasSemanales"
+										value="Horas Semanales " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="txtHorasSemanales"
+											value="#{doctoradosForm.dfHorasSemanales}"
+											required="false"
+											requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+											style="width:100%">
+											<f:selectItems var="item"
+												value="#{doctoradosForm.dfListaHorasSemanales}"
+												itemLabel="#{item}" itemValue="#{item}" />
+									</h:selectOneMenu>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 7 ************************ -->
+				</div>
+			</p:panel>
+
+			<!-- ******************** PANEL DOCTORADO PREINVESTIGACION************************ -->
+			<p:panel id="pnlPreFuncion"
+				header="Doctorado fase de PreInvestigación">
+				<div class="grid condensed">
+
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+					<div class="row cells8">
+						<!-- PRE INVESTIGACION-->
+						<ui:decorate
+							template="/componentesGenerales/plantillas/pltComponenteGeneralTriple.xhtml">
+							<ui:define class="cell colspan4" name="etiqueta">
+								<h:selectManyCheckbox
+									disabled="#{doctoradosForm.dfActivarTipoPreDoctorado}"
+									value="#{doctoradosForm.dfFuncionPreinvestigacionSeleccion}"
+									layout="pageDirection">
+									<f:selectItem itemValue="101"
+										itemLabel="Doctorado fase de PreInvestigación" />
+									<p:ajax event="change"
+										listener="#{doctoradosForm.calcularHoras()}"
+										update=" pnlFuncion, pnlPreFuncion" />
+								</h:selectManyCheckbox>
+							</ui:define>
+						</ui:decorate>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 1 ************************ -->
+
+					<!-- ******************** FILA NUMERO 3 ************************ -->
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- UNIVERSIDAD-->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPreUniversidad" for="txtPreUniversidad"
+										value="Universidad: " ajax="false" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:inputText id="txtPreUniversidad"
+										disabled="#{doctoradosForm.dfActivarTipoPreDoctorado}"
+										value="#{doctoradosForm.dfPreUniversidad}" style="width:100%"
+										ajax="false" />
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgPreUniversidad" for="txtPreUniversidad" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 3 ************************ -->
+
+					<!-- ******************** FILA NUMERO 4 ************************ -->
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- TITULO DE DOCTORADO-->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPreTituloDoctorado"
+										for="txtPreTituloDoctorado" value="Título de Doctorado: "
+										ajax="false" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:inputText id="txtPreTituloDoctorado"
+										disabled="#{doctoradosForm.dfActivarTipoPreDoctorado}"
+										value="#{doctoradosForm.dfPreTitDoct}" style="width:100%"
+										ajax="false" />
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgPreTituloDoctorado"
+										for="txtPreTituloDoctorado" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 4 ************************ -->
+
+					<!-- ******************** FILA NUMERO 5 ************************ -->
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- FECHA DE INICIO-->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPreFechaInicio" for="calPreFechaInicio"
+										value="Fecha Inicio(yyyy-MM-dd):" />
+								</ui:define>
+								<ui:define name="valor">
+									<p:calendar id="calPreFechaInicio"
+										disabled="#{doctoradosForm.dfActivarTipoPreDoctorado}"
+										value="#{doctoradosForm.dfPreFechaInicio}" navigator="false"
+										showOn="none" locale="es" pattern="yyyy-MM-dd" mask="true"
+										required="true"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										converterMessage="Ingresar una fecha válida">
+										<p:ajax event="blur"
+											update=" lblPreFechaInicio, calPreFechaInicio,  msgPreFechaInicio" />
+									</p:calendar>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgPreFechaInicio" for="calPreFechaInicio" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+
+						<!-- ******************** FIN FILA NUMERO 5 ************************ -->
+
+						<!-- ******************** FILA NUMERO 6 ************************ -->
+
+						<div class="cell colspan4">
+							<!-- FECHA DE FINALIZACION-->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPreFechaFin" for="calPreFechaFin"
+										value="Fecha Fin(yyyy-MM-dd):" />
+								</ui:define>
+								<ui:define name="valor">
+									<p:calendar id="calPreFechaFin"
+										disabled="#{doctoradosForm.dfActivarTipoPreDoctorado}"
+										value="#{doctoradosForm.dfPreFechaFin}" navigator="false"
+										showOn="none" locale="es" pattern="yyyy-MM-dd" mask="true"
+										required="true"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										converterMessage="Ingresar una fecha válida">
+										<p:ajax event="blur"
+											update=" lblPreFechaFin, calPreFechaFin,  msgPreFechaFin" />
+									</p:calendar>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgPreFechaFin" for="calPreFechaFin" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 6 ************************ -->
+
+					<!-- ******************** FILA NUMERO 7 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- HORAS SEMANALES -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPreHorasSemanales"
+										for="txtPreHorasSemanales" value="Horas Semanales " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="txtPreHorasSemanales"
+											value="#{doctoradosForm.dfPreHorasSemanales}"
+											required="false"
+											requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+											style="width:100%">
+											<f:selectItems var="item"
+												value="#{doctoradosForm.dfListaPreHorasSemanales}"
+												itemLabel="#{item}" itemValue="#{item}" />
+									</h:selectOneMenu>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 7 ************************ -->
+				</div>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnRegresar" value="Regresar"
+					action="#{doctoradosForm.irInicio()}" immediate="true" ajax="false"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+				<p:commandButton id="btnGuardar" value="Guardar"
+					rendered="#{!doctoradosForm.dfCargaHorariaActiva}"
+					action="#{doctoradosForm.guardar()}" ajax="false"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+				<p:commandButton id="btnEliminar" value="Eliminar"
+					rendered="#{doctoradosForm.dfCargaHorariaActiva}" ajax="true">
+					<p:ajax oncomplete="PF('dialogoEliminarDoctorados').show();"
+						update="frmModalEliminarDoctorados" />
+				</p:commandButton>
+				<p:commandButton id="btnGuardarCambios" value="Guardar Cambios"
+					rendered="#{doctoradosForm.dfCargaHorariaActiva}"
+					action="#{doctoradosForm.guardarCambios()}" ajax="false"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+				<p:commandButton id="cmdlModalReporte" value="Imprimir reporte" style="visibility:hidden;">
+					<p:ajax oncomplete="abrirVentaReporte('#{doctoradosForm.rchfTipoArchivo}','#{doctoradosForm.rchfNombreArchivo}','#{doctoradosForm.rchfNombreReporte}');" />
+				</p:commandButton>
+			</div>
+		</h:form>
+		<ui:include		src="/academico/cargaHoraria/modalEliminarDoctorados.xhtml" />
+		<ui:include		src="/academico/cargaHoraria/modalBusquedaAvanzadaDoctorados.xhtml" />
+		<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador" value="#{doctoradosForm.rchfActivarReporte}"/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

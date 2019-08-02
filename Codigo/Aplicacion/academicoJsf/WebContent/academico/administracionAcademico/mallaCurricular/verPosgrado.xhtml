@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Administración académico / Malla curricular / Por Niveles" />
+		</ui:include>
+	</ui:define>
+
+	<ui:define name="cuerpo">
+		<h:form id="frmVerMallaCurricular" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<p:panel id="pnlInformativo" header="Información Malla Curricular">
+				<div class="grid condensed">
+
+					<div class="row cells8" style="margin: 0 !important">
+						<div class="cell colspan1.5">
+							<p:outputLabel id="lblDependencia" for="txtDependencia"	value="Dependencia: " />
+						</div>
+						<div class="cell colspan6">
+							<p:outputLabel id="txtDependencia"
+									value="#{administracionMallaCurricular.amcfMallaCurricularDto.dpnDescripcion}"
+									style="font-weight: Normal !important;" />
+						</div>
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan1.5">
+							<p:outputLabel id="lblCarrera" for="txtCarrera" value="Programa: " />
+						</div>
+						<div class="cell colspan6">
+							<p:outputLabel id="txtCarrera"
+								value="#{administracionMallaCurricular.amcfMallaCurricularDto.crrDescripcion}"
+								style="font-weight: Normal !important;">
+							</p:outputLabel>
+						</div>
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan1.5">
+							<p:outputLabel id="lblCodigoMalla" for="txtCodigoMalla" value="Código: " />
+						</div>
+						<div class="cell colspan6">
+							<p:outputLabel id="txtCodigoMalla"
+								value="#{administracionMallaCurricular.amcfMallaCurricularDto.mlcrCodigo}"
+								style="font-weight: Normal !important;" />
+						</div>
+					</div>
+					<div class="row cells8">
+						<div class="cell colspan1.5">
+							<p:outputLabel id="lblMallaDescripcion" for="txtMallaDescripcion"
+								value="Descripción: " />
+						</div>
+						<div class="cell colspan6">
+							<p:outputLabel id="txtMallaDescripcion"
+								value="#{administracionMallaCurricular.amcfMallaCurricularDto.mlcrDescripcion}"
+								style="font-weight: Normal !important;">
+							</p:outputLabel>
+						</div>
+					</div>
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblTotalMaterias" for="txtTotalMaterias"
+										value="Asignaturas: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtTotalMaterias"
+										value="#{administracionMallaCurricular.amcfMallaCurricularDto.mlcrTotalMaterias}"
+										style="font-weight: Normal !important;" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNumHoras" for="txtNumHoras"
+										value="Créditos: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtNumHoras"
+										value="#{administracionMallaCurricular.amcfMallaCurricularDto.mlcrTotalHoras}"
+										style="font-weight: Normal !important;" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblTipoMalla" for="txtTipoMalla"
+										value="Tipo malla: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtTipoMalla"
+										value="#{administracionMallaCurricular.establecerTipoFormacionMallaCurricular(administracionMallaCurricular.amcfMallaCurricularDto.tpfrmlId)}"
+										style="font-weight: Normal !important;" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblAprobacion" for="txtAprobacion"
+										value="Tipo aprobación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtAprobacion"
+										value="#{administracionMallaCurricular.establecerAprobacionMallaCurricular(administracionMallaCurricular.amcfMallaCurricularDto.mlcrTipoAprobacion)}"
+										style="font-weight: Normal !important;" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCodAprendizaje" for="txtCodAprendizaje"
+										value="Organización aprendizaje: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtCodAprendizaje"
+										value="#{administracionMallaCurricular.establecerOrgAprendizajeMallaCurricular(administracionMallaCurricular.amcfMallaCurricularDto.mlcrTipoOrgAprendizaje)}" 
+										style="font-weight: Normal !important;" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblVigencia" for="txtVigencia"
+										value="Vigencia: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtVigencia"
+										value="#{administracionMallaCurricular.establecerVigenciaMallaCurricular(administracionMallaCurricular.amcfMallaCurricularDto.mlcrVigencia)}"
+										style="font-weight: Normal !important;" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+										<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblFechaInicio" for="txtFechaInicio"
+										value="Fecha inicio: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtFechaInicio"
+										value="#{administracionMallaCurricular.amcfMallaCurricularDto.mlcrFechaInicio}"
+										style="font-weight: Normal !important;" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						<div class="cell colspan4">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblFechaFin" for="txtFechaFin"
+										value="Fecha fin: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtFechaFin"
+										value="#{administracionMallaCurricular.amcfMallaCurricularDto.mlcrFechaFin}"
+										style="font-weight: Normal !important;" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblEstado" for="txtEstado" value="Estado: " />
+								</ui:define>
+								<ui:define name="valor">
+									<p:outputLabel id="txtEstado"
+										value="#{administracionMallaCurricular.establecerEstadoMallaCurricular(administracionMallaCurricular.amcfMallaCurricularDto.mlcrEstado)}"
+										style="font-weight: Normal !important;" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					
+					
+				</div>
+
+				<div>
+					<p:commandButton id="btnEditar" value="Actualizar"
+						action="#{administracionMallaCurricular.irEditarMalla()}"
+						ajax="false" />
+				</div>
+
+			</p:panel>
+
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+				<p:dataTable id="dtsEstudiante" var="item"
+					value="#{administracionMallaCurricular.amcfListMallaCurricularNivelDto}"
+					rowIndexVar="rowIndex" rows="10" paginator="true"
+					paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15"
+					emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column rowspan="2" headerText="#" style="width: 0.1em ! important; text-align: center;"/>
+							<p:column rowspan="2" headerText="Nivel" style="width: 2em  ! important; text-align: center;"/>
+							<p:column colspan="2" headerText="Créditos por Nivel" style="width: 2em  ! important;  text-align: center;"/>
+							<p:column colspan="2" headerText="Créditos Acumulados" style="width: 2em  ! important;  text-align: center;"/>
+						</p:row>
+						<p:row>
+							<p:column headerText="Registrados" style="width: 2em  ! important; " />
+							<p:column headerText="Vigentes" style="width: 2em  ! important;  " />
+							<p:column headerText="Registrados" style="width: 2em  ! important; " />
+							<p:column headerText="Vigentes" style="width: 2em  ! important;  " />
+						</p:row>
+					</p:columnGroup>
+					
+					<p:column>
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.mlcrnvNivelDto.nvlDescripcion}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.mlcrnvHoras}" />
+					</p:column>
+					<p:column> 
+						<h:outputText value="#{item.mlcrnvHorasSql}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.mlcrnvHorasAcumulado}" />
+					</p:column>
+					<p:column> 
+						<h:outputText value="#{item.mlcrnvHorasAcumuladoSql}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnRegresar" value="Regresar"
+					action="#{administracionMallaCurricular.irCancelarVer()}"
+					immediate="true" ajax="false" />
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

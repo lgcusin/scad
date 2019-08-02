@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dd6f299-b5c1-4e65-bc70-9ce4ac6b5bb6">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="Facultad" class="java.lang.String"/>
+	<parameter name="Carrera" class="java.lang.String"/>
+	<parameter name="Periodo" class="java.lang.String"/>
+	<parameter name="Proceso" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="Numeral" class="java.lang.Integer"/>
+	<field name="Cedula" class="java.lang.String"/>
+	<field name="Apellido_Paterno" class="java.lang.String"/>
+	<field name="Apellido_Materno" class="java.lang.String"/>
+	<field name="Nombres" class="java.lang.String"/>
+	<field name="Semestre" class="java.lang.String"/>
+	<field name="CodigoMateria" class="java.lang.Integer"/>
+	<field name="Materia" class="java.lang.String"/>
+	<field name="Tipo" class="java.lang.String"/>
+	<field name="Estado" class="java.lang.String"/>
+	<field name="FechaCreacion" class="java.sql.Timestamp"/>
+	<field name="FechaProceso" class="java.sql.Timestamp"/>
+	<field name="Responsable" class="java.lang.String"/>
+	<field name="Observacion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="180" splitType="Stretch">
+			<staticText>
+				<reportElement x="160" y="0" width="240" height="30" uuid="38d994d8-393e-40b8-a6fc-ea0ff22c4f97"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIVERSIDAD CENTRAL DEL ECUADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="80" height="30" uuid="76236c63-1d6c-450c-8eca-f6bab3cfebf1"/>
+				<text><![CDATA[Facultad:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="30" width="200" height="30" uuid="cb5e8297-12dc-4f1d-9382-1e93b2622fe5"/>
+				<textFieldExpression><![CDATA[$P{Facultad}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="60" width="80" height="30" uuid="ee3afb93-625d-45e4-87d2-b4c5e6ef749f"/>
+				<text><![CDATA[Carrera:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="60" width="200" height="30" uuid="8dcd3d00-6cf4-4a86-99d6-ccd63bfbf4e3"/>
+				<textFieldExpression><![CDATA[$P{Carrera}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="90" width="80" height="30" uuid="18565eb5-0413-49c1-ba79-2f0bb86df112"/>
+				<text><![CDATA[Periodo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="90" width="200" height="30" uuid="6b1e78a6-11e4-4940-9b54-89a783e868fa"/>
+				<textFieldExpression><![CDATA[$P{Periodo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="120" width="80" height="30" uuid="974a02d6-fff1-42a7-b42d-55b869a1591f"/>
+				<text><![CDATA[Proceso:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="120" width="200" height="30" uuid="b596549f-a290-4ea9-b382-b6530b758088"/>
+				<textFieldExpression><![CDATA[$P{Proceso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="265" y="150" width="60" height="30" uuid="1890d0be-c651-43e2-ae77-f002dcfeffa5"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<text><![CDATA[SEMESTRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="535" y="150" width="60" height="30" uuid="fe59009d-b7d6-4f9f-ad61-c4f0314688cf"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<text><![CDATA[FECHA CREACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="595" y="150" width="60" height="30" uuid="cd4a2699-8fea-4823-9282-d5a35193f786"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<text><![CDATA[FECHA PROCESO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="655" y="150" width="80" height="30" uuid="9de831e2-c5e4-463a-a2ab-23a341aba462"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<text><![CDATA[RESPONSABLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="150" width="55" height="30" uuid="1b645370-8590-4b3c-bb43-a9dc12064a42"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<text><![CDATA[CEDULA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="150" width="30" height="30" uuid="f723cb03-9699-4117-bbf0-9b9c889cc3fd"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<text><![CDATA[Nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="150" width="60" height="30" uuid="5a7d7b2b-557b-4d78-96a0-75229aac222c"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<text><![CDATA[APELLIDO PATERNO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="150" width="60" height="30" uuid="954976f4-d0f7-4df0-aa61-822e8d6cc019"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<text><![CDATA[APELLIDO MATERNO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="150" width="60" height="30" uuid="95a282bd-0f29-4d40-b8f4-e0ffc5225fa4"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<text><![CDATA[NOMBRES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="325" y="150" width="50" height="30" uuid="0e1e9a09-9f34-4696-a69a-d632a646543d"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<text><![CDATA[CODIGO MATERIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="375" y="150" width="60" height="30" uuid="4392ab77-7b80-4253-9d22-17624fc31536"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<text><![CDATA[MATERIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="435" y="150" width="50" height="30" uuid="f9876dda-f002-416e-8f46-6e4b947c66bf"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="485" y="150" width="50" height="30" uuid="44a9d4fd-9331-40f4-9181-388d790c30f0"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="735" y="150" width="85" height="30" uuid="1eb8c799-7d7d-4d7b-9e36-a9090b0840c1"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<text><![CDATA[OBSERVACION]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<textField>
+				<reportElement stretchType="ElementGroupBottom" x="0" y="0" width="30" height="60" uuid="f967a73e-50b4-4522-947e-6217cfc66f93"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Numeral}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ElementGroupBottom" x="30" y="0" width="55" height="60" uuid="559e9840-dc1a-4437-b3fa-1503d46163dd"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ElementGroupBottom" x="85" y="0" width="60" height="60" uuid="cfb8bb30-7109-4257-8fbc-dcc9c5972ae6"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Apellido_Paterno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ElementGroupBottom" x="145" y="0" width="60" height="60" uuid="2ab8d137-9075-43bc-afda-1ab2914fc8df"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Apellido_Materno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ElementGroupBottom" x="205" y="0" width="60" height="60" uuid="1d5d3cf4-bbfb-48cf-8190-50225c0a2bff"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ElementGroupBottom" x="265" y="0" width="60" height="60" uuid="72c3a3a5-dfce-4f96-ad94-7c329b45b868"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Semestre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ElementGroupBottom" x="325" y="0" width="50" height="60" uuid="5ebf23b4-7f6c-40bd-b2f4-87ac59367ab3"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{CodigoMateria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ElementGroupBottom" x="375" y="0" width="60" height="60" uuid="1c46d36b-d991-4e55-8c5c-4f489c9d9086"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Materia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ElementGroupBottom" x="435" y="0" width="50" height="60" uuid="c752ed5a-ccdd-44bf-98d2-a9a020d84717"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Tipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ElementGroupBottom" x="485" y="0" width="50" height="60" uuid="d261b932-1af4-4b22-8cdf-9beb18b2d781"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ElementGroupBottom" x="535" y="0" width="60" height="60" uuid="597a5341-bce6-4d62-b729-8d86f29b7877"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{FechaCreacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ElementGroupBottom" x="595" y="0" width="60" height="60" uuid="206442dd-7d01-4a9c-a922-1198a96fb50b"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{FechaProceso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ElementGroupBottom" x="655" y="0" width="80" height="60" uuid="0ca7abfd-aeb1-4c49-a4b7-d2977be254b0"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Responsable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="ElementGroupBottom" x="735" y="0" width="85" height="60" uuid="5b16347e-0e23-4627-a95d-0aa1456e745f"/>
+				<box padding="0">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{Observacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

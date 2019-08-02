@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
+<!-- 2018-02-23T11:20:33 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteNota1Hemi" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="a6e4d560-6985-4a38-baaf-04654fee0177">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<parameter name="imagenCabecera" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="facultad" class="java.lang.String"/>
+	<parameter name="carrera" class="java.lang.String"/>
+	<parameter name="materia" class="java.lang.String"/>
+	<parameter name="periodo" class="java.lang.String"/>
+	<parameter name="curso" class="java.lang.String"/>
+	<parameter name="paralelo" class="java.lang.String"/>
+	<parameter name="docente" class="java.lang.String"/>
+	<parameter name="asistencia_docente" class="java.lang.String"/>
+	<parameter name="promedio" class="java.lang.String"/>
+	<parameter name="nick" class="java.lang.String"/>
+	<parameter name="imagenPie" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="numero" class="java.lang.String"/>
+	<field name="identificacion" class="java.lang.String"/>
+	<field name="apellido_paterno" class="java.lang.String"/>
+	<field name="apellido_materno" class="java.lang.String"/>
+	<field name="nombres" class="java.lang.String"/>
+	<field name="nota1" class="java.lang.String"/>
+	<field name="asistencia1" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="174" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="1" width="595" height="51" uuid="48dbd26b-3276-4ca9-934b-8fb11f220403"/>
+				<imageExpression><![CDATA[$P{imagenCabecera}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="55" width="563" height="15" uuid="f3e61923-b83b-459f-acbf-2e336dd51d9a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="27" y="72" width="56" height="17" forecolor="#000000" backcolor="#FFFFFF" uuid="d6b24733-cac4-4bfa-acdd-5734ea787343"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FACULTAD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="27" y="89" width="56" height="23" forecolor="#000000" backcolor="#FFFFFF" uuid="f021e82d-d177-436f-9ade-80b00e8c86fa"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CARRERA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="27" y="112" width="56" height="29" forecolor="#000000" backcolor="#FFFFFF" uuid="c921d36e-c45a-4b6d-a55b-da156a2f7d07"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ASIGNATURA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="141" width="56" height="16" uuid="b5f639a4-aa1d-4a54-9309-27c3abade591"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERÍODO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="157" width="56" height="16" uuid="bdaf6365-95a2-4571-a43b-7271566f168e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DOCENTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="83" y="156" width="176" height="16" uuid="5a84bc10-e909-4799-8cee-77e8b0092646"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{docente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="83" y="140" width="70" height="16" uuid="9521e678-0c05-4883-afa5-2bc27a8cda31"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{periodo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="83" y="111" width="480" height="29" uuid="80cd4eb0-482e-4693-b0a8-6b664c611cf3">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{materia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="83" y="88" width="480" height="23" uuid="906f03dd-aed4-4da9-9952-4be385a90eca"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{carrera}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="83" y="71" width="480" height="17" uuid="2356ed9a-faa1-4bfd-b9a9-1212e5c8c01b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{facultad}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="203" y="141" width="30" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="e3cb26d1-0b90-4843-b915-37ac1d1fb498"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIVEL:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="233" y="140" width="91" height="16" uuid="f7130ee4-d470-465f-987a-06c937c59a4f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{curso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="341" y="141" width="53" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="af59a375-df5d-47cd-a5ea-9ccf6be1cb01"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARALELO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="394" y="140" width="168" height="16" uuid="d3f4a82b-1ed6-41c4-8fcc-33675b534a42"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{paralelo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="341" y="157" width="93" height="17" forecolor="#000000" backcolor="#FFFFFF" uuid="e8e698a2-4394-4392-a8ef-3f0a7c36d601"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ASISTENCIA DOCENTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="434" y="155" width="30" height="17" uuid="d1b24c63-b6dd-4a96-a63e-1691e9ff0bfe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{asistencia_docente}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="28" y="20" width="34" height="12" uuid="58f2846b-1d21-48f8-80cc-a668593e82aa">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="20" width="78" height="12" uuid="12c8d364-f3ff-4f06-b669-01af0b5e0b32"/>
+				<box>
+					<topPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IDENTIFICACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="20" width="88" height="12" uuid="2363a593-9493-4ef6-8a2b-36251f6e0a7c"/>
+				<box>
+					<topPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRIMER APELLIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="228" y="20" width="98" height="12" uuid="ae58093b-db54-4aaa-92c4-3a83a00ecba3"/>
+				<box>
+					<topPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SEGUNDO APELLIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="326" y="20" width="138" height="12" uuid="c61e9c6d-7b21-45f4-a9c7-99544b5d7b3b"/>
+				<box>
+					<topPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="464" y="20" width="51" height="12" uuid="58b2b57b-5ffc-4039-a24f-d04ab73428f8"/>
+				<box>
+					<topPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="515" y="20" width="49" height="12" uuid="99aa37eb-74ec-4387-b108-706c1a1aace3"/>
+				<box>
+					<topPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ASIST.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="464" y="6" width="100" height="14" uuid="bf71016f-28a5-4b18-9c32-def256448e44"/>
+				<box>
+					<topPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2do HEMISEMESTRE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement mode="Transparent" x="28" y="0" width="34" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="651effa7-39c7-4a7b-b6e0-da686fbeba60">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="62" y="0" width="78" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="6d2b5aad-f12f-4f15-aefb-2b558ef229bf">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{identificacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="0" width="88" height="12" uuid="e732d039-40fa-451b-9df0-e9356410bdd0">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "+$F{apellido_paterno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="0" width="98" height="12" uuid="1c849830-d88c-4ee5-b1ab-c47d1b0cf25c">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "+$F{apellido_materno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="326" y="0" width="138" height="12" uuid="0a846632-adef-4062-ad4a-c63139a8941f">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "+$F{nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="464" y="0" width="51" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="669bc632-3b1f-4f2d-8e18-f2ab86d6d2ee">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nota1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="515" y="0" width="49" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="719d219f-2dd2-49f7-b1fb-485fee646b83">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.6" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{asistencia1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="28" y="0" width="536" height="12" isPrintInFirstWholeBand="true" uuid="9c535ada-af1a-4822-9ac0-de396633b4ab"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "+"PROMEDIO NOTAS NIVEL: "+$P{promedio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="99" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="337" y="20" width="228" height="17" forecolor="#000000" backcolor="#FFFFFF" uuid="e16f5724-5b0b-482e-b536-3ecba1df4736"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FIRMA DOCENTE: ___________________________________]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="50" width="98" height="16" uuid="0a680a3a-7f51-4a93-b08b-54d1d83be2cf"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nick}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame" hAlign="Center">
+				<reportElement x="0" y="68" width="595" height="31" uuid="cb4f62e5-afd9-49ca-9f86-8a90119f3034"/>
+				<imageExpression><![CDATA[$P{imagenPie}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="110" y="50" width="339" height="16" uuid="ff908399-b38e-4490-ac74-fd80649108d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA["Documento generado automáticamente en siiu.uce.edu.ec"]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="457" y="50" width="68" height="16" uuid="857bce3c-1cf6-4d28-8081-b21a9b0eef06"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="525" y="50" width="40" height="16" uuid="c9b9acf4-71b5-498a-b8db-be056194312d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica New" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

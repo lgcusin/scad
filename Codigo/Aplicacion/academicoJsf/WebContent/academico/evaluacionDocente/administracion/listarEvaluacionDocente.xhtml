@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value=" Evaluación Docente / Evaluación" />
+		</ui:include>
+	</ui:define>
+	<ui:define name="cuerpo">
+		<h:form id="frmEvaluacionDirectivo" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<!-- ******************** PANEL PARÁMETROS DE BÚSQUEDA************************ -->
+
+			<p:panel id="pnlBusqueda" header="Parámetros de búsqueda">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- PERIODO -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPeriodo" for="slcPeriodo"
+										value="Período " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcPeriodo"
+										value="#{evaluacionDocenteForm.edfPeriodoAcademicoBuscar}"
+										required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:50%;">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccioneTodos}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{evaluacionDocenteForm.edfListaPeriodosAcademicos}"
+											itemLabel="#{item.pracDescripcion}"
+											itemValue="#{item.pracId}" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgPeriodo" for="slcPeriodo" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 1 ************************ -->
+
+				</div>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnBuscar" value="Buscar"
+					action="#{evaluacionDocenteForm.buscar()}"
+					update="frmEvaluacionDirectivo"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+
+				<p:commandButton id="btnLimpiar" value="Limpiar"
+					action="#{evaluacionDocenteForm.limpiar()}"
+					update="frmEvaluacionDirectivo"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+			</div>
+
+
+			<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+				<p:dataTable id="dtsMatricula" var="item"
+					value="#{evaluacionDocenteForm.edfListaEvaluaciones}" rows="10"
+					paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" rowIndexVar="rowIndex"
+					emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+
+					<p:column headerText="#" style="width:3%; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column headerText="Período"
+						style="width:5%; text-align: center;">
+						<h:outputText value="#{item.evPeriodoAcademico.pracDescripcion}" />
+					</p:column>
+					<p:column headerText="Tipo Evaluación" style="width:20%; ">
+						<h:outputText
+							value="#{item.evTipoEvaluacion.tpevDescripcion}" />
+					</p:column>
+					<p:column headerText="Estado" style="width:5%; text-align: center;">
+						<h:outputText
+							value="#{evaluacionDocenteForm.mostrarEstado(item.evaEstado)}" />
+					</p:column>
+					<p:column headerText="Opciones"
+						style="width:5%; text-align: center;">
+						<p:commandLink id="cmdlEditar" value="Editar"
+							action="#{evaluacionDocenteForm.irEditar(item)}"
+							onclick="PF('dialogoTrabajando').show();" ajax="false"
+							style="margin: 0px 5px; color:blue" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+ 
+			<div>
+				<p:commandButton id="btnRegresar" value="Regresar"
+					action="#{evaluacionDocenteForm.irInicio()}" immediate="true"
+					ajax="false" onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+				<p:commandButton id="btnNuevo" value="Nuevo"
+					action="#{evaluacionDocenteForm.irNuevo()}" ajax="false"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+			</div>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:H="http://xmlns.jcp.org/jsf/html">
+	<h:form id="frmModalAgregarMateria">
+		<p:dialog id="dlgAgregarMateria" widgetVar="dlgModalAgregarMateria" height="500" width="800"
+			modal="true" 
+			draggable="false" 
+			closable="false" 
+			resizable="false" 
+			styleClass="modal-sin-header">
+			
+			<p:outputLabel value="Agregación de materias"  style="font-size: 1.1em !important;" />
+			
+			<p:messages autoUpdate="true" globalOnly="true" />
+			
+			<p:panel id="pnlBusqueda" header="Seleccione las opciones para continuar con la búsqueda">
+				<div class="grid condensed">
+				
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcCarrera" 
+										value="#{matriculaIntercambioForm.mifCarreraId}"
+										style="width: 100%;">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems 
+											var="item" 
+											value="#{matriculaIntercambioForm.mifListCarrera}"
+											itemLabel="#{item.crrDescripcion}"
+											itemValue="#{item.crrId}" />
+										<p:ajax 
+											event="change"
+											listener="#{matriculaIntercambioForm.buscarMaterias(matriculaIntercambioForm.mifCarreraId)}"
+											update=":frmModalAgregarMateria:pnlBusqueda :frmModalAgregarMateria:pnlResultados" />
+									</h:selectOneMenu>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplay.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNivel" for="slcNivel" value="Nivel: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcNivel" 
+										value="#{matriculaIntercambioForm.mifNivelId}"
+										style="width: 100%;">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccioneTodos}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems 
+											var="item" 
+											value="#{matriculaIntercambioForm.mifListNivelDto}"
+											itemLabel="#{item.nvlDescripcion}"
+											itemValue="#{item.nvlId}" />
+										<p:ajax event="change"	update="slcNivel" />
+									</h:selectOneMenu>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+				</div>
+			</p:panel>
+			
+			<div>
+				
+			<p:commandButton 
+				id="btnBuscarMaterias"
+				action="#{matriculaIntercambioForm.buscarMateriasPorNivel(matriculaIntercambioForm.mifNivelId)}"
+				value="Buscar"
+				update=":frmModalAgregarMateria:pnlResultados :frmModalAgregarMateria:pnlBusqueda" /> 
+			<p:commandButton 
+				id="btnLimpiarMaterias" 
+				action="#{matriculaIntercambioForm.limpiarModalAgregarMaterias()}"
+				value="Limpiar" 
+				update=":frmModalAgregarMateria:pnlResultados :frmModalAgregarMateria:pnlBusqueda" /> 
+			</div>
+		
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda" >
+				<p:dataTable id="tblMaterias" var="item"
+					value="#{matriculaIntercambioForm.mifListMallaCurricularMateriaDto}"
+					rows="5" paginator="true"
+		            paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		            rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON DATOS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS" paginatorPosition="bottom">
+				        <p:column headerText="Código" style="width: 1em ! important; text-align:center">
+				            <h:outputText value="#{item.mtrCodigo}"/>
+				        </p:column>
+				        <p:column headerText="Descripción" style="width: 5em ! important; text-align:left">
+				            <h:outputText value="#{item.mtrDescripcion}"/>
+				        </p:column>
+				        <p:column headerText="Horas" style="width: 1em ! important; text-align:center">
+				            <h:outputText value="#{item.mtrHorasPorSemana}"/>
+				        </p:column>
+				        <p:column headerText="Nivel" style="width: 1em ! important; text-align:center">
+				            <h:outputText value="#{item.nvlNumeral}"/>
+				        </p:column>
+				        <p:column headerText="Opción" style="width: 1em ! important;" class="border-none">
+				        	<p:commandLink 
+				        		value="Agregar" 
+				        		action="#{matriculaIntercambioForm.agregarMaterias(item)}"
+				        		onclick="PF('dialogoTrabajando').show();" 
+					        	update=":frmModalAgregarMateria:pnlResultados :frmModalAgregarMateria:pnlBusqueda"
+				        		ajax="false" 
+				        		style="color:blue;"/>
+				        </p:column>
+				</p:dataTable>
+			</p:panel>
+			
+			<div>
+				<p:commandButton
+					id="btnCancelar" 
+					value="Cancelar" 
+					action="#{matriculaIntercambioForm.limpiarModalAgregarMaterias()}"
+					onclick="PF('dlgModalAgregarMateria').hide();"/>
+			</div>
+			
+		</p:dialog> 
+	</h:form>
+</ui:composition>

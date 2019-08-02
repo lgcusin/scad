@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value=" Matrículas / Listar Matrículas / Generar Matrícula / Confirmación Matrícula " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+	<h:form id="frmConfirmacionMatricula" enctype="multipart/form-data" acceptcharset="UTF-8" >
+		<p:panel id="pnlMaterias" header="Materias en las que se matriculó">
+			<p:dataTable id="dtsMaterias" var="item" value="#{fichaGenerarMatriculaPosgradoForm.fgmpfListMateriaDto}"
+		   		 		rows="10" paginator="false" paginatorPosition="bottom"
+	                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+	                          style="text-align: center;">
+	                <p:column headerText="Asignatura" style="width: 30em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.mtrDescripcion}"/>
+			        </p:column>
+			        <p:column headerText="Paralelo" style="width: 2em  ! important; " >
+			            <h:outputText value="#{item.prlDescripcion}"/>
+			        </p:column>
+				</p:dataTable>
+		</p:panel>
+		<div>
+			<p:commandButton id="btnRegresar" value="Regresar" action="#{fichaGenerarMatriculaPosgradoForm.irInicio()}" immediate="true" ajax="false" />
+		</div>
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

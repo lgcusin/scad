@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value=" Docente / Notas / Suficiencia de Idiomas " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+
+	function abrirVentaReporte(formato, nombreReporte, tipo){
+		var url = "/aplicacion/reportes";
+		url = url + "?nombreJasper=" + nombreReporte;
+		url = url + "&formato=" + formato;
+		url = url + "&tipo=" + tipo;
+		if(formato == 'vista'){
+			var reportWindow = window.open(url);
+			reportWindow.focus();
+		}else{
+			var reportWindow = window.open(url);
+		}
+    }  
+ //]]> 
+</script>
+
+
+
+	<h:form  id="frmEditarNotasPregrado" enctype="multipart/form-data" acceptcharset="UTF-8" action="IpClientServlet" method="post">
+			
+		<p:panel id="pnlResultados" header="Información del paralelo" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->		
+				<div class="row cells9">
+					<div class="cell colspan8"><!-- CARRERA -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteBigGeneralDisplay.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="txtCarrera" value="Carrera / Área: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<p:outputLabel id="txtCarrera" value="#{evaluacionAcademicaForm.eafParaleloDtoEditar.crrDetalle}" 
+		       									style="font-weight: Normal !important;"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>	
+				<div class="row cells9">
+					<div class="cell colspan8"><!-- MATERIA -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteBigGeneralDisplay.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblMateria" for="txtMateria" value="Asignatura: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<p:outputLabel id="txtMateria" value="#{evaluacionAcademicaForm.eafParaleloDtoEditar.mtrDescripcion}" 
+		       									style="font-weight: Normal !important;"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>	
+				<div class="row cells9">
+					<div class="cell colspan8"><!-- PARALELO -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteBigGeneralDisplay.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblParalelo" for="txtParalelo" value="Paralelo: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<p:outputLabel id="txtParalelo" value="#{evaluacionAcademicaForm.eafParaleloDtoEditar.prlDescripcion}" 
+		       									style="font-weight: Normal !important;"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>	
+				<div class="row cells12">
+					<div class="cell colspan4"><!-- PARALELO -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteBigGeneralDisplay2.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblAsistenciaDocente" for="txtAsistenciaDocente" value="Horas clase : "/>	
+		       				</ui:define>
+		       				<ui:define name="valor"> 
+ 								<p:inputNumber id="txtAsistenciaDocente" 
+										value="#{evaluacionAcademicaForm.eafAsistenciaDocente}"  requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										minValue="1" maxValue="160" 
+										disabled="#{evaluacionAcademicaForm.eafEtapaProceso==0?'false':'true'}"  >
+										<p:ajax event="blur" update="lblAsistenciaDocente   " /> 
+								</p:inputNumber>
+ 							</ui:define>
+		       			</ui:decorate>
+					</div>
+					<p:commandButton id="btnDescargar" value="Descargar formato"  action="#{evaluacionAcademicaForm.finReporte()}"
+					update="pnlIngresoNotas , btnDescargar" disabled="#{evaluacionAcademicaForm.activador}">
+						<p:ajax oncomplete="abrirVentaReporte('XLSX','ListaEstudianteNotas','FORMATONOTAS_IDIOMAS');" />
+					</p:commandButton>
+				</div>
+				<div class="row cells12">
+					<div class="cell colspan5"><!-- PARALELO -->
+						<p:fileUpload id="flupArchivoSubir"  widgetVar="upload"
+							fileUploadListener="#{evaluacionAcademicaForm.cargarArchivoIdiomas}"  mode="advanced"
+							sizeLimit="1572864" allowTypes="/(\.|\/)(xlsx)$/" multiple="false"
+							fileLimit="1" update="txtAsistenciaDocente , flupArchivoSubir , btnGuardar , pnlIngresoNotas"
+							fileLimitMessage="Solo se permite un intento de carga."
+							invalidSizeMessage="Tamaño de archivo excedido! máximo 1.5 Mb"
+							uploadLabel="Cargar" cancelLabel="Cancelar"  
+							label="Buscar archivo" invalidFileMessage="Tipo de archivo no válido! solo formato XLSX"
+							dragDropSupport="false"
+							style="width:100%"  disabled="#{evaluacionAcademicaForm.eafEtapaProceso==0?'false':'true'}" />												
+						
+						<p:commandButton id="btnGuardar" value="Guardar" action="#{evaluacionAcademicaForm.verificarClicGuardadoFinal()}" 
+						immediate="true" ajax="false" disabled="#{evaluacionAcademicaForm.eafEtapaProceso==1?'false':'true'}"
+						update="btnCargar , btnGuardar"/>
+						<p:commandButton id="btnRegresar" value="Regresar" action="#{evaluacionAcademicaForm.irListarParalelos()}" 
+						immediate="true" ajax="false" />
+						
+			
+					</div>
+				</div>	
+			</div>
+		</p:panel>
+		<p:panel id="pnlIngresoNotas" header="Registro de notas" >
+		<p:growl id="msgs" showDetail="true"/>
+			<p:dataTable id="panelEstudiantesMatriculados" var="estudiante" value="#{evaluacionAcademicaForm.eafListEstudianteBusq}" editable="true" editMode="cell" widgetVar="cellEstudiante">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+				
+					<f:facet name="header">
+		           		Registro de notas
+		       		</f:facet>
+						<!-- ******************** FILA NUMERO 1 ************************ -->	
+					<p:column headerText="Identificación" style="width: 2em ! important; text-align:center">
+		                 <h:outputText value="#{estudiante.prsIdentificacion}"/>
+		       		</p:column>
+		       		<p:column headerText="Nombre" style="width: 7em ! important;">
+		                 <h:outputText value="#{estudiante.prsPrimerApellido} #{estudiante.prsSegundoApellido == null ? '':estudiante.prsSegundoApellido} #{estudiante.prsNombres}" />
+		       		</p:column>
+		       		<p:column headerText="No. Matrícula" style="width: 2em ! important; text-align:center">
+		                 <h:outputText value="#{listasCombosForm.getListaNumeroMatriculaDetalleMatricula(estudiante.dtmtNumero)}" />
+		       		</p:column>
+		       		<p:column headerText="Nota" style="width: 6em ! important; text-align:center">
+		                 <h:outputText value="#{estudiante.clfNota1}">
+		                 <f:convertNumber pattern="#0" />
+		                 </h:outputText>
+		       		</p:column>
+		       		<p:column headerText="Asistencia" style="width: 2em ! important; text-align:center">
+		                 <h:outputText value="#{estudiante.clfAsistenciaEstudiante1}" />
+		       		</p:column>
+				</div>
+			</p:dataTable>	
+		</p:panel>			
+		<div>
+			
+		</div>
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Administración académico / Período Académico " />
+		</ui:include>
+</ui:define>
+
+
+<ui:define name="cuerpo">
+
+<script language="JavaScript">
+//<![CDATA[
+    function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador';
+    	var varError = document.getElementById(idVarError);
+    	if(varError.value == 3){
+    		document.getElementById('frmAdminPeriodoAcademico:btnEliminarPeriodoAcademicoModal').click();
+        }
+    } 
+    
+    function nobackbutton(){
+   		window.location.hash="no-back-button";
+   		window.location.hash="Again-No-back-button" //chrome
+   		window.onhashchange=function(){window.location.hash="no-back-button";}
+	}
+    
+ //]]> 
+</script>
+
+	<h:form id="frmAdminPeriodoAcademico" enctype="multipart/form-data" acceptcharset="UTF-8">
+		<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		         <div class="row cells8">
+		     		<div class="cell colspan4" >
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPeriodo" for="slcPeriodo" value="#{administracionPeriodoAcademicoForm.apafTipoPeriodoAcademico}" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       					<h:selectOneMenu id="slcPeriodo" value="#{administracionPeriodoAcademicoForm.apafPeriodoAcademicoBuscar.pracEstado}" 
+		       								required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccione}" 
+		       									  itemValue="#{generalesConstantesForm.appIdBase}"/> 
+									<f:selectItems  var="item" value="#{listasCombosForm.listaEstadoPeriodoAcademico}" 
+												  itemLabel="#{item.label}" itemValue="#{item.value}" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgPeriodo" for="slcPeriodo" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    </div>
+		</p:panel>
+		<div>	
+		<p:commandButton id="btnBuscar" value="Buscar"   action="#{administracionPeriodoAcademicoForm.buscar(administracionPeriodoAcademicoForm.apafPeriodoAcademicoBuscar)}"
+							update=":frmAdminPeriodoAcademico:pnlResultados,slcPeriodo" /> 
+		<p:commandButton id="btnLimpiar" value="Limpiar"   action="#{administracionPeriodoAcademicoForm.limpiar()}" 
+							update=":frmAdminPeriodoAcademico:pnlResultados , :frmAdminPeriodoAcademico:pnlBusqueda" /> 
+		</div>
+		
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda" >
+			<p:dataTable id="dtsPeriodoAcademico" var="item" value="#{administracionPeriodoAcademicoForm.apafListPeriodoAcademico}"
+		    		 		rows="10" paginator="true"
+		                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON DATOS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+				        <p:column headerText="Período" style="width: 15%; text-align:center;">
+				            <h:outputText value="#{item.pracDescripcion}"/>
+				        </p:column>
+				        <p:column headerText="Estado" style="width: 15%; text-align:center;">
+				            <h:outputText value="#{administracionPeriodoAcademicoForm.estadoPrac(item.pracEstado)}"/>
+				        </p:column>
+				        <p:column headerText="Fecha Inicio" style="width: 15%; text-align:center;">
+				            <h:outputText value="#{item.pracFechaIncio}"/>
+				        </p:column>
+				        <p:column headerText="Fecha Fin" style="width: 15%; text-align:center;">
+				            <h:outputText value="#{item.pracFechaFin}"/>
+				        </p:column>
+				        <p:column headerText="Opción" style="width: 15%; text-align:center;">
+				        	<p:commandLink value="Editar" action="#{administracionPeriodoAcademicoForm.irEditarPeriodoAcademico(item)}" 
+				        			onclick="PF('dialogoTrabajando').show();" ajax="false"  immediate="true" />
+				        	
+				        </p:column>
+			</p:dataTable>
+		</p:panel>
+		<div >
+		<p:commandButton id="btnRegresar" action="#{administracionPeriodoAcademicoForm.irInicio()}" value="Regresar" immediate="true" />
+		<p:commandButton id="btnNuevo" action="#{administracionPeriodoAcademicoForm.irNuevoPeriodoAcademico()}" value="Nuevo" />
+		
+		</div>
+	</h:form>
+	
+	
+	<h:form id="compOculto" style="visibility:hidden;">
+	 	<p:inputText id="txtValidador" value="#{administracionPeriodoAcademicoForm.apafValidadorClick}" >
+		</p:inputText>	
+	</h:form>
+	
+</ui:define>
+</ui:composition>     
+</html>

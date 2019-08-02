@@ -1,0 +1,413 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition	template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value=" Carga Horaria / Dirección académica" />
+		</ui:include>
+	</ui:define>
+	<ui:define name="cuerpo">
+	<script language="JavaScript">
+		//<![CDATA[
+		    function verificarErrores(){
+		        var idVarAgregar = 'compOculto:txtValidador';
+		     	var varAgregar = document.getElementById(idVarAgregar);
+			    	if(varAgregar.value == 1){
+			  		document.getElementById('frmCargaHorariaDireccionAcademica:cmdlModalReporte').click();
+			 	    }
+		  	    }
+		 //]]> 
+	</script>
+	<script language="JavaScript">
+		//<![CDATA[
+			function abrirVentaReporte(formato, nombreReporte, tipo){
+				var url = "/aplicacion/reportes";
+				url = url + "?nombreJasper=" + nombreReporte;
+				url = url + "&formato=" + formato;
+				url = url + "&tipo=" + tipo;
+				if(formato == 'vista'){
+					var reportWindow = window.open(url);
+					reportWindow.focus();
+				}else{
+					var reportWindow = window.open(url);
+				}
+		    } 
+		 //]]> 
+	</script>
+	
+	
+	
+		<h:form id="frmCargaHorariaDireccionAcademica" enctype="multipart/form-data" acceptcharset="UTF-8">
+			<!-- ******************** PANEL PARÁMETROS DE BÚSQUEDA************************ -->
+
+			<p:panel id="pnlBusqueda" header="Parámetros de búsqueda">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+
+					<!-- ******************** FILA NUMERO 0 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- PERIODOS -->
+							<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPeriodos" for="slcPeriodos"
+										value="Período: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcPeriodos"
+										value="#{direccionGestionAcademicaForm.gafPeriodoAcademicoBuscar}"
+										required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%">
+										<f:selectItems var="item"
+											value="#{direccionGestionAcademicaForm.gafListaPeriodosAcademicos}"
+											itemLabel="#{item.pracDescripcion}"
+											itemValue="#{item.pracId}" />
+										<p:ajax event="change"
+											listener="#{direccionGestionAcademicaForm.seleccionarPeriodo()}"
+											update="slcFacultades, slcCarreras, slcDocentes, pnlDocente, pnlFuncion, frmCargaHorariaDireccionAcademica" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgPeriodos" for="slcPeriodos" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 0 ************************ -->
+
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- FACULTAD -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblFacultades" for="slcFacultades"
+										value="Facultad: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcFacultades"
+										value="#{direccionGestionAcademicaForm.gafFacultadBuscar}"
+										required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{direccionGestionAcademicaForm.gafListaFacultades}"
+											itemLabel="#{item.dpnDescripcion}" itemValue="#{item.dpnId}" />
+										<p:ajax event="change"
+											listener="#{direccionGestionAcademicaForm.listarCarreras()}"
+											update="slcCarreras, slcDocentes,  pnlDocente, pnlFuncion, frmCargaHorariaDireccionAcademica" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgFacultades" for="slcFacultades" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 1 ************************ -->
+
+					<!-- ******************** FILA NUMERO 2 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- CARRERA -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCarreras" for="slcCarreras"
+										value="Carrera: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcCarreras"
+										value="#{direccionGestionAcademicaForm.gafCarreraBuscar}"
+										required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccioneTodos}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{direccionGestionAcademicaForm.gafListaCarreras}"
+											itemLabel="#{item.crrDetalle}" itemValue="#{item.crrId}" />
+										<p:ajax event="change"
+											listener="#{direccionGestionAcademicaForm.listarDocentesPorCarrera()}"
+											update="slcDocentes, pnlDocente, pnlFuncion, frmCargaHorariaDireccionAcademica" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgCarreras" for="slcCarreras" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+					<!-- ******************** FIN FILA NUMERO 2 ************************ -->
+
+
+					<!-- ******************** FILA NUMERO 3 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- DOCENTE -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblDocentes" for="slcDocentes"
+										value="Docente: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcDocentes"
+										value="#{direccionGestionAcademicaForm.gafDocenteBuscar}"
+										required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{direccionGestionAcademicaForm.gafListaDocentes}"
+											itemLabel="#{item.prsPrimerApellido} #{item.prsSegundoApellido} #{item.prsNombres}"
+											itemValue="#{item.prsId}" />
+										<p:ajax event="change"
+											listener="#{direccionGestionAcademicaForm.limpiarInfoDocente()}"
+											update="pnlDocente, pnlFuncion, frmCargaHorariaDireccionAcademica" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgDocentes" for="slcDocentes" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+				</div>
+			</p:panel>
+			<div>
+				<p:commandButton id="btnBuscar" value="Buscar"
+					action="#{direccionGestionAcademicaForm.buscar()}"
+					update="pnlDocente, pnlFuncion, frmCargaHorariaDireccionAcademica"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+
+				<p:commandButton id="btnLimpiar" value="Limpiar"
+					update="pnlBusqueda, pnlDocente,  frmCargaHorariaDireccionAcademica"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+			</div>
+
+			<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+
+			<p:panel id="pnlDocente" header="Información Docente">
+
+				<div class="grid condensed">
+
+					<!-- ******************** FILA NUMERO 0 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- Nombre -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblNombre" for="txtNombre" value="Nombre: " />
+								</ui:define>
+
+								<ui:define name="valor">
+									<p:outputLabel id="txtNombre"
+										value="#{direccionGestionAcademicaForm.gafDocente.prsPrimerApellido} #{direccionGestionAcademicaForm.gafDocente.prsSegundoApellido} #{direccionGestionAcademicaForm.gafDocente.prsNombres}">
+									</p:outputLabel>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgNombre" for="txtNombre" />
+								</ui:define>
+							</ui:decorate>
+						</div> 
+					<!-- ******************** FIN FILA NUMERO 0 ************************ -->
+					
+					<!-- ******************** FILA NUMERO 0.1 ************************ -->
+					</div>
+					<!-- ******************** FIN FILA NUMERO 0.1 ************************ -->
+
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- IDENTIFICACION -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdentificacionView"
+										for="txtIdentificacionView" value="Identificación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtIdentificacionView"
+										value="#{direccionGestionAcademicaForm.gafDocente.prsIdentificacion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+
+						<!-- ******************** FIN FILA NUMERO 1 ************************ -->
+
+						<!-- ******************** FILA NUMERO 2 ************************ -->
+
+						<div class="cell colspan4">
+							<!-- TIEMPO DE DEDICACION -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblTiempoDedicacion"
+										for="txtTiempoDedicacion" value="Tiempo de Dedicación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:outputLabel id="txtTiempoDedicacion"
+										value="#{direccionGestionAcademicaForm.gafDocente.tmddDescripcion}"
+										style="width:50%" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+				<p:commandButton id="btnImprimir" value="Ver Carga Horaria"
+						action="#{direccionGestionAcademicaForm.generarReporteCargaHorariaDocente()}"
+						update="pnlDocente, pnlFuncion, frmCargaHorariaDireccionAcademica"
+						rendered="#{direccionGestionAcademicaForm.verificarDocente()}"
+						onclick="PF('dialogoTrabajando').show();"
+						onsuccess="PF('dialogoTrabajando').hide();" 
+						ajax="false"/>
+				</div>
+			</p:panel>
+
+			<!-- ******************** PANEL GESTION ACADEMICA************************ -->
+
+			<p:panel id="pnlFuncion" header="Gestión Académica">
+
+				<div class="grid condensed">
+
+
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- UNIDAD ACADEMICA-->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblUnidadAcademica" for="txtUnidadAcademica"
+										value="Unidad Académica " ajax="false" />
+								</ui:define>
+								<ui:define name="valor">
+									<h:inputText id="txtUnidadAcademica"
+										value="#{direccionGestionAcademicaForm.gafUnidadAcademica}"
+										style="width:100%" ajax="false" />
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgUnidadAcademica" for="txtUnidadAcademica" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 1 ************************ -->
+
+					<!-- ******************** FILA NUMERO 2 ************************ -->
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!--FUNCION-->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblFuncion" for="slcFuncion"
+										value="Función: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcFuncion"
+										value="#{direccionGestionAcademicaForm.gafFuncionSeleccion}"
+										required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{direccionGestionAcademicaForm.gafListaFunciones}"
+											itemLabel="#{item.tifncrhrFuncionCargaHoraria.fncrhrDescripcion}"
+											itemValue="#{item.tifncrhrId}" />
+										<p:ajax event="change"
+											listener="#{direccionGestionAcademicaForm.calcularHoras()}"
+											update="txtHorasSemanales,  txtUnidadAcademica" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgFuncion" for="slcFuncion" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 2 ************************ -->
+
+					<!-- ******************** FILA NUMERO 4 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- HORAS SEMANALES -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblHorasSemanales" for="txtHorasSemanales"
+										value="Horas Semanales " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="txtHorasSemanales"
+											value="#{direccionGestionAcademicaForm.gafHorasSemanales}"
+											required="false"
+											requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+											style="width:100%">
+											<f:selectItems var="item"
+												value="#{direccionGestionAcademicaForm.gafListaHorasGestion}"
+												itemLabel="#{item}" itemValue="#{item}" />
+									</h:selectOneMenu>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FIN FILA NUMERO 4 ************************ -->
+				</div>
+			</p:panel>
+
+			<div>
+				<p:commandButton id="btnRegresar" value="Regresar"
+					action="#{direccionGestionAcademicaForm.irInicio()}" immediate="true"
+					ajax="false" onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+				<p:commandButton id="btnGuardar" value="Guardar"
+					rendered="#{!direccionGestionAcademicaForm.gafCargaHorariaActiva}"
+					action="#{direccionGestionAcademicaForm.guardar()}" ajax="false"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+				<p:commandButton id="btnGuardarCambios" value="Eliminar"
+					rendered="#{direccionGestionAcademicaForm.gafCargaHorariaActiva}"
+					action="#{direccionGestionAcademicaForm.eliminar()}" ajax="false"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+				<p:commandButton id="cmdlModalReporte" value="Imprimir reporte" style="visibility:hidden;">
+					<p:ajax oncomplete="abrirVentaReporte('#{direccionGestionAcademicaForm.rchfTipoArchivo}','#{direccionGestionAcademicaForm.rchfNombreArchivo}','#{direccionGestionAcademicaForm.rchfNombreReporte}');" />
+				</p:commandButton>
+			</div>
+		</h:form>
+
+		<ui:include src="/academico/cargaHoraria/modalEliminarGestionAcademica.xhtml" />
+		<ui:include src="/academico/cargaHoraria/modalBusquedaAvanzadaGestionAcademica.xhtml" />
+		
+		
+		<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador" value="#{direccionGestionAcademicaForm.rchfActivarReporte}"/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

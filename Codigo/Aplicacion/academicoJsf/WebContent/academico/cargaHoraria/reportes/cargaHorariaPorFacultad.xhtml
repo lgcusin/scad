@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Reportes / Carga Horaria " />
+		</ui:include>
+	</ui:define>
+	
+	<ui:define name="cuerpo">
+	
+	<script language="JavaScript">
+		//<![CDATA[
+		    function verificarErrores(){
+		        var idVarAgregar = 'compOculto:txtValidador';
+		     	var varAgregar = document.getElementById(idVarAgregar);
+			    	if(varAgregar.value == 1){
+			  		document.getElementById('frmCargaHorariaPorFacultad:cmdlModalReporte').click();
+			 	    }
+		  	    }
+		 //]]> 
+	</script>
+	<script language="JavaScript">
+		//<![CDATA[
+			function abrirVentaReporte(formato, nombreReporte, tipo){
+				var url = "/aplicacion/reportes";
+				url = url + "?nombreJasper=" + nombreReporte;
+				url = url + "&formato=" + formato;
+				url = url + "&tipo=" + tipo;
+				if(formato == 'vista'){
+					var reportWindow = window.open(url);
+					reportWindow.focus();
+				}else{
+					var reportWindow = window.open(url);
+				}
+		    } 
+		 //]]> 
+	</script>
+	
+		<h:form id="frmCargaHorariaPorFacultad" enctype="multipart/form-data" acceptcharset="UTF-8">
+
+			<p:panel id="pnlBusqueda" header="Panel de búsqueda">
+
+				<div class="grid condensed">
+				
+				<div class="row cells8">
+						<div class="cell colspan4">
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPeriodos" for="slcPeriodos" value="Período: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcPeriodos"
+										value="#{reporteCargaHorariaForm.rchfPeriodoId}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{reporteCargaHorariaForm.rchfListPeriodoAcademicoDto}"
+											itemLabel="#{item.pracDescripcion}"
+											itemValue="#{item.pracId}" />
+										<p:ajax event="change" update="slcPeriodos" />
+									</h:selectOneMenu>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+					<div class="row cells8">
+						<div class="cell colspan4">
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblFacultades" for="slcFacultades" value="Facultad: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcFacultades"
+										value="#{reporteCargaHorariaForm.rchfDependenciaId}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{reporteCargaHorariaForm.rchfListDependencia}"
+											itemLabel="#{item.dpnDescripcion}" itemValue="#{item.dpnId}" />
+										<p:ajax event="change" update="slcFacultades" />
+									</h:selectOneMenu>
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					
+				</div>
+			</p:panel>
+
+
+			<div>
+				<p:commandButton id="btnBuscar" value="Buscar"
+					action="#{reporteCargaHorariaForm.buscarDocentesPorFacultadPeriodo()}"
+					update=":frmCargaHorariaPorFacultad:pnlBusqueda , :frmCargaHorariaPorFacultad:pnlResultados" 
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" 
+					ajax="false"/>
+
+				<p:commandButton id="btnLimpiar" value="Limpiar"
+					action="#{reporteCargaHorariaForm.limpiarFormCargaHorariaPorFacultades()}"
+ 					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" 
+					update="frmCargaHorariaPorFacultad" 
+					ajax="false"/>
+			</div>
+			
+			<p:panel id="pnlResultados" header="Panel de resultados">
+				<p:dataTable id="tblResultados" var="item"
+					value="#{reporteCargaHorariaForm.rchfListPersonaDatosDto}"
+					rows="20" paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15"
+					emptyMessage="NO SE ENCONTRARON DATOS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+					rowIndexVar="rowIndex">
+
+					<p:column headerText="#" style="width: 0.1em ! important; text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column headerText="Identificación" style="width: 2em ! important;">
+						<h:outputText value="#{item.prsIdentificacion}" />
+					</p:column>
+					<p:column headerText="Docente" style="width: 10em ! important;">
+						<h:outputText value="#{item.prsPrimerApellido} #{item.prsSegundoApellido} #{item.prsNombres}" />
+					</p:column>
+					<p:column headerText="Relación laboral" style="width: 10em ! important; text-align:left">
+						<h:outputText value="#{item.rllbDescripcion}" />
+					</p:column>
+					<p:column headerText="Tiempo de dedicación" style="width: 10em ! important; text-align:left">
+						<h:outputText value="#{item.tmddDescripcion}" />
+					</p:column>
+					<p:column headerText="Opción"
+						style="width: 2em ! important; text-align: center;">
+						<p:commandLink id="cmdlImprimir" value="Ver reporte"
+							onclick="PF('dialogoTrabajando').show();" ajax="false"
+							action="#{reporteCargaHorariaForm.generarReporteIndividualPorDocente(item)}"
+							style="margin: 0px 5px; color: blue;" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+
+			<div>
+				<p:commandButton id="btnRegresar" value="Regresar"
+					action="#{reporteCargaHorariaForm.irInicio()}" immediate="true"
+					ajax="false" onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" />
+				<p:commandButton id="btnImprimir" value="Ver reporte general"
+					onclick="PF('dialogoTrabajando').show();"
+					action="#{reporteCargaHorariaForm.generarReporteGeneralCargaHoraria()}"
+					style="margin: 0px 5px;"
+					ajax="false"/>
+				<p:commandButton id="cmdlModalReporte" value="Imprimir reporte" style="visibility:hidden;">
+					<p:ajax oncomplete="abrirVentaReporte('#{reporteCargaHorariaForm.rchfTipoArchivo}','#{reporteCargaHorariaForm.rchfNombreArchivo}','#{reporteCargaHorariaForm.rchfNombreReporte}');" />
+				</p:commandButton>
+			</div>
+			
+		</h:form>
+		
+		<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador" value="#{reporteCargaHorariaForm.rchfActivarReporte}" />
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,7 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy>
-<typeInfo handle="=BiometricoJpa/src&lt;ec.uce.edu.biometrico.jpa{Cronograma.java[Cronograma" modifiers="1" timestamp="1564626311989"/>
-<typeInfo handle="=BiometricoJpa/src&lt;ec.uce.edu.biometrico.jpa{CronogramaProcesoFlujo.java[CronogramaProcesoFlujo" modifiers="1" timestamp="1564627995538"/>
-<typeInfo handle="=BiometricoJpa/src&lt;ec.uce.edu.biometrico.jpa{ProcesoFlujo.java[ProcesoFlujo" modifiers="1" timestamp="1564626737860"/>
-<typeInfo handle="=BiometricoJpa/src&lt;ec.uce.edu.biometrico.jpa{PlanificacionCronograma.java[PlanificacionCronograma" modifiers="1" timestamp="1564627758762"/>
-</typeInfoHistroy>
+<typeInfoHistroy/>

@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value=" Consultas / Consultar notas posgrado/ Ver notas " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+
+	<h:form id="frmVerNotas" enctype="multipart/form-data" acceptcharset="UTF-8" >
+	
+	
+		<p:panel id="pnlDatosEstudiante" header="Información del estudiante">
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1  Identificacion************************ -->
+				<div class="row cells8"> 
+					<div class="cell colspan4" style=" width: 40%;">
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblIdentificacion" for="identificacion" value="Identificación: " />
+							</ui:define>
+							
+							<ui:define name="valor">
+								<p:outputLabel id="identificacion" value="#{estudianteNotasPosgradoForm.enpfEstudiante.prsIdentificacion}" 
+												style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+	                 <div class="cell colspan4" style=" width: 60%;"> 
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta" >
+								<p:outputLabel id="lblNombre" for="nombre" value="Nombre: " />
+							</ui:define>
+							<ui:define name="valor">
+								<p:outputLabel id="nombre" value="#{estudianteNotasPosgradoForm.enpfEstudiante.prsPrimerApellido.concat(' ').
+								concat(estudianteNotasPosgradoForm.enpfEstudiante.prsSegundoApellido).concat(' ').
+								concat(estudianteNotasPosgradoForm.enpfEstudiante.prsNombres) }" 
+														style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+						   </ui:define>
+						</ui:decorate>
+					</div>
+				</div> <!-- Fin fila 1 -->
+				
+					<!-- ******************** FILA NUMERO 2 Periodo Academico************************ -->
+	        	<div class="row cells8"> 
+					<div class="cell colspan4" style=" width: 40%;"> 
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblPeriodo" for="periodo" value="Cohorte: " />
+							</ui:define>
+							<ui:define name="valor" >
+								<p:outputLabel id="periodo" value="#{estudianteNotasPosgradoForm.enpfPeriodo.pracDescripcion }" 
+														style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+					<div class="cell colspan4" style=" width: 60%;"> 
+						<ui:decorate template="/componentesGenerales/plantillas/pltComponenteGeneralDisplayAlterna.xhtml">
+							<ui:define name="etiqueta">
+								<p:outputLabel id="lblCarrera" for="carrera" value="Programa: " />
+							</ui:define>
+							<ui:define name="valor" > 
+								<p:outputLabel id="carrera" value="#{estudianteNotasPosgradoForm.enpfCarrera.crrDescripcion }" 
+														style="vertical-align: super;font-weight: Normal !important; width:100%"/>
+							</ui:define>
+						</ui:decorate>
+					</div>
+				</div>
+		 <!-- Fin fila 2 -->
+			</div><!-- Fin GRID-->
+	</p:panel>
+		
+		<p:panel id="pnlMaterias"  header="Información de las asignaturas" >
+			<p:dataTable id="dtsMaterias" var="item" value="#{estudianteNotasPosgradoForm.enpfListMateriaDto}"
+		   		 		rows="20" paginator="true" paginatorPosition="bottom"
+	                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                         rowsPerPageTemplate="5,10,15" emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS"
+	                          style="text-align: center; font-size: 12px;"  rowIndexVar="rowIndex">
+					
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column rowspan="2" headerText="#"
+								style="width: 1em ! important; text-align: center;">
+							</p:column>
+							<p:column rowspan="2" headerText="Asignatura"
+								style="width: 20em  ! important; " />
+							<p:column rowspan="2" headerText="Nivel"
+								style="width: 6em  ! important;  "  />
+							<p:column rowspan="2" headerText="Paralelo"
+								style="width: 6em  ! important;  " />
+							
+							<p:column rowspan="2" headerText="Asistencia  (%)"
+								style="width: 4em  ! important;  " />
+							
+							<p:column headerText="Nota final"
+								style="width: 2em  ! important; " />
+							
+							<p:column rowspan="2" headerText="Estado"
+								style="width: 7em  ! important; " />
+						</p:row>
+						
+									
+					</p:columnGroup>
+
+					<p:column style="text-align: center;">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+					<p:column style="text-align: left;">
+						
+						<div style="display: flex;">
+						<h:outputText id="mtrCodigo" value="#{item.mtrCodigo}"  style="padding-right: 10px;" />
+						
+							<h:outputText value="#{item.mtrDescripcion}"
+								for="mtrCodigo" style="width:95%" />
+						</div>
+					</p:column>
+
+					<p:column tyle="width: 6em  ! important; text-align: left; "  >
+			            <h:outputText value="#{item.nvlId }"/>
+			           </p:column>
+			        
+			           <p:column style="width: 6em  ! important; text-align: left; ">
+			            <h:outputText value="#{item.prlDescripcion}"/>
+			           </p:column>
+			        
+			             
+			           			        
+			           <p:column style="width: 4em  ! important; ">
+		                 	<h:outputText value="#{item.clfPromedioAsistencia}">
+		                      <f:convertNumber type="number"
+                                 maxIntegerDigits="3"
+                                 minFractionDigits="0"
+                                 maxFractionDigits="0"
+                                 groupingUsed="false"
+                                 />
+                                
+		                 	
+		                 	</h:outputText>
+			           </p:column>
+			        
+			      
+			           <p:column style="width: 2em  ! important; text-align: right; " >
+			            <h:outputText value="#{item.clfNotaFinalSemestre}">
+			                <f:convertNumber type="number"
+                                 maxIntegerDigits="2"
+                                 minFractionDigits="2"
+                                 maxFractionDigits="2"
+                                 groupingUsed="false"
+                                 />
+                       </h:outputText> 
+			            
+			           </p:column>
+			        
+			           <p:column style="width: 7em  ! important; text-align: left;" >
+			            <h:outputText value="#{item.rcesEstado != null ? listasCombosForm.getListaEstadoRecorAcademico(item.rcesEstado):item.cmfrDescripcion }"/>          
+			           </p:column>
+			        
+				</p:dataTable>
+		     </p:panel>
+	     	
+	     	<div>
+			   <p:commandButton id="btnRegresar" value="Regresar" action="#{estudianteNotasPosgradoForm.regresarMatricula()}" immediate="true" ajax="false" />
+			</div>
+			
+			
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

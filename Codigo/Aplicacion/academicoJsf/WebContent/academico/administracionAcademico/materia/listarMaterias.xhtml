@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Administración académico / Asignatura / Listar #{administracionMateriaForm.amfTipoCarrera} " />
+		</ui:include>
+	</ui:define>
+	<ui:define name="cuerpo">
+<script language="JavaScript">
+    //<![CDATA[
+	     function nobackbutton(){
+	 		window.location.hash="no-back-button";
+	  		window.location.hash="Again-No-back-button" //chrome
+	   		window.onhashchange=function(){window.location.hash="no-back-button";}
+	      }
+ //]]> 
+</script>
+
+
+		<h:form id="frmListarMaterias" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+				
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- Combo de Dependencias -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblFacultad" for="slcFacultad" value="Facultad:" />
+								</ui:define>
+								<ui:define name="valor">
+									<!-- ****  Guardo el id de la dependencia del combo seleccionado, dentro de la variable del Bean Manejado -->
+									<h:selectOneMenu 
+										id="slcFacultad"
+										value="#{administracionMateriaForm.amfFclId}"
+										required="true"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<f:selectItems var="item"
+											value="#{administracionMateriaForm.amfListDependencia}"
+											itemLabel="#{item.dpnDescripcion}" itemValue="#{item.dpnId}" />
+										<p:ajax event="change"
+											listener="#{administracionMateriaForm.llenarCarrera(administracionMateriaForm.amfFclId)}"
+											update=":frmListarMaterias:pnlBusqueda,:frmListarMaterias:pnlResultados" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgFacultad" for="slcFacultad" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+
+					<!-- Fin fila 1 -->
+
+
+					<!-- ******************** FILA NUMERO 2 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- Combo de Edificios por Dependencia  -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera:" />
+								</ui:define>
+								<ui:define name="valor">
+									<!-- ****  Guardo el id de carrera seleccionada en el combo dentro de  la variable del Bean Manejado -->
+									<h:selectOneMenu 
+										id="slcCarrera"
+										value="#{administracionMateriaForm.amfCrrId}"
+										required="true"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%">
+										<f:selectItem
+											itemLabel="#{generalesConstantesForm.appSeleccione}"
+											itemValue="#{generalesConstantesForm.appIdBase}" />
+										<!-- ****  Asigno la lista del Bean Manejado al combo*** -->
+										<f:selectItems var="item"
+											value="#{administracionMateriaForm.amfListCarrera}"
+											itemLabel="#{item.crrDescripcion}" itemValue="#{item.crrId}" />
+										<p:ajax event="change"
+											listener="#{administracionMateriaForm.limpiarPanelResultadosFormListarMaterias()}"
+											update="lblCarrera , slcCarrera , msgCarrera , pnlBusqueda, frmListarMaterias, pnlResultados, dtsMateria" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgCarrera" for="slcCarrera" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- Fin fila 2 -->
+
+				</div>
+			</p:panel>
+
+			<div>
+				              <!--   boton buscar: ejecuta  llenar la lista de materias -->
+				<p:commandButton id="btnBuscar" value="Buscar" action="#{administracionMateriaForm.buscarMaterias()}"
+					update=":frmListarMaterias:pnlResultados" onclick="PF('dialogoTrabajando').show();"
+					oncomplete="PF('dialogoTrabajando').hide();" />
+
+				<p:commandButton id="btnLimpiar" value="Limpiar"
+					action="#{administracionMateriaForm.limpiarFormListarMaterias()}"
+					update=":frmListarMaterias:pnlResultados , :frmListarMaterias:pnlBusqueda" />
+			</div>
+
+
+			<p:panel id="pnlResultados" header="Resultados de la búsqueda">
+				<!-- ****  Asigno la lista de Materias del Bean Manejado al dataTable*** -->
+				<p:dataTable id="dtsMateria" var="item"
+					value="#{administracionMateriaForm.amfListMateriaDto}" rows="10"
+					paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15"
+					emptyMessage="NO SE ENCONTRARON REGISTROS CON LOS PARÁMETROS DE BÚSQUEDA INGRESADOS">
+					<p:column headerText="Carrera" style="width: 4em ! important;">
+						<h:outputText value="#{item.crrDescripcion}" />
+					</p:column>
+					<p:column headerText="Descripción" style="width: 5em ! important;">
+						<h:outputText value="#{item.mtrDescripcion}" />
+					</p:column>
+					<p:column headerText="Código" style="width: 1em ! important;">
+						<h:outputText value="#{item.mtrCodigo}" />
+					</p:column>
+					<p:column headerText="Estado" style="width: 1em ! important; text-align:center">
+						<h:outputText
+							value="#{listasCombosForm.getLabelEstadoMateria(item.mtrEstado)}" />
+					</p:column>
+					<p:column headerText="Opción" style="width: 2em ! important; text-align:center">
+						<p:commandLink id="cmdlVer" value="Ver"
+							action="#{administracionMateriaForm.verDatosMateria(item)}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+			<div>
+		  		<p:commandButton 
+		  			id="btnRegresar" 
+		  			value="Regresar"	
+		  			action="#{administracionMateriaForm.irMenuPrincipal()}" /> 
+				<p:commandButton 
+					id="btnNuevo"
+					action="#{administracionMateriaForm.irNuevaMateria()}"
+					value="Nuevo" />
+			</div>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

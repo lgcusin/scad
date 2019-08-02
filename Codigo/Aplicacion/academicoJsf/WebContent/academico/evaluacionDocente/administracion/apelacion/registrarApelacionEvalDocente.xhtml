@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value=" Evaluación Docente / Apelación" />
+		</ui:include>
+	</ui:define>
+	<ui:define name="cuerpo">
+	
+	<script language="JavaScript">
+	//<![CDATA[
+
+			 function abrirVentaReporte(formato, nombreReporte, tipo){
+				var url = "/aplicacion/reportes";
+				url = url + "?nombreJasper=" + nombreReporte;
+				url = url + "&formato=" + formato;
+				url = url + "&tipo=" + tipo;
+				if(formato == 'vista'){
+					var reportWindow = window.open(url);
+					reportWindow.focus();
+				}else{
+					var reportWindow = window.open(url);
+				}
+		   } 
+
+		//]]> 
+	</script>
+			
+	<script language="JavaScript">
+		//<![CDATA[
+			function verificarErrores(){
+		    	var idVarError = 'compOculto:txtValidador';
+		    	var varError = document.getElementById(idVarError);
+		    	if(varError.value == 1){
+		   		document.getElementById('frmEvaluacionAlDirectivo:btnEditarEvaluacionDocente').click();
+		        }
+		    	var idVarGuardar = 'compOculto:txtValidador1';
+		    	var varGuardar = document.getElementById(idVarGuardar);
+		    	if(varGuardar.value == 1){
+		    		document.getElementById('frmEvaluacionAlDirectivo:btnEvaluador').click();
+		        
+		    }
+		    	var idVarGuardar = 'compOculto:txtValidador2';
+		    	var varGuardar = document.getElementById(idVarGuardar);
+		    	if(varGuardar.value == 1){
+		    		document.getElementById('frmEvaluacionAlDirectivo:btnEvaluado').click();
+		        
+		    }
+			
+	        } 
+		 //]]> 
+	</script>
+<script type="text/javascript">
+//<![CDATA[
+// Solo permite ingresar numeros.
+function soloNumeros(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+ 
+         return true;
+      }
+//]]>
+</script>
+		<h:form id="frmEvaluacionAlDirectivo"
+			enctype="multipart/form-data" acceptcharset="UTF-8">
+			
+			<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+
+			<p:panel id="pnlBusqueda" header="Ingrese los datos a buscar">
+
+				<div class="grid condensed">
+
+					<!-- ******************** FILA NUMERO 1 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- PERIODO -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblPeriodo" for="slcPeriodo"
+										value="Período: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcPeriodo"
+										value="#{apelacionEvaluacionDocenteForm.edfPeriodoAcademicoBuscar}"
+										required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%;">
+										<f:selectItems var="item"
+											value="#{apelacionEvaluacionDocenteForm.edfListaPeriodosAcademicos}"
+											itemLabel="#{item.pracDescripcion}"
+											itemValue="#{item.pracId}" />
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgPeriodo" for="slcPeriodo" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<!-- ******************** FILA NUMERO 2 ************************ -->
+						<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- TIPO EVALUACION -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblTipoEvaluacion" for="slcTipoEvaluacion"
+										value="Tipo Evaluación: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:selectOneMenu id="slcTipoEvaluacion"
+										value="#{apelacionEvaluacionDocenteForm.edfTipoEvaluacionBuscar}"
+										required="false"
+										requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										style="width:100%;">
+										<f:selectItems var="item"
+											value="#{apelacionEvaluacionDocenteForm.edfListaTipoEvaluaciones}"
+											itemLabel="#{item.tpevDescripcion}"
+											itemValue="#{item.tpevId}" />
+											<p:ajax event="change" listener="#{apelacionEvaluacionDocenteForm.limpiar}" update="txtIdEvaluador, txtIdEvaluado,pnlResultados "></p:ajax>
+									</h:selectOneMenu>
+								</ui:define>
+								<ui:define name="etiquetaError">
+									<p:message id="msgTipoEvaluacion" for="slcTipoEvaluacion" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+					</div>
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- IDENTIFICACION -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdEvaluador"
+										for="txtIdEvaluador" value="Evaluador: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:inputText  id="txtIdEvaluador"
+										value="#{apelacionEvaluacionDocenteForm.edafPersonaEvaluador.prsNomApEvaluador}"
+										style="width:75%" disabled="true" />
+									<p:commandButton value="Buscar"
+										action="#{apelacionEvaluacionDocenteForm.activaModalEvaluador()}"
+										immediate="true" ajax="false" 
+										onclick="PF('dialogoTrabajando').show();" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						</div>
+
+					<!-- ******************** FILA NUMERO 3 ************************ -->
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<!-- IDENTIFICACION -->
+							<ui:decorate
+								template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+								<ui:define name="etiqueta">
+									<p:outputLabel id="lblIdEvaluado"
+										for="txtIdEvaluado" value="Evaluado: " />
+								</ui:define>
+								<ui:define name="valor">
+									<h:inputText id="txtIdEvaluado"
+										value="#{apelacionEvaluacionDocenteForm.edafPersonaEvaluado.prsNomApEvaluado}"
+										style="width:75%" disabled="true"/>
+										<p:commandButton value="Buscar"
+										action="#{apelacionEvaluacionDocenteForm.activarModalEvaluado()}"
+										immediate="true" ajax="false" 
+										onclick="PF('dialogoTrabajando').show();" />
+								</ui:define>
+							</ui:decorate>
+						</div>
+						</div>
+					<!-- ******************** FILA NUMERO 3 ************************ -->
+					
+				</div>
+			</p:panel>
+			
+		
+			<div>
+				<p:commandButton id="btnBuscar" value="Buscar"		
+					action="#{apelacionEvaluacionDocenteForm.buscar()}"
+					ajax="false"
+					onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" /> 
+					<p:commandButton id="btnLimpiar" value="Limpiar"   action="#{apelacionEvaluacionDocenteForm.limpiar()}" 
+							update=":frmEvaluacionAlDirectivo:pnlResultados , :frmEvaluacionAlDirectivo:pnlBusqueda" /> 
+			</div>
+ 
+			<!-- ******************** PANEL RESULTADOS DE BÚSQUEDA************************ -->
+
+			<!-- ******************** CAMPO EXPERIMENTAL INICIO ************************ -->
+			<p:panel id="pnlResultados"
+				header="#{apelacionEvaluacionDocenteForm.edfEvaluacionActiva.evTipoEvaluacion.tpevDescripcion}">
+
+				<p:dataTable id="dtsOpciones" var="itemAspectoEvaluar"
+					value="#{apelacionEvaluacionDocenteForm.edafListaContenido}"
+					rowIndexVar="rowIndex"
+					emptyMessage="NO SE ENCONTRARON INDICADORES A EVALUAR.">
+
+					<p:column headerText="#" class="uce-column1"
+						style="width:5%; text-align: center;">
+						<h:outputText value="#{itemAspectoEvaluar.tpcnNumeral}" />
+					</p:column>
+					<p:column headerText="Indicadores" class="uce-column2">
+						<h:outputText value="#{itemAspectoEvaluar.tpcnDescripcion}" />
+					</p:column>
+					<p:column headerText="Selección inicial" class="uce-column3"
+						style="width:25%; text-align: center;">
+						<h:outputLabel value="#{itemAspectoEvaluar.cntSeleccionAux}" />
+					</p:column>
+					  <p:column headerText="Opción" style="width: 25%;">
+				        	<p:commandLink  value="Editar" action="#{apelacionEvaluacionDocenteForm.activaModalRegistrarApelacion(itemAspectoEvaluar)}" 
+				        	onclick="PF('dialogoTrabajando').show();" ajax="false"  immediate="true" style="margin: 0px 10x;" 
+				        	  />
+				      </p:column>
+				</p:dataTable>
+				
+			</p:panel>
+			
+			<div>
+			
+				
+				<p:commandButton id="btnRegresar" value="Regresar"
+					action="#{apelacionEvaluacionDocenteForm.irInicio()}" immediate="true"
+					ajax="false" onclick="PF('dialogoTrabajando').show();"
+					onsuccess="PF('dialogoTrabajando').hide();" /> 
+				
+			</div>
+			<div>
+				<p:commandButton id="btnEditarEvaluacionDocente" value="EjecutarEvaluador"
+					style="visibility:hidden;">
+					<p:ajax oncomplete="PF('dialogoEditarEvaluacionDocente').show();"
+						update=":frmModalEditarEvaluacionDocente" />
+				</p:commandButton>
+				<p:commandButton id="btnEvaluador" value="EjecutarEvaluador"
+					style="visibility:hidden;">
+					<p:ajax oncomplete="PF('dialogoEvaluador').show();"
+						update=":frmModalEvaluador" />
+				</p:commandButton>
+				<p:commandButton id="btnEvaluado"
+					value="EjecutarEvaluado" style="visibility:hidden;">
+					<p:ajax oncomplete="PF('dialogoEvaluado').show();"
+						update=":frmModalEvaluado" />
+				</p:commandButton>
+
+			</div>
+
+		</h:form>
+		<ui:include src="/academico/evaluacionDocente/administracion/apelacion/modalEditarEvaluacionDocente.xhtml" />	
+		<ui:include src="/academico/evaluacionDocente/administracion/apelacion/modalEvaluador.xhtml" />	
+		<ui:include src="/academico/evaluacionDocente/administracion/apelacion/modalEvaluado.xhtml" />		 
+		
+		<h:form id="compOculto" style="visibility:hidden;">
+		<p:inputText id="txtValidador" value="#{apelacionEvaluacionDocenteForm.edafVerificadorActivaModal}" />
+	
+		<p:inputText id="txtValidador1" value="#{apelacionEvaluacionDocenteForm.edafVerificarActivarModalEvaluador}" />
+		<p:inputText id="txtValidador2" value="#{apelacionEvaluacionDocenteForm.edafVerificarActivarModalEvaluado}" />
+	</h:form>
+		
+ 
+	</ui:define>
+</ui:composition>
+</html>

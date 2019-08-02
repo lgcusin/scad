@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"	value=" Registro automático migración contigentes idiomas " />
+		</ui:include>
+	</ui:define>
+	
+	<ui:define name="cuerpo">
+		<h:form id="frmRegistroAutomatico" enctype="multipart/form-data" acceptcharset="UTF-8">
+
+			<p:panel id="pnlCargaArchivo" header="Panel de carga de archivos">
+
+				<div class="grid condensed">
+					<div class="row cells8">
+						<div class="cell colspan4">
+							<p:fileUpload id="flupArchivoSubir"
+								label="Buscar"
+								uploadLabel="Cargar" 
+								cancelLabel="Cancelar"
+								mode="advanced" 
+								sizeLimit="1572864"
+								allowTypes="/(\.|\/)(xlsx)$/" 
+								fileLimit="5"
+								fileLimitMessage="Máximo 5 intentos válidos."
+								invalidSizeMessage="Tamaño de archivo excedido, máximo 1.5 Mb."
+								invalidFileMessage="Archivo no válido, ingrese solo archivos excel tipo XLSX."
+								dragDropSupport="false"
+								style="width:100%"
+								fileUploadListener="#{registroAutomaticoContingenteIdiomasForm.gestionCargarArchivo}"
+								disabled="#{registroAutomaticoContingenteIdiomasForm.rauifValidarArchivo == 1 ? 'true': registroAutomaticoContingenteIdiomasForm.rauifValidarArchivo == 2 ? 'true':'false' }" 
+								update="pnlOpciones , flupArchivoSubir"/>
+						</div>
+					</div>
+				</div>
+			</p:panel>
+
+			<p:panel id="pnlOpciones">
+				<div>
+					<p:commandButton id="btnValidar" value="Validar"
+						action="#{registroAutomaticoContingenteIdiomasForm.validarArchivo()}"
+						disabled="#{registroAutomaticoContingenteIdiomasForm.rauifValidarArchivo == 1 ? 'false': 'true'}"
+						onclick="PF('dialogoTrabajando').show();"
+						oncomplete="PF('dialogoGenerarMatricula').hide();"
+						update="pnlOpciones" 
+						ajax="false"/>
+					<p:commandButton id="btnCambiarArchivo" value="Cambiar"
+						action="#{registroAutomaticoContingenteIdiomasForm.cambiarArchivo()}"
+						rendered="#{registroAutomaticoContingenteIdiomasForm.rauifValidarArchivo == 1 ? 'true': registroAutomaticoContingenteIdiomasForm.rauifValidarArchivo == 2 ? 'true': 'false'}"
+						ajax="false" />
+
+					<p:commandButton id="btnGuardar" value="Guardar"
+						action="#{registroAutomaticoContingenteIdiomasForm.generarRegistroUbicacion()}"
+						onclick="PF('dialogoTrabajando').show();"
+						oncomplete="PF('dialogoGenerarMatricula').hide();"
+						rendered="#{registroAutomaticoContingenteIdiomasForm.rauifValidarArchivo == 2 ? 'true': 'false'}"
+						ajax="false" />
+
+					<p:commandButton id="btnRegresar" value="Regresar"
+						action="#{registroAutomaticoContingenteIdiomasForm.irInicio()}"
+						ajax="false" />
+				</div>
+			</p:panel>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

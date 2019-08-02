@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Reportes / Paralelos / Listar" />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador';
+    	var varError = document.getElementById(idVarError);
+    	if(varError.value == 1){
+    		document.getElementById('frmListarParalelos:cmdlModalReporte').click();
+        }
+    	if(varError.value == 2){
+    		document.getElementById('frmListarParalelos:cmdlModalReporte2').click();
+        }
+    } 
+    function nobackbutton(){
+   		window.location.hash="no-back-button";
+   		window.location.hash="Again-No-back-button" //chrome
+   		window.onhashchange=function(){window.location.hash="no-back-button";}
+	}
+    
+ //]]> 
+</script>
+<script language="JavaScript">
+	//<![CDATA[
+		function abrirVentaReporte(formato, nombreReporte, tipo){
+			var url = "/aplicacion/reportes";
+			url = url + "?nombreJasper=" + nombreReporte;
+			url = url + "&formato=" + formato;
+			url = url + "&tipo=" + tipo;
+			if(formato == 'vista'){
+				var reportWindow = window.open(url);
+				reportWindow.focus();
+			}else{
+				var reportWindow = window.open(url);
+			}
+	    } 
+	 //]]> 
+</script>
+<h:form id="frmListarParalelos" enctype="multipart/form-data" acceptcharset="UTF-8">
+
+		<p:panel id="pnlBusqueda" header="Ingrese los datos para buscar" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" >  <!-- Combo de Período Académico -->
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblPeriodo" for="slcPeriodo" value="Período Académico:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       				<!-- ****  Guardo el id del periodo del combo seleccionado, dentro de la variable del Bean Manejado ( setPracId), para luego usarlo al buscar el paralelo por periodo y carrera*** -->
+								<h:outputLabel id="slcPeriodo" value="#{reporteParaleloForm.rpfPeriodoAcademico.pracDescripcion}" style="width:100%">
+								
+								</h:outputLabel>
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgPeriodo" for="slcPeriodo" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div>
+		    	
+		    	<!-- Fin fila 1 -->
+		    	
+		    	
+				<!-- ******************** FILA NUMERO 2 ************************ -->
+		       	<div class="row cells8">
+		     		<div class="cell colspan4" ><!-- Combo de Carreras por periodo y Usuario -->
+		       			<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="slcCarrera" value="Carrera:" />	
+		       				</ui:define>
+		       				<ui:define name="valor">	
+		       				<!-- ****  Guardo el id de la carrera seleccionada en el combo dentro de  la variable del Bean Manejado (setCrrId), para luego usarlo al buscar el paralelo por periodo y carrera*** -->
+		       					<h:selectOneMenu id="slcCarrera"   value="#{reporteParaleloForm.rpfCarreraDto.crrId}" 
+		       								style="width:100%"> 
+		       						<f:selectItem itemLabel="#{generalesConstantesForm.appSeleccioneTodos}" itemValue="#{generalesConstantesForm.appIdBase}"/> 
+		       									  <!-- ****  Asigno la lista de carreras del Bean Manejado al combo*** -->
+									<f:selectItems  var="item" value="#{reporteParaleloForm.rpfListCarreraDto}"
+												  itemLabel="#{item.crrDetalle}" itemValue="#{item.crrId}" />
+									<p:ajax event="change" listener="#{reporteParaleloForm.limpiarMaterias()}"
+									 update="lblCarrera , slcCarrera , msgCarrera , pnlBusqueda, frmListarParalelos, pnlResultados, dtsParalelo" />
+								</h:selectOneMenu>	
+		       				</ui:define>
+		       				<ui:define name="etiquetaError">
+									<p:message id="msgCarrera" for="slcCarrera" />
+							</ui:define>
+		       			</ui:decorate>
+		        	</div>
+		    	</div> <!-- Fin fila 2 -->
+		   	</div> 	
+		</p:panel>
+
+		<div >  <!--   boton buscar: ejecuta  llenar la lista de los paralelos -->
+			<p:commandButton id="btnBuscar" value="Buscar"  action="#{reporteParaleloForm.buscarMaterias()}"
+								update=":frmListarParalelos:pnlResultados , btnImprimir , btnImprimir2" onclick="PF('dialogoTrabajando').show();" 
+								oncomplete="PF('dialogoTrabajando').hide();"/> 
+								
+			<p:commandButton id="btnLimpiar" value="Limpiar" action="#{reporteParaleloForm.limpiar()}"
+			update=":frmListarParalelos:pnlResultados , :frmListarParalelos:pnlBusqueda , btnImprimir , btnImprimir2" /> 
+		  	 
+		</div>
+		
+		
+		<p:panel id="pnlResultados" header="Resultados de la búsqueda" >
+		  <!-- ****  Asigno la lista de paralelos rpfListParaleloDto del Bean Manejado  administracionParaleloForm al dataTable*** -->
+			<p:dataTable id="dtsParalelo" var="item" value="#{reporteParaleloForm.rpfListHorarioAcademicoBusq}"			
+			    		 		rows="15" paginator="true" paginatorPosition="bottom"	    		 		
+			                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			                         rowsPerPageTemplate="5,10,15" emptyMessage="EL PARALELO SELECCIONADO NO POSEE MATERIAS ASIGNADAS">			                         
+					        <p:column headerText="Carrera" style="width: 10em ! important;">
+					            <h:outputText value="#{item.crrDetalle}"/>
+					        </p:column>
+					        <p:column headerText="Nivel" style="width: 2em ! important;">
+					            <h:outputText value="#{item.nvlDescripcion}"/>
+					        </p:column>
+					        <p:column headerText="Asignatura" style="width: 10em ! important;">
+					            <h:outputText value="#{item.mtrDescripcion}"/>
+					        </p:column>
+					        <p:column headerText="Paralelo" style="width: 2em ! important; text-align:center">
+					        	<h:outputText value="#{item.prlDescripcion}" />
+					        </p:column>
+					        <p:column headerText="Cupo" style="width: 2em ! important; text-align:center">
+					        	<h:outputText value="#{item.mlcrprCupo}" />
+					        </p:column>
+					        <p:column headerText="Aula" style="width: 2em ! important; text-align:center">
+					        	<h:outputText value="#{item.alaDescripcion}" />
+					        </p:column>
+					        <p:column headerText="Inscritos" style="width: 2em ! important; text-align:center">
+					        	<h:outputText value="#{item.mlcrprInscritos}" />
+					        </p:column>
+					        <p:column headerText="Matriculados" style="width: 2em ! important; text-align:center">
+					        	<h:outputText value="#{item.rcesNumeroMatriculados}" />
+					        </p:column>
+				</p:dataTable>
+		</p:panel>
+		
+		
+		
+		<div >
+			<p:commandButton id="btnSalir" value="Regresar" action="#{reporteParaleloForm.irInicio()}" immediate="true"/>
+			<p:commandButton id="btnImprimir" value="Imprimir" action="#{reporteParaleloForm.verificarClickImprimir()}"
+    		  onclick="PF('dialogoTrabajando').show();" oncomplete="PF('dialogoTrabajando').hide();" ajax="false" disabled="#{reporteParaleloForm.rpfHabilitarBoton == 0}" />
+    		  <p:commandButton id="btnImprimir2" value="Imprimir Xls" action="#{reporteParaleloForm.verificarClickImprimir2()}"
+    		  onclick="PF('dialogoTrabajando').show();" oncomplete="PF('dialogoTrabajando').hide();" ajax="false" disabled="#{reporteParaleloForm.rpfHabilitarBoton == 0}" />
+    		  
+    		<p:commandButton id="cmdlModalReporte" value="Imprimir reporte" style="visibility:hidden;">
+				<p:ajax oncomplete="abrirVentaReporte('PDF','reporteParalelos','REPORTE_PARALELO');" />
+			</p:commandButton>
+			<p:commandButton id="cmdlModalReporte2" value="Imprimir reporte2" style="visibility:hidden;">
+				<p:ajax oncomplete="abrirVentaReporte('XLS','reporteParaleloXls','REPORTE_PARALELO_XLS');" />
+			</p:commandButton>
+			
+		</div>
+		
+		
+	</h:form>		
+	<h:form id="compOculto" style="visibility:hidden;">
+			<p:inputText id="txtValidador"
+				value="#{reporteParaleloForm.rpfValidadorClick}" />
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

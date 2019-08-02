@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/componentesGenerales/plantillas/pltPrincipalSinMenuEjecModal.xhtml">
+<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value=" Director de carrera / Recalificación de notas y asistencias " />
+		</ui:include>
+</ui:define>
+<ui:define name="cuerpo">
+<script language="JavaScript">
+//<![CDATA[
+	function verificarErrores(){
+    	var idVarError = 'compOculto:txtValidador';
+    	var varError = document.getElementById(idVarError);
+    	if(varError.value == 2){
+    		document.getElementById('frmEditarNotasRecalificacion:btnGuardoValidarModal').click();
+        }
+    } 
+
+ //]]> 
+</script>
+
+
+	<h:form  id="frmEditarNotasRecalificacion" enctype="multipart/form-data" acceptcharset="UTF-8" action="IpClientServlet" method="post">
+			
+		<p:panel id="pnlResultados" header="Información del paralelo" >
+			<!-- ******************** TABLA RESPONSIVA ************************ -->
+			<div class="grid condensed">
+				<!-- ******************** FILA NUMERO 1 ************************ -->		
+				<div class="row cells9">
+					<div class="cell colspan8"><!-- CARRERA -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteBigGeneralDisplay.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblCarrera" for="txtCarrera" value="Carrera / Área: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<p:outputLabel id="txtCarrera" value="#{notasRectificacionForm.nrctfParaleloDtoEditar.crrDetalle}" 
+		       									style="font-weight: Normal !important;"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>	
+				<div class="row cells9">
+					<div class="cell colspan8"><!-- MATERIA -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteBigGeneralDisplay.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblMateria" for="txtMateria" value="Asignatura: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<p:outputLabel id="txtMateria" value="#{notasRectificacionForm.nrctfParaleloDtoEditar.mtrDescripcion}" 
+		       									style="font-weight: Normal !important;"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>	
+				<div class="row cells9">
+					<div class="cell colspan8"><!-- PARALELO -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteBigGeneralDisplay.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblParalelo" for="txtParalelo" value="Paralelo: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor">
+		       					<p:outputLabel id="txtParalelo" value="#{notasRectificacionForm.nrctfParaleloDtoEditar.prlDescripcion}" 
+		       									style="font-weight: Normal !important;"/>	
+		       				</ui:define>
+		       			</ui:decorate>
+					</div>
+				</div>	
+				<div class="row cells12">
+					<div class="cell colspan7"><!-- PARALELO -->
+						<ui:decorate  template="/componentesGenerales/plantillas/pltComponenteGeneralEdit.xhtml">
+		       				<ui:define name="etiqueta">	
+		       					<p:outputLabel id="lblAsistenciaDocente" for="txtAsistenciaDocente" value="Asistencia docente: "/>	
+		       				</ui:define>
+		       				<ui:define name="valor"> 
+ 								<p:inputNumber id="txtAsistenciaDocente" 
+										value="#{notasRectificacionForm.nrctfAsistenciaDocente}" required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										minValue="1" maxValue="224" decimalPlaces="0"  >
+										<p:ajax event="blur" update="lblAsistenciaDocente , txtAsistenciaDocente , msgAsistenciaDocente " /> 
+								</p:inputNumber>
+ 							</ui:define>
+		       				<ui:define name="etiquetaError"> 
+										<p:message id="msgAsistenciaDocente" for="txtAsistenciaDocente" /> 
+ 									</ui:define> 
+		       			</ui:decorate>
+					</div>
+				</div>	
+			</div>
+		</p:panel>
+		<p:panel id="pnlIngresoNotas" header="Rectificacion 1er hemisemestre" >
+		<p:growl id="msgs" showDetail="true"/>
+			<p:dataTable id="panelEstudiantesMatriculados" var="estudiante" value="#{notasRectificacionForm.nrctfListEstudianteBusq}" editable="true" editMode="cell" widgetVar="cellEstudiante">
+				<!-- ******************** TABLA RESPONSIVA ************************ -->
+				<div class="grid condensed">
+					<f:facet name="header">
+		           		Rectificación de notas
+		       		</f:facet>
+		       		
+		       		<!-- <p:ajax event="cellEdit" listener="#{notasRectificacionForm.nrctfParaleloDtoEditar.onCellEdit}"  update=":frmEditarNotasRectificacion1Parcial:msgs" />  -->
+						<!-- ******************** FILA NUMERO 1 ************************ -->	
+					<p:column headerText="Identificación" style="width: 2em ! important; text-align:center">
+		                 <h:outputText value="#{estudiante.prsIdentificacion}"/>
+		       		</p:column>
+		       		<p:column headerText="Nombre" style="width: 7em ! important;">
+		                 <h:outputText value="#{estudiante.prsPrimerApellido} #{estudiante.prsSegundoApellido == null ? '':estudiante.prsSegundoApellido} #{estudiante.prsNombres}" />
+		       		</p:column>
+		       		<p:column headerText="N° Matrícula" style="width: 2em ! important; text-align:center">
+		                 <h:outputText value="#{listasCombosForm.getListaNumeroMatriculaDetalleMatricula(estudiante.dtmtNumero)}" />
+		       		</p:column>
+		       		<p:column headerText="Nota" style="width: 6em ! important; text-align:center">
+		           		 <p:cellEditor>
+		                 	<f:facet name="output">
+		                 		<h:outputText value="#{estudiante.clfNota1}"  >
+		                 			<f:convertNumber pattern="#0.00" />
+		                 		</h:outputText>
+		                 	</f:facet>
+		                 	<f:facet name="input">
+									<p:inputNumber id="txtNota"
+										value="#{estudiante.clfNota1}" required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										minValue="0" maxValue="20" decimalPlaces="2"  >
+										<p:ajax event="blur" update = "txtNota"></p:ajax>
+									</p:inputNumber>
+							</f:facet>
+		            	</p:cellEditor>
+		       		</p:column>
+		       		<p:column headerText="Asistencia" style="width: 6em ! important;  text-align:center ">
+		           		 <p:cellEditor>
+		                 	<f:facet name="output">
+		                 		<h:outputText value="#{estudiante.clfAsistenciaEstudiante1}"  />
+		                 	</f:facet>
+		                 	<f:facet name="input">
+		                 		<p:inputNumber id="txtAsistencia1"
+										value="#{estudiante.clfAsistenciaEstudiante1}" required="true" requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+										minValue="0" maxValue="224" decimalPlaces="0" >
+										<p:ajax event="blur" update = "txtAsistencia1"></p:ajax>
+								</p:inputNumber>
+							</f:facet>
+		            	</p:cellEditor>
+		       		</p:column>
+				</div>
+			</p:dataTable>	
+		</p:panel>			
+		<div>
+			<p:commandButton id="btnRegresar" value="Cancelar" action="#{notasRectificacionForm.irCancelar()}" immediate="true" ajax="false" />
+			
+			<p:commandButton id="btnGuardar" value="Guardar" action="#{notasRectificacionForm.verificarClicGuardadoFinal()}" immediate="true" ajax="false" />
+			
+			<p:commandButton id="btnGuardoValidarModal" value="EjecutarModalGuardarGenerar" style="visibility:hidden;">
+    				<p:ajax oncomplete="PF('dialogoGuardadoNota').show();" update=":frmModalGuardar1NotaRectificacion" />
+    		</p:commandButton>
+		</div>
+	</h:form>
+	<ui:include src="/academico/evaluacionAcademica/notasPregrado/recalificacion/modalGuardadoRecalificacion.xhtml" />
+	<h:form id="compOculto" style="visibility:hidden;">
+		<p:inputText id="txtValidador" value="#{notasRectificacionForm.nrctfValidadorClic}" >
+		</p:inputText>	
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>
