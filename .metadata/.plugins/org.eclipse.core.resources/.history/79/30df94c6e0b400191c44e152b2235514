@@ -1,0 +1,188 @@
+package ec.edu.uce.academico.jpa.entidades.publico;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+
+/**
+ * The persistent class for the CONTENIDO database table.
+ * 
+ */
+@Entity
+@Table(name="CONTENIDO")
+@NamedQuery(name="Contenido.findAll", query="SELECT c FROM Contenido c")
+public class Contenido implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private int cntId;
+	private String cntDescripcion;
+	private Timestamp cntFecha;
+	private Integer cntSeleccion;
+	private String cntUsuario;
+	private Integer cntSeleccionInicial;
+	private Timestamp cntRegistroApelacion;
+	private String cntUsuarioApelacion;
+	private String cntOficioApelacion;
+	private Integer cntEstadoApelacion;
+	private AsignacionEvaluador cntAsignacionEvaluador;
+	private Evaluacion cntEvaluacion;
+	private TpcnFuncionTpev cntTpcnFuncionTpev;
+
+	public Contenido() {
+	}
+
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="CNTN_ID", unique=true, nullable=false, precision=6)
+	public int getCntId() {
+		return this.cntId;
+	}
+
+	public void setCntId(int cntId) {
+		this.cntId = cntId;
+	}
+
+
+	@Column(name="CNTN_DESCRIPCION", length=2000)
+	public String getCntDescripcion() {
+		return this.cntDescripcion;
+	}
+
+	public void setCntDescripcion(String cntDescripcion) {
+		this.cntDescripcion = cntDescripcion;
+	}
+
+
+	@Column(name="CNTN_FECHA")
+	public Timestamp getCntFecha() {
+		return this.cntFecha;
+	}
+
+	public void setCntFecha(Timestamp cntFecha) {
+		this.cntFecha = cntFecha;
+	}
+
+
+	@Column(name="CNTN_SELECCION", precision=38)
+	public Integer getCntSeleccion() {
+		return this.cntSeleccion;
+	}
+
+	public void setCntSeleccion(Integer cntSeleccion) {
+		this.cntSeleccion = cntSeleccion;
+	}
+
+
+	@Column(name="CNTN_USUARIO", length=256)
+	public String getCntUsuario() {
+		return this.cntUsuario;
+	}
+
+	public void setCntUsuario(String cntUsuario) {
+		this.cntUsuario = cntUsuario;
+	}
+
+
+	//bi-directional many-to-one association to AsignacionEvaluador
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="ASEV_ID")
+	public AsignacionEvaluador getCntAsignacionEvaluador() {
+		return this.cntAsignacionEvaluador;
+	}
+
+	public void setCntAsignacionEvaluador(AsignacionEvaluador cntAsignacionEvaluador) {
+		this.cntAsignacionEvaluador = cntAsignacionEvaluador;
+	}
+
+
+	//bi-directional many-to-one association to Evaluacion
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="EVA_ID")
+	public Evaluacion getCntEvaluacion() {
+		return this.cntEvaluacion;
+	}
+
+	public void setCntEvaluacion(Evaluacion cntEvaluacion) {
+		this.cntEvaluacion = cntEvaluacion;
+	}
+
+
+	//bi-directional many-to-one association to TpcnFuncionTpev
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="TPCNFNTPEV_ID")
+	public TpcnFuncionTpev getCntTpcnFuncionTpev() {
+		return this.cntTpcnFuncionTpev;
+	}
+
+	public void setCntTpcnFuncionTpev(TpcnFuncionTpev cntTpcnFuncionTpev) {
+		this.cntTpcnFuncionTpev = cntTpcnFuncionTpev;
+	}
+
+
+	@Column(name="CNTN_SELECCION_INICIAL", precision=38)
+	public Integer getCntSeleccionInicial() {
+		return cntSeleccionInicial;
+	}
+
+
+	public void setCntSeleccionInicial(Integer cntSeleccionInicial) {
+		this.cntSeleccionInicial = cntSeleccionInicial;
+	}
+
+
+
+	@Column(name = "CNTN_REGISTRO_APELACION")
+	public Timestamp getCntRegistroApelacion() {
+		return cntRegistroApelacion;
+	}
+
+
+	public void setCntRegistroApelacion(Timestamp cntRegistroApelacion) {
+		this.cntRegistroApelacion = cntRegistroApelacion;
+	}
+
+
+	@Column(name="CNTN_USUARIO_APELACION", length=256)
+	public String getCntUsuarioApelacion() {
+		return cntUsuarioApelacion;
+	}
+
+
+	public void setCntUsuarioApelacion(String cntUsuarioApelacion) {
+		this.cntUsuarioApelacion = cntUsuarioApelacion;
+	}
+
+	@Column(name="CNTN_OFICIO_APELACION", length=256)
+	public String getCntOficioApelacion() {
+		return cntOficioApelacion;
+	}
+
+
+	public void setCntOficioApelacion(String cntOficioApelacion) {
+		this.cntOficioApelacion = cntOficioApelacion;
+	}
+
+	@Column(name="CNTN_ESTADO_APELACION", precision=38)
+	public Integer getCntEstadoApelacion() {
+		return cntEstadoApelacion;
+	}
+
+
+	public void setCntEstadoApelacion(Integer cntEstadoApelacion) {
+		this.cntEstadoApelacion = cntEstadoApelacion;
+	}
+	
+	
+
+}

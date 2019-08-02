@@ -33,6 +33,8 @@ import ec.uce.edu.biometrico.jpa.Persona;
 
 /**
  * Session Bean implementation class JSDC
+ * @author Wilson-DK
+ *
  */
 @Stateless
 @LocalBean

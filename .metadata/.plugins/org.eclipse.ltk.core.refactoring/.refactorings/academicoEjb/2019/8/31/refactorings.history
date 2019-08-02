@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;lstD&apos; in &apos;ec.edu.uce.academico.ejb.servicios.biometrico.impl.SrvDocente.listarTipoHuellas()&apos; to &apos;lstTipoHuella&apos;&#x0D;&#x0A;- Original project: &apos;academicoEjb&apos;&#x0D;&#x0A;- Original element: &apos;ec.edu.uce.academico.ejb.servicios.biometrico.impl.SrvDocente.listarTipoHuellas().lstD&apos;&#x0D;&#x0A;- Renamed element: &apos;lstD&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;lstD&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/ejbModule&lt;ec.edu.uce.academico.ejb.servicios.biometrico.impl{SrvDocente.java[SrvDocente~listarTipoHuellas@lstD!3107!3136!3126!3129!QList\&lt;QFichaDocente;&gt;;!0!false" name="lstTipoHuella" references="true" stamp="1564719417969" version="1.0"/>
+</session>
