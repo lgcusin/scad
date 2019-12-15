@@ -9,6 +9,12 @@
 
 <ui:composition
 	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Docente / Biometrico /Enrolar docente / Huellas" />
+		</ui:include>
+</ui:define>
 	<ui:define name="cuerpo">
 		<h:form id="frmHuellas" enctype="multipart/form-data"
 			acceptcharset="UTF-8">
@@ -21,7 +27,7 @@
 					<p:panelGrid columns="2">
 						<h:outputLabel value="Docente:" style="font-weight: bold" />
 						<h:outputLabel
-							value="#{registro.selectDcnt.persona.prsPrimerApellido} #{registro.selectDcnt.persona.prsSegundoApellido} #{registro.selectDcnt.persona.prsNombres} " />
+							value="#{registro.selectDcnt.fcdcPersona.prsPrimerApellido} #{registro.selectDcnt.fcdcPersona.prsSegundoApellido} #{registro.selectDcnt.fcdcPersona.prsNombres} " />
 						<!-- <h:outputLabel value="Carrera" style="font-weight: bold" />
 						<h:outputLabel value="#{registro.selectDcnt.detallePuestos[0].carrera.crrDescripcion}" /> -->
 					</p:panelGrid>
@@ -30,7 +36,9 @@
 
 						<p:selectOneMenu id="tipoHuella" value="#{registro.tpId}"
 							valueChangeListener="#{registro.verificarTipoId}">
-							<f:selectItem itemLabel="Selecione su huella" itemValue="" />
+							<f:selectItem
+								itemLabel="#{generalesConstantesForm.appSeleccione}"
+								itemValue="#{generalesConstantesForm.appIdBase}" />
 							<f:selectItems value="#{registro.lstTphl}" var="th"
 								itemLabel="#{th.tphlDescripcionDedo}" itemValue="#{th.tphlId}" />
 							<p:ajax update="pnlRegitroHuellas_content" />
@@ -67,10 +75,14 @@
 					<br />
 					<p:commandButton id="btnRegistrar" value="Registrar"
 						rendered="#{registro.flagDvc}" action="#{registro.registrar}"
-						disabled="#{registro.flagVrf}"></p:commandButton>
+						disabled="#{registro.flagVrf}"
+						onclick="PF('dialogoTrabajando').show();"
+						oncomplete="PF('dialogoTrabajando').hide();"></p:commandButton>
 					<p:commandButton id="btnVerificar" value="Verificar"
 						disabled="#{!registro.flagVrf}" action="#{registro.verificar}"
-						rendered="#{registro.flagDvc}" update="btnRegistrar btnVerificar"></p:commandButton>
+						rendered="#{registro.flagDvc}" update="btnRegistrar btnVerificar"
+						onclick="PF('dialogoTrabajando').show();"
+						oncomplete="PF('dialogoTrabajando').hide();"></p:commandButton>
 					<p:commandButton id="btnLimpiar" value="Limpiar"
 						rendered="#{registro.flagDvc}" action="#{registro.clean()}"
 						update="pnlRegitroHuellas_content"></p:commandButton>

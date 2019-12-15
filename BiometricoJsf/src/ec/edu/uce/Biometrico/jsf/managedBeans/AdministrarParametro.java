@@ -13,8 +13,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvAdministrarParametroLocal;
-import ec.uce.edu.biometrico.jpa.Dependencia;
-import ec.uce.edu.biometrico.jpa.Parametro;
+import ec.edu.uce.Biometrico.ejb.utilidades.constantes.GeneralesConstantes;
+import ec.edu.uce.Biometrico.jsf.utilidades.FacesUtil;
+import ec.edu.uce.biometrico.jpa.Dependencia;
+import ec.edu.uce.biometrico.jpa.Parametro;
 
 /**
  * @author wespana
@@ -48,7 +50,7 @@ public class AdministrarParametro {
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		beanLogin = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
-		lstFacultad.add(beanLogin.getDt().get(0).getCarrera().getDependencia());
+		lstFacultad.add(beanLogin.getDt().get(0).getDtpsCarrera().getCrrDependencia());
 		// lstFacultad = srvAdm.listarFacultades();
 		initRegistroParametro();
 	}
@@ -59,13 +61,19 @@ public class AdministrarParametro {
 	private void initRegistroParametro() {
 		registroParametro = new Parametro();
 		selectFacultad = new Dependencia();
+		horaEntradaAntes = "00:00";
+		horaSalidaAntes = "00:00";
+		horaEntradaDespues = "00:00";
+		horaSalidaDespues = "00:00";
+		horaAtraso = "00:00";
+		lstParametro = new ArrayList<>();
 	}
 
 	public void setFacultadID(ValueChangeEvent event) {
-		if (event.getNewValue() != null) {
-			selectFacultad.setDpnId((Integer) event.getNewValue());
+		if (event.getNewValue() != null && (Integer) event.getNewValue() > 0) {
+			selectFacultad.setDpnId((int) event.getNewValue());
 		} else {
-			selectFacultad.setDpnId(null);
+			selectFacultad.setDpnId(0);
 		}
 	}
 
@@ -83,11 +91,11 @@ public class AdministrarParametro {
 				buscarParametroVista(4);
 				mostrarMensaje("Par\u00e1metros encontrados.", "Info!");
 			} else {
-				horaEntradaAntes = "";
-				horaSalidaAntes = "";
-				horaEntradaDespues = "";
-				horaSalidaDespues = "";
-				horaAtraso = "";
+				horaEntradaAntes = "00:00";
+				horaSalidaAntes = "00:00";
+				horaEntradaDespues = "00:00";
+				horaSalidaDespues = "00:00";
+				horaAtraso = "00:00";
 				FacesMessage msg = new FacesMessage("No existen par\u00e1metros para la facultad seleccionada.");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
@@ -118,17 +126,15 @@ public class AdministrarParametro {
 	 * @return
 	 */
 	private boolean validarFacultad() {
-		if (selectFacultad.getDpnId() != null) {
+		if (selectFacultad.getDpnId() != GeneralesConstantes.APP_ID_BASE) {
 			return true;
 		} else {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"La facultad es requerida, verifique por favor.", "");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			horaEntradaAntes = "";
-			horaSalidaAntes = "";
-			horaEntradaDespues = "";
-			horaSalidaDespues = "";
-			horaAtraso = "";
+			FacesUtil.mensajeError("La facultad es requerida, verifique por favor.");
+			horaEntradaAntes = "00:00";
+			horaSalidaAntes = "00:00";
+			horaEntradaDespues = "00:00";
+			horaSalidaDespues = "00:00";
+			horaAtraso = "00:00";
 			return false;
 		}
 	}
@@ -138,22 +144,28 @@ public class AdministrarParametro {
 	 */
 	public void guardarParametro() {
 		if (validarFacultad()) {
-			registroParametro.setDependencia(selectFacultad);
+			registroParametro.setPrmDependencia(selectFacultad);
 			validarListaParametro(0);
 			registroParametro.setPrmValor(horaEntradaAntes);
+			registroParametro.setPrmPosicion(1);
 			srvAdm.guardarActualizarParametro(registroParametro);
 			validarListaParametro(1);
 			registroParametro.setPrmValor(horaEntradaDespues);
+			registroParametro.setPrmPosicion(2);
 			srvAdm.guardarActualizarParametro(registroParametro);
 			validarListaParametro(2);
 			registroParametro.setPrmValor(horaAtraso);
+			registroParametro.setPrmPosicion(3);
 			srvAdm.guardarActualizarParametro(registroParametro);
 			validarListaParametro(3);
 			registroParametro.setPrmValor(horaSalidaAntes);
+			registroParametro.setPrmPosicion(4);
 			srvAdm.guardarActualizarParametro(registroParametro);
 			validarListaParametro(4);
 			registroParametro.setPrmValor(horaSalidaDespues);
+			registroParametro.setPrmPosicion(5);
 			srvAdm.guardarActualizarParametro(registroParametro);
+			buscarParametros();
 			mostrarMensaje("Se han guardado los cambios.", "Success!");
 		}
 	}
@@ -181,22 +193,17 @@ public class AdministrarParametro {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	/**
-	 * The srvAdm to get.
-	 * 
-	 * @return the srvAdm
-	 */
-	public SrvAdministrarParametroLocal getSrvAdm() {
-		return srvAdm;
-	}
-
-	/**
-	 * The srvAdm to set.
-	 * 
-	 * @param srvAdm
-	 */
-	public void setSrvAdm(SrvAdministrarParametroLocal srvAdm) {
-		this.srvAdm = srvAdm;
+	public String regresar() {
+		registroParametro = null;
+		selectFacultad = null;
+		lstParametro = null;
+		lstFacultad = new ArrayList<>();
+		horaEntradaAntes = null;
+		horaSalidaAntes = null;
+		horaEntradaDespues = null;
+		horaSalidaDespues = null;
+		horaAtraso = null;
+		return "principal";
 	}
 
 	/**

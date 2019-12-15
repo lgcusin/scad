@@ -6,16 +6,14 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
-import javax.ejb.LocalBean;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.swing.ImageIcon;
 
 import SecuGen.FDxSDKPro.jni.JSGFPLib;
 import SecuGen.FDxSDKPro.jni.SGDeviceInfoParam;
@@ -27,17 +25,18 @@ import SecuGen.FDxSDKPro.jni.SGFingerPosition;
 import SecuGen.FDxSDKPro.jni.SGImpressionType;
 import SecuGen.FDxSDKPro.jni.SGPPPortAddr;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.JSDCLocal;
-import ec.uce.edu.biometrico.jpa.FichaDocente;
-import ec.uce.edu.biometrico.jpa.HuellaDactilar;
-import ec.uce.edu.biometrico.jpa.Persona;
+import ec.edu.uce.Biometrico.ejb.utilidades.constantes.GeneralesConstantes;
+import ec.edu.uce.biometrico.jpa.FichaDocente;
+import ec.edu.uce.biometrico.jpa.HuellaDactilar;
+import ec.edu.uce.biometrico.jpa.Persona;
 
 /**
- * Session Bean implementation class JSDC
+ * 
  * @author Wilson-DK
  *
  */
 @Stateless
-@LocalBean
+@Local
 public class JSDC implements JSDCLocal {
 
 	private long deviceName;
@@ -57,7 +56,7 @@ public class JSDC implements JSDCLocal {
 	private int[] quality = new int[1];
 
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
 
 	public JSDC() {
 		bLEDOn = false;
@@ -289,7 +288,7 @@ public class JSDC implements JSDCLocal {
 					if (quality[0] < MINIMUM_QUALITY) {
 						System.out.println("GetImageEx() Success [" + ret + "] but image quality is [" + quality[0]
 								+ "]. Please try again");
-						
+
 					} else {
 						System.out.println("GetImageEx() Success [" + ret + "]");
 						iError = fplib.CreateTemplate(fingerInfo, imageBuffer1, regMin1);
@@ -352,7 +351,6 @@ public class JSDC implements JSDCLocal {
 				return null;
 			}
 		}
-
 		return null;
 	}
 
@@ -362,12 +360,12 @@ public class JSDC implements JSDCLocal {
 			Object[] arrayObj;
 			Query query = em
 					.createQuery(
-							"select fd, p, hd from HuellaDactilar as hd join hd.fichaDocente as fd join fd.persona as p where hd.hldcId=:hdId")
+							"select fd, p, hd from HuellaDactilar as hd join hd.hldcFichaDocente as fd join fd.fcdcPersona as p where hd.hldcId=:hdId")
 					.setParameter("hdId", hldcId);
 			Object obj = query.getSingleResult();
 			arrayObj = (Object[]) obj;
 			fd = (FichaDocente) arrayObj[0];
-			fd.setPersona((Persona) arrayObj[1]);
+			fd.setFcdcPersona((Persona) arrayObj[1]);
 		} catch (Exception e) {
 			System.out.println("Error al consultar docentes x huella");
 			return fd;

@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import ec.uce.edu.biometrico.jpa.DetallePuesto;
-import ec.uce.edu.biometrico.jpa.Usuario;
-import ec.uce.edu.biometrico.jpa.UsuarioRol;
+import ec.edu.uce.biometrico.jpa.DetallePuesto;
+import ec.edu.uce.biometrico.jpa.Usuario;
+import ec.edu.uce.biometrico.jpa.UsuarioRol;
 
 @Local
 public interface SrvLoginLocal {
@@ -16,5 +16,9 @@ public interface SrvLoginLocal {
 	List<DetallePuesto> listarDetallePuestoDocente(Integer prsId);
 
 	List<DetallePuesto> listarDetallePuestoEmpleado(Integer prsId);
+
+	Usuario buscarPorNick(String username);
+
+	List<UsuarioRol> buscarRolesActivoXUsuario(Integer usrId);
 
 }

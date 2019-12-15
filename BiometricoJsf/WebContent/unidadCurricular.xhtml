@@ -8,19 +8,45 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition
-	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">>
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Syllabus / Syllabo / Unidad Curricular" />
+		</ui:include>
+	</ui:define>
 	<ui:define name="cuerpo">
 		<h:form id="frmRegistroUnidad" enctype="multipart/form-data"
 			acceptcharset="UTF-8">
 			<p:panel header="DATOS INFORMATIVOS DE LA UNIDAD CURRICULAR ">
-
-				<p:panelGrid columns="2">
+				<p:panelGrid columns="1" style="width:100%">
 					<h:outputLabel value="NOMBRE DE LA UNIDAD:"></h:outputLabel>
-					<h:inputText value="#{syllabus.uc.uncrNombre}" required="true" />
+					<h:inputText id="txtUncrNombre" value="#{syllabus.uc.uncrNombre}"
+						required="true"
+						requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+						style="width:100%;">
+						<p:ajax event="blur" update="msgUncrNombre, txtUncrNombre"></p:ajax>
+					</h:inputText>
+					<p:message id="msgUncrNombre" for="txtUncrNombre"
+						style="width:150px" />
 					<h:outputLabel value="OBJETIVO DE LA UNIDAD:"></h:outputLabel>
-					<h:inputText value="#{syllabus.uc.uncrObjetivo}" required="true" />
+					<h:inputText id="txtObjetivo" value="#{syllabus.uc.uncrObjetivo}"
+						required="true"
+						requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+						style="width:100%">
+						<p:ajax event="blur" update="msgUncrObjetivo, txtObjetivo"></p:ajax>
+					</h:inputText>
+					<p:message id="msgUncrObjetivo" for="txtObjetivo"
+						style="width:150px" />
 					<h:outputLabel value="RESULTADOS DE APRENDIZAJE DE LA UNIDAD:"></h:outputLabel>
-					<h:inputText value="#{syllabus.uc.uncrResultado}" required="true" />
+					<h:inputText id="txtResultado" value="#{syllabus.uc.uncrResultado}"
+						required="true"
+						requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+						style="width:100%">
+						<p:ajax event="blur" update="msgUncrResultado, txtResultado"></p:ajax>
+					</h:inputText>
+					<p:message id="msgUncrResultado" for="txtResultado"
+						style="width:150px" />
 				</p:panelGrid>
 				<br />
 				<p:panelGrid>
@@ -35,7 +61,14 @@
 							<h:outputLabel value="N°. Horas aprendizaje Teóricas"></h:outputLabel>
 						</p:column>
 						<p:column>
-							<h:inputText value="#{syllabus.uc.uncrHorasTeoricas}"></h:inputText>
+							<p:inputNumber id="txtHoraTeorica"
+								value="#{syllabus.uc.uncrHorasTeoricas}" required="true"
+								requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+								minValue="0" decimalPlaces="0" maxValue="100">
+								<p:ajax event="blur" update="txtHoraTeorica, msgHoraTeorica"></p:ajax>
+							</p:inputNumber>
+							<p:message id="msgHoraTeorica" for="txtHoraTeorica"
+								style="width:150px" />
 						</p:column>
 					</p:row>
 					<p:row>
@@ -43,7 +76,14 @@
 							<h:outputLabel value="N°. Horas Prácticas- laboratorio"></h:outputLabel>
 						</p:column>
 						<p:column>
-							<h:inputText value="#{syllabus.uc.uncrHorasPracticas}"></h:inputText>
+							<p:inputNumber id="txtHoraPractica"
+								value="#{syllabus.uc.uncrHorasPracticas}" required="true"
+								requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+								minValue="0" decimalPlaces="0" maxValue="100">
+								<p:ajax event="blur" update="txtHoraPractica, msgHoraPractica"></p:ajax>
+							</p:inputNumber>
+							<p:message id="msgHoraPractica" for="txtHoraPractica"
+								style="width:150px" />
 						</p:column>
 					</p:row>
 					<p:row>
@@ -54,7 +94,15 @@
 							<h:outputLabel value="N°. Horas Presenciales"></h:outputLabel>
 						</p:column>
 						<p:column>
-							<h:inputText value="#{syllabus.uc.uncrHorasPresenciales}"></h:inputText>
+							<p:inputNumber id="txtHoraPresencial"
+								value="#{syllabus.uc.uncrHorasPresenciales}" required="true"
+								requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+								minValue="0" decimalPlaces="0" maxValue="100">
+								<p:ajax event="blur"
+									update="txtHoraPresencial, msgHoraPresencial"></p:ajax>
+							</p:inputNumber>
+							<p:message id="msgHoraPresencial" for="txtHoraPresencial"
+								style="width:150px" />
 						</p:column>
 					</p:row>
 					<p:row>
@@ -62,100 +110,118 @@
 							<h:outputLabel value="N°. Horas Aprendizaje Aula Virtual"></h:outputLabel>
 						</p:column>
 						<p:column>
-							<h:inputText value="#{syllabus.uc.uncrHorasVirtual}"></h:inputText>
+							<p:inputNumber id="txtHoraVirtual"
+								value="#{syllabus.uc.uncrHorasVirtual}" required="true"
+								requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+								minValue="0" decimalPlaces="0" maxValue="100">
+								<p:ajax event="blur" update="txtHoraVirtual, msgHoraVirtual"></p:ajax>
+							</p:inputNumber>
+							<p:message id="msgHoraVirtual" for="txtHoraVirtual"
+								style="width:150px" />
 						</p:column>
 					</p:row>
 				</p:panelGrid>
 			</p:panel>
 			<p:panel header="PROGRAMACIÓN CURRICULAR">
-				<p:dataTable id="dtContenido" editable="true"
+				<p:dataTable id="dtContenido" editable="true" editMode="cell"
 					value="#{syllabus.uc.contenidos}" var="cn">
-					<p:ajax event="rowEdit" listener="#{syllabus.onRowEditCnt}"
-						update="dtContenido" />
-					<p:ajax event="rowEditCancel" listener="#{syllabus.onRowCancelCnt}"
-						update="dtContenido" />
 					<p:column headerText="CONTENIDOS">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{cn.cncrDescripcion}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:inputText id="inpCntDescripcion" type="text"
-									placeholder="CONTENIDOS" maxlength="200"
-									value="#{cn.cncrDescripcion}" required="true"
+								<p:inputTextarea id="inpCntDescripcion"
+									value="#{cn.cncrDescripcion}" type="text" maxlength="700"
+									required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
 									style="width: 99%; width:100%">
-								</p:inputText>
-								<!-- <p:message for="inpCntDescripcion"  /> -->
+									<p:ajax event="blur"
+										update="msgCntDescripcion, inpCntDescripcion"></p:ajax>
+								</p:inputTextarea>
+								<p:message id="msgCntDescripcion" for="inpCntDescripcion"
+									style="width:150px" />
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
 					<p:column
 						headerText="ACTIVIDADES DE TRABAJO AUTÓNOMO, ACTIVIDADES DE INVESTIGACIÓN Y DE VINCULACIÓN CON LA SOCIEDAD">
 						<p:dataTable id="dtActividad" value="#{cn.actividads}" var="ac"
-							editable="true">
-							<p:ajax event="rowEdit" listener="#{syllabus.onRowEditAct}"
-								update="frmRegistroUnidad:dtContenido dtActividad" />
-							<p:ajax event="rowEditCancel"
-								listener="#{syllabus.onRowCancelAct}"
-								update="frmRegistroUnidad:dtContenido dtActividad" />
+							editable="true" editMode="cell">
 							<p:column>
 								<p:cellEditor>
 									<f:facet name="output">
 										<h:outputText value="#{ac.actDescripcion}" />
 									</f:facet>
 									<f:facet name="input">
-										<p:inputText type="text" value="#{ac.actDescripcion}"
-											required="true" />
+										<p:inputTextarea id="inpActDescripcion"
+											value="#{ac.actDescripcion}" type="text" maxlength="700"
+											required="true"
+											requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+											style="width: 99%; width:100%">
+											<p:ajax event="blur"
+												update="msgActDescripcion, inpActDescripcion"></p:ajax>
+										</p:inputTextarea>
+										<p:message id="msgActDescripcion" for="inpActDescripcion"
+											style="width:150px" />
 									</f:facet>
 								</p:cellEditor>
 							</p:column>
-
-							<p:column>
-								<p:commandButton value="X" process="@this"
+							<p:column style="width:30px;text-align: center;"
+								class="border-none">
+								<p:commandLink process="@this"
 									action="#{syllabus.eliminarActividad(cn,ac)}"
-									update="dtActividad" />
+									class="fa fa-trash" update="dtActividad" />
 							</p:column>
 							<f:facet name="footer">
-								<p:commandButton value="+" process="@this" update="dtActividad"
-									action="#{syllabus.onAddNewAct(cn)}" />
+								<p:commandLink process="@this" class="fa fa-plus-square"
+									update="dtActividad" action="#{syllabus.onAddNewAct(cn)}"
+									style="color:blue" />
 							</f:facet>
 						</p:dataTable>
 					</p:column>
 					<p:column headerText="MECANISMOS DE EVALUACIÓN">
 						<p:dataTable id="dtHerramienta" value="#{cn.herramientas}"
-							var="hr" editable="true">
-							<p:ajax event="rowEdit" listener="#{syllabus.onRowEditHrr}"
-								update="frmRegistroUnidad:dtContenido dtHerramienta" />
-							<p:ajax event="rowEditCancel"
-								listener="#{syllabus.onRowCancelHrr}"
-								update="frmRegistroUnidad:dtContenido dtHerramienta" />
+							var="hr" editable="true" editMode="cell">
 							<p:column>
 								<p:cellEditor>
 									<f:facet name="output">
 										<h:outputText value="#{hr.hrrNombre}" />
 									</f:facet>
 									<f:facet name="input">
-										<p:inputText type="text" value="#{hr.hrrNombre}"
-											required="true" />
+										<p:inputTextarea id="inpHrrDescripcion"
+											value="#{hr.hrrNombre}" type="text" maxlength="700"
+											required="true"
+											requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+											style="width: 99%; width:100%">
+											<p:ajax event="blur"
+												update="msgHrrDescripcion, inpHrrDescripcion"></p:ajax>
+										</p:inputTextarea>
+										<p:message id="msgHrrDescripcion" for="inpHrrDescripcion"
+											style="width:150px" />
 									</f:facet>
 								</p:cellEditor>
 							</p:column>
-							<p:column>
-								<p:commandButton value="X" process="@this"
+							<p:column style="width:30px;text-align: center;"
+								class="border-none">
+								<p:commandLink process="@this"
 									action="#{syllabus.eliminarHerramienta(cn,hr)}"
-									update="dtHerramienta" />
+									class="fa fa-trash" update="dtHerramienta" />
 							</p:column>
 							<f:facet name="footer">
-								<p:commandButton value="+" process="@this"
-									update="dtHerramienta" action="#{syllabus.onAddNewHrr(cn)}" />
+								<p:commandLink process="@this" class="fa fa-plus-square"
+									update="dtHerramienta" action="#{syllabus.onAddNewHrr(cn)}"
+									style="color:blue" />
 							</f:facet>
 						</p:dataTable>
 					</p:column>
-					<p:column headerText="Opciones" style="width:100px">
-						<p:rowEditor editTitle="edit" cancelTitle="cancel"
-							saveTitle="save"></p:rowEditor>
-						<p:commandButton value="X" process="@this"
-							action="#{syllabus.eliminarContenido(cn)}" update="dtContenido" />
+					<p:column headerText="Opciones"
+						style="width:100px;text-align: center;" class="border-none">
+						<p:panelGrid>
+							<p:commandLink process="@this"
+								action="#{syllabus.eliminarContenido(cn)}" update="dtContenido"
+								class="fa fa-trash" />
+						</p:panelGrid>
 					</p:column>
 					<f:facet name="footer">
 						<p:commandButton value="Añadir Contenido" process="@this"
@@ -165,26 +231,29 @@
 			</p:panel>
 			<p:panel header="METODOLOGIAS">
 				<p:dataTable id="dtMetodologia" value="#{syllabus.uc.metodologias}"
-					var="mtd" editable="true">
-					<p:ajax event="rowEdit" listener="#{syllabus.onRowEditMtd}"
-						update="frmRegistroUnidad:dtMetodologia" />
-					<p:ajax event="rowEditCancel" listener="#{syllabus.onRowCancelMtd}"
-						update="frmRegistroUnidad:dtMetodologia" />
-					<p:column headerText="METODOLOGÍAS DE APRENDIZAJE">
+					var="mtd" editable="true" editMode="cell">
+					<p:column>
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{mtd.mtdDescripcion}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:inputText type="text" value="#{mtd.mtdDescripcion}"
-									required="true" />
+								<p:inputTextarea id="inpMtdDescripcion"
+									value="#{mtd.mtdDescripcion}" type="text" maxlength="700"
+									required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+									style="width: 99%; width:100%">
+									<p:ajax event="blur"
+										update="msgMtdDescripcion, inpMtdDescripcion"></p:ajax>
+								</p:inputTextarea>
+								<p:message id="msgMtdDescripcion" for="inpMtdDescripcion"
+									style="width:150px" />
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Opciones" style="width:100px">
-						<p:rowEditor editTitle="edit" cancelTitle="cancel"
-							saveTitle="save"></p:rowEditor>
-						<p:commandButton value="X" process="@this"
+					<p:column headerText="Opciones"
+						style="width:100px;text-align: center;" class="border-none">
+						<p:commandLink process="@this" class="fa fa-trash"
 							action="#{syllabus.eliminarMetodologia(mtd)}"
 							update="frmRegistroUnidad:dtMetodologia" />
 					</p:column>
@@ -195,21 +264,57 @@
 					</f:facet>
 				</p:dataTable>
 			</p:panel>
+			<p:panel header="RECURSOS DIDACTICOS">
+				<p:dataTable id="dtRecursos"
+					value="#{syllabus.uc.recursosDidacticoses}" var="rcd"
+					editable="true" editMode="cell">
+					<p:column headerText="RECURSOS DIDACTICOS">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{rcd.rcddDescripcion}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputTextarea id="inpRcddDescripcion"
+									value="#{rcd.rcddDescripcion}" type="text" maxlength="700"
+									required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+									style="width: 99%; width:100%">
+									<p:ajax event="blur"
+										update="msgRcddDescripcion, inpRcddDescripcion"></p:ajax>
+								</p:inputTextarea>
+								<p:message id="msgRcddDescripcion" for="inpRcddDescripcion"
+									style="width:150px" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Opciones"
+						style="width:100px;text-align: center;" class="border-none">
+						<p:commandLink process="@this" class="fa fa-trash"
+							action="#{syllabus.eliminarRecurso(rcd)}"
+							update="frmRegistroUnidad:dtRecursos" />
+					</p:column>
+					<f:facet name="footer">
+						<p:commandButton value="Añadir Recurso" process="@this"
+							update="frmRegistroUnidad:dtRecursos"
+							action="#{syllabus.onAddNewRcd()}" />
+					</f:facet>
+				</p:dataTable>
+			</p:panel>
 			<p:panel header="BIBLIOGRAFIA">
 				<p:dataTable id="dtBibliografia"
-					value="#{syllabus.uc.bibliografias}" var="bbl" editable="true">
-					<p:ajax event="rowEdit" listener="#{syllabus.onRowEditBbl}"
-						update="frmRegistroUnidad:dtBibliografia" />
-					<p:ajax event="rowEditCancel" listener="#{syllabus.onRowCancelBbl}"
-						update="frmRegistroUnidad:dtBibliografia" />
+					value="#{syllabus.uc.bibliografias}" var="bbl" editable="true"
+					editMode="cell">
 					<p:column headerText="TIPO">
 						<p:cellEditor>
 							<f:facet name="output">
 								<h:outputText value="#{bbl.bblTipo}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:selectOneMenu value="#{bbl.bblTipo}" required="true">
-									<f:selectItem itemLabel="SELECCIONE..." itemValue="" />
+								<p:selectOneMenu value="#{bbl.bblTipo}" required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">
+									<f:selectItem
+										itemLabel="#{generalesConstantesForm.appSeleccione}"
+										itemValue="#{generalesConstantesForm.appIdBase}" />
 									<f:selectItem itemLabel="BASICA" itemValue="BASICA" />
 									<f:selectItem itemLabel="COMPLEMENTARIA"
 										itemValue="COMPLEMENTARIA" />
@@ -223,8 +328,15 @@
 								<h:outputText value="#{bbl.bblObraFisica}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:inputText type="text" value="#{bbl.bblObraFisica}"
-									required="true" />
+								<p:inputTextarea id="inpBblObraFisica" type="text"
+									value="#{bbl.bblObraFisica}" maxlength="300" required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+									style="width: 99%; width:100%">
+									<p:ajax event="blur"
+										update="msgBblObraFisica, inpBblObraFisica"></p:ajax>
+								</p:inputTextarea>
+								<p:message id="msgBblObraFisica" for="inpBblObraFisica"
+									style="width:150px" />
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
@@ -235,8 +347,11 @@
 							</f:facet>
 							<f:facet name="input">
 								<p:selectOneMenu value="#{bbl.bblDisponibilidad}"
-									required="true">
-									<f:selectItem itemLabel="SELECCIONE..." itemValue="" />
+									required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}">
+									<f:selectItem
+										itemLabel="#{generalesConstantesForm.appSeleccione}"
+										itemValue="#{generalesConstantesForm.appIdBase}" />
 									<f:selectItem itemLabel="SI" itemValue="SI" />
 									<f:selectItem itemLabel="NO" itemValue="NO" />
 								</p:selectOneMenu>
@@ -249,8 +364,14 @@
 								<h:outputText value="#{bbl.bblVirtual}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:inputText type="text" value="#{bbl.bblVirtual}"
-									required="true" />
+								<p:inputTextarea id="inpBblVirtual" type="text"
+									value="#{bbl.bblVirtual}" maxlength="300" required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+									style="width: 99%; width:100%">
+									<p:ajax event="blur" update="msgBblVirtual, inpBblVirtual"></p:ajax>
+								</p:inputTextarea>
+								<p:message id="msgBblVirtual" for="inpBblVirtual"
+									style="width:150px" />
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
@@ -260,17 +381,24 @@
 								<h:outputText value="#{bbl.bblNombreVirtual}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:inputText type="text" value="#{bbl.bblNombreVirtual}"
-									required="true" />
+								<p:inputTextarea id="inpBblNombreVirtual" type="text"
+									value="#{bbl.bblNombreVirtual}" maxlength="300" required="true"
+									requiredMessage="#{generalesConstantesForm.msgCampoRequerido}"
+									style="width: 99%; width:100%">
+									<p:ajax event="blur"
+										update="msgBblNombreVirtual, inpBblNombreVirtual"></p:ajax>
+								</p:inputTextarea>
+								<p:message id="msgBblNombreVirtual" for="inpBblNombreVirtual"
+									style="width:150px" />
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					<p:column headerText="Opciones" style="width:100px">
-						<p:rowEditor editTitle="edit" cancelTitle="cancel"
-							saveTitle="save"></p:rowEditor>
-						<p:commandButton value="X" process="@this"
+					<p:column headerText="Opciones"
+						style="width:100px;text-align: center;" class="border-none">
+						<p:commandLink process="@this" class="fa fa-trash"
 							action="#{syllabus.eliminarBibliografia(bbl)}"
 							update="frmRegistroUnidad:dtBibliografia" />
+
 					</p:column>
 					<f:facet name="footer">
 						<p:commandButton value="Añadir Bibliografia" process="@this"
@@ -280,9 +408,11 @@
 				</p:dataTable>
 			</p:panel>
 			<p:commandButton id="bntAgregar" value="Agregar"
-				action="#{syllabus.AddNewUnidadCurricular}"></p:commandButton>
-			<p:commandButton id="bntCancelar" value="Cancelar"
-				action="#{syllabus.CancelUnidadCurricular}"></p:commandButton>
+				action="#{syllabus.AddNewUnidadCurricular}"
+				update="frmRegistroUnidad" onclick="PF('dialogoTrabajando').show();"
+				oncomplete="PF('dialogoTrabajando').hide();"></p:commandButton>
+			<p:commandButton id="bntCancelar" value="Cancelar" immediate="true"
+				action="#{syllabus.cancelUnidadCurricular}"></p:commandButton>
 		</h:form>
 	</ui:define>
 </ui:composition>

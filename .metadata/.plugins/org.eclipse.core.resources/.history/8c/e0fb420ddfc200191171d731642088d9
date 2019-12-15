@@ -1,0 +1,422 @@
+/**************************************************************************
+ *				(c) Copyright UNIVERSIDAD CENTRAL DEL ECUADOR. 
+ *                            www.uce.edu.ec
+
+ * Este programa de computador es propiedad de la UNIVERSIDAD CENTRAL DEL ECUADOR
+ * y esta protegido por las leyes y tratados internacionales de derechos de 
+ * autor. El uso, reproducción o distribución no autorizada de este programa, 
+ * o cualquier porción de él, puede dar lugar a sanciones criminales y 
+ * civiles severas, y serán procesadas con el grado máximo contemplado 
+ * por la ley.
+ 
+ ************************************************************************* 
+   
+ ARCHIVO:     ConstantesGenerales.java	  
+ DESCRIPCION: Clase de constantes generales del sistema 
+ *************************************************************************
+                           	MODIFICACIONES
+                            
+ FECHA         		     AUTOR          					COMENTARIOS
+ 01-MARZ-2017		 Dennis Collaguazo 			          Emisión Inicial
+ ***************************************************************************/
+
+package ec.edu.uce.academico.ejb.utilidades.constantes;
+
+import java.math.BigDecimal;
+import java.util.ResourceBundle;
+
+
+/**
+ * Clase (constantes) ConstantesGenerales.
+ * Clase de constantes generales del sistema.
+ * @author dCollaguazo.
+ * @version 1.0
+ */
+public class GeneralesConstantes {
+	/**
+     * Define el nombre de la unidad de persistencia.
+     */
+	public static final String APP_UNIDAD_PERSISTENCIA = "academicoJpa";
+	
+	/**
+     * Define el nombre del data source del proyecto.
+     */
+	//public static final String APP_DATA_SURCE = "java:jboss/datasources/omniumDS";
+	
+	/**
+	 * Define el nombre del Data Source de la base del sistema academico SAU
+	 */
+	//public static final String APP_DATA_SOURCE_SAU = "java:jboss/datasources/academicoDS";
+	
+	/**
+	 * Define el nombre del Data Source de la base del sistema de cobros SYSREC
+	 */
+	//public static final String APP_DATA_SOURCE_SYSREC = "java:jboss/datasource/sysrecDS";
+	
+	/**
+	 * Define el nombre del Data Source de la base del sistema de suficiencia en informatica.
+	 */
+//   public static final String APP_DATA_SOURCE_SUFICIENCIA_INFORMATICA = "java:jboss/datasource/suficienciaInformaticaDS";
+	
+	/**
+	 * Define el nombre del Data Source de la base del sistema de emision titulos 
+	 */
+//	public static final String APP_DATA_SOURCE_TITULACION= "java:jboss/datasources/titulacionDS";
+	
+	/**
+	 * Define el nombre del Data Source de la base del sistema de talento humano
+	 */
+	//public static final String APP_DATA_SOURCE_TALENTO_HUMANO= "java:jboss/datasources/contratacionUniversitarioDS";
+	
+	/**
+	 * Define el valor del secuenacial base para obtener todos los registros 
+	 */
+	public static final Integer APP_ID_BASE = Integer.valueOf(-99);
+	
+	/**
+	 * Define el tipo de operacion 0 nuevo 
+	 */
+	public static final Integer APP_NUEVO = Integer.valueOf(0);
+	
+	/**
+	 * Define el tipo de operacion 1 editar 
+	 */
+	public static final Integer APP_EDITAR = Integer.valueOf(1);
+	
+	/**
+	 * Define la etiqueta que representa a la opcion de seleccionar. 
+	 */
+	public static final String APP_SELECCIONE = "SELECCIONE...";
+	
+	/**
+	 * Define la etiqueta que representa a la opcion de seleccionar todos. 
+	 */
+	public static final String APP_SELECCIONE_TODOS = "TODAS";
+	
+	/**
+	 * Define el numero de maximo de la lista de busquedas
+	 */
+	public static final Integer APP_MAX_NUM_BUSQUEDA = Integer.valueOf(30);
+	
+	/**
+	 * Define el valor de la escala de pixeles para graficos
+	 */
+	public static final Integer APP_ESCALA_PIXELES = Integer.valueOf(2);
+	
+	/**
+	 * Define el valor para las opciones de si
+	 */
+	public static final Integer APP_SI_VALUE = Integer.valueOf(0);
+	
+	/**
+	 * Define el label para las opciones de si
+	 */
+	public static final String APP_SI_LABEL = "SI";
+	
+	/**
+	 * Define el valor para las opciones de no
+	 */
+	public static final Integer APP_NO_VALUE = Integer.valueOf(1);
+	
+	/**
+	 * Define el label para las opciones de si
+	 */
+	public static final String APP_NO_LABEL = "NO";
+	
+	/**
+	 * Define el valor para la opciones de seleccion de todo
+	 */
+	public static final int APP_TIPO_SELECCION_TODOS_VALUE = Integer.valueOf(0);
+	
+	/**
+	 * Define el label para la opciones de seleccion de todo
+	 */
+	public static final String APP_TIPO_SELECCION_TODOS_LABEL = "TODO";
+	
+	/**
+	 * Define el valor para la opciones de seleccion de nada
+	 */
+	public static final int APP_TIPO_SELECCION_NADA_VALUE = Integer.valueOf(1);
+	
+	/**
+	 * Define el label para la opciones de seleccion de nada
+	 */
+	public static final String APP_TIPO_SELECCION_NADA_LABEL = "NADA";
+	
+	/**
+	 * Define el tipo de aprobacion de malla por nivel
+	 */
+	public static final Integer APP_APROBACION_POR_MATERIA_VALUE = Integer.valueOf(0);
+	
+	/**
+	 * Define el tipo de aprobacion de malla por nivel
+	 */
+	public static final Integer APP_APROBACION_POR_NIVEL_VALUE = Integer.valueOf(1);
+	
+	/**
+	 * Define el valor 0 por defeto para cualquier funcionalidad
+	 */
+	public static final Integer APP_CERO_VALUE = Integer.valueOf(0);
+	
+	/**
+	 * Define el valor 1 por defeto para la primera matricula
+	 */
+	public static final Integer APP_PRIMERA_MATRICULA = Integer.valueOf(1);
+	
+	/**
+	 * Define la fecha de vincultación con el seguro de vida para el estudiante, seguros sucre
+	 */
+	public static final String APP_FECHA_VINCULACION_SEGURO_VIDA_SUCRE = "05-nov-2018";
+	
+	/**
+	 * Define el tipo de búsqueda por identificación.
+	 */
+	public static final int APP_FIND_BY_IDENTIFICACION = 0;
+	
+	/**
+	 * Define el tipo de búsqueda por el primer apellido.
+	 */
+	public static final int APP_FIND_BY_PRIMER_APELLIDO = 1;
+	
+	/**
+	 * Define el valor del secuenacial base para obtener todos los registros con bigdecimal
+	 */
+	public static final BigDecimal APP_ID_BASE_BIGDEC = new BigDecimal(-99);
+	
+	/*************************************************************/
+	/***************** CONSTANTES DE MENSAJES WEB ****************/
+	/*************************************************************/
+	/**
+	 * Define la etiqueta que representa al mensaje de campo requerido 
+	 */
+	public static final String APP_MSG_CAMP_REQUERIDO = "Campo requerido";
+	/**
+	 * Define la etiqueta que representa al mensaje de campo registro guardado exitosamente 
+	 */
+	public static final String APP_MSG_AGREGAR_REGISTRO_EXITOSO = "Registro guardado exitosamente";
+	/**
+	 * Define la etiqueta que representa al mensaje de campo registro eliminadi exitosamente 
+	 */
+	public static final String APP_MSG_ELIMINAR_REGISTRO_EXITOSO = "Registro eliminado exitosamente";
+	
+	/**
+	 * Define la etiqueta que representa al mensaje de campo registro actualizado exitosamente 
+	 */
+	public static final String APP_MSG_ACTUALIZAR_REGISTRO_EXITOSO = "Registro actualizado exitosamente";
+	
+	/**
+     * Define el formato de fecha usado por el sistema.
+     */
+	public static final String APP_FORMATO_FECHA = "dd/MM/yyyy";
+	
+	/**
+	 * Define el path de almacenamiento de los archivos de reconsideracion 
+	 */
+	//public static final String APP_PATH_ARCHIVOS_RECHAZO_SNIESE = "rechazados/";
+	
+	/*************************************************************/
+	/************** CONSTANTES DE WEB SERVICE MAIL ***************/
+	/*************************************************************/
+	
+	/**
+	 * Define el usuario de Web service
+	 */
+	public static final String APP_USUARIO_WS = "rccs09";
+	
+	/**
+	 * Define el usuario de Web service
+	 */
+	public static final String APP_CLAVE_WS = "rccs1984";
+	
+	/**
+     * Define el formato de fecha y hora usado por el sistema.
+     */
+	public static final String APP_FORMATO_FECHA_HORA = "dd/MM/yyyy HH:mm";
+	
+	
+	/**
+     * Define la dirección de la cola de mensajería de objetos
+     */
+	public static final String APP_NIO_ACTIVEMQ = "nio://10.20.1.64:61616";
+	
+	/**
+     * Define el nombre de la cola de mensajería de objetos
+     */
+	public static final String APP_COLA_ACTIVEMQ = "COLA_MAIL_DTO";
+	
+	/*************************************************************/
+	/************* CONSTANTES DE AUSNTOS ENVIO MAILS *************/
+	/*************************************************************/
+	
+	/**
+	 * Define el nombre del mail base para el envio de mails,  ejemplo infomail01, infomail02, infomail03, entonces el mailbase es infomail 
+	 */
+	public static final String APP_MAIL_BASE = "infomail";
+	
+	/**
+	 * Define el asunto para el registro de titulacion 
+	 */
+	public static final String APP_ASUNTO_MATRICULA = "Matrícula UCE";
+	
+	/**
+	 * Define el asunto para el registro de titulacion 
+	 */
+	public static final String APP_REGISTRO_NOTAS = "Registro notas";
+	
+	/**
+	 * Define el asunto para la solicitud tercera Matricula
+	 */
+	public static final String APP_ASUNTO_TERCERA_MATRICULA = "Solicitud tercera matricula";
+	/**
+	 * Define el asunto para la verificación solicitud tercera Matricula
+	 */
+	public static final String APP_ASUNTO_VERIFICACION_SOLICITUD_TERCERA_MATRICULA = "Verificación solicitud tercera matrícula";
+	/**
+	 * Define el asunto para la respuesta de solicitud tercera Matricula
+	 */
+	public static final String APP_ASUNTO_RESPUESTA_SOLICITUD_TERCERA_MATRICULA = "Respuesta solicitud tercera matrícula";
+
+	/**
+	 * Define el asunto para la apelación tercera Matricula
+	 */
+	public static final String APP_ASUNTO_APELACION_TERCERA_MATRICULA = "Solicitud de apelación tercera matricula";
+	
+	/**
+	 * Define el asunto para la verificación apelación tercera Matricula
+	 */
+	public static final String APP_ASUNTO_VERIFICACION_APELACION_TERCERA_MATRICULA = "Verificación solicitud de apelación tercera matrícula";
+	/**
+	 * Define el asunto para la respuesta de apelación tercera Matricula
+	 */
+	public static final String APP_ASUNTO_RESPUESTA_APELACION_TERCERA_MATRICULA = "Respuesta solicitud de apelación tercera matrícula";
+	/**
+	 * Define el asunto para la mensaje enviado al estudiante de reingresos, cambios de universidad y carrera en las facultades-Movilidad estudiantil
+	 */
+	public static final String APP_ASUNTO_MOVILIDAD_ESTUDIANTIL = "Movilidad estudiantil";
+	
+	/**
+	 * Define el asunto para la solicitud de retiro de Matricula
+	 */
+	public static final String APP_ASUNTO_SOLICITUD_MATRICULA = "Solicitud retiro de matrícula";
+	/**
+	 * Define el asunto para la solicitud de retiro por situaciones fortuitas o de fuerza mayor.
+	 */
+	public static final String APP_ASUNTO_RETIRO_POR_SITUACION_FORTUITA = "Solicitud de retiro por situaciones fortuitas";
+	
+	/**
+	 * Define el asunto para la solicitud de retiro por situaciones fortuitas o de fuerza mayor.
+	 */
+	public static final String APP_ASUNTO_VERIFICAR_RETIRO_POR_SITUACION_FORTUITA = "Verificación de retiro por situaciones fortuitas";
+	/**
+	 * Define el asunto para la respuesta de solicitud de retiro por situaciones fortuitas
+	 */
+	public static final String APP_ASUNTO_RESPUESTA_RETIRO_POR_SITUACION_FORTUITA = "Respuesta a solicitud de retiro por situaciones fortuitas";
+	
+	/**
+	 * Define el asunto para la anulacion de matrícula
+	 */
+	public static final String APP_ASUNTO_INFORME_ANULACION_MATRICULA = "Informe de anulación de matrícula";
+	
+	/*************************************************************/
+	/**************** CONSTANTES DE CONFIGURACIONES **************/
+	/*************************************************************/
+	/**
+	 * Define la etiqueta que representa al path de archivos 
+	 */
+	public static final String APP_PATH_ARCHIVOS;
+	public static final String APP_PATH_ARCHIVOS_TEMPORAL;
+	/**
+     * Define el url del sistema
+     */
+	public static final String APP_URL_SISTEMA;
+	/**
+     * Define el url del sistema
+     */
+	public static final String APP_URL_WEB_SERVICE_MAIL;
+	/**
+     * Define la fecha minima para la creacion de malla curriculares
+     */
+	public static final String APP_MAX_FECHA_MINIMA_MALLA_CURRICULAR;
+	
+	/**
+	 * Define el path de almacenamiento de los archivos de retiro de matricula 
+	 */
+	public static final String APP_PATH_ARCHIVOS_RETIRO_MATRICULA_SNIESE = "retiromatricula/";
+	
+	/**
+	 * Define el path de almacenamiento de los archivos de retiro de matricula 
+	 */
+	public static final String APP_PATH_ARCHIVOS_ANULACION_MATRICULA = "anulacionmatricula/";
+	
+	/**
+	 * Define el path de almacenamiento de los archivos de solicitud de nota atrasada 
+	 */
+	public static final String APP_PATH_ARCHIVOS_SOLICITUD_NOTA_ATRASADA = "notaatrasada/";
+	
+	/**
+	 * Define el path de almacenamiento de los archivos de solicitud de nota primer parcial atrasada 
+	 */
+	public static final String APP_PATH_ARCHIVOS_SOLICITUD_NOTA_UNO_ATRASADA = "notaatrasada/notauno/";
+	
+	/**
+	 * Define el path de almacenamiento de los archivos de solicitud de nota segunda parcial atrasada 
+	 */
+	public static final String APP_PATH_ARCHIVOS_SOLICITUD_NOTA_DOS_ATRASADA = "notaatrasada/notados/";
+	
+	/**
+	 * Define el path de almacenamiento de los archivos de solicitud de nota tercera parcial atrasada 
+	 */
+	public static final String APP_PATH_ARCHIVOS_SOLICITUD_NOTA_TRES_ATRASADA = "notaatrasada/notatres/";
+	
+	
+	/**
+	 * Define el path de almacenamiento de los archivos de solicitud de tercera matricula
+	 */
+	public static final String APP_PATH_ARCHIVOS_SOLICITUD_TERCERA_MATRICULA = "terceramatricula/solicitudes/";
+	
+	/**
+	 * Define el path de almacenamiento de los archivos de apelacion de solicitud de tercera matricula
+	 */
+	public static final String APP_PATH_ARCHIVOS_APELACION_TERCERA_MATRICULA = "terceramatricula/apelaciones/";
+	
+	/**
+	 * Define el path de almacenamiento de los archivos de apelacion de solicitud de tercera matricula
+	 */
+	public static final String APP_PATH_ARCHIVOS_HOMOLOGACIONES = "homologaciones/";
+	
+	/**
+	 * Define el path de almacenamiento de los archivos de apelacion de solicitud de tercera matricula
+	 */
+	public static final String APP_PATH_ARCHIVOS_RESOLUCION_APELACION_TERCERA_MATRICULA = "terceramatricula/resolucionapelaciones/";
+	
+	/**
+	 * Define el path de almacenamiento de los archivos de apelacion de solicitud de tercera matricula
+	 */
+	public static final String APP_PATH_ARCHIVOS_FORMULARIO_SEGURO_VIDA = "segurovida/";
+	
+	static{
+		String appPathArchivos = null, appUrlSistema = null,  appUrlWsMail = null ,fechaMinCreacionMallaCurricular=null,appPathArchivosTemporal=null;
+		try {
+			ResourceBundle rb = ResourceBundle.getBundle("META-INF.configuracion.configuraciones");
+			appPathArchivosTemporal = rb.getString("path.archivos.temporal");
+			appPathArchivos = rb.getString("path.archivos");
+			appUrlSistema = rb.getString("url.aplicacion");
+			appUrlWsMail = rb.getString("url.aplicacion.mail");
+			fechaMinCreacionMallaCurricular =  rb.getString("fecha.min.creacion.malla.curricular");
+		} catch (Exception e) {}
+		if(appPathArchivos == null){
+			appPathArchivos = "/academico/archivos/";
+		}
+		APP_PATH_ARCHIVOS_TEMPORAL = appPathArchivosTemporal;
+		APP_PATH_ARCHIVOS = appPathArchivos;
+		APP_URL_SISTEMA = appUrlSistema;
+		APP_URL_WEB_SERVICE_MAIL = appUrlWsMail;
+		APP_MAX_FECHA_MINIMA_MALLA_CURRICULAR = fechaMinCreacionMallaCurricular;
+	}
+	
+	
+	/**
+	 * Define el asunto para la postulacion de posgrado 
+	 */
+	public static final String APP_ASUNTO_MATRICULA_POSGRADO = "Comunicación Proceso de Matriculación Posgrado - Sistema Integral de Información Universitaria ";
+}

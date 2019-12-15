@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvHorarioLocal.listarPeriodos(...)&apos; to &apos;listarPlannificacion&apos;&#x0D;&#x0A;- Original project: &apos;BiometricoEjb&apos;&#x0D;&#x0A;- Original element: &apos;ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvHorarioLocal.listarPeriodos(...)&apos;&#x0D;&#x0A;- Renamed element: &apos;ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvHorarioLocal.listarPlannificacion(...)&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;listarPeriodos&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/ejbModule&lt;ec.edu.uce.Biometrico.ejb.servicios.interfaces{SrvHorarioLocal.java[SrvHorarioLocal~listarPeriodos~QString;" name="listarPlannificacion" references="true" stamp="1566523445672" version="1.0"/>
+</session>

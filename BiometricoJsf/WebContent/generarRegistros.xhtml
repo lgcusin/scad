@@ -8,7 +8,12 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition
-	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">>
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Biometrico / Generar registros" />
+		</ui:include>
+	</ui:define>
 	<ui:define name="cuerpo">
 		<h:form id="frmGenerarRegistros" enctype="multipart/form-data"
 			acceptcharset="UTF-8">
@@ -25,12 +30,12 @@
 								<div class="cell colspan4">
 									<!-- FACULTAD -->
 									<div class="grid condensed" style="padding: 10px;">
-										<div class="row cells4">
+										<div class="row cells6">
 											<div class="cell colspan2">
 												<p:outputLabel id="lblCarrera" value="Carrera: "
 													for="slcCarrera" />
 											</div>
-											<div class="cell colspan2">
+											<div class="cell colspan4">
 												<p:selectOneMenu id="slcCarrera"
 													value="#{generarRegistros.selectCarrera.crrId}"
 													style="width: 100%"
@@ -56,7 +61,7 @@
 													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
 													<f:selectItems value="#{generarRegistros.lstDocente}"
 														var="dct"
-														itemLabel="#{dct.persona.prsPrimerApellido} #{dct.persona.prsSegundoApellido} #{dct.persona.prsNombres}"
+														itemLabel="#{dct.fcdcPersona.prsPrimerApellido} #{dct.fcdcPersona.prsSegundoApellido} #{dct.fcdcPersona.prsNombres}"
 														itemValue="#{dct.fcdcId}" />
 												</p:selectOneMenu>
 											</div>
@@ -76,7 +81,7 @@
 												<p:outputLabel id="inpHoraInicio" value="Hora inicio: " />
 											</div>
 											<div class="cell colspan4">
-												<p:inputText type="text" value="#{generarRegistros.hhI}" />
+												<p:inputText type="time" value="#{generarRegistros.hhI}" />
 												(hh)
 											</div>
 										</div>
@@ -85,7 +90,7 @@
 												<p:outputLabel id="inpHorafin" value="Hora fin: " />
 											</div>
 											<div class="cell colspan4">
-												<p:inputText type="text" value="#{generarRegistros.hhF}" />
+												<p:inputText type="time" value="#{generarRegistros.hhF}" />
 												(hh)
 											</div>
 										</div>
@@ -93,7 +98,9 @@
 										<div class="row cells6">
 											<p:commandButton id="btnBuscar" value="Buscar"
 												action="#{generarRegistros.buscarHorariosDiarios()}"
-												update="frmGenerarRegistros" />
+												update="frmGenerarRegistros"
+												onclick="PF('dialogoTrabajando').show();"
+												oncomplete="PF('dialogoTrabajando').hide();" />
 											<p:commandButton id="btnLimpiar" value="Limpiar"
 												action="#{generarRegistros.limpiar()}"
 												update="frmGenerarRegistros" />
@@ -111,15 +118,17 @@
 						value="#{generarRegistros.lstHorarioAcademico}" var="hra">
 						<p:column headerText="Materia">
 							<p:outputLabel
-								value="#{hra.mallaCurricularParalelo.mallaCurricularMateria.materia.mtrDescripcion}" />
+								value="#{hra.hracMallaCurricularParalelo.mlcrprMallaCurricularMateria.mlcrmtMateria.mtrDescripcion}" />
 						</p:column>
 						<p:column headerText="Descripcion">
 							<p:outputLabel value="#{hra.hracDescripcion}" />
 						</p:column>
 						<f:facet name="footer">
-							<p:commandButton value="Generar Registros" disabled="#{generarRegistros.flagGenerado}"
+							<p:commandButton value="Generar Registros"
+								disabled="#{generarRegistros.flagGenerado}"
 								action="#{generarRegistros.generarRegistros()}"
-								update="frmGenerarRegistros:dttHorarios">
+								update="frmGenerarRegistros:dttHorarios"
+								oncomplete="PF('dialogoTrabajando').hide();">
 								<p:confirm header="Confirmaci&oacute;n"
 									message="¿Desea crear registros?"
 									icon="pi pi-exclamation-triangle" />
@@ -129,11 +138,12 @@
 				</p:panel>
 				<div>
 					<p:commandButton id="btnRegresar" value="Regresar"
-						action="principal.xhtml"></p:commandButton>
+						action="#{generarRegistros.regresar()}"></p:commandButton>
 				</div>
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 					<div style="text-align: center;">
 						<p:commandButton value="Si" type="button"
+							onclick="PF('dialogoTrabajando').show();"
 							styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
 						<p:commandButton value="No" type="button"
 							styleClass="ui-confirmdialog-no" icon="pi pi-times" />

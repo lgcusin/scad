@@ -38,7 +38,9 @@
 													value="#{registroFeriado.selectDependencia.dpnId}"
 													style="width: 100%"
 													valueChangeListener="#{registroFeriado.setDependenciaID}">
-													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+													<f:selectItem
+														itemLabel="#{generalesConstantesForm.appSeleccione}"
+														itemValue="#{generalesConstantesForm.appIdBase}"></f:selectItem>
 													<f:selectItems value="#{registroFeriado.lstDependencia}"
 														var="fac" itemLabel="#{fac.dpnDescripcion}"
 														itemValue="#{fac.dpnId}" />
@@ -56,7 +58,9 @@
 													value="#{registroFeriado.selectCarrera.crrId}"
 													style="width: 100%"
 													valueChangeListener="#{registroFeriado.setCarreraID}">
-													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+													<f:selectItem
+														itemLabel="#{generalesConstantesForm.appSeleccione}"
+														itemValue="#{generalesConstantesForm.appIdBase}"></f:selectItem>
 													<f:selectItem itemLabel="TODAS" itemValue="0"></f:selectItem>
 													<f:selectItems value="#{registroFeriado.lstCarrera}"
 														var="cr" itemLabel="#{cr.crrDescripcion}"
@@ -90,7 +94,9 @@
 										<div>
 											<p:commandButton id="btnBuscar" value="Buscar"
 												action="#{registroFeriado.buscarFeriados}"
-												update="pnlResultados"></p:commandButton>
+												update="pnlResultados"
+												onclick="PF('dialogoTrabajando').show();"
+												oncomplete="PF('dialogoTrabajando').hide();"></p:commandButton>
 											<p:commandButton id="btnLimpiar" value="Limpiar"
 												action="#{registroFeriado.limpiarFiltros}"
 												update="pnlBusqueda"></p:commandButton>
@@ -170,18 +176,22 @@
 											saveTitle="save"></p:rowEditor>
 										<p:commandButton value="Eliminar" process="@this"
 											action="#{registroFeriado.eliminarFeriado(f)}"
-											update="dtsFeriados" />
+											update="dtsFeriados"
+											onclick="PF('dialogoTrabajando').show();"
+											oncomplete="PF('dialogoTrabajando').hide();" />
 									</p:column>
 									<f:facet name="footer">
 										<p:commandButton value="Agregar" process="@this"
-											update="dtsFeriados" action="#{registroFeriado.onAddNew}" />
+											update="dtsFeriados" action="#{registroFeriado.onAddNew}"
+											onclick="PF('dialogoTrabajando').show();"
+											oncomplete="PF('dialogoTrabajando').hide();" />
 									</f:facet>
 								</p:dataTable>
 							</h:form>
 						</p:panel>
 						<div>
 							<p:commandButton id="btnRegresar" value="Regresar"
-								action="principal.xhtml"></p:commandButton>
+								action="#{registroFeriado.regresar()}"></p:commandButton>
 						</div>
 					</p:panel>
 				</div>

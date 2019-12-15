@@ -8,7 +8,12 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition
-	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">>
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Horario / Horario Examen / Agregar " />
+		</ui:include>
+	</ui:define>
 	<ui:define name="cuerpo">
 		<h:form id="frmHorario" enctype="multipart/form-data"
 			acceptcharset="UTF-8">
@@ -38,8 +43,10 @@
 												<p:selectOneMenu id="slcCarrera"
 													value="#{registroExamen.selectCrr.crrId}"
 													style="width: 100%"
-													valueChangeListener="#{registroExamen.setCarreraID}">
-													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+													valueChangeListener="#{registroExamen.carreraID}">
+													<f:selectItem
+														itemLabel="#{generalesConstantesForm.appSeleccione}"
+														itemValue="#{generalesConstantesForm.appIdBase}" />
 													<f:selectItems value="#{registroExamen.lstC}" var="cr"
 														itemLabel="#{cr.crrDescripcion}" itemValue="#{cr.crrId}" />
 													<p:ajax update="slcSemestre" />
@@ -56,8 +63,10 @@
 												<p:selectOneMenu id="slcSemestre"
 													value="#{registroExamen.selectSem.nvlId}"
 													style="width: 100%"
-													valueChangeListener="#{registroExamen.setNivelID}">
-													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+													valueChangeListener="#{registroExamen.nivelID}">
+													<f:selectItem
+														itemLabel="#{generalesConstantesForm.appSeleccione}"
+														itemValue="#{generalesConstantesForm.appIdBase}" />
 													<f:selectItems value="#{registroExamen.lstS}" var="sms"
 														itemLabel="#{sms.nvlDescripcion}" itemValue="#{sms.nvlId}" />
 													<p:ajax update="slcMateria" />
@@ -73,8 +82,10 @@
 												<p:selectOneMenu id="slcMateria"
 													value="#{registroExamen.selectMtr.mtrId}"
 													style="width: 100%"
-													valueChangeListener="#{registroExamen.setMateriaID}">
-													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+													valueChangeListener="#{registroExamen.materiaID}">
+													<f:selectItem
+														itemLabel="#{generalesConstantesForm.appSeleccione}"
+														itemValue="#{generalesConstantesForm.appIdBase}" />
 													<f:selectItems value="#{registroExamen.lstM}" var="m"
 														itemLabel="#{m.mtrDescripcion}" itemValue="#{m.mtrId}" />
 													<p:ajax update="@this" />
@@ -89,10 +100,9 @@
 				</p:panel>
 				<div>
 					<p:commandButton id="btnBuscar" value="Buscar paralelos"
-						action="#{registroExamen.buscarParalelos}" update="dtsParalelos"></p:commandButton>
+						action="#{registroExamen.buscarParalelos}" update="pnlResultados"></p:commandButton>
 					<p:commandButton id="btnLimpiar" value="Limpiar"
-						action="#{registroExamen.limpiarFiltros}"
-						update="pnlBusqueda pnlResultados"></p:commandButton>
+						action="#{registroExamen.limpiarFiltros}" update="frmHorario"></p:commandButton>
 				</div>
 				<!-- ******************** PANEL RESULTADOS DE BUSQUEDA************************ -->
 				<div>
@@ -102,7 +112,7 @@
 								styleClass="ui-panel-title"></h:outputLabel>
 						</p:panel>
 						<p:panel id="pnlResultados_content"
-							rendered="#{!registroExamen.flagEditar}">
+							rendered="#{registroExamen.flagEditar}">
 							<p:dataTable id="dtsParalelos"
 								value="#{registroExamen.lstParalelos}" var="par"
 								style="text-align: center;"
@@ -119,7 +129,9 @@
 								<p:column headerText="Opciones">
 									<p:commandButton value="Editar" title="Editar Horario"
 										action="#{registroExamen.editarDataHorario}"
-										update=":frmHorario:pnlResultados">
+										update=":frmHorario:pnlResultados"
+										onclick="PF('dialogoTrabajando').show();"
+										oncomplete="PF('dialogoTrabajando').hide();">
 										<f:setPropertyActionListener value="#{par}"
 											target="#{registroExamen.selectPar}" />
 									</p:commandButton>
@@ -135,7 +147,7 @@
 								rowKey="#{as.assFecha}" style="text-align: center;">
 
 								<p:column headerText="Dia">
-									<p:selectOneMenu value="#{as.horarioAcademico.hracDia}"
+									<p:selectOneMenu value="#{as.assHorarioAcademico.hracDia}"
 										disabled="true">
 										<f:selectItem itemLabel="LUNES" itemValue="0" />
 										<f:selectItem itemLabel="MARTES" itemValue="1" />
@@ -159,16 +171,25 @@
 									<h:outputText value="#{as.assEstado}" />
 								</p:column>
 								<f:facet name="footer">
-									<p:commandButton process="dtsHorarios" update="@this"
+									<p:commandButton value="Guardar" process="dtsHorarios"
+										update=":frmHorario:dtsHorarios" rendered="#{!registroExamen.flagModificar}"
 										action="#{registroExamen.guardarAsistenciaHorarioExamen()}"
-										value="Guardar" />
+										onclick="PF('dialogoTrabajando').show();"
+										oncomplete="PF('dialogoTrabajando').hide();" />
+									<p:commandButton value="Modificar" process="dtsHorarios"
+										update=":frmHorario:dtsHorarios"
+										rendered="#{registroExamen.flagModificar}"
+										action="#{registroExamen.modificarAsistenciaHorarioExamen()}"
+										onclick="PF('dialogoTrabajando').show();"
+										oncomplete="PF('dialogoTrabajando').hide();" />
 								</f:facet>
 							</p:dataTable>
 						</p:panel>
 					</p:panel>
 				</div>
 				<div style="margin-left: 10px; margin-right: 10px;">
-					<p:commandButton value="Regresar" action="principal.xhtml"></p:commandButton>
+					<p:commandButton value="Regresar"
+						action="#{registroExamen.regresar}"></p:commandButton>
 				</div>
 			</div>
 		</h:form>

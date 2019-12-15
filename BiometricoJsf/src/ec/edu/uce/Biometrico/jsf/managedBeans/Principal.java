@@ -9,9 +9,11 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
+
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvDocenteLocal;
-import ec.uce.edu.biometrico.jpa.FichaDocente;
-import ec.uce.edu.biometrico.jpa.FichaEmpleado;
+import ec.edu.uce.biometrico.jpa.FichaDocente;
+import ec.edu.uce.biometrico.jpa.FichaEmpleado;
 
 @ManagedBean(name = "principal")
 @ViewScoped
@@ -33,12 +35,12 @@ public class Principal {
 		FacesContext context = FacesContext.getCurrentInstance();
 		beanLogin = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
 		if (beanLogin.isDocente()) {
-			fdId = beanLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId();
-			fcId = beanLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getDetallePuestos()
-					.get(0).getCarrera().getDependencia().getDpnId();
+			fdId = beanLogin.getUsuarioRol().getUsroUsuario().getUsrPersona().getFichaDocentes().get(0).getFcdcId();
+			fcId = beanLogin.getUsuarioRol().getUsroUsuario().getUsrPersona().getFichaDocentes().get(0).getFcdcDetallePuestos()
+					.get(0).getDtpsCarrera().getCrrDependencia().getDpnId();
 		} else if (beanLogin.isAdminFacultad()) {
-			fcId = beanLogin.getUsuarioRol().getUsuario().getPersona().getFichaEmpleados().get(0).getDetallePuestos()
-					.get(0).getCarrera().getDependencia().getDpnId();
+			fcId = beanLogin.getUsuarioRol().getUsroUsuario().getUsrPersona().getFichaEmpleados().get(0).getDetallePuestos()
+					.get(0).getDtpsCarrera().getCrrDependencia().getDpnId();
 		}
 	}
 
@@ -78,7 +80,7 @@ public class Principal {
 	}
 
 	public String verSyllabo() {
-		return "syllabo";
+		return "syllabus";
 	}
 
 	public String verReporteHorario(boolean sesionUsuarioForm, String rol) {
@@ -127,13 +129,13 @@ public class Principal {
 	public String verParametros() {
 		return "administrarParametros";
 	}
-	
+
 	public String verGenerarRegistros() {
 		return "generarRegistros";
 	}
 
-	//SET AND GET
-	
+	// SET AND GET
+
 	public boolean isDocente() {
 		return flagDocente;
 	}

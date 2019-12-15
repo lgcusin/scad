@@ -22,9 +22,11 @@ import org.primefaces.event.RowEditEvent;
 
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvEmpleadoLocal;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvRegistroFeriadoLocal;
-import ec.uce.edu.biometrico.jpa.Carrera;
-import ec.uce.edu.biometrico.jpa.Dependencia;
-import ec.uce.edu.biometrico.jpa.Feriado;
+import ec.edu.uce.Biometrico.ejb.utilidades.constantes.GeneralesConstantes;
+import ec.edu.uce.Biometrico.jsf.utilidades.FacesUtil;
+import ec.edu.uce.biometrico.jpa.Carrera;
+import ec.edu.uce.biometrico.jpa.Dependencia;
+import ec.edu.uce.biometrico.jpa.Feriado;
 
 /**
  * @author wespana
@@ -85,7 +87,7 @@ public class RegistroFeriado {
 	 * Metodo que permite limpiar los filtros ingresados.
 	 */
 	public void limpiarFiltros() {
-		selectDependencia.setDpnId(null);
+		selectDependencia.setDpnId(GeneralesConstantes.APP_ID_BASE);
 		fechaInicio = null;
 		fechaFin = null;
 	}
@@ -94,7 +96,7 @@ public class RegistroFeriado {
 	 * Metodo que permite guardar un nuevo registro de feriado.
 	 */
 	public void guardarFeriado() {
-		feriadoRegistro.setCarrera(selectCarrera);
+		feriadoRegistro.setFrdCarrera(selectCarrera);
 		srvFer.guardarActualizarFeriado(feriadoRegistro);
 	}
 
@@ -125,12 +127,10 @@ public class RegistroFeriado {
 	}
 
 	private boolean validarCarrera() {
-		if (selectCarrera.getCrrId() != null) {
+		if (selectCarrera.getCrrId() != GeneralesConstantes.APP_ID_BASE) {
 			return true;
 		} else {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"La carrera es requerida, verifique por favor.", "");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			FacesUtil.mensajeError("La carrera es requerida, verifique por favor.");
 			limpiarFiltros();
 			return false;
 		}
@@ -146,7 +146,7 @@ public class RegistroFeriado {
 			selectDependencia.setDpnId((Integer) event.getNewValue());
 			lstCarrera = srvEmp.listarCarrerasxFacultad((Integer) event.getNewValue());
 		} else {
-			selectDependencia.setDpnId(null);
+			selectDependencia.setDpnId(GeneralesConstantes.APP_ID_BASE);
 		}
 	}
 
@@ -159,7 +159,7 @@ public class RegistroFeriado {
 		if (event.getNewValue() != null) {
 			selectCarrera.setCrrId((Integer) event.getNewValue());
 		} else {
-			selectCarrera.setCrrId(null);
+			selectCarrera.setCrrId(GeneralesConstantes.APP_ID_BASE);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "No se ha seleccionado una facultad.",
 					"Warning!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -172,14 +172,7 @@ public class RegistroFeriado {
 	public void onAddNew() {
 		if (validarDependencia() && validarCarrera()) {
 			Feriado feriadoNuevo = new Feriado();
-			// if (lstFeriados.isEmpty()) {
-			// feriadoNuevo.setDependencia(selectDependencia);
-			// } else {
-			// feriadoNuevo.setDependencia(lstFeriados.get(0).getDependencia());
-			// }
 			lstFeriados.add(feriadoNuevo);
-			FacesMessage msg = new FacesMessage("Nuevo registro agregado.");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
@@ -189,9 +182,14 @@ public class RegistroFeriado {
 	 * @param event
 	 */
 	public void onRowEdit(RowEditEvent event) {
-		actualizarFeriado((Feriado) event.getObject());
-		FacesMessage msg = new FacesMessage("Registro editado", ((Feriado) event.getObject()).getFrdFecha() + "");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		Feriado feriado = (Feriado) event.getObject();
+		if (feriado.getFrdFecha() != null && feriado.getFrdInicio() != null && feriado.getFrdFin() != null) {
+			actualizarFeriado((Feriado) event.getObject());
+			FacesUtil.mensajeInfo("Registro ingresado exitosamente");
+		} else {
+			FacesUtil.mensajeError("Los campos ingresados son erroneas, intente de nuevo");
+		}
+
 	}
 
 	/**
@@ -202,19 +200,20 @@ public class RegistroFeriado {
 	 */
 	private String actualizarFeriado(Feriado feriado) {
 		try {
-			if (feriado.getFrdId() != null) {
+			if (feriado.getFrdId() != GeneralesConstantes.APP_ID_BASE) {
 				/** registro editado */
+				feriado.setFrdCarrera(selectCarrera);
 				srvFer.guardarActualizarFeriado(feriado);
 			} else {
 				/** nuevo registro */
 				if (selectCarrera.getCrrId() == 0) {
 					for (Carrera cr : lstCarrera) {
-						feriado.setFrdId(null);
-						feriado.setCarrera(cr);
+						feriado.setFrdId(GeneralesConstantes.APP_ID_BASE);
+						feriado.setFrdCarrera(cr);
 						srvFer.guardarActualizarFeriado(feriado);
 					}
 				} else {
-					feriado.setCarrera(selectCarrera);
+					feriado.setFrdCarrera(selectCarrera);
 					srvFer.guardarActualizarFeriado(feriado);
 				}
 			}
@@ -222,7 +221,7 @@ public class RegistroFeriado {
 			System.out.println("Error al guardarActualizar feriado: " + e);
 		}
 		buscarFeriados();
-		return "registroFeriados";
+		return null;
 	}
 
 	/**
@@ -259,12 +258,10 @@ public class RegistroFeriado {
 	 * @return
 	 */
 	private boolean validarDependencia() {
-		if (selectDependencia.getDpnId() != null) {
+		if (selectDependencia.getDpnId() != GeneralesConstantes.APP_ID_BASE) {
 			return true;
 		} else {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"La facultad es requerida, verifique por favor.", "");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			FacesUtil.mensajeError("La facultad es requerida, verifique por favor.");
 			limpiarFiltros();
 			return false;
 		}
@@ -295,6 +292,18 @@ public class RegistroFeriado {
 			limpiarFiltros();
 			return false;
 		}
+	}
+
+	public String regresar() {
+		selectDependencia = null;
+		selectCarrera = null;
+		lstDependencia = null;
+		lstCarrera = null;
+		fechaInicio = null;
+		fechaFin = null;
+		lstFeriados = null;
+		feriadoRegistro = null;
+		return "principal";
 	}
 
 	/**

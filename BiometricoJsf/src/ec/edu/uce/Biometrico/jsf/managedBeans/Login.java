@@ -13,11 +13,11 @@ import javax.faces.context.FacesContext;
 import ec.edu.uce.Biometrico.ejb.servicios.impl.SrvDocente;
 import ec.edu.uce.Biometrico.ejb.servicios.impl.SrvLogin;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvLoginLocal;
-import ec.uce.edu.biometrico.jpa.DetallePuesto;
-import ec.uce.edu.biometrico.jpa.FichaDocente;
-import ec.uce.edu.biometrico.jpa.FichaEmpleado;
-import ec.uce.edu.biometrico.jpa.Usuario;
-import ec.uce.edu.biometrico.jpa.UsuarioRol;
+import ec.edu.uce.biometrico.jpa.DetallePuesto;
+import ec.edu.uce.biometrico.jpa.FichaDocente;
+import ec.edu.uce.biometrico.jpa.FichaEmpleado;
+import ec.edu.uce.biometrico.jpa.Usuario;
+import ec.edu.uce.biometrico.jpa.UsuarioRol;
 
 @ManagedBean(name = "login")
 @SessionScoped
@@ -42,21 +42,21 @@ public class Login {
 		usuarioRol = srvlgn.verificar(nick, clave);
 
 		if (usuarioRol.getUsroId() != null) {
-			if (usuarioRol.getRol().getRolId() == 5) {
+			if (usuarioRol.getUsroRol().getRolId() == 5) {
 				Docente = true;
-				dt = srvlgn.listarDetallePuestoDocente(usuarioRol.getUsuario().getPersona().getPrsId());
+				dt = srvlgn.listarDetallePuestoDocente(usuarioRol.getUsroUsuario().getUsrPersona().getPrsId());
 				List<FichaDocente> lstD = new ArrayList<>();
-				lstD.add(dt.get(0).getFichaDocente());
-				usuarioRol.getUsuario().getPersona().setFichaDocentes(lstD);
-				usuarioRol.getUsuario().getPersona().getFichaDocentes().get(0).setDetallePuestos(dt);
+				lstD.add(dt.get(0).getDtpsFichaDocente());
+				usuarioRol.getUsroUsuario().getUsrPersona().setFichaDocentes(lstD);
+				usuarioRol.getUsroUsuario().getUsrPersona().getFichaDocentes().get(0).setFcdcDetallePuestos(dt);
 			}
-			if (usuarioRol.getRol().getRolId() == 39) {
+			if (usuarioRol.getUsroRol().getRolId() == 39) {
 				adminFacultad = true;
-				dt = srvlgn.listarDetallePuestoEmpleado(usuarioRol.getUsuario().getPersona().getPrsId());
+				dt = srvlgn.listarDetallePuestoEmpleado(usuarioRol.getUsroUsuario().getUsrPersona().getPrsId());
 				List<FichaEmpleado> lstE = new ArrayList<>();
-				lstE.add(dt.get(0).getFichaEmpleado());
-				usuarioRol.getUsuario().getPersona().setFichaEmpleados(lstE);
-				usuarioRol.getUsuario().getPersona().getFichaEmpleados().get(0).setDetallePuestos(dt);
+				lstE.add(dt.get(0).getDtpsFichaEmpleado());
+				usuarioRol.getUsroUsuario().getUsrPersona().setFichaEmpleados(lstE);
+				usuarioRol.getUsroUsuario().getUsrPersona().getFichaEmpleados().get(0).setDetallePuestos(dt);
 			}
 			return "principal";
 		} else {

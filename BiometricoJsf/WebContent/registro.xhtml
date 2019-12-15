@@ -10,6 +10,12 @@
 
 <ui:composition
 	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina"
+				value="Docente / Biometrico /Enrolar docente " />
+		</ui:include>
+	</ui:define>
 	<ui:define name="cuerpo">
 		<h:form id="frmRegistro" enctype="multipart/form-data"
 			acceptcharset="UTF-8">
@@ -45,7 +51,8 @@
 				</div>
 				<div>
 					<p:commandButton action="#{registro.listar}" value="Buscar"
-						update="dtregistro"></p:commandButton>
+						update="dtregistro" onclick="PF('dialogoTrabajando').show();"
+						oncomplete="PF('dialogoTrabajando').hide();"></p:commandButton>
 					<p:commandButton id="btnLimpiar" value="Limpiar"
 						action="#{registro.limpiar}" update="dtregistro"></p:commandButton>
 
@@ -58,16 +65,16 @@
 					rowKey="#{dcnt.fcdcId}">
 					<p:column>
 						<f:facet name="header">
-							<h:outputText value="#" />
+							<h:outputText value="# Identificacion" />
 						</f:facet>
-						<h:outputText value="#{dcnt.fcdcId}" />
+						<h:outputText value="#{dcnt.fcdcPersona.prsIdentificacion}" />
 					</p:column>
 					<p:column>
 						<f:facet name="header">
 							<h:outputText value="Docente" />
 						</f:facet>
 						<h:outputText
-							value="#{dcnt.persona.prsPrimerApellido} #{dcnt.persona.prsSegundoApellido} #{dcnt.persona.prsNombres}" />
+							value="#{dcnt.fcdcPersona.prsPrimerApellido} #{dcnt.fcdcPersona.prsSegundoApellido} #{dcnt.fcdcPersona.prsNombres}" />
 					</p:column>
 					<f:facet name="footer">
 						<p:commandButton id="btnRegistrar" value="registrar"

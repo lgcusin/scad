@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.ejb.LocalBean;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
@@ -19,48 +19,59 @@ import javax.persistence.Query;
 import javax.sql.rowset.serial.SerialException;
 
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvDocenteLocal;
-import ec.uce.edu.biometrico.jpa.Asistencia;
-import ec.uce.edu.biometrico.jpa.ContenidoCurricular;
-import ec.uce.edu.biometrico.jpa.FichaDocente;
-import ec.uce.edu.biometrico.jpa.HorarioAcademico;
-import ec.uce.edu.biometrico.jpa.HuellaDactilar;
-import ec.uce.edu.biometrico.jpa.MallaCurricularMateria;
-import ec.uce.edu.biometrico.jpa.MallaCurricularParalelo;
-import ec.uce.edu.biometrico.jpa.Materia;
-import ec.uce.edu.biometrico.jpa.Nivel;
-import ec.uce.edu.biometrico.jpa.Persona;
-import ec.uce.edu.biometrico.jpa.Seguimiento;
-import ec.uce.edu.biometrico.jpa.TipoHuella;
+import ec.edu.uce.Biometrico.ejb.utilidades.constantes.GeneralesConstantes;
+import ec.edu.uce.biometrico.jpa.*;
+
 
 /**
  * Session Bean implementation class DocenteBean
+ * 
+ * @author Wilson-DK
+ *
  */
 @Stateless
-@LocalBean
+@Local
 public class SrvDocente implements SrvDocenteLocal {
 
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
 
 	public SrvDocente() {
 		//
 	}
 
+	/**
+	 * Lista los parametros de holgura para el registro del control academico en
+	 * la facultad
+	 * 
+	 * @param parametro
+	 *            Nombre de la holgura del horario academico
+	 * @param integer
+	 *            Posicion de la holgura
+	 * @return
+	 */
 	@Override
 	public List<FichaDocente> listarDocentesxParametroxFacultad(String param, Integer fcId) {
 		param = param.toUpperCase();
 		param = "%" + param + "%";
-		List<FichaDocente> lstD = new ArrayList<>();
+		List<FichaDocente> lstD = null;
 		try {
 			Query query;
 			Object[] objArray;
 			query = em.createQuery(
-					"select fd.fcdcId,p.prsId,p.prsPrimerApellido,p.prsSegundoApellido,p.prsNombres from DetallePuesto as dp join dp.fichaDocente as fd join fd.persona as p join dp.carrera as c join c.dependencia as d where (p.prsPrimerApellido LIKE :param or p.prsSegundoApellido LIKE :param or p.prsNombres LIKE :param) and d.dpnId=:fcId group by fd.fcdcId,p.prsId,p.prsPrimerApellido,p.prsSegundoApellido,p.prsNombres order by p.prsPrimerApellido, p.prsSegundoApellido");
+					"select distinct fcdc,prs from DetallePuesto as dtps "
+							+ "join dtps.dtpsFichaDocente as fcdc "
+							+ "join fcdc.fcdcPersona as prs "
+							+ "join dtps.dtpsCarrera as crr "
+							+ "join crr.crrDependencia as dpn "
+							+ "where (prs.prsPrimerApellido LIKE :param or prs.prsSegundoApellido LIKE :param or prs.prsNombres LIKE :param) and dpn.dpnId=:fcId "
+							+ "order by prs.prsPrimerApellido, prs.prsSegundoApellido");
 			query.setParameter("param", param).setParameter("fcId", fcId);
+			lstD= new ArrayList<>();
 			for (Object obj : query.getResultList()) {
 				objArray = (Object[]) obj;
-				FichaDocente fd = new FichaDocente((Integer) objArray[0]);
-				fd.setPersona(em.find(Persona.class, (Integer) objArray[1]));
+				FichaDocente fd = (FichaDocente) objArray[0];
+				fd.setFcdcPersona((Persona) objArray[1]);
 				lstD.add(fd);
 			}
 		} catch (Exception e) {
@@ -68,46 +79,129 @@ public class SrvDocente implements SrvDocenteLocal {
 			return lstD;
 		}
 		return lstD;
-
 	}
 
+	/**
+	 * Metodo que obtiene los diferentes tipos de huellas de los dedos a
+	 * registrar del docente
+	 * 
+	 * @return Tipos de huellas para selecccionar
+	 */
 	@Override
 	public List<TipoHuella> listarTipoHuellas() {
-		return em.createNamedQuery("TipoHuella.listar", TipoHuella.class).getResultList();
+		List<TipoHuella> lstTipoHuella = null;
+		try {
+			Query query;
+			Object[] objArray;
+			query = em.createQuery("select tphl from TipoHuella as tphl where tphl.tphlDescripcionDedo <> 'INACTIVO' order by tphl.tphlId");
+			lstTipoHuella = query.getResultList();
+			// for (Object obj : query.getResultList()) {
+			// objArray = (Object[]) obj;
+			// lstTipoHuella.add((TipoHuella) objArray[0]);
+			// }
+		} catch (Exception e) {
+			System.out.println("Error al consultar el tipo de huella");
+			return lstTipoHuella;
+		}
+		return lstTipoHuella;
 	}
 
+	/**
+	 * Metodo que obtiene la lista de huellas del docente
+	 * 
+	 * @param fcdc_id
+	 *            id del Docente
+	 * @return huellas del docente
+	 * @throws SQLException
+	 * @throws IOException
+	 */
 	@Override
 	public List<BufferedImage> listarHuellas(Integer fcdc_id) throws SQLException, IOException {
-		List<HuellaDactilar> lsth = em.createNamedQuery("HuellaDactilar.findAllById", HuellaDactilar.class)
-				.setParameter("idDcnt", fcdc_id).getResultList();
 		List<BufferedImage> lstI = null;
-		for (HuellaDactilar hldc : lsth) {
-			lstI.add(toBufferedImage(hldc.getHldPrimerHuella()));
-			lstI.add(toBufferedImage(hldc.getHldSegundaHuella()));
+		try {
+			List<HuellaDactilar> lsth = em.createNamedQuery("HuellaDactilar.findAllById", HuellaDactilar.class)
+					.setParameter("idDcnt", fcdc_id).getResultList();
+			for (HuellaDactilar hldc : lsth) {
+				lstI.add(toBufferedImage(hldc.getHldPrimerHuella()));
+				lstI.add(toBufferedImage(hldc.getHldSegundaHuella()));
+			}
+		} catch (Exception e) {
+			System.out.println("Error al obtener huellas del docente");
+			return lstI;
 		}
 		return lstI;
 	}
 
-	public BufferedImage toBufferedImage(Blob blb) throws SQLException, IOException {
+	/**
+	 * Transforma un campo Blob a Buffered
+	 * 
+	 * @param blb
+	 *            Blob de base
+	 * @return Bufferred transformado
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public BufferedImage toBufferedImage(Blob blb) {
 		Blob blob = blb;
-		InputStream in = blob.getBinaryStream();
-		BufferedImage image = ImageIO.read(in);
+		InputStream in = null;
+		try {
+			in = blob.getBinaryStream();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(in);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return image;
 	}
 
+	/**
+	 * Metodo Obtiene una Huella Dactilar del docente x el tipo de huella del
+	 * dedo
+	 * 
+	 * @param fdId
+	 *            id del docente
+	 * @param thid
+	 *            de tipo de huella
+	 * @return Huella Dactilar del docente
+	 */
 	public HuellaDactilar findHuella(Integer fdId, Integer thid) {
-		HuellaDactilar hldc;
+		HuellaDactilar hldc = null;
 		try {
-			hldc = em.createNamedQuery("HuellaDactilar.findByFdicThid", HuellaDactilar.class).setParameter("fdId", fdId)
-					.setParameter("thid", thid).getSingleResult();
-
+			Query query = em.createQuery(
+					"select hldc from HuellaDactilar as hldc where hldc.hldcFichaDocente.fcdcId=:fdId and hldc.hldcTipoHuella.tphlId=:thid");
+			query.setParameter("fdId", fdId).setParameter("thid", thid);
+			List<HuellaDactilar> lstH = query.getResultList();
+			if (lstH == null || !lstH.isEmpty()) {
+				hldc = lstH.get(0);
+			}
 		} catch (Exception e) {
-			System.out.println(e);
-			return hldc = new HuellaDactilar();
+			System.out.println("Error al buscar huella"+e.getMessage());
+			return hldc;
 		}
 		return hldc;
 	}
 
+	/**
+	 * Metodo para guardar un nuevo registro de huella dactilar
+	 * 
+	 * @param bimg1
+	 *            buffer de primera huella
+	 * @param bimg2
+	 *            buffer de segunda huella
+	 * @param fcdc
+	 *            id del docente
+	 * @param tphl
+	 *            id del tipo huella
+	 * @throws IOException
+	 * @throws SerialException
+	 * @throws SQLException
+	 */
 	@Override
 	public void guardarImagen(BufferedImage bimg1, BufferedImage bimg2, FichaDocente fcdc, TipoHuella tphl)
 			throws IOException, SerialException, SQLException {
@@ -134,8 +228,8 @@ public class SrvDocente implements SrvDocenteLocal {
 				}
 				hldc.setHldSegundaHuella(huella);
 			}
-			hldc.setFichaDocente(fcdc);
-			hldc.setTipoHuella(tphl);
+			hldc.setHldcFichaDocente(fcdc);
+			hldc.setHldcTipoHuella(tphl);
 			em.merge(hldc);
 		} else {
 			hldc = new HuellaDactilar();
@@ -159,59 +253,61 @@ public class SrvDocente implements SrvDocenteLocal {
 				}
 				hldc.setHldSegundaHuella(huella);
 			}
-			hldc.setFichaDocente(fcdc);
-			hldc.setTipoHuella(tphl);
+			hldc.setHldcFichaDocente(fcdc);
+			hldc.setHldcTipoHuella(tphl);
 			em.persist(hldc);
 		}
 	}
 
+	/**
+	 * Metodo que obtiene asistencia en la hora de registro academico
+	 * 
+	 * @param id
+	 *            id del docente
+	 * @param inicio
+	 *            fecha inicio del rango
+	 * @param fin
+	 *            fecha fin del rango
+	 * @param crrId
+	 *            id de la Carrera
+	 * @return
+	 */
 	@Override
 	public List<Asistencia> listarAsistencia(Integer fdId, Date inicio, Date fin, Integer crrId) {
-		List<Asistencia> listAs = new ArrayList<>();
+		List<Asistencia> listAs = null;
 		try {
 			Object[] objArray;
 			Query query;
 			if (crrId != null) {
 				query = em.createQuery(
-						"select a,h,mcp,mcm,m,crr from Asistencia as a join a.horarioAcademico as h join h.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m join m.carrera as crr"
-								+ " where a.fichaDocente.fcdcId=:fcdcId and a.assFecha >= :fechaInicio and a.assFecha <= :fechaFin and crr.crrId=:crrId"
-								+ " order by a.assFecha asc");
+						"select ass,hrac,mlcrpr,mlcrmt,mtr,crr,fd, p from Asistencia as ass "
+								+ "join ass.assHorarioAcademico as hrac join ass.assFichaDocente as fd join fd.fcdcPersona as p "
+								+ "join hrac.hracMallaCurricularParalelo as mlcrpr "
+								+ "join mlcrpr.mlcrprMallaCurricularMateria as mlcrmt join mlcrmt.mlcrmtMateria as mtr join mtr.mtrCarrera as crr "
+								+ "where ass.assFichaDocente.fcdcId=:fcdcId and ass.assFecha >= :fechaInicio and ass.assFecha <= :fechaFin and crr.crrId=:crrId"
+								+ " order by ass.assFecha asc");
 				query.setParameter("crrId", crrId);
 			} else {
-				query = em.createQuery(
-						"select a, h,mcp, mcm, m, hca, hc from Asistencia as a join a.horarioAcademico as h join h.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m join h.horaClaseAula as hca join hca.horaClase as hc where a.fichaDocente.fcdcId=:fcdcId and a.assFecha >= :fechaInicio and a.assFecha <= :fechaFin order by a.assFecha asc");
+				query = em.createQuery("select ass,hrac,mlcrpr,prl,mlcrmt,mtr,hoclal,hocl, fd,p from Asistencia as ass "
+						+ "join ass.assHorarioAcademico as hrac join ass.assFichaDocente as fd join fd.fcdcPersona as p "
+						+ "join hrac.hracMallaCurricularParalelo as mlcrpr "
+						+ "join mlcrpr.mlcrprMallaCurricularMateria as mlcrmt join mlcrpr.mlcrprParalelo as prl "
+						+ "join mlcrmt.mlcrmtMateria as mtr join hrac.hracHoraClaseAula as hoclal join hoclal.hoclalHoraClase as hocl "
+						+ "where ass.assFichaDocente.fcdcId=:fcdcId and ass.assFecha >= :fechaInicio and ass.assFecha <= :fechaFin order by ass.assFecha, mtr.mtrDescripcion, prl.prlDescripcion asc");
 			}
 			query.setParameter("fcdcId", fdId);
 			query.setParameter("fechaInicio", inicio);
 			query.setParameter("fechaFin", fin);
+			listAs = new ArrayList<>();
 			for (Object obj : query.getResultList()) {
 				objArray = (Object[]) obj;
 				listAs.add((Asistencia) objArray[0]);
 			}
 		} catch (Exception e) {
-			System.out.println("Error al consultar Feriados: " + e);
+			System.out.println("Error al consultar Asistencias: " + e.getMessage());
+			return listAs;
 		}
 		return listAs;
-	}
-
-	@Override
-	public List<ContenidoCurricular> listarContenidos(Integer fdId) {
-		List<ContenidoCurricular> lstCn = new ArrayList<>();
-		try {
-			lstCn = em.createNamedQuery("Contenido.findAllByFdId", ContenidoCurricular.class).setParameter("fdId", fdId)
-					.getResultList();
-		} catch (Exception e) {
-			System.out.println(e);
-			return lstCn;
-		}
-		return lstCn;
-	}
-
-	@Override
-	public List<String> listarActividades(Integer fdId) {
-		List<String> lstAc = em.createNamedQuery("Actividad.findByFdId", String.class).setParameter("fcdcId", fdId)
-				.getResultList();
-		return lstAc;
 	}
 
 	/**
@@ -222,20 +318,20 @@ public class SrvDocente implements SrvDocenteLocal {
 	 */
 	@Override
 	public HorarioAcademico findHorarioByAsistencia(Asistencia asis) {
-		HorarioAcademico horario = new HorarioAcademico();
+		HorarioAcademico horario = null;
 		try {
 			Object[] arrayObj;
 			List<HorarioAcademico> lstH = new ArrayList<>();
-			Query query = em.createQuery(
-					"select h, h.horaClaseAula.horaClase from HorarioAcademico as h where h.mallaCurricularParalelo.mlcrprId=:mlcrpr and h.hracDia=:dia");
-			query.setParameter("mlcrpr", asis.getHorarioAcademico().getMallaCurricularParalelo().getMlcrprId())
+			Query query = em
+					.createQuery("select hrac, hca, hc from HorarioAcademico as hrac join hrac.hracHoraClaseAula as hca join hca.hoclalHoraClase as hc "
+							+ "where hrac.hracMallaCurricularParalelo.mlcrprId=:mlcrpr and hrac.hracDia=:dia");
+			query.setParameter("mlcrpr", asis.getAssHorarioAcademico().getHracMallaCurricularParalelo().getMlcrprId())
 					.setParameter("dia", asis.getAssFecha().getDay() - 1);
 			for (Object obj : query.getResultList()) {
 				arrayObj = (Object[]) obj;
 				lstH.add((HorarioAcademico) arrayObj[0]);
 			}
 			horario = lstH.get(0);
-			// horario.setHracHoraInicio(lstH.get(0).getHracHoraInicio());
 			horario.setHracHoraFin(lstH.get(lstH.size() - 1).getHracHoraFin());
 		} catch (Exception e) {
 			System.out.println("Error al consultar Feriados: " + e);
@@ -251,19 +347,34 @@ public class SrvDocente implements SrvDocenteLocal {
 	 */
 	@Override
 	public void actualizarAsistencia(Asistencia asistencia) {
-		if (asistencia.getAssId() != null) {
+		if (asistencia != null) {
 			em.merge(asistencia);
 		}
 	}
 
+	/**
+	 * Obtiene las actividades microcurricualres de la materia y docente
+	 * 
+	 * @param fcdcId
+	 *            id de Docente
+	 * @param mtrId
+	 *            id de Materia
+	 * @return
+	 */
 	@Override
 	public List<Seguimiento> listarSeguimientosxDocenteMateria(Integer fcdcId, Integer mtrId) {
-		List<Seguimiento> lstS = new ArrayList<>();
+		List<Seguimiento> lstS = null;
 		try {
 			Object[] objArray;
-			Query query = em.createQuery(
-					"select sg,ass,cnt,uc from Seguimiento as sg join sg.asistencia as ass join sg.contenidoCurricular as cnt join cnt.unidadCurricular as uc where sg.mallaCurricularParalelo.mallaCurricularMateria.materia.mtrId=:mtrId and ass.fichaDocente.fcdcId=:fcdcId order by sg.sgmId asc");
+			Query query = em
+					.createQuery("select sgm, ass, cncr, uncr from Seguimiento as sgm "
+							+ "join sgm.asistencia as ass "
+							+ "join sgm.sgmContenidoCurricular as cncr "
+							+ "join cncr.unidadCurricular as uncr "
+							+ "where sgm.sgmMallaCurricularParalelo.mlcrprMallaCurricularMateria.mlcrmtMateria.mtrId=:mtrId "
+							+ "and ass.assFichaDocente.fcdcId=:fcdcId order by sgm.sgmId asc");
 			query.setParameter("fcdcId", fcdcId).setParameter("mtrId", mtrId);
+			lstS= new ArrayList<>();
 			for (Object obj : query.getResultList()) {
 				objArray = (Object[]) obj;
 				lstS.add((Seguimiento) objArray[0]);
@@ -275,14 +386,27 @@ public class SrvDocente implements SrvDocenteLocal {
 		return lstS;
 	}
 
+	/**
+	 * Guarda opciones de registro movil o registro mediante login
+	 * 
+	 * @param selectDcnt
+	 *            Docente a enrolar
+	 * @param selectTp
+	 *            Tipo de huella del dedo a registrar
+	 * @param flagMovil
+	 *            Estado de registro movil
+	 * @param flagSinHuella
+	 *            Estado de registro x login
+	 */
 	@Override
 	public void guardarActualizarEstados(FichaDocente selectDcnt, TipoHuella selectTp, boolean flagMovil,
 			boolean flagSinHuella) {
-		HuellaDactilar hd = new HuellaDactilar();
+		HuellaDactilar hd = null;
 		hd = findHuella(selectDcnt.getFcdcId(), selectTp.getTphlId());
-		if (hd.getHldcId() == null) {
-			hd.setFichaDocente(selectDcnt);
-			hd.setTipoHuella(selectTp);
+		if (hd == null) {
+			hd= new HuellaDactilar();
+			hd.setHldcFichaDocente(selectDcnt);
+			hd.setHldcTipoHuella(selectTp);
 			if (selectTp.getTphlId() == 5 && flagSinHuella) {
 				hd.setHldcCodigoAuxiliar(1);
 			} else if (selectTp.getTphlId() == 5 && !flagSinHuella) {
@@ -295,12 +419,19 @@ public class SrvDocente implements SrvDocenteLocal {
 			} else if (selectTp.getTphlId() == 5 && !flagSinHuella) {
 				hd.setHldcCodigoAuxiliar(0);
 			} else if (selectTp.getTphlId() == 4 && !flagMovil) {
-				hd.setTipoHuella(em.find(TipoHuella.class, 0));
+				hd.setHldcTipoHuella(em.find(TipoHuella.class, 0));
 			}
 			em.merge(hd);
 		}
 	}
 
+	/**
+	 * Obtiene estados de registro movil o registro movil
+	 * 
+	 * @param fcdcId
+	 *            del Docente
+	 * @return Lista de estados
+	 */
 	@Override
 	public List<Boolean> listarestados(Integer fcdcId) {
 		List<Boolean> lstE = new ArrayList<>(2);
@@ -310,8 +441,8 @@ public class SrvDocente implements SrvDocenteLocal {
 		try {
 			Object[] arrayObj;
 			Query query = em
-					.createQuery(
-							"select hd, th from HuellaDactilar as hd join hd.tipoHuella as th where hd.fichaDocente.fcdcId=:fcdcId and hd.tipoHuella.tphlId not in (1,2,3)")
+					.createQuery("select hldc,tphl from HuellaDactilar as hldc join hldc.hldcTipoHuella as tphl "
+							+ "where hldc.hldcFichaDocente.fcdcId=:fcdcId and hldc.hldcTipoHuella.tphlId not in (1,2,3)")
 					.setParameter("fcdcId", fcdcId);
 			for (Object obj : query.getResultList()) {
 				arrayObj = (Object[]) obj;
@@ -320,57 +451,82 @@ public class SrvDocente implements SrvDocenteLocal {
 			for (HuellaDactilar hd : lstHD) {
 				if (hd.getHldcCodigoAuxiliar() == 1) {
 					lstE.add(0, true);
-				} else if (hd.getTipoHuella().getTphlId() == 4) {
+				} else if (hd.getHldcTipoHuella().getTphlId() == 4) {
 					lstE.add(1, true);
 				} else if (hd.getHldcCodigoAuxiliar() != 1) {
 					lstE.add(0, false);
-				} else if (hd.getTipoHuella().getTphlId() == 0) {
+				} else if (hd.getHldcTipoHuella().getTphlId() == 0) {
 					lstE.add(1, false);
 				}
 			}
 
 		} catch (Exception e) {
-			System.out.println("Erros obtener estados docente");
+			System.out.println("Erros obtener estados docente: "+e.getMessage());
 			return lstE;
 		}
 		return lstE;
 	}
 
+	/**
+	 * Verifica si tiene permisos de registro mediante login
+	 * 
+	 * @param regDcnt
+	 *            Docente a verificar
+	 * @return estado del permiso
+	 */
 	@Override
 	public boolean verificarLogin(FichaDocente regDcnt) {
+		boolean estado = false;
 		try {
-			Query query = em.createQuery(
-					"select hd.hldcCodigoAuxiliar from HuellaDactilar as hd where hd.fichaDocente.fcdcId=:fdId and hd.hldcCodigoAuxiliar=1");
+			Query query = em.createQuery("select hldc.hldcCodigoAuxiliar from HuellaDactilar as hldc "
+					+ "where hldc.hldcFichaDocente.fcdcId=:fdId and hldc.hldcCodigoAuxiliar=1");
 			query.setParameter("fdId", regDcnt.getFcdcId());
 			Integer codigo = (Integer) query.getSingleResult();
 			if (codigo == 1) {
-				return true;
+				estado = true;
 			} else {
-				return false;
+				estado = false;
 			}
 		} catch (Exception e) {
-			return false;
+			return estado;
 		}
-
+		return estado;
 	}
 
+	/**
+	 * Obtiene una lista de materias de una carrera al que pertenece el docente
+	 * 
+	 * @param fcdcId
+	 *            del Docente
+	 * @param crrId
+	 *            de la Carrera
+	 * @return materias x carrera del docente
+	 */
 	@Override
-	public List<Materia> listarMateriasxCarrera(Integer fcdcId,Integer crrId) {
-		List<Materia> lstM = new ArrayList<>();
+	public List<Materia> listarMateriasxCarrera(Integer fcdcId, Integer crrId) {
+		List<Materia> lstM = null;
 		try {
 			Query query = em.createQuery(
-					"select ma.mtrId from HorarioAcademico as ha join ha.mallaCurricularParalelo as mcpr join mcpr.paralelo as p join mcpr.mallaCurricularMateria as mcm join mcm.materia as ma join ma.carrera as cr join mcm.nivelByNvlId as nv  join ha.horaClaseAula as hca join hca.horaClase as hc join hca.aula as al  where mcpr.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch inner join ch.mallaCurricularParalelo as mcp join ch.periodoAcademico as pa  where pa.pracEstado=0 and ch.detallePuesto.fichaDocente.fcdcId=:fdId group by mcp.mlcrprId) and hca.hoclalEstado=0 and cr.crrId=:crrId group by ma.mtrId order by ma.mtrId asc");
+					"select  distinct mtr from HorarioAcademico as hrac join hrac.hracMallaCurricularParalelo as mlcrpr "
+							+ "join mlcrpr.mlcrprParalelo as prl join mlcrpr.mlcrprMallaCurricularMateria as mlcrmt "
+							+ "join mlcrmt.mlcrmtMateria as mtr join mtr.mtrCarrera as crr join mlcrmt.mlcrmtNivel as nvl "
+							+ "join hrac.hracHoraClaseAula as hoclal join hoclal.hoclalHoraClase as hocl join hoclal.hoclalAula as al "
+							+ "where mlcrpr.mlcrprId in (select mlcrpr.mlcrprId from CargaHoraria as crhr inner join crhr.crhrMallaCurricularParalelo as mlcrpr "
+							+ "join crhr.crhrPeriodoAcademico as prac where prac.pracEstado=0 and crhr.crhrDetallePuesto.dtpsFichaDocente.fcdcId=:fdId group by mlcrpr.mlcrprId) "
+							+ "and hoclal.hoclalEstado=0 and crr.crrId=:crrId order by mtr.mtrId asc");
 			query.setParameter("crrId", crrId);
 			query.setParameter("fdId", fcdcId);
-			for (Object obj : query.getResultList()) {
-				lstM.add(em.find(Materia.class, obj));
-			}
+			lstM = query.getResultList();
+			// for (Object obj : query.getResultList()) {
+			// lstM.add(em.find(Materia.class, obj));
+			// }
 		} catch (Exception e) {
 			System.out.println("Error al consultar materias por semestre: " + e);
 			return lstM;
 		}
 		return lstM;
 	}
+
 	/**
 	 * Permite obtener las asistencias de los docentes por facultad y enviar al
 	 * mail cada mes.
@@ -379,38 +535,44 @@ public class SrvDocente implements SrvDocenteLocal {
 	 * @return
 	 */
 	@Override
-	public List<Asistencia> getAsistenciasReporte(Integer fclId) {
+	public List<Asistencia> getAsistenciasReporte(Integer fclId, Date inicio, Date fin) {
 		List<Asistencia> asistenciaList = new ArrayList<>();
 		try {
 			Object[] objArray;
 			Query query;
 			if (fclId != null) {
-				query = em.createQuery("ad,fd,p,ha,mcp,mcm,m "
-						+ "from Asistencia as ad join as.fichaDocente as fd join fd.persona as p join as.horarioAcademico as ha "
-						+ "join ha.mallaCurricularParalelo as mcp join mcp.mallaCurricularMateria as mcm join mcm.materia as m "
-						+ "join m.carrera as car join car.dependencia as dep where dep.dpn_id=:fclId "
-						+ "order by p.prs_primer_apellido,ad.asdc_fecha,m.mtr_descripcion,ad.asdc_hora_entrada ");
+				query = em.createQuery("select ass,fcdc,prs,hrac,mlcrpr,mlcrmt,mtr,crr,dpn from Asistencia as ass "
+						+ "join ass.assFichaDocente as fcdc join fcdc.fcdcPersona as prs join ass.assHorarioAcademico as hrac "
+						+ "join hrac.hracMallaCurricularParalelo as mlcrpr join mlcrpr.mlcrprMallaCurricularMateria as mlcrmt join mlcrmt.mlcrmtMateria as mtr "
+						+ "join mtr.mtrCarrera as crr join crr.crrDependencia as dpn where dpn.dpnId=:fclId and ass.assFecha >= :fechaInicio and ass.assFecha <= :fechaFin");
 				query.setParameter("fclId", fclId);
+				query.setParameter("fechaInicio", inicio);
+				query.setParameter("fechaFin", fin);
 				for (Object obj : query.getResultList()) {
 					objArray = (Object[]) obj;
 					Asistencia ad = (Asistencia) objArray[0];
-					FichaDocente fd = (FichaDocente) objArray[0];
-					Persona p = (Persona) objArray[0];
-					HorarioAcademico ha = (HorarioAcademico) objArray[0];
-					MallaCurricularParalelo mcp = (MallaCurricularParalelo) objArray[0];
-					MallaCurricularMateria mcm = (MallaCurricularMateria) objArray[0];
-					Materia m = (Materia) objArray[0];
-					fd.setPersona(p);
-					ad.setFichaDocente(fd);
-					mcm.setMateria(m);
-					mcp.setMallaCurricularMateria(mcm);
-					ha.setMallaCurricularParalelo(mcp);
-					ad.setHorarioAcademico(ha);
+					FichaDocente fd = (FichaDocente) objArray[1];
+					Persona p = (Persona) objArray[2];
+					HorarioAcademico ha = (HorarioAcademico) objArray[3];
+					MallaCurricularParalelo mcp = (MallaCurricularParalelo) objArray[4];
+					MallaCurricularMateria mcm = (MallaCurricularMateria) objArray[5];
+					Materia m = (Materia) objArray[6];
+					Carrera crr = (Carrera) objArray[7];
+					Dependencia dp = (Dependencia) objArray[8];
+					fd.setFcdcPersona(p);
+					ad.setAssFichaDocente(fd);
+					crr.setCrrDependencia(dp);
+					m.setMtrCarrera(crr);
+					mcm.setMlcrmtMateria(m);
+					mcp.setMlcrprMallaCurricularMateria(mcm);
+					ha.setHracMallaCurricularParalelo(mcp);
+					ad.setAssHorarioAcademico(ha);
 					asistenciaList.add(ad);
 				}
 			}
 		} catch (Exception e) {
 			System.out.println("Error en el proceso getAsistenciasReporte" + e.getStackTrace());
+			return asistenciaList;
 		}
 		return asistenciaList;
 	}

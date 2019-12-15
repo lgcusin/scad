@@ -4,3 +4,7 @@
 1563040057682	Rename field 'horaEntrada'
 1563040069031	Rename field 'horaSalida'
 1563120673348	Rename method 'guardarAsis'
+1562869325714	Rename field 'lstPeriodos'
+1562871695908	Convert local variable 'semana' to field
+1562871914851	Rename method 'obtenerSemanaExamne'
+1562871924030	Rename field 'semana'

@@ -1,1 +1,8 @@
 1564719417969	Rename local variable 'lstD'
+1564802524789	Rename method 'getCarrera'
+1564802785852	Rename method 'getSyllabus'
+1564803689313	Rename method 'listarContenidos'
+1564805536777	Rename method 'buscarContenidos'
+1564805894543	Rename method 'marcacionReg'
+1564807945603	Rename method 'generar'
+1564809904791	Rename method 'getSeguimiento'

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="D:\GitHub\norte\Aplicacion\Aplicacion"/>
+		<item value="D:\Biometrico\FDx SDK Pro for Windows v3.84_J1.12\FDx SDK Pro for Windows v3.84_J1.12\FDx SDK Pro for Java Windows v1.12\netbeans_sample"/>
+		<item value="D:\GitHub\norte\Aplicacion"/>
+		<item value="D:\GitHub\Codigo"/>
 		<item value="D:\GitHub\scad\Codigo"/>
 		<item value="D:\GitHub\scad\pruebJPA"/>
 		<item value="D:\GitHub\scad\SCADejb"/>
@@ -19,7 +23,7 @@
 	<section name="org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog">
 		<item value="false" key="FilterByLocation"/>
 		<item value="true" key="ShowStatusLine"/>
-		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0D;&#x0A;&lt;History&gt;&#x0D;&#x0A;&lt;historyRootNode&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/academicoEjb/ejbModule/ec/edu/uce/academico/ejb/servicios/biometrico/impl/SrvAdministrarParametro.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;/historyRootNode&gt;&#x0D;&#x0A;&lt;/History&gt;" key="History"/>
+		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0D;&#x0A;&lt;History&gt;&#x0D;&#x0A;&lt;historyRootNode&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/academicoEjb/ejbModule/ec/edu/uce/academico/ejb/servicios/biometrico/impl/SrvAdministrarParametro.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/academicoJsf/WebContent/WEB-INF/lib/clienteMailUce.jar&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/academicoJsf/src/ec/edu/uce/academico/jsf/validadores/MailValidator.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/academicoJsf/src/ec/edu/uce/academico/jsf/utilidades/GeneradorMails.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/academicoJsf/src/ec/edu/uce/Biometrico/jsf/managedBeans/biometrico/ReporteHorario.java&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/academicoJsf/WebContent/academico/reportes/horarios/docente/listar.xhtml&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;infoNode path=&quot;/academicoJsf/WebContent/academico/reportes/archivosJasper/matricula/registro/reporteRegistroMatricula.jasper&quot; type=&quot;1&quot;/&gt;&#x0D;&#x0A;&lt;/historyRootNode&gt;&#x0D;&#x0A;&lt;/History&gt;" key="History"/>
 		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0D;&#x0A;&lt;workingSet workingSetName=&quot;&quot;/&gt;" key="WorkingSet"/>
 		<item value="false" key="ShowDerived"/>
 		<section name="DialogBoundsSettings">

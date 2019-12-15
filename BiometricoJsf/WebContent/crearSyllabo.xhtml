@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Syllabus / Syllabo / Crear" />
+		</ui:include>
+	</ui:define>
+	<ui:define name="cuerpo">
+		<!-- <f:event listener="#{syllabus.limpiarSesion}" type="preRenderView" /> -->
+		<h:form id="frmSylDetalles" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<!-- PANEL DE CREACION-->
+			<p:panel id="pnlCrearSyl" rendered="#{syllabus.crearSyllabo}"
+				header="Opciones de seleccion">
+				<p:dataTable id="dttSyllabos" value="#{syllabus.lstSyllabos}"
+					var="syll" emptyMessage="NO EXISTEN REGISTROS DE SYLLABUS">
+					<p:column headerText="CARRERA">
+						<h:outputLabel
+							value="#{syll.sylMallaCurricularMateria.mlcrmtMateria.mtrCarrera.crrDescripcion}" />
+					</p:column>
+					<p:column headerText="MALLA CURRICULAR">
+						<h:outputLabel
+							value="#{syll.sylMallaCurricularMateria.mlcrmtMallaCurricular.mlcrDescripcion}" />
+					</p:column>
+					<p:column headerText="MATERIA">
+						<h:outputLabel
+							value="#{syll.sylMallaCurricularMateria.mlcrmtMateria.mtrDescripcion}" />
+					</p:column>
+					<p:column headerText="OPCION">
+						<p:commandButton value="Seleccionar"
+							action="#{syllabus.seleccionar()}"
+							onclick="PF('dialogoTrabajando').show();"
+							oncomplete="PF('dialogoTrabajando').hide();">
+							<f:setPropertyActionListener value="#{syll}"
+								target="#{syllabus.syl}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			<p:commandButton id="bntRegresar" value="Regresar"
+				action="#{syllabus.regresar}" />
+			<p:commandButton value="Crear Syllabo"
+				action="#{syllabus.crearSyllabus}" update="frmSylDetalles" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

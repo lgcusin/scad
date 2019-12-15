@@ -6,55 +6,57 @@
 		transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:/BiometricoDS</jta-data-source>
-		<class>ec.uce.edu.biometrico.jpa.Usuario</class>
-		<class>ec.uce.edu.biometrico.jpa.FichaDocente</class>
-		<class>ec.uce.edu.biometrico.jpa.Actividad</class>
-		<class>ec.uce.edu.biometrico.jpa.Carrera</class>
-		<class>ec.uce.edu.biometrico.jpa.DetallePuesto</class>
-		<class>ec.uce.edu.biometrico.jpa.Herramienta</class>
-		<class>ec.uce.edu.biometrico.jpa.MallaCurricular</class>
-		<class>ec.uce.edu.biometrico.jpa.MallaCurricularMateria</class>
-		<class>ec.uce.edu.biometrico.jpa.Materia</class>
-		<class>ec.uce.edu.biometrico.jpa.Syllabo</class>
-		<class>ec.uce.edu.biometrico.jpa.UnidadCurricular</class>
-		<class>ec.uce.edu.biometrico.jpa.Asistencia</class>
-		<class>ec.uce.edu.biometrico.jpa.Seguimiento</class>
-		<class>ec.uce.edu.biometrico.jpa.TipoHuella</class>
-		<class>ec.uce.edu.biometrico.jpa.HuellaDactilar</class>
-		<class>ec.uce.edu.biometrico.jpa.Aula</class>
-		<class>ec.uce.edu.biometrico.jpa.Paralelo</class>
-		<class>ec.uce.edu.biometrico.jpa.MallaCurricularParalelo</class>
-		<class>ec.uce.edu.biometrico.jpa.DiaSemana</class>
-		<class>ec.uce.edu.biometrico.jpa.TipoHorario</class>
-		<class>ec.uce.edu.biometrico.jpa.FichaEmpleado</class>
-		<class>ec.uce.edu.biometrico.jpa.Metodologia</class>
-		<class>ec.uce.edu.biometrico.jpa.Bibliografia</class>
-		<class>ec.uce.edu.biometrico.jpa.RecursosDidacticos</class>
-		<class>ec.uce.edu.biometrico.jpa.Resultados</class>
-		<class>ec.uce.edu.biometrico.jpa.ContenidoCurricular</class>
-		<class>ec.uce.edu.biometrico.jpa.Persona</class>
-		<class>ec.uce.edu.biometrico.jpa.Nivel</class>
-		<class>ec.uce.edu.biometrico.jpa.CargaHoraria</class>
-		<class>ec.uce.edu.biometrico.jpa.Dependencia</class>
-		<class>ec.uce.edu.biometrico.jpa.UsuarioRol</class>
-		<class>ec.uce.edu.biometrico.jpa.Rol</class>
-		<class>ec.uce.edu.biometrico.jpa.TipoMateria</class>
-		<class>ec.uce.edu.biometrico.jpa.Feriado</class>
-		<class>ec.uce.edu.biometrico.jpa.Cronograma</class>
-		<class>ec.uce.edu.biometrico.jpa.CronogramaProcesoFlujo</class>
-		<class>ec.uce.edu.biometrico.jpa.ProcesoFlujo</class>
-		<class>ec.uce.edu.biometrico.jpa.PlanificacionCronograma</class>
+		<class>ec.edu.uce.biometrico.jpa.Usuario</class>
+		<class>ec.edu.uce.biometrico.jpa.FichaDocente</class>
+		<class>ec.edu.uce.biometrico.jpa.Actividad</class>
+		<class>ec.edu.uce.biometrico.jpa.Carrera</class>
+		<class>ec.edu.uce.biometrico.jpa.DetallePuesto</class>
+		<class>ec.edu.uce.biometrico.jpa.Herramienta</class>
+		<class>ec.edu.uce.biometrico.jpa.MallaCurricular</class>
+		<class>ec.edu.uce.biometrico.jpa.MallaCurricularMateria</class>
+		<class>ec.edu.uce.biometrico.jpa.Materia</class>
+		<class>ec.edu.uce.biometrico.jpa.Syllabo</class>
+		<class>ec.edu.uce.biometrico.jpa.UnidadCurricular</class>
+		<class>ec.edu.uce.biometrico.jpa.Asistencia</class>
+		<class>ec.edu.uce.biometrico.jpa.Seguimiento</class>
+		<class>ec.edu.uce.biometrico.jpa.TipoHuella</class>
+		<class>ec.edu.uce.biometrico.jpa.HuellaDactilar</class>
+		<class>ec.edu.uce.biometrico.jpa.Aula</class>
+		<class>ec.edu.uce.biometrico.jpa.Paralelo</class>
+		<class>ec.edu.uce.biometrico.jpa.MallaCurricularParalelo</class>
+		<class>ec.edu.uce.biometrico.jpa.DiaSemana</class>
+		<class>ec.edu.uce.biometrico.jpa.TipoHorario</class>
+		<class>ec.edu.uce.biometrico.jpa.FichaEmpleado</class>
+		<class>ec.edu.uce.biometrico.jpa.Metodologia</class>
+		<class>ec.edu.uce.biometrico.jpa.Bibliografia</class>
+		<class>ec.edu.uce.biometrico.jpa.RecursoDidactico</class>
+		<class>ec.edu.uce.biometrico.jpa.Resultados</class>
+		<class>ec.edu.uce.biometrico.jpa.ContenidoCurricular</class>
+		<class>ec.edu.uce.biometrico.jpa.Persona</class>
+		<class>ec.edu.uce.biometrico.jpa.Nivel</class>
+		<class>ec.edu.uce.biometrico.jpa.CargaHoraria</class>
+		<class>ec.edu.uce.biometrico.jpa.Dependencia</class>
+		<class>ec.edu.uce.biometrico.jpa.UsuarioRol</class>
+		<class>ec.edu.uce.biometrico.jpa.Rol</class>
+		<class>ec.edu.uce.biometrico.jpa.TipoMateria</class>
+		<class>ec.edu.uce.biometrico.jpa.Feriado</class>
+		<class>ec.edu.uce.biometrico.jpa.Cronograma</class>
+		<class>ec.edu.uce.biometrico.jpa.CronogramaProcesoFlujo</class>
+		<class>ec.edu.uce.biometrico.jpa.ProcesoFlujo</class>
+		<class>ec.edu.uce.biometrico.jpa.PlanificacionCronograma</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
 			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" />
 			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.jdbc.batch_size" value="30" />
+			<property name="hibernate.order_inserts" value="true" />
 			<property name="hibernate.connection.username" value="sa" />
-			<!-- <property name="jboss.entity.manager.factory.jndi.name" value="java:/BiometricoEntityManagerFactory"/> -->
-			<property name="hibernate.transaction.jta.platform"
-				value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.default_schema" value="sa"/>
-			<property name="hibernate.connection.password" value="admin"/>
+			<property name="jboss.entity.manager.factory.jndi.name" value="java:/BiometricoEntityManagerFactory"/>
+			<property name="hibernate.connection.release_mode" value="after_transaction" />
+			<property name="hibernate.default_schema" value="sa" />
+			<property name="hibernate.connection.password" value="admin" />
 		</properties>
 	</persistence-unit>
 </persistence>

@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="cuerpo">
+		<script type="text/javascript">
+			//<![CDATA[
+			/* DESHABILITA CLICK DERECHO */
+			document.oncontextmenu = function() {
+				return false
+			}
+			/* MUESTRA LOS DIALOGOS DE ACTIVIDADES Y HORARIO */
+			function handleDialogRequest(args) {
+				if (args.flagDlg) {
+					PF('dlgCntrl').show();
+				} else if (!args.flagDlg) {
+					PF('dlgCntrl').hide();
+				}
+			}
+			/* DESHACBILITAR TECLAS ESPECIALES Y COMBINACIONES */
+			document.onkeydown = function() {
+				if (window.event) {
+					if ((window.event.keyCode >= 112)
+							&& (window.event.keyCode <= 123)) {
+						//Bloquear Teclas Fxx
+						window.event.cancelBubble = true;
+						window.event.keyCode = 8;
+						window.event.returnValue = false;
+						return false;
+					}
+					if (window.event.keyCode == 13) {
+						PF('dlgLog').show();
+					}
+				}
+
+				if (event.altLeft || (window.event.keyCode == 18)) {
+					if ((window.event.keyCode == 37)
+							|| (window.event.keyCode == 39)
+							|| (window.event.keyCode == 9)) {
+						//Bloquear Alt + Cursor Izq/Der.
+						//Bloquear Alt + Tab.
+						return false;
+					}
+				}
+
+				if (event.ctrlKey) {
+					//Bloquear Ctrl
+					if ((window.event.keyCode >= 65)
+							&& (window.event.keyCode <= 90)
+							|| (window.event.keyCode == 17)) {
+						//Bloquear Alt + Cursor Izq/Der.
+						//Bloquear Alt + Tab.
+						return false;
+					}
+					return false;
+				}
+
+				if (window.event.metaKey) {
+					//Bloquear ⊞ windows
+					return false;
+				}
+
+				if (window.event.keyCode == 27) {
+					return false;
+				}
+
+				//alert(window.event.keyCode);
+				return true;
+
+			}
+
+			//]]>
+		</script>
+		<!-- DIALOGO PARA EL CONTROL DE ACTIVIDADES -->
+		<h:form id="frmAsistencia" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<!-- <p:remoteCommand> </p:remoteCommand> -->
+			<br />
+			<p
+				style="margin-left: 50px; color: rgb(0, 118, 189); font-size: 16px !important; font-weight: bold">Sistema
+				de Control de Asistencia Docente (S.C.A.D.)</p>
+			<h3></h3>
+			<br />
+			<p:outputPanel id="otpnControl">
+				<center>
+					<p:panel id="pnlDatosDocente" style="width:500px;">
+						<p:panelGrid columns="2" style="width:99%">
+							<h:outputLabel value="Docente:" style="width:100px;"></h:outputLabel>
+							<h:outputText
+								value="#{control.regDcnt.fcdcPersona.prsPrimerApellido} #{control.regDcnt.fcdcPersona.prsSegundoApellido} #{control.regDcnt.fcdcPersona.prsNombres}"></h:outputText>
+							<h:outputLabel value="Materia: " style="width:100px;"></h:outputLabel>
+							<h:outputText rendered="#{control.flagIni}"
+								value="#{control.hrrI.hracMallaCurricularParalelo.mlcrprMallaCurricularMateria.mlcrmtMateria.mtrDescripcion}"></h:outputText>
+							<h:outputText rendered="#{control.flagFin}"
+								value="#{control.hrrF.hracMallaCurricularParalelo.mlcrprMallaCurricularMateria.mlcrmtMateria.mtrDescripcion}"></h:outputText>
+							<h:outputLabel value="Aula: " style="width:100px;"></h:outputLabel>
+							<h:outputText rendered="#{control.flagIni}"
+								value="#{control.hrrI.hracHoraClaseAula.hoclalAula.alaDescripcion}" />
+							<h:outputText rendered="#{control.flagFin}"
+								value="#{control.hrrF.hracHoraClaseAula.hoclalAula.alaDescripcion}" />
+							<h:outputLabel value="Hora:" style="width:100px;" />
+							<h:outputLabel value="#{control.horaClase}" />
+						</p:panelGrid>
+					</p:panel>
+					<p:panel id="pnlActividades" style="width:500px;">
+						<h:outputLabel value="SEGUIMIENTO DEL SYLLABUS"
+							style="font-weight: bold" />
+						<!--<p:dataTable id="dttUnidades" var="uncr"
+							value="#{control.lstUncr}" style="margin-bottom:0">
+							<f:facet name="header">
+								SEGUIMIENTO DEL SYLLABUS
+							</f:facet>
+							<p:column style="width:16px">
+								<p:rowToggler class="fas fa-angle-down" />
+							</p:column>
+							<p:column>
+								<h:outputLabel value="#{uncr.uncrDescripcion}" />
+							</p:column>
+							<p:column style="width:55px">
+								<p:progressBar value="#{uncr.uncrPorcentaje}"
+									labelTemplate="#{uncr.uncrPorcentaje}%" displayOnly="true"
+									style="width:50px" />
+							</p:column>
+							<p:rowExpansion>
+								<p:selectManyMenu id="slmmContenido"
+									value="#{control.selecCnts}" var="Cnt" style="width:99%">
+									<f:selectItems value="#{uncr.contenidos}" var="cn"
+										itemLabel="#{cn.cncrDescripcion}"
+										itemValue="#{cn.cncrDescripcion}" />
+									<p:column style="width:16px">
+										<h:outputText value="#{Cnt}" />
+									</p:column>
+								</p:selectManyMenu>
+							</p:rowExpansion>
+						</p:dataTable>
+					
+						<p:selectManyMenu id="slmmContenidos" value="#{control.selecCnts}"
+							var="Cnt" showCheckbox="true"
+							style=" margin-right: 5px;width: 99%; width:100%">
+							<f:selectItems value="#{control.lstCnt}" var="cn"
+								itemLabel="#{cn.cncrDescripcion}"
+								itemValue="#{cn.cncrDescripcion}"></f:selectItems>
+							<p:column style="width:99%" headerText="TEMA DE CLASE">
+								<h:outputText value="#{Cnt}" />
+							</p:column>
+						</p:selectManyMenu>-->
+						<p:tree value="#{control.rootUC}" var="con"
+							selectionMode="checkbox" selection="#{control.selectedNodes2}"
+							style="margin-right: 5px; width:99%">
+
+							<p:treeNode type="unidad">
+								<p:panelGrid columns="2">
+									<h:outputText value="#{con.uncrNombre}"
+										style="font-weight: bold" />
+									<p:progressBar value="#{con.uncrPorcentaje}"
+										labelTemplate="#{con.uncrPorcentaje}%" displayOnly="true"
+										style="width:50px" />
+								</p:panelGrid>
+							</p:treeNode>
+							<p:treeNode type="contenido">
+								<h:outputText value="#{con}" />
+							</p:treeNode>
+						</p:tree>
+
+						<p:outputLabel value="Estado:" rendered="#{control.flagFin}" />
+						<h:selectOneRadio id="slcEstado" value="#{control.sgmEstado}"
+							unselectable="true" rendered="#{control.flagFin}">
+							<f:selectItem itemValue="PENDIENTE" itemLabel="PENDIENTE" />
+							<f:selectItem itemValue="COMPLETADO" itemLabel="COMPLETADO" />
+						</h:selectOneRadio>
+						<h:outputLabel value="Observacion:"></h:outputLabel>
+						<p:inputTextarea counter="display" title="Ingrese la observacion"
+							value="#{control.sgmObservacion}" maxlength="300"
+							counterTemplate="{0} caracteres restantes"
+							style="margin-right: 5px; width:99%" />
+						<h:outputLabel id="display" />
+					</p:panel>
+					<p:panel id="Resutado" style="width:500px;">
+						<center>
+							<p:panelGrid columns="2">
+								<h:outputLabel value="Horas clase:" />
+								<h:outputLabel value="#{control.sgmHoraClaseRestante}" />
+								<h:outputLabel value="Hora de Registro:" />
+								<h:outputText value="#{control.regAss.assHoraEntrada}"
+									rendered="#{control.flagIni}" />
+								<h:outputText value="#{control.regAss.assHoraSalida}"
+									rendered="#{control.flagFin}" />
+								<h:outputLabel value="Estado de clase" />
+								<h:outputText value="#{control.regAss.assEstado}" />
+							</p:panelGrid>
+						</center>
+					</p:panel>
+
+					<p:commandButton id="btnGuardar" value="GUARDAR"
+						action="#{control.guardarAsistencia()}"></p:commandButton>
+					<p:commandButton id="btnCancelar" value="CANCELAR"
+						action="#{control.cancelarAsistencia()}"></p:commandButton>
+				</center>
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

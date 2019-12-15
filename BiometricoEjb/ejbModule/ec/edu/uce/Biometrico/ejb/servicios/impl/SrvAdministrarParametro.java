@@ -2,26 +2,26 @@ package ec.edu.uce.Biometrico.ejb.servicios.impl;
 
 import java.util.List;
 
-import javax.ejb.LocalBean;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvAdministrarParametroLocal;
-import ec.uce.edu.biometrico.jpa.Dependencia;
-import ec.uce.edu.biometrico.jpa.Parametro;
+import ec.edu.uce.Biometrico.ejb.utilidades.constantes.GeneralesConstantes;
+import ec.edu.uce.biometrico.jpa.Dependencia;
+import ec.edu.uce.biometrico.jpa.Parametro;
 
 /**
  * Session Bean implementation class SrvAdministrarParametro
  */
 @Stateless
-@LocalBean
-@SuppressWarnings("unchecked")
+@Local
 public class SrvAdministrarParametro implements SrvAdministrarParametroLocal {
 
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
 
 	/**
 	 * Default constructor.
@@ -37,11 +37,13 @@ public class SrvAdministrarParametro implements SrvAdministrarParametroLocal {
 	public List<Parametro> listarParametroxFacultad(Integer fclId) {
 		List<Parametro> lstP = null;
 		try {
-			Query query = em.createQuery("select p from Parametro as p where p.dependencia.dpnId=:fclId");
+			Query query = em.createQuery(
+					"select prm from Parametro as prm where prm.prmDependencia.dpnId=:fclId order by prm.prmPosicion asc");
 			query.setParameter("fclId", fclId);
 			lstP = (List<Parametro>) query.getResultList();
 		} catch (Exception e) {
 			System.out.println("Error al consultar Parametros: " + e);
+			return lstP;
 		}
 		return lstP;
 	}
@@ -71,10 +73,11 @@ public class SrvAdministrarParametro implements SrvAdministrarParametroLocal {
 	public List<Dependencia> listarFacultades() {
 		List<Dependencia> lstFacultades = null;
 		try {
-			Query query = em.createQuery("select f from Facultad as f");
-			lstFacultades = (List<Dependencia>) query.getResultList();
+			Query query = em.createQuery("select dpn from Dependencia as dpn");
+			lstFacultades = query.getResultList();
 		} catch (Exception e) {
 			System.out.println("Error al consultar facultades: " + e);
+			return lstFacultades;
 		}
 		return lstFacultades;
 	}
@@ -85,15 +88,15 @@ public class SrvAdministrarParametro implements SrvAdministrarParametroLocal {
 	 * 
 	 * @return
 	 */
-//	private Parametro obtenerSecuenciaParametro() {
-//		Parametro parametro = null;
-//		try {
-//			Query query = em.createQuery("select p from Parametro as p  order by p.prmId desc");
-//			query.setMaxResults(1);
-//			parametro = (Parametro) query.getSingleResult();
-//		} catch (Exception e) {
-//			System.out.println("Error al consultar la secuencia del parametro: " + e);
-//		}
-//		return parametro;
-//	}
+	private Parametro obtenerSecuenciaParametro() {
+		Parametro parametro = null;
+		try {
+			Query query = em.createQuery("select prm from Parametro as prm order by prm.prmId desc");
+			query.setMaxResults(1);
+			parametro = (Parametro) query.getSingleResult();
+		} catch (Exception e) {
+			System.out.println("Error al consultar la secuencia del parametro: " + e);
+		}
+		return parametro;
+	}
 }

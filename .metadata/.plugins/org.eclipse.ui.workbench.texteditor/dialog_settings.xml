@@ -2,37 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="separar" key="selection"/>
+		<item value="verificarClickImprimir()" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="separar"/>
-			<item value="separa"/>
-			<item value="proveedorAutenticacion"/>
-			<item value="eliminarHorario"/>
-			<item value="long"/>
-			<item value="BigDecimal"/>
-			<item value="No existe un horario o está fuera del plazo establecido"/>
-			<item value="flagLog"/>
+			<item value="verificarClickImprimir()"/>
+			<item value="aprobados"/>
+			<item value="abrirVentaReporte"/>
+			<item value="cmdlModalReporte"/>
+			<item value="=:"/>
+			<item value="=:&apos;"/>
+			<item value="COMPLETADO"/>
+			<item value="PENDIENTE"/>
 		</list>
 		<list key="replacehistory">
+			<item value="frmSylEditar"/>
+			<item value="ec.edu.uce."/>
+			<item value=""/>
+			<item value="detalleAsistencia"/>
+			<item value="detalleActividad"/>
 			<item value="Integer"/>
 			<item value="registroExamen"/>
 			<item value="pnlAsistencia"/>
-			<item value="carrera"/>
-			<item value="Carrera"/>
-			<item value="cncrDescripcion"/>
-			<item value="mtrDescripcion"/>
-			<item value="crrDescripcion"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="284" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="391" key="DIALOG_HEIGHT"/>
-		<item value="954" key="DIALOG_X_ORIGIN"/>
-		<item value="244" key="DIALOG_Y_ORIGIN"/>
+		<item value="919" key="DIALOG_X_ORIGIN"/>
+		<item value="293" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

@@ -27,20 +27,12 @@
 					action="#{principal.verDetalleActividades(login.adminFacultad,'EMPLEADO')}"
 					ajax="false" />
 				<p:menuitem value="Syllabus" rendered="#{login.adminFacultad}"
-					action="#{principal.verSyllabus()}" />
+					action="#{principal.verSyllabus}" />
 			</p:submenu>
-			<p:submenu label="Reportes"
-				rendered="#{login.docente or login.adminFacultad}">
-				<p:menuitem value="Horario" rendered="#{login.docente}"
-					action="#{principal.verReporteHorario(login.docente,'DOCENTE')}"
-					ajax="false">
-				</p:menuitem>
+			<p:submenu label="Horario de Examen"
+				rendered="#{login.docente}">
 				<p:menuitem value="Agregar Horario" rendered="#{login.docente}"
 					action="#{principal.regExamen}" ajax="false" />
-				<p:menuitem value="Horarios" rendered="#{login.adminFacultad}"
-					action="#{principal.verReporteHorario(login.adminFacultad,'EMPLEADO')}"
-					ajax="false">
-				</p:menuitem>
 			</p:submenu>
 			<p:submenu label="Biometrico" rendered="#{login.adminFacultad}">
 				<p:submenu label="Horario">
@@ -50,10 +42,11 @@
 				<p:menuitem value="Enrolar Docente"
 					action="#{principal.verRegistro}" ajax="false" />
 				<p:menuitem value="Sistema de Control"
-					action="#{principal.verControl}"
-					ajax=" false" />
+					action="#{principal.verControl}" ajax=" false" />
 				<!-- action="#{principal.verControl}" 
-				 onclick="abrirBiometrico()-->
+				 onclick="abrirBiometrico() oncomplete="#{principal.verControl}"
+				 onclick="launchFullScreen(document.documentElement)"
+				 -->
 				<p:menuitem value="Justificacion"
 					action="#{principal.verJustificacion}" ajax="false" />
 				<p:menuitem value="Parametros de control"
@@ -65,7 +58,7 @@
 				<i class="fa fa-user"
 					style="float: right; margin: 0px 8px 0 5px; font-size: 20px; border-radius: 50%; background: #4cb6f1; padding: 2px 6px 5px; color: #fff;"></i>
 				<h:outputText style="float: right;margin: 5px;"
-					value="#{login.usuarioRol.usuario.persona.prsPrimerApellido} #{login.usuarioRol.usuario.persona.prsNombres}" />
+					value="#{login.usuarioRol.usroUsuario.usrPersona.prsNombres} #{login.usuarioRol.usroUsuario.usrPersona.prsPrimerApellido}" />
 				<!-- <h:outputText style="float: right;margin: 5px;"
 					value="#{login.usr.fichaEmpleado.fcemApellidos} #{login.usr.fichaEmpleado.fcemPrimerNombre}" /> -->
 				<a href="#{request.contextPath}/j_spring_security_logout"
@@ -75,14 +68,5 @@
 			</f:facet>
 		</p:menubar>
 	</h:form>
-	<script type="text/javascript">
-		function abrirBiometrico() {
-			window
-					.open(
-							"/control.xhtml",
-							"SistemaBiometricoUCE",
-							"top=0,left=-10,height=900,width=1600,fullscreen=yes,status=no,menubar=no,location=no,toolbar=no,scrollbars=yes,resizable=no,minimizable=no,dialog=yes")
-		}
-	</script>
 </body>
 </html>

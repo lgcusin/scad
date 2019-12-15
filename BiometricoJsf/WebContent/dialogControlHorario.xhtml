@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="cuerpo">
+		<script type="text/javascript">
+			//<![CDATA[
+			/* DESHABILITA CLICK DERECHO */
+			document.oncontextmenu = function() {
+				return false
+			}
+			/* MUESTRA LOS DIALOGOS DE ACTIVIDADES Y HORARIO */
+			function handleDialogRequest(args) {
+				if (args.flagDlg) {
+					PF('dlgCntrl').show();
+				} else if (!args.flagDlg) {
+					PF('dlgCntrl').hide();
+				}
+			}
+			/* DESHACBILITAR TECLAS ESPECIALES Y COMBINACIONES */
+			document.onkeydown = function() {
+				if (window.event) {
+					if ((window.event.keyCode >= 112)
+							&& (window.event.keyCode <= 123)) {
+						//Bloquear Teclas Fxx
+						window.event.cancelBubble = true;
+						window.event.keyCode = 8;
+						window.event.returnValue = false;
+						return false;
+					}
+					if (window.event.keyCode == 13) {
+						PF('dlgLog').show();
+					}
+				}
+
+				if (event.altLeft || (window.event.keyCode == 18)) {
+					if ((window.event.keyCode == 37)
+							|| (window.event.keyCode == 39)
+							|| (window.event.keyCode == 9)) {
+						//Bloquear Alt + Cursor Izq/Der.
+						//Bloquear Alt + Tab.
+						return false;
+					}
+				}
+
+				if (event.ctrlKey) {
+					//Bloquear Ctrl
+					if ((window.event.keyCode >= 65)
+							&& (window.event.keyCode <= 90)
+							|| (window.event.keyCode == 17)) {
+						//Bloquear Alt + Cursor Izq/Der.
+						//Bloquear Alt + Tab.
+						return false;
+					}
+					return false;
+				}
+
+				if (window.event.metaKey) {
+					//Bloquear ⊞ windows
+					return false;
+				}
+
+				if (window.event.keyCode == 27) {
+					return false;
+				}
+
+				//alert(window.event.keyCode);
+				return true;
+
+			}
+
+			//]]>
+		</script>
+		<h:form id="frmFueradeHorario" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<br />
+			<p
+				style="margin-left: 50px; color: rgb(0, 118, 189); font-size: 16px !important; font-weight: bold">Sistema
+				de Control de Asistencia Docente (S.C.A.D.)</p>
+			<h3></h3>
+			<br />
+			<!-- DIALOG DE ASISTENCIAS FUERA DE RANGO -->
+			<p:outputPanel id="otpnAsistencia">
+				<p:panel>
+					<h:outputLabel
+						value="#{control.regDcnt.fcdcPersona.prsPrimerApellido} #{control.regDcnt.fcdcPersona.prsSegundoApellido} #{control.regDcnt.fcdcPersona.prsNombres}" />
+					<p:dataTable id="tblAsistencia" value="#{control.lstAss}" var="As">
+						<p:column id="clmFecha" headerText="FECHA">
+							<h:outputText value="#{As.assFecha}" />
+						</p:column>
+						<p:column id="clmMateria" headerText="MATERIA">
+							<h:outputText
+								value="#{As.assHorarioAcademico.hracMallaCurricularParalelo.mlcrprMallaCurricularMateria.mlcrmtMateria.mtrDescripcion}" />
+						</p:column>
+						<p:column id="clmEntrada" headerText="HORARIO">
+							<h:outputText
+								value="#{As.assHorarioAcademico.hracHoraClaseAula.hoclalHoraClase.hoclDescripcion}" />
+						</p:column>
+						<p:column id="clmSalida" headerText="ESTADO">
+							<h:outputText value="#{As.assEstado}" />
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+				<p:commandButton id="btnAceptar" value="ACEPTAR"
+					action="#{control.regresarFueradeHorario()}"></p:commandButton>
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

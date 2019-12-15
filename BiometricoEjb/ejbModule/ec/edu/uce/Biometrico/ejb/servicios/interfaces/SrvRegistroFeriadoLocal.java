@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import ec.uce.edu.biometrico.jpa.Dependencia;
-import ec.uce.edu.biometrico.jpa.Feriado;
+import ec.edu.uce.biometrico.jpa.Dependencia;
+import ec.edu.uce.biometrico.jpa.Feriado;
 
 @Local
 public interface SrvRegistroFeriadoLocal {
@@ -15,12 +15,13 @@ public interface SrvRegistroFeriadoLocal {
 	 * Metodo definido para consultar los feriados segun los filtros ingresados.
 	 * 
 	 * @param fclId
-	 * @param integer 
+	 * @param integer
 	 * @param fechaInicio
 	 * @param fechaFin
 	 * @return
 	 */
 	List<Feriado> listarFeriados(boolean b, Integer crrId, Date inicio, Date fin);
+
 	/**
 	 * Metodo definido para guardar o actualizar un registro de feriado.
 	 * 
@@ -42,7 +43,4 @@ public interface SrvRegistroFeriadoLocal {
 	 */
 	List<Dependencia> listarFacultades();
 
-	
-
-	
 }

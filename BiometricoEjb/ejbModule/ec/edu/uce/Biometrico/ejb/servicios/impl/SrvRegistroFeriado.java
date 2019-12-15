@@ -4,26 +4,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.ejb.LocalBean;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvRegistroFeriadoLocal;
-import ec.uce.edu.biometrico.jpa.Dependencia;
-import ec.uce.edu.biometrico.jpa.Feriado;
+import ec.edu.uce.Biometrico.ejb.utilidades.constantes.GeneralesConstantes;
+import ec.edu.uce.biometrico.jpa.Dependencia;
+import ec.edu.uce.biometrico.jpa.Feriado;
 
 /**
  * Session Bean implementation class SrvRegistroFeriado
  */
 @Stateless
-@LocalBean
+@Local
 @SuppressWarnings("unchecked")
 public class SrvRegistroFeriado implements SrvRegistroFeriadoLocal {
 
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;;
 
 	/**
 	 * Default constructor.
@@ -40,15 +41,17 @@ public class SrvRegistroFeriado implements SrvRegistroFeriadoLocal {
 		List<Feriado> lstF = new ArrayList<>();
 		try {
 			if (tipo) {
-				Query query = em.createQuery(
-						"select f from Feriado as f join f.carrera as c where c.dependencia.dpnId=:id and f.frdFecha >= :fechaInicio and f.frdFecha <= :fechaFin order by f.frdFecha asc");
+				Query query = em.createQuery("select f from Feriado as f join f.frdCarrera as c "
+						+ "where c.crrDependencia.dpnId=:id and f.frdFecha >= :fechaInicio "
+						+ "and f.frdFecha <= :fechaFin order by f.frdFecha asc");
 				query.setParameter("id", id);
 				query.setParameter("fechaInicio", fechaInicio);
 				query.setParameter("fechaFin", fechaFin);
 				lstF = (List<Feriado>) query.getResultList();
 			} else {
-				Query query = em.createQuery(
-						"select f from Feriado as f join f.carrera as c where c.crrId=:id and f.frdFecha >= :fechaInicio and f.frdFecha <= :fechaFin order by f.frdFecha asc");
+				Query query = em.createQuery("select f from Feriado as f join f.frdCarrera as c "
+						+ "where c.crrId=:id and f.frdFecha >= :fechaInicio and f.frdFecha <= :fechaFin "
+						+ "order by f.frdFecha asc");
 				query.setParameter("id", id);
 				query.setParameter("fechaInicio", fechaInicio);
 				query.setParameter("fechaFin", fechaFin);
@@ -67,7 +70,7 @@ public class SrvRegistroFeriado implements SrvRegistroFeriadoLocal {
 	@Override
 	public void guardarActualizarFeriado(Feriado feriado) {
 		try {
-			if (feriado.getFrdId() != null) {
+			if (feriado != null) {
 				em.merge(feriado);
 			} else {
 				feriado.setFrdId(obtenerSecuenciaFeriado() + 1);

@@ -4,26 +4,26 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.ejb.LocalBean;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvReporteHorarioLocal;
-import ec.uce.edu.biometrico.jpa.HorarioAcademico;
-import ec.uce.edu.biometrico.jpa.HorarioAcademicoExamen;
-import ec.uce.edu.biometrico.jpa.TipoHorario;
+import ec.edu.uce.Biometrico.ejb.utilidades.constantes.GeneralesConstantes;
+import ec.edu.uce.biometrico.jpa.HorarioAcademicoExamen;
+
 
 /**
  * Session Bean implementation class SrvReporteHorario
  */
 @Stateless
-@LocalBean
+@Local
 public class SrvReporteHorario implements SrvReporteHorarioLocal {
 
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
 
 	/**
 	 * Default constructor.
@@ -31,7 +31,6 @@ public class SrvReporteHorario implements SrvReporteHorarioLocal {
 	public SrvReporteHorario() {
 		// TODO Auto-generated constructor stub
 	}
-
 
 	@Override
 	public Collection<String[]> listarHorarios(Integer fcdcId, Integer crrId, Integer tphrId) {
@@ -133,36 +132,36 @@ public class SrvReporteHorario implements SrvReporteHorarioLocal {
 		if (h.getHracexHoraInicio() != null && h.getHracexHoraFin() != null) {
 			columnaReporte[0] = h.getHracexHoraInicio() + " - " + h.getHracexHoraFin();
 		}
-//		if (h.getDiaSemana().getDsmId() == 1) {
-//			columnaReporte[1] = h.getMateria().getMtrDescripcion();
-//		}
-//		if (h.getDiaSemana().getDsmId() == 2) {
-//			columnaReporte[2] = h.getMateria().getMtrDescripcion();
-//		}
-//		if (h.getDiaSemana().getDsmId() == 3) {
-//			columnaReporte[3] = h.getMateria().getMtrDescripcion();
-//		}
-//		if (h.getDiaSemana().getDsmId() == 4) {
-//			columnaReporte[4] = h.getMateria().getMtrDescripcion();
-//		}
-//		if (h.getDiaSemana().getDsmId() == 5) {
-//			columnaReporte[5] = h.getMateria().getMtrDescripcion();
-//		}
-//		if (h.getDiaSemana().getDsmId() == 6) {
-//			columnaReporte[6] = h.getMateria().getMtrDescripcion();
-//		}
+		// if (h.getDiaSemana().getDsmId() == 1) {
+		// columnaReporte[1] = h.getMateria().getMtrDescripcion();
+		// }
+		// if (h.getDiaSemana().getDsmId() == 2) {
+		// columnaReporte[2] = h.getMateria().getMtrDescripcion();
+		// }
+		// if (h.getDiaSemana().getDsmId() == 3) {
+		// columnaReporte[3] = h.getMateria().getMtrDescripcion();
+		// }
+		// if (h.getDiaSemana().getDsmId() == 4) {
+		// columnaReporte[4] = h.getMateria().getMtrDescripcion();
+		// }
+		// if (h.getDiaSemana().getDsmId() == 5) {
+		// columnaReporte[5] = h.getMateria().getMtrDescripcion();
+		// }
+		// if (h.getDiaSemana().getDsmId() == 6) {
+		// columnaReporte[6] = h.getMateria().getMtrDescripcion();
+		// }
 	}
 
-	@Override
-	public Collection<TipoHorario> listarTipoHorario() {
-		Collection<TipoHorario> lstTipoHorario = null;
-		try {
-			Query query = em.createQuery("select th from TipoHorario as th");
-			System.out.println("Valores de la lista");
-			lstTipoHorario = query.getResultList();
-		} catch (Exception e) {
-			System.out.println("Error al consultar los tipos horarios" + e);
-		}
-		return lstTipoHorario;
-	}
+	// @Override
+	// public Collection<TipoHorario> listarTipoHorario() {
+	// Collection<TipoHorario> lstTipoHorario = null;
+	// try {
+	// Query query = em.createQuery("select th from TipoHorario as th");
+	// System.out.println("Valores de la lista");
+	// lstTipoHorario = query.getResultList();
+	// } catch (Exception e) {
+	// System.out.println("Error al consultar los tipos horarios" + e);
+	// }
+	// return lstTipoHorario;
+	// }
 }

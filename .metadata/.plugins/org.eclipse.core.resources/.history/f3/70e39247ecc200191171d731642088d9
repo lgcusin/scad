@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	
+	<persistence-unit name="academicoJpa">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<!-- <jta-data-source>java:jboss/datasources/omniumDS</jta-data-source> -->
+		<jta-data-source>java:/BiometricoUceDS</jta-data-source>
+		<properties>
+         	<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/>
+         <!-- 	<property name="hibernate.hbm2ddl.auto" value="validate"/> -->
+         	<property name="hibernate.show_sql" value="false"/> 
+         	<property name="hibernate.format_sql" value="true"/>
+         	<property name="hibernate.jdbc.batch_size" value="30"/>
+         	<property name="hibernate.order_inserts" value="true"/>
+         	<!-- <property name="jboss.entity.manager.factory.jndi.name" value="java:/academicoEntityManagerFactory"/> -->
+         	<property name="hibernate.connection.release_mode" value="after_transaction"/>
+         	<property name="flushModeName" value="FLUSH_AUTO"/>
+      	</properties>
+	</persistence-unit>
+	
+</persistence>
+
+

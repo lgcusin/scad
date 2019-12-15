@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Actividades / Seguimiento" />
+		</ui:include>
+	</ui:define>
+
+	<ui:define name="cuerpo">
+
+		<h:form id="frmActividades" enctype="multipart/form-data"
+			acceptcharset="UTF-8">
+			<div style="margin-left: 10px; margin-right: 10px;">
+				<p:panel id="pnlBusquedaEmpleado">
+					<p:panel id="pnlBusqueda_header" header="Parametros de búsqueda"></p:panel>
+					<p:panel id="pnlBusqueda_content"
+						styleClass="ui-panel-content ui-widget-content">
+						<!-- TABLA RESPONSIVA -->
+						<div class="grid condensed">
+							<!-- FILA NUMERO 2 -->
+							<div class="row cells12">
+								<div class="cell colspan4">
+									<!-- CARRERA -->
+									<div class="grid condensed" style="padding: 10px;">
+										<div class="row cells4">
+											<div class="cell colspan2">
+												<p:outputLabel id="lblCarrera" value="Carrera: "
+													styleClass="ui-outputlabel ui-widget" for="slcCarrera"></p:outputLabel>
+											</div>
+											<div class="cell colspan2">
+												<p:selectOneMenu id="slcCarrera"
+													value="#{detalleActividad.selectCrr.crrId}"
+													rendered="#{detalleActividad.mostrarFiltro}"
+													valueChangeListener="#{detalleActividad.listarDcnts}"
+													style="width: 100%">
+													<f:selectItem
+														itemLabel="#{generalesConstantesForm.appSeleccione}"
+														itemValue="#{generalesConstantesForm.appIdBase}" />
+													<f:selectItems value="#{detalleActividad.lstC}" var="cr"
+														itemLabel="#{cr.crrDescripcion}" itemValue="#{cr.crrId}" />
+													<p:ajax update="slcDocente" />
+												</p:selectOneMenu>
+												<p:selectOneMenu id="slcCarreraD"
+													value="#{detalleActividad.selectCrr.crrId}"
+													rendered="#{!detalleActividad.mostrarFiltro}"
+													valueChangeListener="#{detalleActividad.listarMtrs}"
+													style="width: 100%">
+													<f:selectItem
+														itemLabel="#{generalesConstantesForm.appSeleccione}"
+														itemValue="#{generalesConstantesForm.appIdBase}" />
+													<f:selectItems value="#{detalleActividad.lstC}" var="cr"
+														itemLabel="#{cr.crrDescripcion}" itemValue="#{cr.crrId}" />
+													<p:ajax update="slcMateria" />
+												</p:selectOneMenu>
+											</div>
+
+											<div class="cell colspan2">
+												<p:outputLabel id="lblDocente" value="Docente: "
+													rendered="#{detalleActividad.mostrarFiltro}"
+													styleClass="ui-outputlabel ui-widget" for="slcDocente"></p:outputLabel>
+											</div>
+											<div class="cell colspan2">
+												<p:selectOneMenu id="slcDocente"
+													value="#{detalleActividad.fcdcId}"
+													rendered="#{detalleActividad.mostrarFiltro}"
+													style="width: 100%">
+													<f:selectItem
+														itemLabel="#{generalesConstantesForm.appSeleccione}"
+														itemValue="#{generalesConstantesForm.appIdBase}" />
+													<f:selectItems value="#{detalleActividad.lstD}" var="dcn"
+														itemLabel="#{dcn.fcdcPersona.prsPrimerApellido} #{dcn.fcdcPersona.prsSegundoApellido} #{dcn.fcdcPersona.prsNombres}"
+														itemValue="#{dcn.fcdcId}" />
+												</p:selectOneMenu>
+											</div>
+
+											<div class="cell colspan2">
+												<p:outputLabel id="lblMateria" value="Materia: "
+													rendered="#{!detalleActividad.mostrarFiltro}"
+													styleClass="ui-outputlabel ui-widget" for="slcDocente"></p:outputLabel>
+											</div>
+											<div class="cell colspan2">
+												<p:selectOneMenu id="slcMateria"
+													value="#{detalleActividad.mtrId}"
+													rendered="#{!detalleActividad.mostrarFiltro}"
+													style="width: 100%">
+													<f:selectItem
+														itemLabel="#{generalesConstantesForm.appSeleccione}"
+														itemValue="#{generalesConstantesForm.appIdBase}" />
+													<f:selectItems value="#{detalleActividad.lstM}" var="mt"
+														itemLabel="#{mt.mtrDescripcion}" itemValue="#{mt.mtrId}" />
+												</p:selectOneMenu>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</p:panel>
+				</p:panel>
+				<p:commandButton id="btnBuscar" value="Buscar"
+					action="#{detalleActividad.listarActividades}"
+					update="tblActividades" onclick="PF('dialogoTrabajando').show();"
+					oncomplete="PF('dialogoTrabajando').hide();"></p:commandButton>
+
+				<p:panel id="pnlResultadosAct" header="Resultados de la búsqueda">
+					<br />
+					<p:dataTable id="tblActividades" value="#{detalleActividad.lstSgm}"
+						var="sg">
+						<p:column headerText="Fecha">
+							<h:outputText value="#{sg.asistencia.assFecha}" />
+						</p:column>
+						<p:column headerText="Materia"
+							rendered="#{sesionUsuarioForm.adminFacultad}">
+							<h:outputText
+								value="#{sg.sgmMallaCurricularParalelo.mlcrprMallaCurricularMateria.mlcrmtMateria.mtrDescripcion}" />
+						</p:column>
+						<p:column headerText="Unidad Curricular">
+							<h:outputText
+								value="#{sg.sgmContenidoCurricular.unidadCurricular.uncrNombre}" />
+						</p:column>
+						<p:column headerText="Descripcion">
+							<h:outputText
+								value="#{sg.sgmContenidoCurricular.cncrDescripcion}" />
+						</p:column>
+						<p:column headerText="Observacion">
+							<h:outputText value="#{sg.sgmObservacion}" />
+						</p:column>
+						<p:column headerText="Estado">
+							<h:outputText value="#{sg.sgmEstado}" />
+						</p:column>
+						<p:column headerText="Verificado" style="text-align:center">
+							<h:selectBooleanCheckbox id="slcCheckVerificado"
+								value="#{sg.sgmVerificado}">
+								<f:selectItem itemLabel="" itemValue="#{true}" />
+							</h:selectBooleanCheckbox>
+						</p:column>
+						<f:facet name="footer">
+							<p:commandButton process="@this" update="tblActividades"
+								value="Guardar cambios"
+								action="#{detalleActividad.guardarVerificacion()}" />
+						</f:facet>
+					</p:dataTable>
+				</p:panel>
+
+				<div style="margin-left: 10px; margin-right: 10px;">
+					<p:commandButton value="Regresar"
+						action="#{detalleActividad.regresar()}"></p:commandButton>
+				</div>
+
+			</div>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+</html>

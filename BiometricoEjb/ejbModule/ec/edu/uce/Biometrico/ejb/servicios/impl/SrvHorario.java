@@ -5,32 +5,27 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.ejb.LocalBean;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvHorarioLocal;
-import ec.uce.edu.biometrico.jpa.Asistencia;
-import ec.uce.edu.biometrico.jpa.Aula;
-import ec.uce.edu.biometrico.jpa.Carrera;
-import ec.uce.edu.biometrico.jpa.HorarioAcademico;
-import ec.uce.edu.biometrico.jpa.HorarioAcademicoExamen;
-import ec.uce.edu.biometrico.jpa.Materia;
-import ec.uce.edu.biometrico.jpa.Nivel;
-import ec.uce.edu.biometrico.jpa.Paralelo;
-import ec.uce.edu.biometrico.jpa.PeriodoAcademico;
+import ec.edu.uce.Biometrico.ejb.utilidades.constantes.GeneralesConstantes;
+import ec.edu.uce.biometrico.jpa.*;
+
+
 
 /**
  * Session Bean implementation class SrvHorario
  */
 @Stateless
-@LocalBean
+@Local
 public class SrvHorario implements SrvHorarioLocal {
 
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
 
 	/**
 	 * Default constructor.
@@ -43,10 +38,8 @@ public class SrvHorario implements SrvHorarioLocal {
 		List<Carrera> lstC = new ArrayList<>();
 		try {
 			Object[] arrayObj;
-			Query query = em
-					.createQuery(
-							"select cr.crrId from DetallePuesto as dp join dp.carrera as cr where dp.fichaDocente.fcdcId=:fcId group by cr.crrId")
-					.setParameter("fcId", fcId);
+			Query query = em.createQuery("select cr.crrId from DetallePuesto as dp join dp.dtpsCarrera as cr "
+					+ "where dp.dtpsFichaDocente.fcdcId=:fcId group by cr.crrId").setParameter("fcId", fcId);
 			for (Object obj : query.getResultList()) {
 				arrayObj = (Object[]) obj;
 				lstC.add(em.find(Carrera.class, arrayObj[0]));
@@ -63,16 +56,36 @@ public class SrvHorario implements SrvHorarioLocal {
 		return lstM;
 	}
 
+	/**
+	 * Lista los semestres de la carrera al que pertenece el docente
+	 * 
+	 * @param fdId
+	 *            id del docente
+	 * @param crrId
+	 *            id de la carrera
+	 * @return semestres
+	 */
 	@Override
 	public List<Nivel> listarSemestrexCarrera(Integer fdId, Integer crrId) {
-		List<Nivel> lstN = new ArrayList<>();
+		List<Nivel> lstN = new ArrayList<Nivel>();
 		try {
-			Query query = em.createQuery(
-					"select nv.nvlId from HorarioAcademico as ha join ha.mallaCurricularParalelo as mcpr join mcpr.paralelo as p join mcpr.mallaCurricularMateria as mcm join mcm.materia as ma join ma.carrera as cr join mcm.nivelByNvlId as nv  join ha.horaClaseAula as hca join hca.horaClase as hc join hca.aula as al  where mcpr.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch inner join ch.mallaCurricularParalelo as mcp join ch.periodoAcademico as pa  where pa.pracEstado=0 and ch.detallePuesto.fichaDocente.fcdcId=:fdId group by mcp.mlcrprId) and hca.hoclalEstado=0 and cr.crrId=:crId group by nv.nvlId order by nv.nvlId asc");
+			Query query = em.createQuery("select distinct nv from HorarioAcademico as ha "
+					+ "join ha.hracMallaCurricularParalelo as mcpr "
+					+ "join mcpr.mlcrprMallaCurricularMateria as mcm " 
+					+ "join mcm.mlcrmtMateria as ma "
+					+ "join ma.mtrCarrera as cr "
+					+ "join mcm.mlcrmtNivel as nv " 
+					+ "join ha.hracHoraClaseAula as hca "
+					+ "where mcpr.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch "
+					+ "inner join ch.crhrMallaCurricularParalelo as mcp " 
+					+ "join ch.crhrPeriodoAcademico as pa "
+					+ "where pa.pracEstado=0 and ch.crhrDetallePuesto.dtpsFichaDocente.fcdcId=:fdId "
+					+ "group by mcp.mlcrprId) and hca.hoclalEstado=0 and cr.crrId=:crId order by nv.nvlId asc");
 			query.setParameter("crId", crrId).setParameter("fdId", fdId);
-			for (Object obj : query.getResultList()) {
-				lstN.add(em.find(Nivel.class, obj));
-			}
+			lstN = query.getResultList();
+			// for (Object obj : query.getResultList()) {
+			// lstN.add(em.find(Nivel.class, obj));
+			// }
 		} catch (Exception e) {
 			System.out.println("Error al consultar semestres x carrera");
 			return lstN;
@@ -91,14 +104,26 @@ public class SrvHorario implements SrvHorarioLocal {
 	public List<Materia> listarMatBySem(Integer fdId, Integer idSemestre, Integer idCarrera) {
 		List<Materia> lstM = new ArrayList<>();
 		try {
-			Query query = em.createQuery(
-					"select ma.mtrId from HorarioAcademico as ha join ha.mallaCurricularParalelo as mcpr join mcpr.paralelo as p join mcpr.mallaCurricularMateria as mcm join mcm.materia as ma join ma.carrera as cr join mcm.nivelByNvlId as nv  join ha.horaClaseAula as hca join hca.horaClase as hc join hca.aula as al  where mcpr.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch inner join ch.mallaCurricularParalelo as mcp join ch.periodoAcademico as pa  where pa.pracEstado=0 and ch.detallePuesto.fichaDocente.fcdcId=:fdId group by mcp.mlcrprId) and hca.hoclalEstado=0 and cr.crrId=:crrId and nv.nvlId=:smsId group by ma.mtrId order by ma.mtrId asc");
+			Query query = em.createQuery("select distinct ma from HorarioAcademico as ha "
+					+ "join ha.hracMallaCurricularParalelo as mcpr "
+					+ "join mcpr.mlcrprMallaCurricularMateria as mcm "
+					+ "join mcm.mlcrmtMateria as ma "
+					+ "join ma.mtrCarrera as cr "
+					+ "join mcm.mlcrmtNivel as nv "
+					+ "join ha.hracHoraClaseAula as hca "
+					+ "where mcpr.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch "
+					+ "inner join ch.crhrMallaCurricularParalelo as mcp "
+					+ "join ch.crhrPeriodoAcademico as pa "
+					+ "where pa.pracEstado=0 and ch.crhrDetallePuesto.dtpsFichaDocente.fcdcId=:fdId "
+					+ "group by mcp.mlcrprId) and hca.hoclalEstado=0 and cr.crrId=:crrId and nv.nvlId=:smsId "
+					+ "order by ma.mtrId asc");
 			query.setParameter("smsId", idSemestre);
 			query.setParameter("crrId", idCarrera);
 			query.setParameter("fdId", fdId);
-			for (Object obj : query.getResultList()) {
-				lstM.add(em.find(Materia.class, obj));
-			}
+			lstM=query.getResultList();
+			// for (Object obj : query.getResultList()) {
+			// lstM.add(em.find(Materia.class, obj));
+			// }
 		} catch (Exception e) {
 			System.out.println("Error al consultar materias por semestre: " + e);
 			return lstM;
@@ -106,22 +131,50 @@ public class SrvHorario implements SrvHorarioLocal {
 		return lstM;
 	}
 
+	/**
+	 * Obtiene los paralelos del semestres en que se encuentra la materia que
+	 * dicta el docente
+	 * 
+	 * @param fdId
+	 *            id del docente
+	 * @param idSemestre
+	 *            id del semestre
+	 * @param idMateria
+	 *            id de la materia
+	 * @param idCarrera
+	 *            id de la carrera
+	 * @return
+	 */
 	@Override
 	public List<Paralelo> listarParalelosHorario(Integer fdId, Integer idSemestre, Integer idMateria,
 			Integer idCarrera) {
 		List<Paralelo> lstPar = new ArrayList<>();
 		try {
-			Query query = em.createQuery(
-					"select p.prlId from HorarioAcademico as ha join ha.mallaCurricularParalelo as mcpr join mcpr.paralelo as p join mcpr.mallaCurricularMateria as mcm join mcm.materia as ma join ma.carrera as cr join mcm.nivelByNvlId as nv  join ha.horaClaseAula as hca join hca.horaClase as hc join hca.aula as al  where mcpr.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch inner join ch.mallaCurricularParalelo as mcp join ch.periodoAcademico as pa  where pa.pracEstado=0 and ch.detallePuesto.fichaDocente.fcdcId=:fdId group by mcp.mlcrprId) and hca.hoclalEstado=0 and cr.crrId=:crrId and nv.nvlId=:smsId and ma.mtrId=:mtrId group by p.prlId order by p.prlId asc");
+			Query query = em.createQuery("select distinct p from HorarioAcademico as ha "
+					+ "join ha.hracMallaCurricularParalelo as mcpr "
+					+ "join mcpr.mlcrprParalelo as p "
+					+ "join mcpr.mlcrprMallaCurricularMateria as mcm "
+					+ "join mcm.mlcrmtMateria as ma "
+					+ "join ma.mtrCarrera as cr "
+					+ "join mcm.mlcrmtNivel as nv "
+					+ "join ha.hracHoraClaseAula as hca "
+					+ "where mcpr.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch "
+					+ "inner join ch.crhrMallaCurricularParalelo as mcp "
+					+ "join ch.crhrPeriodoAcademico as pa "
+					+ "where pa.pracEstado=0 and ch.crhrDetallePuesto.dtpsFichaDocente.fcdcId=:fdId "
+					+ "group by mcp.mlcrprId) and hca.hoclalEstado=0 and cr.crrId=:crrId and nv.nvlId=:smsId and ma.mtrId=:mtrId "
+					+ "order by p.prlId asc");
 			query.setParameter("smsId", idSemestre);
 			query.setParameter("crrId", idCarrera);
 			query.setParameter("mtrId", idMateria);
 			query.setParameter("fdId", fdId);
-			for (Object obj : query.getResultList()) {
-				lstPar.add(em.find(Paralelo.class, obj));
-			}
+			lstPar = query.getResultList();
+			// for (Object obj : query.getResultList()) {
+			// lstPar.add(em.find(Paralelo.class, obj));
+			// }
 		} catch (Exception e) {
 			System.out.println("Error al consultar paralelos por semestre, materia y carrera: " + e);
+			return lstPar;
 		}
 		return lstPar;
 	}
@@ -138,10 +191,16 @@ public class SrvHorario implements SrvHorarioLocal {
 		return lstAula;
 	}
 
+	/**
+	 * Guarda los horarios de examen que dicta el docente
+	 * 
+	 * @param hor
+	 *            Horario a guardar
+	 */
 	@Override
 	public void guardarHorarioExamen(HorarioAcademicoExamen horario) {
 		try {
-			if (horario.getHracexId() != null) {
+			if (horario != null) {
 				em.merge(horario);
 			} else {
 				int h = obtenerSecuenciaHorario();
@@ -156,8 +215,7 @@ public class SrvHorario implements SrvHorarioLocal {
 	private int obtenerSecuenciaHorario() {
 		int h = 0;
 		try {
-			Query query = em
-					.createQuery("select h.hracexId from HorarioAcademicoExamen as h  order by h.hracexId desc");
+			Query query = em.createQuery("select h.hracexId from HorarioAcademicoExamen as h order by h.hracexId desc");
 			query.setMaxResults(1);
 			h = (int) query.getSingleResult();
 		} catch (Exception e) {
@@ -167,34 +225,45 @@ public class SrvHorario implements SrvHorarioLocal {
 		return h;
 	}
 
+	/**
+	 * obtiene el horario academico de la materia en el paralelo,semestre y
+	 * carrera a la que pertenece y dicta el docente
+	 * 
+	 * @param integer
+	 *            id del docente
+	 * @param prlId
+	 *            id del paralelo
+	 * @param mtrId
+	 *            id de la materia
+	 * @return horarios academicos
+	 */
 	@Override
 	public List<HorarioAcademico> listarHorarios(Integer fdId, Integer idParalelo, Integer idMateria) {
-		List<HorarioAcademico> lstHorario = new ArrayList<>();
+		List<HorarioAcademico> lstHorario = null;
 		try {
 			Query query = em.createQuery(
-					"select ha.hracId from HorarioAcademico as ha join ha.mallaCurricularParalelo as mcpr join mcpr.paralelo as p join mcpr.mallaCurricularMateria as mcm join mcm.materia as ma join ma.carrera as cr join mcm.nivelByNvlId as nv  join ha.horaClaseAula as hca join hca.horaClase as hc join hca.aula as al  where mcpr.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch inner join ch.mallaCurricularParalelo as mcp join ch.periodoAcademico as pa  where pa.pracEstado=0 and ch.detallePuesto.fichaDocente.fcdcId=:fdId group by mcp.mlcrprId) and hca.hoclalEstado=0 and ma.mtrId=:mtrId and p.prlId=:prlId group by ha.hracId order by ha.hracId asc");
+					"select distinct ha from HorarioAcademico as ha " 
+							+ "join ha.hracMallaCurricularParalelo as mcpr "
+							+ "join mcpr.mlcrprParalelo as p "
+							+ "join mcpr.mlcrprMallaCurricularMateria as mcm "
+							+ "join mcm.mlcrmtMateria as ma "
+							+ "join ma.mtrCarrera as cr "
+							+ "join mcm.mlcrmtNivel as nv "
+							+ "join ha.hracHoraClaseAula as hca "
+							+ "join hca.hoclalHoraClase as hc "
+							+ "join hca.hoclalAula as al "
+							+ "where mcpr.mlcrprId in ( select mcp.mlcrprId from CargaHoraria as ch "
+							+ "inner join ch.crhrMallaCurricularParalelo as mcp "
+							+ "join ch.crhrPeriodoAcademico as pa where pa.pracEstado=0 "
+							+ "and ch.crhrDetallePuesto.dtpsFichaDocente.fcdcId=:fdId group by mcp.mlcrprId) and hca.hoclalEstado=0 "
+							+ "and ma.mtrId=:mtrId and p.prlId=:prlId order by ha.hracId asc");
 			query.setParameter("prlId", idParalelo);
 			query.setParameter("mtrId", idMateria);
 			query.setParameter("fdId", fdId);
-			System.out.println("Valores de la lista");
-			for (Object obj : query.getResultList()) {
-				lstHorario.add(em.find(HorarioAcademico.class, obj));
-			}
-			// List<HorarioAcademico> lstAux = lstHorario;
-			// for (HorarioAcademico h : lstHorario) {
-			// List<HorarioAcademico> auxHorario = new ArrayList<>();
-			// for (HorarioAcademico h2 : lstAux) {
-			// if (h.getHracDia().equals(h2.getHracDia()) &&
-			// h.getMallaCurricularParalelo().getMlcrprId()
-			// .equals(h2.getMallaCurricularParalelo().getMlcrprId())) {
-			// auxHorario.add(h2);
+			lstHorario = query.getResultList();
+			// for (Object obj : query.getResultList()) {
+			// lstHorario.add(em.find(HorarioAcademico.class, obj));
 			// }
-			// }
-			// for (int i = 1; i<auxHorario.size(); i++) {
-			// lstAux.remove(auxHorario.get(i));
-			// }
-			// }
-			// lstHorario = lstAux;
 		} catch (Exception e) {
 			System.out.println("Error al consultar los horarios" + e);
 			return lstHorario;
@@ -221,13 +290,19 @@ public class SrvHorario implements SrvHorarioLocal {
 	 * return lstH; }
 	 */
 
+	/**
+	 * Guarda las asistencias de la semana de examenes
+	 * 
+	 * @param asis
+	 *            asistencia para guardar
+	 */
 	@Override
 	public void actualizarGuardarAsistencia(Asistencia asis) {
 		try {
-			if (asis.getAssId() != null) {
+			if (asis != null) {
 				em.merge(asis);
 			} else {
-				asis.setAssId(0);
+				//asis.setAssId(0);
 				em.persist(asis);
 			}
 		} catch (Exception e) {
@@ -236,42 +311,62 @@ public class SrvHorario implements SrvHorarioLocal {
 
 	}
 
+	/**
+	 * Comprueba si exiten asistencias de los horarios academicos
+	 * 
+	 * @param fcdcId
+	 *            id del docente
+	 * @param idHorarios
+	 *            key id de hoarios obtenidos de la materia
+	 * @param date
+	 *            fecha actual
+	 * @return asistencias
+	 */
 	@Override
-	public List<Asistencia> listarAsistenciasByHorario(Integer fcdcId, List<Integer> idHorarios, Date fechaProceso) {
-		List<Asistencia> lstAsistencia = new ArrayList<>();
+	public Asistencia listarAsistenciasByHorario(Integer fcdcId, List<Integer> idHorarios, Date fechaProceso) {
+		Asistencia Asistencia = null;
 		try {
-			Query query = em.createQuery("select asdc, hae from Asistencia as asdc "
-					+ "left join asdc.horarioAcademicoExamen as hae where asdc.fichaDocente.fcdcId=:fcdcId "
-					+ "and asdc.assFecha >= :fechaProceso and asdc.horarioAcademico.hracId in (:idHorarios)");
+			Object[] objArray;
+			Query query = em.createQuery("select asdc,ha, hae from Asistencia as asdc "
+					+ "left join asdc.assHorarioAcademicoExamen as hae join asdc.assHorarioAcademico as ha where asdc.assFichaDocente.fcdcId=:fcdcId "
+					+ "and asdc.assFecha = :fechaProceso and ha.hracId in (:idHorarios)");
 			query.setParameter("idHorarios", idHorarios);
 			query.setParameter("fechaProceso", fechaProceso);
 			query.setParameter("fcdcId", fcdcId);
-			Object[] objArray;
-			HashMap<String, Object> map;
 			for (Object object : query.getResultList()) {
 				objArray = (Object[]) object;
-				Asistencia ad = new Asistencia();
-				HorarioAcademicoExamen hae = new HorarioAcademicoExamen();
-				ad = (Asistencia) objArray[0];
-				hae = (HorarioAcademicoExamen) objArray[1];
-				ad.setHorarioAcademicoExamen(hae);
-				lstAsistencia.add(ad);
+				Asistencia = (Asistencia) objArray[0];
+				Asistencia.setAssHorarioAcademico((HorarioAcademico) objArray[1]);
 			}
 		} catch (Exception e) {
 			System.out.println("Error al consultar los asistencias por horarios" + e);
+			return Asistencia;
 		}
-		return lstAsistencia;
+		return Asistencia;
 	}
 
+	/**
+	 * Obtiene la hora del horario academico y lo tranforma a un formato
+	 * estandar
+	 * 
+	 * @param h
+	 *            horario academico
+	 * @param i
+	 *            indice del Horario
+	 * @return hora transformada
+	 */
 	@Override
 	public String obtenerHoraClasexHorario(HorarioAcademico h, int i) {
-		String hora = "";
+		String hora = null;
 		List<HorarioAcademico> lstH = new ArrayList<>();
 		try {
 			Object[] arrayObj;
-			Query query = em.createQuery(
-					"select ha, hca, hc from HorarioAcademico as ha join ha.horaClaseAula as hca join hca.horaClase as hc where ha.mallaCurricularParalelo.mlcrprId=:mcpId and ha.hracDia=:dia order by ha.hracDescripcion");
-			query.setParameter("mcpId", h.getMallaCurricularParalelo().getMlcrprId()).setParameter("dia",
+			Query query = em.createQuery("select ha, hca, hc from HorarioAcademico as ha "
+					+ "join ha.hracHoraClaseAula as hca " 
+					+ "join hca.hoclalHoraClase as hc "
+					+ "where ha.hracMallaCurricularParalelo.mlcrprId=:mcpId and ha.hracDia=:dia "
+					+ "order by hc.hoclDescripcion asc");
+			query.setParameter("mcpId", h.getHracMallaCurricularParalelo().getMlcrprId()).setParameter("dia",
 					h.getHracDia());
 			for (Object obj : query.getResultList()) {
 				arrayObj = (Object[]) obj;
@@ -279,17 +374,19 @@ public class SrvHorario implements SrvHorarioLocal {
 			}
 			switch (i) {
 			case 1:
-				if (lstH.get(0).getHoraClaseAula().getHoraClase().getHoclHoraInicio() < 10) {
-					hora = "0" + lstH.get(0).getHoraClaseAula().getHoraClase().getHoclHoraInicio() + ":00";
+				if (lstH.get(0).getHracHoraClaseAula().getHoclalHoraClase().getHoclHoraInicio() < 10) {
+					hora = "0" + lstH.get(0).getHracHoraClaseAula().getHoclalHoraClase().getHoclHoraInicio() + ":00";
 				} else {
-					hora = lstH.get(0).getHoraClaseAula().getHoraClase().getHoclHoraInicio() + ":00";
+					hora = lstH.get(0).getHracHoraClaseAula().getHoclalHoraClase().getHoclHoraInicio() + ":00";
 				}
 				break;
 			case 2:
-				if (lstH.get(lstH.size() - 1).getHoraClaseAula().getHoraClase().getHoclHoraFin() < 10) {
-					hora = "0" +lstH.get(lstH.size() - 1).getHoraClaseAula().getHoraClase().getHoclHoraFin() + ":00";
+				if (lstH.get(lstH.size() - 1).getHracHoraClaseAula().getHoclalHoraClase().getHoclHoraFin() < 10) {
+					hora = "0" + lstH.get(lstH.size() - 1).getHracHoraClaseAula().getHoclalHoraClase().getHoclHoraFin()
+							+ ":00";
 				} else {
-					hora = lstH.get(lstH.size() - 1).getHoraClaseAula().getHoraClase().getHoclHoraFin() + ":00";
+					hora = lstH.get(lstH.size() - 1).getHracHoraClaseAula().getHoclalHoraClase().getHoclHoraFin()
+							+ ":00";
 				}
 
 				break;
@@ -301,23 +398,95 @@ public class SrvHorario implements SrvHorarioLocal {
 		return hora;
 	}
 
+	/**
+	 * Obtiene fechas de periodo acdemico al que pertenece horaios de materias
+	 * del docente para examenes
+	 * 
+	 * @param string
+	 *            Fecha actualizada
+	 * @return periodos acdemicos
+	 */
 	@Override
 	public List<PeriodoAcademico> listarPeriodos(String string) {
-		String param= "%HEMISEMESTRE"+string;
-		List<PeriodoAcademico> lstP= new ArrayList<>();
-		try{
+		List<PeriodoAcademico> lstP = null;
+		String param = "%HEMISEMESTRE" + string;
+		try {
 			Object[] arrayObj;
-			Query query= em.createQuery("select pa from PlanificacionCronograma as pc join pc.cronogramaProcesoFlujo as cpf join cpf.procesoFlujo as pf join cpf.cronograma as crn join crn.periodoAcademico as pa where pc.plcrEstado=0 and  pf.prflEstado=0 and pf.prflDescripcion like :param and crn.crnEstado=0 and crn.crnTipo=0 and  pa.pracEstado=0 order by pa.pracFechaIncio asc");
+			Query query = em.createQuery(
+					"select pa from PlanificacionCronograma as pc join pc.plcrCronogramaProcesoFlujo as cpf "
+							+ "join cpf.crprProcesoFlujo as pf join cpf.crprCronograma as crn join crn.crnPeriodoAcademico as pa "
+							+ "where pc.plcrEstado=0 and pf.prflEstado=0 and pf.prflDescripcion like :param and crn.crnEstado=0 "
+							+ "and crn.crnTipo=0 and  pa.pracEstado=0 order by pa.pracFechaIncio asc");
 			query.setParameter("param", param);
-			for(Object obj: query.getResultList()){
-			arrayObj= (Object[]) obj;
+			for (Object obj : query.getResultList()) {
+				arrayObj = (Object[]) obj;
 				lstP.add((PeriodoAcademico) arrayObj[0]);
 			}
-		}catch (Exception e) {
-			// TODO: handle exception
+		} catch (Exception e) {
+			System.out.println("Error al obtener el periodo acdemico" + e);
 			return lstP;
 		}
 		return lstP;
 	}
+
+	/**
+	 * Obtiene fechas de periodo acdemico al que pertenece horaios de materias
+	 * del docente para examenes
+	 * 
+	 * @param string
+	 *            Fecha actualizada
+	 * @return periodos acdemicos
+	 */
+	@Override
+	public List<PlanificacionCronograma> listarPlannificacion(String string) {
+		List<PlanificacionCronograma> lstP = null;
+		String param = "%HEMISEMESTRE" + string;
+		try {
+			// Object[] arrayObj;
+			Query query = em.createQuery(
+					"select pc from PlanificacionCronograma as pc join pc.plcrCronogramaProcesoFlujo as cpf join cpf.crprProcesoFlujo as pf join cpf.crprCronograma as crn join crn.crnPeriodoAcademico as pa where pc.plcrEstado=0 and  pf.prflEstado=0 and pf.prflDescripcion like :param and crn.crnEstado=0 and crn.crnTipo=0 and  pa.pracEstado=0 order by pc.plcrId asc");
+			query.setParameter("param", param);
+			lstP = query.getResultList();
+			// for (Object obj : query.getResultList()) {
+			// arrayObj = (Object[]) obj;
+			// lstP.add((PeriodoAcademico) arrayObj[0]);
+			// }
+		} catch (Exception e) {
+			System.out.println("Error al obtener el periodo acdemico" + e);
+			return lstP;
+		}
+		return lstP;
+	}
+
+	/**
+	 * Elimina el regitro modificado
+	 * @param asis Asisencia a eliminar
+	 */
+	@Override
+	public void removeAsistencia(Asistencia asis) {
+		try {
+			Asistencia a = em.find(Asistencia.class, asis.getAssId());
+			if (a != null) {
+				em.remove(a);
+			}
+		} catch (Exception e) {
+			System.out.println("Error al eliminar asistencia");
+		}
+		
+	}
+
+	@Override
+	public void removerHorarioExamen(HorarioAcademicoExamen hracex) {
+		try {
+			HorarioAcademicoExamen he = em.find(HorarioAcademicoExamen.class, hracex.getHracexId());
+			if (he != null) {
+				em.remove(he);
+			}
+		} catch (Exception e) {
+			System.out.println("Error al eliminar horario de examen");
+		}
+		
+	}
+
 
 }

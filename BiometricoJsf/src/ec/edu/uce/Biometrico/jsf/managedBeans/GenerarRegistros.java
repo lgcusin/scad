@@ -15,9 +15,10 @@ import javax.faces.event.ValueChangeEvent;
 
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvEmpleadoLocal;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvSeguimientoLocal;
-import ec.uce.edu.biometrico.jpa.Carrera;
-import ec.uce.edu.biometrico.jpa.FichaDocente;
-import ec.uce.edu.biometrico.jpa.HorarioAcademico;
+import ec.edu.uce.Biometrico.jsf.utilidades.FacesUtil;
+import ec.edu.uce.biometrico.jpa.Carrera;
+import ec.edu.uce.biometrico.jpa.FichaDocente;
+import ec.edu.uce.biometrico.jpa.HorarioAcademico;
 
 @ManagedBean(name = "generarRegistros")
 @ViewScoped
@@ -36,17 +37,15 @@ public class GenerarRegistros {
 	private List<FichaDocente> lstDocente;
 	private List<HorarioAcademico> lstHorarioAcademico;
 	private String fecha;
-	private Integer hhI;
-	private Integer mmI;
-	private Integer hhF;
-	private Integer mmF;
+	private String hhI;
+	private String hhF;
 	private Boolean flagGenerado;
 
 	@PostConstruct
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		beanLogin = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
-		lstCarrera = srvEmp.listarCarrerasxFacultad(beanLogin.getDt().get(0).getCarrera().getDependencia().getDpnId());
+		lstCarrera = srvEmp.listarCarrerasxFacultad(beanLogin.getDt().get(0).getDtpsCarrera().getCrrDependencia().getDpnId());
 		iniciarBean();
 	}
 
@@ -54,45 +53,62 @@ public class GenerarRegistros {
 		selectCarrera = new Carrera();
 		selectDocente = new FichaDocente();
 		flagGenerado = false;
+		hhI = "07:00";
+		hhF = "22:00";
 	}
 
 	public void setCarreraID(ValueChangeEvent event) {
-		if (event.getNewValue() != null) {
+		if (event.getNewValue() != null && (Integer) event.getNewValue() > 0) {
 			selectCarrera.setCrrId((Integer) event.getNewValue());
 			lstDocente = srvEmp.listarDocentesxCarrera(selectCarrera.getCrrId());
-		} else {
-			selectCarrera.setCrrId(null);
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "No se ha seleccionado una carrera.",
-					"Warning!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
 	public void setDocenteID(ValueChangeEvent event) {
-		if (event.getNewValue() != null) {
+		if (event.getNewValue() != null && (Integer) event.getNewValue() > 0) {
 			selectDocente.setFcdcId((Integer) event.getNewValue());
-		} else {
-			selectDocente.setFcdcId(null);
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "No se ha seleccionado un docente",
-					"Warning!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void buscarHorariosDiarios() throws ParseException {
-		Date date = new SimpleDateFormat(FORMATOFECHA).parse(fecha);
-		int dia = date.getDay() - 1;
-		Integer[] arrayHora = { hhI, mmI, hhF, mmF };
-		lstHorarioAcademico = srvEmp.listarHorariosxDocentexFechaHora(selectDocente.getFcdcId(), arrayHora, dia, selectCarrera.getCrrId());
+		if (selectCarrera != null && selectDocente != null) {
+			if (fecha != null && fecha.length() > 0) {
+				Date date = new SimpleDateFormat(FORMATOFECHA).parse(fecha);
+				int dia = date.getDay() - 1;
+				if (hhI != null && hhF != null) {
+
+					Integer[] arrayHora = obtenerHoras(hhI, hhF);
+					lstHorarioAcademico = srvEmp.listarHorariosxDocentexFechaHora(selectDocente.getFcdcId(), arrayHora,
+							dia, selectCarrera.getCrrId());
+					if (lstHorarioAcademico.isEmpty()) {
+						FacesUtil.mensajeInfo("No existen horarios academicos con los parametros ingresados");
+					} else {
+						flagGenerado = false;
+					}
+				} else {
+					FacesUtil.mensajeError("Los campos hora de inicio y fin son requerida");
+				}
+
+			} else {
+				FacesUtil.mensajeError("El campo fecha es requerida");
+			}
+		} else {
+			FacesUtil.mensajeError("Seleccione los campos requeridos");
+		}
+
+	}
+
+	private Integer[] obtenerHoras(String hhI, String hhF) {
+		Integer[] retorno = { Integer.parseInt(hhI.substring(0, 2)), Integer.parseInt(hhF.substring(0, 2)) };
+		return retorno;
 	}
 
 	public void limpiar() {
 		lstDocente = null;
 		fecha = "";
-		hhI = 0;
-		mmI = 0;
-		hhF = 0;
-		mmF = 0;
+		hhI = "07:00";
+		hhF = "22:00";
 		lstHorarioAcademico = null;
 		flagGenerado = false;
 	}
@@ -105,6 +121,18 @@ public class GenerarRegistros {
 		flagGenerado = true;
 	}
 
+	public String regresar() {
+		selectCarrera = null;
+		selectDocente = null;
+		lstCarrera = null;
+		lstDocente = null;
+		lstHorarioAcademico = null;
+		fecha = null;
+		hhI = null;
+		hhF = null;
+		flagGenerado = false;
+		return "principal";
+	}
 	// GETTERS AND SETTERS
 
 	/**
@@ -112,6 +140,22 @@ public class GenerarRegistros {
 	 */
 	public Carrera getSelectCarrera() {
 		return selectCarrera;
+	}
+
+	public String getHhI() {
+		return hhI;
+	}
+
+	public void setHhI(String hhI) {
+		this.hhI = hhI;
+	}
+
+	public String getHhF() {
+		return hhF;
+	}
+
+	public void setHhF(String hhF) {
+		this.hhF = hhF;
 	}
 
 	/**
@@ -180,66 +224,6 @@ public class GenerarRegistros {
 	 */
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
-	}
-
-	/**
-	 * @return the hhI
-	 */
-	public Integer getHhI() {
-		return hhI;
-	}
-
-	/**
-	 * @param hhI
-	 *            the hhI to set
-	 */
-	public void setHhI(Integer hhI) {
-		this.hhI = hhI;
-	}
-
-	/**
-	 * @return the mmI
-	 */
-	public Integer getMmI() {
-		return mmI;
-	}
-
-	/**
-	 * @param mmI
-	 *            the mmI to set
-	 */
-	public void setMmI(Integer mmI) {
-		this.mmI = mmI;
-	}
-
-	/**
-	 * @return the hhF
-	 */
-	public Integer getHhF() {
-		return hhF;
-	}
-
-	/**
-	 * @param hhF
-	 *            the hhF to set
-	 */
-	public void setHhF(Integer hhF) {
-		this.hhF = hhF;
-	}
-
-	/**
-	 * @return the mmF
-	 */
-	public Integer getMmF() {
-		return mmF;
-	}
-
-	/**
-	 * @param mmF
-	 *            the mmF to set
-	 */
-	public void setMmF(Integer mmF) {
-		this.mmF = mmF;
 	}
 
 	/**

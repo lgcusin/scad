@@ -2,8 +2,10 @@ package ec.edu.uce.Biometrico.jsf.springSecurity;
 
 import org.springframework.security.core.GrantedAuthority;
 
-public class ProveedorPermisos implements GrantedAuthority {
-	private static final long serialVersionUID = 8645782513098410909L;
+public class ProveedorPermisos implements GrantedAuthority{
+
+	private static final long serialVersionUID = -6835653812274402660L;
+	
 	private String rol;
 
 	public ProveedorPermisos(String rol) {

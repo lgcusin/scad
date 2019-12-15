@@ -15,23 +15,28 @@ import javax.faces.event.ValueChangeEvent;
 import ec.edu.uce.Biometrico.ejb.servicios.impl.SrvDocente;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvDocenteLocal;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvEmpleadoLocal;
-import ec.uce.edu.biometrico.jpa.Asistencia;
-import ec.uce.edu.biometrico.jpa.Carrera;
-import ec.uce.edu.biometrico.jpa.ContenidoCurricular;
-import ec.uce.edu.biometrico.jpa.DetallePuesto;
-import ec.uce.edu.biometrico.jpa.FichaDocente;
-import ec.uce.edu.biometrico.jpa.Materia;
-import ec.uce.edu.biometrico.jpa.Seguimiento;
+import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvSeguimientoLocal;
+import ec.edu.uce.Biometrico.ejb.utilidades.constantes.GeneralesConstantes;
+import ec.edu.uce.Biometrico.jsf.utilidades.FacesUtil;
+import ec.edu.uce.biometrico.jpa.Asistencia;
+import ec.edu.uce.biometrico.jpa.Carrera;
+import ec.edu.uce.biometrico.jpa.ContenidoCurricular;
+import ec.edu.uce.biometrico.jpa.DetallePuesto;
+import ec.edu.uce.biometrico.jpa.FichaDocente;
+import ec.edu.uce.biometrico.jpa.Materia;
+import ec.edu.uce.biometrico.jpa.Seguimiento;
 
-@ManagedBean(name = "detalleAct")
+@ManagedBean(name = "detalleActividad")
 @ViewScoped
 public class DetalleActividad {
 	@EJB
 	private SrvDocenteLocal srvDnt;
 	@EJB
 	private SrvEmpleadoLocal srvEmp;
+	@EJB
+	private SrvSeguimientoLocal srvSgm;
+	
 	public Login beanLogin;
-
 	public List<Seguimiento> lstSgm;
 	public List<Carrera> lstC;
 	public List<FichaDocente> lstD;
@@ -42,67 +47,105 @@ public class DetalleActividad {
 	public Carrera selectCrr;
 	public Materia selectMtr;
 	public FichaDocente selectDcn;
+	private boolean mostrarFiltro;
+	private Integer mtrId;
+	private Integer fcdcId;
 
 	@PostConstruct
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		beanLogin = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
-		selectCrr = new Carrera();
+		iniciar();
 		if (beanLogin.Docente) {
-			selecCnt = new ContenidoCurricular();
-			selectMtr = new Materia();
-			lstC = srvEmp.listarCarreras(beanLogin.getDt().get(0).getFichaDocente().getFcdcId());
+			mostrarFiltro = false;
+			lstC = srvEmp.listarCarreras(beanLogin.getDt().get(0).getDtpsFichaDocente().getFcdcId());
 		}
 		if (beanLogin.adminFacultad) {
-			selectDcn = new FichaDocente();
-			lstC = srvEmp.listarCarrerasxFacultad(beanLogin.getDt().get(0).getCarrera().getDependencia().getDpnId());
+			mostrarFiltro = true;
+			lstC = srvEmp
+					.listarCarrerasxFacultad(beanLogin.getDt().get(0).getDtpsCarrera().getCrrDependencia().getDpnId());
 		}
 
 	}
 
+	public void iniciar() {
+		crrId = null;
+		mtrId = null;
+		fcdcId = null;
+		selectCrr = new Carrera();
+		selectMtr = new Materia();
+		selectDcn = new FichaDocente();
+		selectCrr.setCrrId(GeneralesConstantes.APP_ID_BASE);
+		selectMtr.setMtrId(GeneralesConstantes.APP_ID_BASE);
+		selectDcn.setFcdcId(GeneralesConstantes.APP_ID_BASE);
+	}
+
 	public void listarDcnts(ValueChangeEvent event) {
+		selectDcn.setFcdcId(GeneralesConstantes.APP_ID_BASE);
 		if (event.getNewValue() != null) {
 			System.out.println("Metodo de setear codigo carrera: " + event.getNewValue());
 			crrId = (Integer) event.getNewValue();
 			lstD = srvEmp.listarDocentesxCarrera(crrId);
-		} else {
-			System.out.println("No ha seleccionada una carrera: ");
+			if (lstD.isEmpty()) {
+				FacesUtil.mensajeError("No existen docentes para la carrera seleccionada.");
+			}
 		}
-
 	}
 
 	public void listarMtrs(ValueChangeEvent event) {
+		selectMtr.setMtrId(GeneralesConstantes.APP_ID_BASE);
 		if (event.getNewValue() != null) {
 			System.out.println("Metodo de setear codigo carrera: " + event.getNewValue());
 			crrId = (Integer) event.getNewValue();
-			lstM = new ArrayList<>();
-			lstM = srvDnt.listarMateriasxCarrera(beanLogin.getDt().get(0).getFichaDocente().getFcdcId(), crrId);
-		} else {
-			lstD = null;
-			System.out.println("No ha seleccionada una carrera: ");
+			lstM = srvDnt.listarMateriasxCarrera(beanLogin.getDt().get(0).getDtpsFichaDocente().getFcdcId(), crrId);
+			if (lstM.isEmpty()) {
+				FacesUtil.mensajeError("No exsten materias en la carrera selecciondad.");
+			}
 		}
 
 	}
 
 	public void listarActividades() {
-		lstSgm= new ArrayList<>();
-		if (beanLogin.Docente) {
-			lstSgm = srvDnt.listarSeguimientosxDocenteMateria(beanLogin.getDt().get(0).getFichaDocente().getFcdcId(),
-					selectMtr.getMtrId());
+		lstSgm = new ArrayList<>();
+		if (crrId != null && (mtrId != null || fcdcId != null)) {
+			if (beanLogin.Docente) {
+				lstSgm = srvDnt.listarSeguimientosxDocenteMateria(
+						beanLogin.getDt().get(0).getDtpsFichaDocente().getFcdcId(), mtrId);
+				if (lstSgm.isEmpty()) {
+					FacesUtil.mensajeError("No existen actividades realizadas.");
+				}
+			} else {
+				lstSgm = srvEmp.listarSeguimientosxDocente(fcdcId);
+				if (lstSgm.isEmpty()) {
+					FacesUtil.mensajeError("No existen actividades realizadas.");
+				}
+			}
 		} else {
-			lstSgm= srvEmp.listarSeguimientosxDocente(selectDcn.getFcdcId());
+			FacesUtil.mensajeError("Selecciones los campos de busqueda");
+		}
+	}
+
+	public void guardarVerificacion() {
+		for (Seguimiento sgm : lstSgm) {
+			srvSgm.guardarActualizarSeguimiento(sgm);
 		}
 	}
 
 	public String regresar() {
+		crrId = null;
+		mtrId = null;
+		fcdcId = null;
+		selectCrr = null;
+		selectMtr = null;
+		selectDcn = null;
+		lstC = null;
+		lstD = null;
+		lstM = null;
+		lstSgm = null;
 		return "principal";
 	}
 
 	// setters and getters
-
-	public ContenidoCurricular getSelecCnt() {
-		return selecCnt;
-	}
 
 	/**
 	 * @return the selectDcn
@@ -117,10 +160,6 @@ public class DetalleActividad {
 	 */
 	public void setSelectDcn(FichaDocente selectDcn) {
 		this.selectDcn = selectDcn;
-	}
-
-	public void setSelecCnt(ContenidoCurricular selecCnt) {
-		this.selecCnt = selecCnt;
 	}
 
 	public List<Carrera> getLstC() {
@@ -145,6 +184,30 @@ public class DetalleActividad {
 
 	public void setCrrId(Integer crrId) {
 		this.crrId = crrId;
+	}
+
+	public Integer getFcdcId() {
+		return fcdcId;
+	}
+
+	public void setFcdcId(Integer fcdcId) {
+		this.fcdcId = fcdcId;
+	}
+
+	public Integer getMtrId() {
+		return mtrId;
+	}
+
+	public void setMtrId(Integer mtrId) {
+		this.mtrId = mtrId;
+	}
+
+	public Carrera getSelectCrr() {
+		return selectCrr;
+	}
+
+	public void setSelectCrr(Carrera selectCrr) {
+		this.selectCrr = selectCrr;
 	}
 
 	/**
@@ -190,6 +253,14 @@ public class DetalleActividad {
 	 */
 	public void setLstSgm(List<Seguimiento> lstSgm) {
 		this.lstSgm = lstSgm;
+	}
+
+	public boolean isMostrarFiltro() {
+		return mostrarFiltro;
+	}
+
+	public void setMostrarFiltro(boolean mostrarFiltro) {
+		this.mostrarFiltro = mostrarFiltro;
 	}
 
 }

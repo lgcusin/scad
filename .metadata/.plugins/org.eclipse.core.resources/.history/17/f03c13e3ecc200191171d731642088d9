@@ -1,0 +1,15 @@
+package ec.edu.uce.academico.jpa.entidades.publico.constantes;
+
+public class ConstantesJpa {
+	// public static final String SCHEMA = "academico_produccion";
+	// public static final String SCHEMA = "desarrollo";
+	public static final String SCHEMA = "SA";
+	// static{
+	// String asd = System.getProperty("schemaName");
+	// System.out.println(asd);
+	//
+	// String sss = System.getProperty("y");
+	// System.out.println(sss);
+	//
+	// }
+}

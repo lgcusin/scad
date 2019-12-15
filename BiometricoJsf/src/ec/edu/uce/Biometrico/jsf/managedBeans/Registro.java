@@ -26,8 +26,9 @@ import org.primefaces.model.StreamedContent;
 import ec.edu.uce.Biometrico.ejb.servicios.impl.SrvLogin;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.JSDCLocal;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvDocenteLocal;
-import ec.uce.edu.biometrico.jpa.FichaDocente;
-import ec.uce.edu.biometrico.jpa.TipoHuella;
+import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvLoginLocal;
+import ec.edu.uce.biometrico.jpa.FichaDocente;
+import ec.edu.uce.biometrico.jpa.TipoHuella;
 
 @ManagedBean(name = "registro")
 @SessionScoped
@@ -39,7 +40,7 @@ public class Registro {
 	@EJB
 	private JSDCLocal srvDvc;
 	@EJB
-	private SrvLogin srvLog;
+	private SrvLoginLocal srvLog;
 	public Login beanLogin;
 	// ObjetoF
 	private FichaDocente selectDcnt;
@@ -74,7 +75,7 @@ public class Registro {
 	// ####### Pagina busqueda #######
 	public void listar() {
 		lstDcnt = srvDcnt.listarDocentesxParametroxFacultad(parametro,
-				beanLogin.getDt().get(0).getCarrera().getDependencia().getDpnId());
+				beanLogin.getDt().get(0).getDtpsCarrera().getCrrDependencia().getDpnId());
 	}
 
 	public String verHuellas() {
@@ -85,7 +86,7 @@ public class Registro {
 		} else {
 			if (srvDvc.inicializar()) {
 				srvDvc.onLED();
-				selectDcnt.setDetallePuestos(srvLog.listarDetallePuestoDocente(selectDcnt.getFcdcId()));
+				selectDcnt.setFcdcDetallePuestos(srvLog.listarDetallePuestoDocente(selectDcnt.getFcdcId()));
 				lstTphl = srvDcnt.listarTipoHuellas();
 				flagDvc = true;
 				flagVrf = true;

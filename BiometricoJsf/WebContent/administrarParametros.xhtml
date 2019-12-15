@@ -8,7 +8,12 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition
-	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">>
+	template="/componentesGenerales/plantillas/pltPrincipalSinMenu.xhtml">
+	<ui:define name="paginacion">
+		<ui:include src="/componentesGenerales/plantillas/pltPaginacion.xhtml">
+			<ui:param name="pagina" value="Parmetros de control / listar " />
+		</ui:include>
+	</ui:define>
 	<ui:define name="cuerpo">
 		<h:form id="frmAdministrarParametro" enctype="multipart/form-data"
 			acceptcharset="UTF-8">
@@ -46,7 +51,9 @@
 													value="#{administrarParametro.selectFacultad.dpnId}"
 													style="width: 100%"
 													valueChangeListener="#{administrarParametro.setFacultadID}">
-													<f:selectItem itemLabel="SELECCIONE..." itemValue=""></f:selectItem>
+													<f:selectItem
+														itemLabel="#{generalesConstantesForm.appSeleccione}"
+														itemValue="#{generalesConstantesForm.appIdBase}" />
 													<f:selectItems value="#{administrarParametro.lstFacultad}"
 														var="fac" itemLabel="#{fac.dpnDescripcion}"
 														itemValue="#{fac.dpnId}" />
@@ -56,7 +63,9 @@
 										<div class="row cells6">
 											<p:commandButton id="btnBuscar" value="Buscar"
 												action="#{administrarParametro.buscarParametros}"
-												update="frmAdministrarParametro"></p:commandButton>
+												update="frmAdministrarParametro"
+												onclick="PF('dialogoTrabajando').show();"
+												oncomplete="PF('dialogoTrabajando').hide();"></p:commandButton>
 										</div>
 									</div>
 								</div>
@@ -67,7 +76,7 @@
 									<div class="grid condensed" style="padding: 10px;">
 										<div class="row cells12">
 											<div class="cell colspan2">
-												<p:outputLabel  value="Hora entrada 1: " />
+												<p:outputLabel value="Hora entrada 1: " />
 											</div>
 											<div class="cell colspan4">
 												<p:inputText type="time"
@@ -75,7 +84,7 @@
 											</div>
 
 											<div class="cell colspan2">
-												<p:outputLabel  value="Hora entrada 2: "/>
+												<p:outputLabel value="Hora entrada 2: " />
 											</div>
 											<div class="cell colspan4">
 												<p:inputText type="time"
@@ -84,7 +93,7 @@
 										</div>
 										<div class="row cells12">
 											<div class="cell colspan2">
-												<p:outputLabel  value="Hora salida 1: " />
+												<p:outputLabel value="Hora salida 1: " />
 											</div>
 											<div class="cell colspan4">
 												<p:inputText type="time"
@@ -92,7 +101,7 @@
 											</div>
 
 											<div class="cell colspan2">
-												<p:outputLabel value="Hora salida 2: "/>
+												<p:outputLabel value="Hora salida 2: " />
 											</div>
 											<div class="cell colspan4">
 												<p:inputText type="time"
@@ -101,7 +110,7 @@
 										</div>
 										<div class="row cells12">
 											<div class="cell colspan2">
-												<p:outputLabel  value="Hora atraso: " />
+												<p:outputLabel value="Hora atraso: " />
 											</div>
 											<div class="cell colspan4">
 												<p:inputText type="time"
@@ -113,7 +122,7 @@
 							</p:panel>
 							<div>
 								<p:commandButton id="btnRegresar" value="Regresar"
-									action="principal.xhtml"></p:commandButton>
+									action="#{administrarParametro.regresar()}"></p:commandButton>
 								<p:commandButton id="btnGuardar" value="Guardar"
 									action="#{administrarParametro.guardarParametro()}"
 									update="frmAdministrarParametro"></p:commandButton>

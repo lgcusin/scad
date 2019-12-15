@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import ec.uce.edu.biometrico.jpa.Dependencia;
-import ec.uce.edu.biometrico.jpa.Parametro;
+import ec.edu.uce.biometrico.jpa.Dependencia;
+import ec.edu.uce.biometrico.jpa.Parametro;
 
 @Local
 public interface SrvAdministrarParametroLocal {

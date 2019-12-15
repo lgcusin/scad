@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;ec.edu.uce.biometrico.jpa.RecursosDidacticos&apos; to &apos;RecursoDidactico&apos;&#x0D;&#x0A;- Original project: &apos;BiometricoJpa&apos;&#x0D;&#x0A;- Original element: &apos;ec.edu.uce.biometrico.jpa.RecursosDidacticos&apos;&#x0D;&#x0A;- Renamed element: &apos;ec.edu.uce.biometrico.jpa.RecursoDidactico&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Rename similarly named elements&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;RecursosDidacticos&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;ec.edu.uce.biometrico.jpa{RecursosDidacticos.java[RecursosDidacticos" matchStrategy="1" name="RecursoDidactico" qualified="false" references="true" similarDeclarations="true" stamp="1566841595471" textual="false" version="1.0"/>
+</session>

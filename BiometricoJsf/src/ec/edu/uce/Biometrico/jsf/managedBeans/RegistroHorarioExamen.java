@@ -9,23 +9,26 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
-import org.primefaces.event.RowEditEvent;
+import org.springframework.beans.factory.BeanClassLoaderAware;
 
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvEmpleadoLocal;
 import ec.edu.uce.Biometrico.ejb.servicios.interfaces.SrvHorarioLocal;
-import ec.uce.edu.biometrico.jpa.Asistencia;
-import ec.uce.edu.biometrico.jpa.Carrera;
-import ec.uce.edu.biometrico.jpa.HorarioAcademico;
-import ec.uce.edu.biometrico.jpa.HorarioAcademicoExamen;
-import ec.uce.edu.biometrico.jpa.Materia;
-import ec.uce.edu.biometrico.jpa.Nivel;
-import ec.uce.edu.biometrico.jpa.Paralelo;
-import ec.uce.edu.biometrico.jpa.PeriodoAcademico;
+import ec.edu.uce.Biometrico.ejb.utilidades.constantes.GeneralesConstantes;
+import ec.edu.uce.Biometrico.jsf.utilidades.FacesUtil;
+import ec.edu.uce.biometrico.jpa.Asistencia;
+import ec.edu.uce.biometrico.jpa.Carrera;
+import ec.edu.uce.biometrico.jpa.HorarioAcademico;
+import ec.edu.uce.biometrico.jpa.HorarioAcademicoExamen;
+import ec.edu.uce.biometrico.jpa.Materia;
+import ec.edu.uce.biometrico.jpa.Nivel;
+import ec.edu.uce.biometrico.jpa.Paralelo;
+import ec.edu.uce.biometrico.jpa.PlanificacionCronograma;
 
 @ManagedBean(name = "registroExamen")
 @ViewScoped
@@ -53,57 +56,62 @@ public class RegistroHorarioExamen {
 	private List<Nivel> lstS;
 	private List<Paralelo> lstParalelos;
 	private List<HorarioAcademico> lstHorarios;
-	private List<PeriodoAcademico> lstPeriodos;
+	private List<PlanificacionCronograma> lstPlanificacionCronograma;
 	private Boolean flagEditar;
+	private boolean flagModificar;
 	private String fecha;
-	private List<HorarioAcademicoExamen> lstHorariosExa;
+	private List<Date> semanaExamen;
 
 	@PostConstruct
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		dataLogin = context.getApplication().evaluateExpressionGet(context, "#{login}", Login.class);
-		lstC = srvEmp.listarCarreras(
-				dataLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId());
 		iniciar();
+		flagEditar = verificarCronograma();
+		lstC = srvEmp.listarCarreras(
+				dataLogin.getUsuarioRol().getUsroUsuario().getUsrPersona().getFichaDocentes().get(0).getFcdcId());
 	}
 
 	public void iniciar() {
 		selectCrr = new Carrera();
 		selectSem = new Nivel();
 		selectMtr = new Materia();
-		lstAsistencias = new ArrayList<>();
+		selectCrr.setCrrId(GeneralesConstantes.APP_ID_BASE);
+		selectSem.setNvlId(GeneralesConstantes.APP_ID_BASE);
+		selectMtr.setMtrId(GeneralesConstantes.APP_ID_BASE);
+		lstC = null;
+		lstS = null;
+		lstM = null;
+		lstParalelos = null;
+		lstAsistencias = null;
 		flagEditar = false;
-
 	}
 
-	public void setCarreraID(ValueChangeEvent event) {
+	public void carreraID(ValueChangeEvent event) {
+		selectSem.setNvlId(GeneralesConstantes.APP_ID_BASE);
+		selectMtr.setMtrId(GeneralesConstantes.APP_ID_BASE);
 		if (event.getNewValue() != null) {
 			System.out.println("Metodo de setear codigo carrera: " + event.getNewValue());
 			crrId = (Integer) event.getNewValue();
-			lstS = srvHor.listarSemestrexCarrera(
-					dataLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId(), crrId);
-		} else {
-			selectSem.setNvlId(null);
-			selectMtr.setMtrId(null);
-			System.out.println("No ha seleccionada una carrera: ");
-		}
-	}
-
-	public void setNivelID(ValueChangeEvent event) {
-		if (event.getNewValue() != null && crrId != null) {
-			smsId = (Integer) event.getNewValue();
-			lstM = srvHor.listarMatBySem(
-					dataLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId(), smsId,
-					crrId);
-			if (lstM != null) {
-				System.out.println("Si hay de materias por semestre seleccionado: " + lstM.size());
-			} else {
-				System.out.println("No hay de materias por semestre seleccionado");
+			lstS = srvHor.listarSemestrexCarrera(dataLogin.getDt().get(0).getDtpsFichaDocente().getFcdcId(), crrId);
+			if (lstS.isEmpty()) {
+				FacesUtil.mensajeError("No existen nivel para la carrera seleccionada");
 			}
 		}
 	}
 
-	public void setMateriaID(ValueChangeEvent event) {
+	public void nivelID(ValueChangeEvent event) {
+		selectMtr.setMtrId(GeneralesConstantes.APP_ID_BASE);
+		if (event.getNewValue() != null && crrId != null) {
+			smsId = (Integer) event.getNewValue();
+			lstM = srvHor.listarMatBySem(dataLogin.getDt().get(0).getDtpsFichaDocente().getFcdcId(), smsId, crrId);
+			if (lstM.isEmpty()) {
+				FacesUtil.mensajeError("No existe materias en el semestre seleccionado");
+			}
+		}
+	}
+
+	public void materiaID(ValueChangeEvent event) {
 		if (event.getNewValue() != null) {
 			System.out.println("Metodo de buscar horarios por id materia: " + event.getNewValue());
 			mtrId = (Integer) event.getNewValue();
@@ -113,102 +121,141 @@ public class RegistroHorarioExamen {
 	public void buscarParalelos() {
 		System.out.println("Metodo que busca paralelos existentes por materia y semestre");
 		if (crrId != null && mtrId != null && smsId != null) {
-			lstParalelos = srvHor.listarParalelosHorario(
-					dataLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId(), smsId,
-					mtrId, crrId);
+			lstAsistencias = null;
+			lstParalelos = srvHor.listarParalelosHorario(dataLogin.getDt().get(0).getDtpsFichaDocente().getFcdcId(),
+					smsId, mtrId, crrId);
 			if (lstParalelos != null) {
 				System.out.println("Paralelos encontrados: " + lstParalelos.size());
 			} else {
 				System.out.println("Paralelos NO encontrados");
 			}
 		} else {
-			System.out.println("Seleccione la carrera y materia a listar paralelos");
+			FacesUtil.mensajeError("Seleccione los parametros de busqueda");
 		}
 	}
 
 	public void limpiarFiltros() {
-		selectSem.setNvlId(null);
-		selectMtr.setMtrId(null);
+		lstC = srvEmp.listarCarreras(dataLogin.getDt().get(0).getDtpsFichaDocente().getFcdcId());
+		selectCrr.setCrrId(GeneralesConstantes.APP_ID_BASE);
+		selectSem.setNvlId(GeneralesConstantes.APP_ID_BASE);
+		selectMtr.setMtrId(GeneralesConstantes.APP_ID_BASE);
+		crrId = null;
+		smsId = null;
+		mtrId = null;
 		lstParalelos = null;
 		lstHorarios = null;
 		lstAsistencias = null;
-		flagEditar = false;
+		flagModificar = false;
+		flagEditar = verificarCronograma();
 	}
 
-	public void editarDataHorario() throws ParseException {
+	public Boolean verificarCronograma() {
 		System.out.println("Metodo para ver informacion de horario");
 		Date fechaA = new Date();
-		if (dataLogin.getDt().get(0).getCarrera().getDependencia().getDpnId() == 10) {
-			lstPeriodos = srvHor.listarPeriodos(" MEDICINA");
+		if (dataLogin.getDt().get(0).getDtpsCarrera().getCrrDependencia().getDpnId() == 10) {
+			lstPlanificacionCronograma = srvHor.listarPlannificacion(" MEDICINA");
 		} else {
-			lstPeriodos = srvHor.listarPeriodos("");
+			lstPlanificacionCronograma = srvHor.listarPlannificacion("");
 		}
-		lstHorarios = srvHor.listarHorarios(
-				dataLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId(),
-				selectPar.getPrlId(), selectMtr.getMtrId());
-		if (fechaA.getTime() < lstPeriodos.get(0).getPracFechaIncio().getTime()) {
-
-		} else if (lstPeriodos.get(0).getPracFechaIncio().getTime() < fechaA.getTime()
-				&& lstPeriodos.get(0).getPracFechaIncio().getTime() > fechaA.getTime()) {
-
-		}
-		lstAsistenciasByHorario = srvHor.listarAsistenciasByHorario(
-				dataLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0).getFcdcId(),
-				getIdHorarios(lstHorarios), getFormatoFechaProceso());
-		if (lstAsistenciasByHorario.isEmpty()) {
-			lstAsistencias = new ArrayList<>();
-			List<HorarioAcademico> lstAux = new ArrayList<>();
-			lstAux.addAll(lstHorarios);
-			for (HorarioAcademico h : lstHorarios) {
-				List<HorarioAcademico> auxHorario = new ArrayList<>();
-				for (HorarioAcademico h2 : lstHorarios) {
-					if (h.getHracDia().equals(h2.getHracDia()) && h.getMallaCurricularParalelo().getMlcrprId()
-							.equals(h2.getMallaCurricularParalelo().getMlcrprId())) {
-						auxHorario.add(h2);
-					}
-				}
-				for (int i = 1; i < auxHorario.size(); i++) {
-					if (lstAux.contains(auxHorario.get(i))) {
-						lstAux.remove(auxHorario.get(i));
-					}
-				}
-			}
-			for (HorarioAcademico h : lstAux) {
-				Asistencia asis = new Asistencia();
-				fecha = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-				asis.setAssFecha(new SimpleDateFormat("yyyy-MM-dd").parse(fecha));
-				asis.setAssEstado("EXAMEN");
-				asis.setHorarioAcademico(h);
-				asis.setAssHoraEntrada(srvHor.obtenerHoraClasexHorario(h, 1));
-				asis.setAssHoraSalida(srvHor.obtenerHoraClasexHorario(h, 2));
-				asis.setFichaDocente(dataLogin.getUsuarioRol().getUsuario().getPersona().getFichaDocentes().get(0));
-				lstAsistencias.add(asis);
-				flagEditar = true;
-			}
+		if (fechaA.getTime() < lstPlanificacionCronograma.get(0).getPlcrFechaInicio().getTime()) {
+			semanaExamen = obtenerSemanaExamen(lstPlanificacionCronograma.get(0));
+			return true;
+		} else if (lstPlanificacionCronograma.get(0).getPlcrFechaFin().getTime() < fechaA.getTime()
+				&& lstPlanificacionCronograma.get(1).getPlcrFechaInicio().getTime() > fechaA.getTime()) {
+			semanaExamen = obtenerSemanaExamen(lstPlanificacionCronograma.get(1));
+			return true;
 		} else {
-			flagEditar = true;
-			lstAsistencias = lstAsistenciasByHorario;
-			FacesMessage msg = new FacesMessage("Horarios de Examenes encontrados");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return false;
 		}
-
 	}
 
-	// public List<HorarioAcademicoExamen> buscarHorariosExamen() {
-	//
-	// }
+	private List<Date> obtenerSemanaExamen(PlanificacionCronograma plcr) {
+		List<Date> retorno = new ArrayList<>();
+		Date semanaInicio = plcr.getPlcrFechaInicio();
+		while (semanaInicio.getTime() <= plcr.getPlcrFechaFin().getTime()) {
+			try {
+				retorno.add(getFormatoFechaProceso(semanaInicio));
+			} catch (ParseException e) {
+				System.out.println(e);
+			}
+			semanaInicio.setTime(semanaInicio.getTime() + 86400000);
+		}
+		return retorno;
+	}
 
 	/**
 	 * Metodo que permite obtener el formato de la fecha proceso.
 	 * 
+	 * @param diaSemana
+	 * 
 	 * @return
 	 * @throws ParseException
 	 */
-	private Date getFormatoFechaProceso() throws ParseException {
+	private Date getFormatoFechaProceso(Date diaSemana) throws ParseException {
 		SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
-		String fechaProceso = formato.format(new Date());
+		String fechaProceso = formato.format(diaSemana);
+		System.out.println(fechaProceso);
 		Date fechaProcesoDate = formato.parse(fechaProceso);
 		return fechaProcesoDate;
+	}
+
+	@SuppressWarnings("deprecation")
+	public void editarDataHorario() throws ParseException {
+		lstAsistencias = new ArrayList<>();
+		lstAsistenciasByHorario = new ArrayList<>();
+		lstHorarios = new ArrayList<>();
+		lstHorarios = srvHor.listarHorarios(dataLogin.getDt().get(0).getDtpsFichaDocente().getFcdcId(),
+				selectPar.getPrlId(), selectMtr.getMtrId());
+		if (!lstHorarios.isEmpty()) {
+			for (Date fecha : semanaExamen) {
+				Asistencia asisAux = srvHor.listarAsistenciasByHorario(
+						dataLogin.getDt().get(0).getDtpsFichaDocente().getFcdcId(), getIdHorarios(lstHorarios), fecha);
+				if (asisAux != null) {
+					lstAsistenciasByHorario.add(asisAux);
+				}
+			}
+			if (lstAsistenciasByHorario.isEmpty()) {
+				lstAsistencias = new ArrayList<>();
+				List<HorarioAcademico> lstAux = new ArrayList<>();
+				lstAux.addAll(lstHorarios);
+				for (HorarioAcademico h : lstHorarios) {
+					List<HorarioAcademico> auxHorario = new ArrayList<>();
+					for (HorarioAcademico h2 : lstHorarios) {
+						if (h.getHracDia().equals(h2.getHracDia()) && h.getHracMallaCurricularParalelo()
+								.getMlcrprId() == h2.getHracMallaCurricularParalelo().getMlcrprId()) {
+							auxHorario.add(h2);
+						}
+					}
+					for (int i = 1; i < auxHorario.size(); i++) {
+						if (lstAux.contains(auxHorario.get(i))) {
+							lstAux.remove(auxHorario.get(i));
+						}
+					}
+				}
+				for (Date fecha : semanaExamen) {
+					for (HorarioAcademico h : lstAux) {
+						if (fecha.getDay() - 1 == h.getHracDia()) {
+							Asistencia asis = new Asistencia();
+							asis.setAssFecha(fecha);
+							asis.setAssEstado("SIN ASIGNAR");
+							asis.setAssHorarioAcademico(h);
+							asis.setAssHoraEntrada(srvHor.obtenerHoraClasexHorario(h, 1));
+							asis.setAssHoraSalida(srvHor.obtenerHoraClasexHorario(h, 2));
+							asis.setAssFichaDocente(dataLogin.getDt().get(0).getDtpsFichaDocente());
+							lstAsistencias.add(asis);
+						}
+					}
+				}
+				flagModificar = false;
+			} else {
+				lstAsistencias = lstAsistenciasByHorario;
+				flagModificar = true;
+				FacesMessage msg = new FacesMessage("Horarios de Examenes encontrados");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		} else {
+			FacesUtil.mensajeError("No existen horarios");
+		}
 	}
 
 	/**
@@ -227,132 +274,78 @@ public class RegistroHorarioExamen {
 		return idHorarioList;
 	}
 
-	/**
-	 * Metodo que permite obtener el dia de la semana segun el horario.
-	 * 
-	 * @param h
-	 * @return
-	 */
-	private String getDiaSemana(HorarioAcademico h) {
-		String result = "";
-		switch (h.getHracDia()) {
-		case 0:
-			result = "LUNES";
-			break;
-		case 1:
-			result = "MARTES";
-			break;
-		case 2:
-			result = "MIERCOLES";
-			break;
-		case 3:
-			result = "JUEVES";
-			break;
-		case 4:
-			result = "VIERNES";
-			break;
-		case 5:
-			result = "SABADO";
-			break;
-		case 6:
-			result = "DOMINGO";
-			break;
-		default:
-			break;
-		}
-		return result;
-	}
-
-	public void actualizar(Asistencia asis) {
-		System.out.println("Guardar cambios de horario");
-		try {
-			if (asis.getAssId() != null) {
-				srvHor.actualizarGuardarAsistencia(asis);
-			} else if (validarHora(asis.getAssHoraEntrada(), asis.getAssHoraSalida())) {
-				HorarioAcademicoExamen horEx = new HorarioAcademicoExamen();
-				horEx.setHracexHoraInicio(Integer.parseInt(asis.getAssHoraEntrada()));
-				horEx.setHracexHoraFin(Integer.parseInt(asis.getAssHoraSalida()));
-				horEx.setHracexEstado(0);
-				srvHor.guardarHorarioExamen(horEx);
-				asis.setHorarioAcademicoExamen(horEx);
-				asis.setAssHoraEntrada("");
-				asis.setAssHoraSalida("");
-				Date date = new SimpleDateFormat(FORMATOFECHA).parse(fecha);
-				asis.setAssFecha(date);
-				srvHor.actualizarGuardarAsistencia(asis);
-			}
-		} catch (Exception e) {
-			System.out.println("Error al guardar horario" + e);
-		}
-	}
-
 	public void guardarAsistenciaHorarioExamen() {
-		try {
-			if (selectAss.getAssId() == null) {
+		if (selectAss != null) {
+			try {
 				for (Asistencia as : lstAsistencias) {
-
 					for (HorarioAcademico hr : lstHorarios) {
-						if (selectAss.equals(as)) {
+						if (selectAss.equals(as) && selectAss.getAssHorarioAcademico().equals(hr)) {
 							HorarioAcademicoExamen horEx = new HorarioAcademicoExamen();
-							horEx.setHracexHoraInicio(Integer.parseInt(selectAss.getAssHoraEntrada().substring(0, 1)));
-							horEx.setHracexHoraFin(Integer.parseInt(selectAss.getAssHoraSalida().substring(0, 1)));
+							horEx.setHracexHoraInicio(Integer.parseInt(selectAss.getAssHoraEntrada().substring(0, 2)));
+							horEx.setHracexHoraFin(Integer.parseInt(selectAss.getAssHoraSalida().substring(0, 2)));
 							horEx.setHracexEstado(0);
 							srvHor.guardarHorarioExamen(horEx);
-							as.setHorarioAcademico(hr);
-							as.setHorarioAcademicoExamen(horEx);
+							as.setAssHorarioAcademico(hr);
+							as.setAssHorarioAcademicoExamen(horEx);
 							as.setAssHoraEntrada(null);
 							as.setAssHoraSalida(null);
-							Date date = new SimpleDateFormat(FORMATOFECHA).parse(fecha);
-							as.setAssFecha(date);
+							as.setAssEstado("EXAMEN");
 							srvHor.actualizarGuardarAsistencia(as);
-						}
-						if (as.getHorarioAcademico().equals(hr)) {
-							as.setHorarioAcademico(hr);
-							as.setAssHoraEntrada(selectAss.getAssHoraEntrada());
-							as.setAssHoraSalida(selectAss.getAssHoraSalida());
+							// } else if
+							// (hr.getHracDia().equals(as.getHorarioAcademico().getHracDia()))
+							// {
+						} else if (hr.equals(as.getAssHorarioAcademico())) {
 							as.setAssEstado("JUSTIFICADO");
-							Date date = new SimpleDateFormat(FORMATOFECHA).parse(fecha);
-							as.setAssFecha(date);
 							srvHor.actualizarGuardarAsistencia(as);
 						}
 					}
 				}
-
-			} else {
-
+				editarDataHorario();
+				flagModificar = true;
+			} catch (Exception e) {
+				System.out.println(e);
 			}
-
-		} catch (Exception e) {
-			// TODO: handle exception
+		} else {
+			FacesUtil.mensajeError("Seleccione un registro antes de guardar");
 		}
-
 	}
 
-	private boolean validarHora(String assHoraEntrada, String assHoraSalida) {
-		if (assHoraEntrada.isEmpty() || assHoraSalida.isEmpty()) {
-			return false;
-		} else {
-			try {
-				int aHE = Integer.parseInt(assHoraEntrada);
-				int aHS = Integer.parseInt(assHoraSalida);
-				if (aHE >= aHS) {
-					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL,
-							"Horario entrada no debe ser mayor o igual a horario salida", null);
-					FacesContext.getCurrentInstance().addMessage(null, msg);
-					return false;
-				} else if (aHE < 6 || aHE > 22 || aHS < 6 || aHS > 22) {
-					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL,
-							"Los horarios deben estar dentro del horario academico", null);
-					FacesContext.getCurrentInstance().addMessage(null, msg);
-					return false;
+	public void modificarAsistenciaHorarioExamen() {
+		try {
+			for (Asistencia asis : lstAsistenciasByHorario) {
+				if (asis.getAssEstado().equals("EXAMEN")) {
+					HorarioAcademicoExamen hracex = asis.getAssHorarioAcademicoExamen();
+					srvHor.removeAsistencia(asis);
+					srvHor.removerHorarioExamen(hracex);
 				} else {
-					return true;
+					srvHor.removeAsistencia(asis);
 				}
-			} catch (Exception e) {
-				return false;
 			}
+			editarDataHorario();
+		} catch (ParseException e) {
+			FacesUtil.mensajeError(e.getMessage());
 		}
+	}
 
+	public String regresar() {
+		selectMtr = null;
+		selectCrr = null;
+		selectSem = null;
+		selectPar = null;
+		selectAss = null;
+		crrId = null;
+		mtrId = null;
+		smsId = null;
+		lstC = null;
+		lstM = null;
+		lstAsistencias = null;
+		lstAsistenciasByHorario = null;
+		lstS = null;
+		lstParalelos = null;
+		lstHorarios = null;
+		flagEditar = false;
+		fecha = null;
+		return "principal";
 	}
 
 	// Setters and getters
@@ -606,6 +599,14 @@ public class RegistroHorarioExamen {
 	 */
 	public void setLstHorarios(List<HorarioAcademico> lstHorarios) {
 		this.lstHorarios = lstHorarios;
+	}
+
+	public boolean isFlagModificar() {
+		return flagModificar;
+	}
+
+	public void setFlagModificar(boolean flagModificar) {
+		this.flagModificar = flagModificar;
 	}
 
 }
